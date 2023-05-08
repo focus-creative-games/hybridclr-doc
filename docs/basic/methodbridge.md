@@ -80,7 +80,7 @@ S,C 分别对应aligment=1、8的值类型。例如UnityEngine.Vector3的签名�
 |IntPtr |i4|
 |UintPtr |u4|
 |enum |underlying类型对应的 Universal32签名
-|值类型|S{size)}|
+|值类型|S{size}|
 |Vector2f|v2f|
 |Vector3f|v3f|
 |Vector4f|v4f|
@@ -110,7 +110,7 @@ S,C 分别对应aligment=1、8的值类型。例如UnityEngine.Vector3的签名�
 |值类型引用及class类型 |i8|
 |作为参数的值类型(size<=16) |S16|
 |作为参数的值类型(size>16) |sr|
-|作为返回值的值类型|S{size)}|
+|作为返回值的值类型|S{size}|
 |Vector2f|v2f|
 |Vector3f|v3f|
 |Vector4f|v4f|

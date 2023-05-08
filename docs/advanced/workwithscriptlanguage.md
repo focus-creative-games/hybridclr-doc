@@ -1,7 +1,7 @@
 ---
-title: MonoPInvokeCallback支持
+title: HybridCLR+lua/js/python
 date: 2022-05-25 11:50:18
-permalink: /hybridclr/monopinvokecallback/
+permalink: /hybridclr/work_with_script_language/
 categories:
     - HybridCLR
 tags:
@@ -11,8 +11,26 @@ author:
     link: https:://code-philosophy.com
 ---
 
+# HybridCLR+lua/js/python
 
-# MonoPInvokeCallbackAttribute支持
+有一些项目已经上线，它们的大多数代码已经用lua实现了；或者一些新项目已经用lua开发到一半，他们无法完全切换为全C#开发，但希望
+可以同时接入HybridCLR，帮助慢慢过渡到全部原生C#热更新。
+
+由于HybridCLR是原生C#热更新技术，原生支持与这些脚本语言配合工作。你要做的，仅仅是将那些要热更新wrapper文件生成到热更新模块，
+同时提前预留足够多的ReversePInvoke函数，详细文档见[MonoPInvokeCallback支持](/hybridclr/monopinvokecallback/)。
+
+由于很多热更新方案如xlua并未考虑过模块化，生成的代码全在全局Assembly-CSharp里，甚至做成partial类与Runtime代码关联，因此你可能需要对这些热更新方案的生成代码做少量调整，才能与热更新配合工作。
+
+## xlua
+
+已经有群友制作了 `HybridCLR + xlua` 的项目 [HybridCLRXlua](https://gitee.com/ldr123/HybridCLRXlua)。已经跑通并且完善了工作流。
+强烈推荐参考。
+
+## tolua、slua、puerts
+
+确保预留了足够多的ReversePInvokeWrapper函数并且生成的wrapper代码能放到热更新模块，并且正确注册即可。
+
+## MonoPInvokeCallbackAttribute支持
 
 HybridCLR对 `MonoPInvokeCallbackAttribute` 的支持跟原生一模一样。由于每个标注 `MonoPInvokeCallbackAttribute` 的函数有一个唯一对应的c++函数，而AOT限制导致不可能运行时新增函数，因此要提前预生成Wrapper c++函数，用于与 `MonoPInvokeCallbackAttribute`函数绑定。
 
