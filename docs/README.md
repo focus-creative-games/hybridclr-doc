@@ -1,39 +1,39 @@
+
 # HybridCLR
 
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/focus-creative-games/hybridclr/blob/main/LICENSE)
 
-![logo](https://github.com/focus-creative-games/hybridclr/raw/main/docs/images/logo.jpg)
+![logo](/img/logo.png)
 
 <br/>
 <br/>
 
-HybridCLR(代号wolong)是一个**特性完整、零成本、高性能、低内存**的**近乎完美**的Unity全平台原生c#热更方案。
+HybridCLR是 **[Code Philosophy（代码哲学）](https://code-philosophy.com/)** 公司的代表作品，我们希望通过我们的聪明才智深刻地改变整个行业，帮助游戏团队制作出更优秀的游戏。
 
-HybridCLR扩充了il2cpp的代码，使它由纯[AOT](https://en.wikipedia.org/wiki/Ahead-of-time_compilation) runtime变成‘AOT+Interpreter’ 混合runtime，进而原生支持动态加载assembly，使得基于il2cpp backend打包的游戏不仅能在Android平台，也能在IOS、Consoles等限制了JIT的平台上高效地以**AOT+interpreter**混合模式执行。从底层彻底支持了热更新。
+HybridCLR是一个**特性完整、零成本、高性能、低内存**的**近乎完美**的Unity全平台原生c#热更方案。
 
-HybridCLR开创性地实现了 `Differential Hybrid Execution(DHE)` 差分混合执行技术。即可以对AOT dll任意增删改，会智能地让变化或者新增的类和函数以interpreter模式运行，但未改动的类和函数以AOT方式运行，让热更新的游戏逻辑的运行性能基本达到原生AOT的水平。
+HybridCLR扩充了il2cpp的代码，使它由纯[AOT](https://en.wikipedia.org/wiki/Ahead-of-time_compilation) runtime变成`AOT+Interpreter` 混合runtime，进而原生支持动态加载assembly，使得基于il2cpp backend打包的游戏不仅能在Android平台，也能在IOS、Consoles等限制了JIT的平台上高效地以**AOT+interpreter**混合模式执行，从底层彻底支持了热更新。
 
-## 文档
+HybridCLR不仅支持传统的全解释执行模式，还开创性地实现了 [Differential Hybrid Execution(DHE)](advanced\differentialhybridexecution.md) 差分混合执行技术。即可以对AOT dll任意增删改，会智能地让变化或者新增的类和函数以interpreter模式运行，但未改动的类和函数以AOT方式运行，让热更新的游戏逻辑的运行性能基本达到原生AOT的水平。
 
-- [官方文档](/hybridclr/about/)
-- [快速上手](/hybridclr/start_up/)
-- [示例项目](https://github.com/focus-creative-games/hybridclr_trial)
-- [知乎专栏](https://www.zhihu.com/column/c_1489549396035870720)
-- [UWA学堂](https://edu.uwa4d.com/course-intro/0/432)
+欢迎拥抱现代原生C#热更新技术 ！！！
+
 
 ## 特性
 
-- 特性完整。 近乎完整实现了[ECMA-335规范](https://www.ecma-international.org/publications-and-standards/standards/ecma-335/)，除了 下文中"限制和注意事项" 之外的特性都支持。
-- 零学习和使用成本。 HybridCLR将纯AOT runtime增强为完整的runtime，使得热更新代码与AOT代码无缝工作。脚本类与AOT类在同一个运行时内，可以随意写继承、反射、多线程(volatile、ThreadStatic、Task、async)之类的代码。不需要额外写任何特殊代码、没有代码生成，也没有什么特殊限制。
-- 执行高效。实现了一个极其高效的寄存器解释器，所有指标都大幅优于其他热更新方案。[性能测试报告](/hybridclr/performance)
-- 内存高效。 热更新脚本中定义的类跟普通c#类占用一样的内存空间，远优于其他热更新方案。[内存占用报告](/hybridclr/memory)
-- `Differential Hybrid Execution(DHE)` 差分混合执行技术
+- 特性完整。 近乎完整实现了[ECMA-335规范](https://www.ecma-international.org/publications-and-standards/standards/ecma-335/)，除了[限制事项](https://focus-creative-games.github.io/hybridclr/limit/)之外的特性都支持。
+- 零学习和使用成本。 HybridCLR将纯AOT runtime增强为完整的runtime，使得热更新代码与AOT代码无缝工作。脚本类与AOT类在同一个运行时内，可以随意写继承、反射、多线程(volatile、ThreadStatic、Task、async)之类的代码。不需要额外写任何特殊代码、没有代码生成，几乎没有限制。
+- 执行高效。实现了一个极其高效的寄存器解释器，所有指标都大幅优于其他热更新方案。[性能测试报告](https://focus-creative-games.github.io/hybridclr/performance)
+- 内存高效。 热更新脚本中定义的类跟普通c#类占用一样的内存空间，远优于其他热更新方案。[内存占用报告](https://focus-creative-games.github.io/hybridclr/memory)
+- 由于对泛型的完美支持，使得因为AOT泛型问题跟il2cpp不兼容的库现在能够完美地在il2cpp下运行
+- 支持一些il2cpp不支持的特性，如__makeref、 __reftype、__refvalue指令
+- 独创性的`Differential Hybrid Execution(DHE)` 差分混合执行技术，让热更新的运行性能基本达到原生AOT的水平。
 
 ## 工作原理
 
-HybridCLR从mono的[mixed mode execution](https://www.mono-project.com/news/2017/11/13/mono-interpreter/)技术中得到启发，为unity的il2cpp之类的AOT runtime额外提供了interpreter模块，将它们由纯AOT运行时改造为"AOT + Interpreter"混合运行方式。
+HybridCLR从mono的 [mixed mode execution](https://www.mono-project.com/news/2017/11/13/mono-interpreter/) 技术中得到启发，为unity的il2cpp runtime额外提供了interpreter模块，将它们由纯AOT运行时改造为`AOT + Interpreter`混合运行方式。
 
-![icon](https://github.com/focus-creative-games/hybridclr/raw/main/docs/images/architecture.png)
+![icon](img/hybridclr/architecture.png)
 
 更具体地说，HybridCLR做了以下几点工作：
 
@@ -53,37 +53,22 @@ HybridCLR是原生的c#热更新方案。通俗地说，il2cpp相当于mono的ao
 
 ## 兼容性
 
-- 支持所有il2cpp支持的平台。目前测试支持 PC(Win32和Win64)、macOS(x86、x64、Arm64)、Android(armv7、armv8)、iOS(64bit)、WebGL平台，**微信小程序平台**，剩余平台有待测试。
-- 已经支持Unity 2019、2020、2021全系列LTS版本
+- 支持2019.4.x、2020.3.x、2021.3.x全系列LTS版本，已经支持2022.2.x版本。
+- 支持常见平台。已稳定支持 PC(Win32和Win64)、macOS(x86、x64、Arm64)、Android(armv7、armv8)、iOS(64bit)、WebGL、**微信小程序平台**，剩余平台有待测试。
 - 测试过大量游戏常见库，未发现跟il2cpp原生兼容但使用HybridCLR后不兼容性的库。只要能在il2cpp backend下工作的库都可以在HybridCLR下正常工作。甚至那些与il2cpp因为AOT问题不兼容的库，现在因为HybridCLR对il2cpp的能力扩充，反而可以正常运行了。
 
 ## 稳定性状况
 
 当前已经发布了**极其稳定**的1.x及2.x正式版本，足以满足大中型商业项目的稳定性要求。自2022.6.7上线第一个游戏起，线上项目中只发生过一起小bug，并且迅速地在几个小时内被修复。
 
-目前至少有上千个商业游戏项目完成接入，其中有几百款已经双端上线，上线的项目中包括MMORPG、重度卡牌、重度塔防之类的游戏。
+目前至少有上**千**个商业游戏项目完成接入，其中有几百款已经双端上线，上线的项目中包括MMORPG、重度卡牌、重度塔防之类的游戏。
 
 大多数头部公司如腾讯、网易、funplus、完美、叠纸、字节都已经接入多个项目并且很快要（或者已经）上线。
 
-## 支持与联系
-
-- 官方1群：651188171（满）。加群获得官方最新动态。
-- 新手1群：428404198（满）。新手使用过程中遇到问题，都可以在群里咨询。
-- 新手2群：**680274677（推荐）**。建议加群获得官方最新动态。
-- 悬赏互助群：762953653。悬赏提问，快速解决问题。
-- 官方邮箱：hybridclr@code-philosophy.com
-- 商业合作邮箱: business@code-philosophy.com
-
-## 后续开发规划
-
-- 解释器指令优化
-- 支持增量式GC
-- 支持extern函数
-- 其他优化
 
 ## 关于作者
 
-**walon** ：**focus-creative-games** 创始人
+**walon** ：**Code Philosophy（代码哲学）** 创始人
 
 毕业于清华大学物理系，2006年CMO金牌，奥数国家集训队成员，保送清华基科班。专注于游戏技术，擅长开发架构和基础技术设施。
 
