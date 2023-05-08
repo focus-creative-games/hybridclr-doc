@@ -34,6 +34,11 @@
   * [报告问题](help/issue.md)
 * [合作案例](other/business_partner.md)
 * [**商业化服务**](other/business.md)
+* 技术Blog
+  * [目录](blog/catelog.md)
+  * [HybridCLR可行性思维实验](blog/mindexperiment.md)
+  * [HybridCLR实现原理](blog/principle.md)
+  * [HybridCLR指令集设计](blog/instructions.md)
 * 其他
   * [未来规划](other/roadmap.md)
   * [改动日志](other/changelog.md)

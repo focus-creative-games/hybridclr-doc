@@ -13,9 +13,9 @@ author:
 
 # 相关的第三方项目
 
-1. [et7_fgui_yooasset_luban_huatuo](https://github.com/wqaetly/ET/tree/et7_fgui_yooasset_luban_huatuo) 。 作者：[烟雨迷离半世殇](https://github.com/wqaetly)，[个人网站](https://www.lfzxb.top/)
-1. 基于GameFramework框架衍生的一个HybridCLR热更框架 [Deer_GameFramework_HybridCLR](https://github.com/It-Life/Deer_GameFramework_hybridclr_huatuo)。作者：[AlanDu](https://github.com/It-Life) ，[博客](https://www.cnblogs.com/AlanDu/)
-1. UnityGameFramework框架 [UnityGameFramework_HybridCLR](https://github.com/Dango1992/UnityGameFramework_Huatuo)  
+1. [et7_fgui_yooasset_luban_hybridclr](https://github.com/wqaetly/ET/tree/et7_fgui_yooasset_luban_hybridclr) 。 作者：[烟雨迷离半世殇](https://github.com/wqaetly)，[个人网站](https://www.lfzxb.top/)
+1. 基于GameFramework框架衍生的一个HybridCLR热更框架 [Deer_GameFramework_HybridCLR](https://github.com/It-Life/Deer_GameFramework_hybridclr_hybridclr)。作者：[AlanDu](https://github.com/It-Life) ，[博客](https://www.cnblogs.com/AlanDu/)
+1. UnityGameFramework框架 [UnityGameFramework_HybridCLR](https://github.com/Dango1992/UnityGameFramework_hybridclr)  
 作者：[Dango1992](https://github.com/Dango1992)  
 1. 简单且强大的Unity框架 [TEngine](https://github.com/ALEXTANGXIAO/TEngine)
 作者：[Alex](https://github.com/ALEXTANGXIAO)

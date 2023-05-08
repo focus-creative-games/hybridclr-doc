@@ -126,7 +126,7 @@ HybridclrSettings.asset 文件因为版本更迭的原因，配置无法兼容�
 
 xcode版本太旧导致。更新到较新版本。
 
-### 打包iOS时出现 Undefined symbols： RuntimeApi_LoadMetadataForAOTAssembly 或 HuatuoApi_LoadMetadataForAOTAssembly
+### 打包iOS时出现 Undefined symbols： RuntimeApi_LoadMetadataForAOTAssembly 或 hybridclrApi_LoadMetadataForAOTAssembly
 
 因为 你使用的是原始libil2cpp.a或者过时的libil2cpp.a。请根据 [build iOS libil2cpp.a](/hybridclr/build_ios_libil2cpp/) 文档编译最新的。然后替换xcode项目中的libil2cpp.a文件
 

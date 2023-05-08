@@ -1,0 +1,121 @@
+# Inspect il2cpp&hybridclr
+
+我们在实现hybridclr过程中，深入研究了CLI规范与il2cpp实现，积累了大量宝贵的经验。考虑到国内游戏行业对clr及il2cpp相关的资料不多，我们希望将这些知识系统性地整理出来，帮助那些渴望深入研究Unity下CLR Runtime实现的开发者们，更好了掌握相关知识。
+
+## Inspect il2cpp 目录
+
+- il2cpp 序章
+  - il2cpp 介绍
+  - il2cpp il2cpp 架构及源码结构介绍
+  - il2cpp 安装、编译及调试
+- il2cpp 运行时实现
+  - il2cpp Runtime 初始化流程剖析
+  - il2cpp metadata （此节内容极其庞大）
+    - CLI metadata 简略介绍
+    - il2cpp metadata 初始化流程剖析
+    - persistent metadata 即 global-metadata.dat 介绍
+    - runtime metadata 介绍
+  - il2cpp IL to c++ 代码的转换
+    - 基础指令集
+    - 对象模型相关指令 （内容极其庞大）
+    - 异常机制
+    - 泛型共享机制
+    - PInvoke 与 MonoPInvokeCallbackAttribute相关。(一个有趣的问题：il2cpp中lua回调c#函数相比与回调普通c函数，多了哪些开销？)
+    - icalls
+    - delegate
+    - 反射相关支持
+    - 跨平台相关
+  - 类型初始化 Class::Init 流程剖析
+  - 泛型类实现
+  - 泛型函数实现
+  - 泛型共享机制
+  - 异常机制
+  - 反射相关实现
+  - 值类型相关机制
+  - box与unbox相关机制
+  - object、string、Array、TypedReference等一些基础BCL类型的探究
+  - icalls 实现
+  - il2cpp及mono的bug介绍
+  - il2cpp gc管理
+  - il2cpp 多线程及内存模型处理
+- 2018-2022中il2cpp实现的演化
+
+## Inspect hybridclr 目录
+
+- 1 导论
+  - 手游热更新技术的发展史
+  - 当前主流热更新技术的缺陷
+  - 下一代热更新技术探索——unity引擎下的原生c#热更新技术
+- 2 hybridclr概览
+  - 1 [hybridclr介绍](./2.1.1_hybridclr%E4%BB%8B%E7%BB%8D.md)
+  - 2 [关于hybridclr可行性的思维实验](./2.1.2_%E5%85%B3%E4%BA%8Ehybridclr%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%9A%84%E6%80%9D%E7%BB%B4%E5%AE%9E%E9%AA%8C.md)
+  - 3 [hybridclr技术原理剖析](./2.1.3_hybridclr%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90.md)
+- 3 metadata 加载
+  - 1 coff文件解析
+  - 2 stream 解析
+  - 3 原始tables解析
+  - 4 复杂元数据解析
+- 4 metadata 注册
+  - 1 assembly 注册
+  - 2 TypeDefinition 注册（复杂）
+  - 3 generic class
+  - 4 generic method
+  - 5 桥接函数
+- 5 寄存器指令集设计
+  - IL指令集介绍
+  - 基于栈的指令集的缺陷
+  - [寄存器指令集](./5.3.1_hybridclr%E6%8C%87%E4%BB%A4%E9%9B%86%E4%BB%8B%E7%BB%8D.md)
+    - 基础转换规则
+    - 指令静态特例化
+    - resolve data
+    - 其他特殊处理
+  - 一些用于解释器JIT技术
+    - InitOnce JIT优化技术
+- 6 指令集transform实现
+  - 基础思路介绍
+  - transform算法
+    - basic block划分
+    - 基于basic block的指令流遍历及转换
+    - 普通指令
+    - 函数调用指令
+    - branch相关指令
+    - 异常相关指令
+  - 指令集优化
+    - 指令合并
+    - ValueType相关指令优化
+    - 函数inline
+    - instinct函数替换
+  - virtual Execution System
+    - Thread Interpreter Stack
+    - Interpreter Frame实现与优化
+    - localloc 与 Local Memory Pool
+    - 桥接函数
+    - 指令实现
+    - instinct函数
+    - reflection相关实现
+    - extern函数实现
+  - 跨平台兼容性处理
+    - 32位与64位
+    - 内存对齐访问
+    - x86与arm系列区别
+      - float与int之间转换
+      - abi
+    - 虚拟地址空间差异
+    - 一些行为不定的函数
+      - memcpy
+  - AOT泛型 （基于补充元数据的泛型实例化技术）
+  - AOT hotfix实现
+- misc
+  - 解决Unity资源上挂载interpreter脚本
+  - gc 处理
+  - 多线程相关处理
+- test框架
+  - 测试用例项目
+    - bootstrap cpp测试集
+    - .net c#测试集
+    - 生成测试报告
+  - 测试工具
+    - 创建多版本多平台的测试项目
+    - 运行测试用例，收集测试报告
+    - 生成最终测试报告
+  - 自动化测试DevOps框架

@@ -1,17 +1,3 @@
----
-title: 关于HybridCLR
-date: 2022-05-25 11:50:18
-permalink: /hybridclr/about/
-categories:
-  - HybridCLR
-tags:
-  - 
-editLink: false
-author: 
-  name: Code Philosophy
-  link: https://github.com/focus-creative-games
----
-
 # HybridCLR
 
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/focus-creative-games/hybridclr/blob/main/LICENSE)
