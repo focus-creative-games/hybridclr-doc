@@ -4,6 +4,12 @@
 
 请在Standalone平台上正确跑通热更新流程后再自行尝试Android、iOS平台的热更新，它们的流程非常相似。
 
+## 体验目标
+
+- 创建热更新程序集
+- 加载热更新程序集，并执行其中热更新代码，打印 `Hello, HybridCLR`
+- 修改热更新代码，打印 `Hello, World`
+
 ## 准备环境
 
 ### 安装Unity
@@ -23,30 +29,19 @@
   - 安装 git
   - 安装cmake
 
-### clone 示例项目hybridclr_trial （可选）
-
-尽管教程中会一步一步详尽介绍如何从一个空项目搭建HybridCLR热更新项目，但由于过程略长，新手在操作时有可能失误。而hybridclr_trial项目则是一个极佳的现成的可测试的项目，
-包含了教程中用到的所有代码和资源。
-
-你可以从 [github](https://github.com/focus-creative-games/hybridclr_trial) 或 [gitee](https://gitee.com/focus-creative-games/hybridclr_trial) 下载。
-
-## 从零创建Unity热更新项目
+## 初始化Unity热更新项目
 
 从零开始构造热更新项目的过程较冗长，项目结构及资源及代码均可参考hybridclr_trial。
 
-### 创新项目和初始场景
+### 创建项目
 
-- 创建空的Unity项目，假设叫Demo
-- 创建一个带主相机和光源的默认初始场景 main.scene
-- 在`Build Settings`中将main场景添加到打包场景列表
+- 创建空的Unity项目
 
-### 创建主工程代码文件
+### 创建`ConsoleToScreen.cs`脚本
 
-#### 创建`ConsoleToScreen.cs`脚本
+这个脚本对于演示热更新没有直接作用。它可以打印日志到屏幕上，方便定位错误。
 
-这个脚本对于演示热更新没有直接作用，只因为它可以打印日志到屏幕上，方便定位错误。
-
-在Assets目录下创建 `Assets/Main/ConsoleToScreen.cs` 脚本类，代码如下：
+创建 `Assets/ConsoleToScreen.cs` 脚本类，代码如下：
 
 ```csharp
 using System;
@@ -107,113 +102,16 @@ public class ConsoleToSceen : MonoBehaviour
 
 ```
 
-#### 创建`LoadDll.cs`脚本
+### 创建主场景
 
-此脚本为入口脚本，负责加载热更新程序集。
-
-创建`Assets/Main/LoadDll.cs`脚本，代码如下：
-
-```csharp
-using HybridCLR;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using UnityEngine;
-using UnityEngine.Networking;
-
-public class LoadDll : MonoBehaviour
-{
-
-    void Start()
-    {
-        StartGame();
-    }
-
-    public static byte[] ReadBytesFromStreamingAssets(string file)
-    {
-        // Android平台不支持直接读取StreamingAssets下文件，请自行修改实现
-        return File.ReadAllBytes($"{Application.streamingAssetsPath}/{file}");
-    }
-
-    void StartGame()
-    {
-#if !UNITY_EDITOR
-        Assembly.Load(ReadBytesFromStreamingAssets("HotUpdate.dll.bytes"));
-#endif
-        var demos = new Demos();
-        demos.Run();
-    }
-}
-
-```
-
-#### 创建 `Demos.cs`
-
-此脚本负责调用热更新代码。
-
-创建 `Assets/Main/Demos.cs` 文件，代码如下：
-
-```csharp
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using UnityEngine;
-
-
-public class Demos
-{
-    private Assembly _hotUpdateAss;
-
-    public Demos()
-    {
-        _hotUpdateAss = System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == "HotUpdate");
-    }
-
-    public void Run()
-    {
-        Run_ReflectionInvoke();
-    }
-
-    private void Run_ReflectionInvoke()
-    {
-        Type type = _hotUpdateAss.GetType("ReflectionInvoke");
-        type.GetMethod("Run").Invoke(null, null);
-    }
-}
-```
+- 创建默认初始场景 main.scene
+- 场景中创建一个空GameObject，将ConsoleToScreen挂到上面
+- 在`Build Settings`中添加main场景到打包场景列表
 
 ### 创建 HotUpdate 热更新模块
 
 - 创建 `Assets/HotUpdate` 目录
-- 在目录下 右键 `Create/Assembly Definition`，创建一个名为`HotUpdate`的模块
-- 创建 `Assets/HotUpdate/ReflectionInvoke.cs` 文件，代码内容如下
-
-```csharp
-using System.Collections;
-using UnityEngine;
-
-public class ReflectionInvoke
-{
-    public static void Run()
-    {
-        GameObject cube = GameObject.Find("Cube");
-        cube.GetComponent<MeshRenderer>().material.color = Color.red;
-        Debug.Log("[ReflectionInvoke.Run] Cube颜色变成红色");
-    }
-}
-```
-
-### 编辑main场景
-
-- 在场景中创建一个空GameObject，挂上 `ConsoleToScreen` 和 `LoadDll` 脚本。
-- 在场景中创建一个名为Cube的立方体对象（注意必须是这个名字，跟函数`ReflectionInvoke.Run`中查找的GameObject名字一致）
-- 调整主相机位置和朝向，让Cube出现在相机视野内。
+- 在目录下 右键 `Create/Assembly Definition`，创建一个名为`HotUpdate`的程序集模块
 
 ## 安装和配置HybridCLR
 
@@ -233,7 +131,7 @@ public class ReflectionInvoke
 
 ### 配置HybridCLR
 
-- 打开菜单 `HybridCLR/Settings`， 在`Hot Update Assemblies`配置项中添加`HotUpdate`程序集，如下图：
+打开菜单 `HybridCLR/Settings`， 在`Hot Update Assemblies`配置项中添加`HotUpdate`程序集，如下图：
 
 ![settings](../img/hybridclr/settings.jpg)
 
@@ -245,20 +143,92 @@ public class ReflectionInvoke
 
 ![player settings](../img/hybridclr/player-setting.png)
 
+## 创建热更新脚本
+
+创建 `Assets/HotUpdate/Hello.cs` 文件，代码内容如下
+
+```csharp
+using System.Collections;
+using UnityEngine;
+
+public class Hello
+{
+    public static void Run()
+    {
+        Debug.Log("Hello, HybridCLR");
+    }
+}
+```
+
+## 编译热更新程序集
+
+为了简化演示，我们不通过http服务器下载HotUpdate.dll，而是直接将HotUpdate.dll放到StreamingAssets目录下。
+
+执行菜单`HybridCLR/CompileDll/ActiveBulidTarget`，然后将`{proj}/HybridCLRData/HotUpdateDlls/StandaloneWindows64(MacOS下为StandaloneOSX)`目录下的HotUpdate.dll复制到`Assets/StreamingAssets/HotUpdate.dll.bytes`。**注意**，要加`.bytes`后缀！！！
+
+## 加载热更新程序集
+
+HybridCLR是原生运行时实现，因此调用`Assembly Assembly.Load(byte[])`即可加载热更新程序集。
+
+创建`Assets/LoadDll.cs`脚本，在main场景中创建一个GameObject对象，挂载LoadDll脚本。
+
+```csharp
+using HybridCLR;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using UnityEngine;
+using UnityEngine.Networking;
+
+public class LoadDll : MonoBehaviour
+{
+
+    void Start()
+    {
+      // Editor环境下，HotUpdate.dll.bytes已经被自动加载，不需要加载，重复加载反而会出问题。
+#if !UNITY_EDITOR
+      // Android平台不支持直接读取StreamingAssets下文件，请自行修改实现
+      Assembly.Load(File.ReadAllBytes($"{Application.streamingAssetsPath}/HotUpdate.dll.bytes"));
+#endif
+    }
+}
+
+```
+
+
+## 调用热更新代码
+
+显然，主工程不能直接引用热更新代码，有多种方式可以从主工程调用热更新程序集中的代码。这里通过反射来调用热更新代码。
+
+在`LoadDll.Start`函数后面添加反射调用代码，代码如下：
+
+```csharp
+    void Start()
+    {
+      // Editor环境下，HotUpdate.dll.bytes已经被自动加载，不需要加载，重复加载反而会出问题。
+#if !UNITY_EDITOR
+      // Android平台不支持直接读取StreamingAssets下文件，请自行修改实现
+        Assembly hotUpdateAss = Assembly.Load(File.ReadAllBytes($"{Application.streamingAssetsPath}/HotUpdate.dll.bytes"));
+#else
+      // Editor下无需加载，直接查找获得HotUpdate程序集
+        Assembly hotUpdateAss = System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == "HotUpdate");
+#endif
+    
+        Type type = hotUpdateAss.GetType("Hello");
+        type.GetMethod("Run").Invoke(null, null);
+    }
+
+```
+
 至此，完成整个热更新工程的创建工作！！！
 
 ## Editor中试运行
 
-运行，如果main场景中出现一个红色立方体，表示代码工作正常。
-
-注意，在Editor中试运行跟HybridCLR毫无关系，只为测试非热更新情况下代码正常。
-
-## 热更新流程
-
-- 把热更新程序集`HotUpdate.dll`复制到`StreamingAssets/HotUpdate.dll.bytes`，供运行时加载。
-- `LoadDll.StartGame`函数中使用`Assembly.Load(ReadBytesFromStreamingAssets("HotUpdate.dll.bytes"))`，加载 `StreamingAssets/HotUpdate.dll.bytes`，
-完成热更新程序集加载工作。
-- `Run_ReflectionInvoke.Run_ReflectionInvoke`函数中通过常规的反射方式调用HotUpdate程序集中`ReflectionInvoke::Run`函数，执行热更新逻辑。
+运行main场景，屏幕上会显示 'Hello,HybridCLR'，表示代码工作正常。
 
 ## 打包运行
 
@@ -266,13 +236,13 @@ public class ReflectionInvoke
 - 将`{proj}/HybridCLRData/HotUpdateDlls/StandaloneWindows64(MacOS下为StandaloneMacXxx)`目录下的HotUpdate.dll复制到`Assets/StreamingAssets/HotUpdate.dll.bytes`，**注意**，要加`.bytes`后缀！！！
 - 打开`Build Settings`对话框，点击`Build And Run`，打包并且运行热更新示例工程。
 
-如果打包成功，并且场景中显示一个红色Cube，表示热更新代码被顺利执行！
+如果打包成功，并且屏幕上显示 'Hello,HybridCLR'，表示热更新代码被顺利执行！
 
 ## 测试热更新
 
-- 修改`Assets/HotUpdate/ReflectionInvoke.cs`的Run函数中`cube.GetComponent<MeshRenderer>().material.color = Color.red;`代码，将`Color.red`改成`Color.blue`。
+- 修改`Assets/HotUpdate/Hello.cs`的Run函数中`Debug.Log("Hello, HybridCLR");`代码，改成`Debug.Log("Hello, World");`。
 - 运行菜单命令`HybridCLR/CompileDll/ActiveBulidTarget`重新编译热更新代码。
 - 将`{proj}/HybridCLRData/HotUpdateDlls/StandaloneWindows64(MacOS下为StandaloneMacXxx)`目录下的HotUpdate.dll复制为刚才的打包输出目录的 `XXX_Data/StreamingAssets/HotUpdate.dll.bytes`。
-- 重新运行程序，会发现场景中显示一个蓝色Cube，表示热更新代码生效了！ 
+- 重新运行程序，会发现屏幕中显示`Hello, World`，表示热更新代码生效了！ 
 
 至此完成热更新体验！！！

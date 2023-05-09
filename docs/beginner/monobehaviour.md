@@ -1,6 +1,13 @@
 
 # 使用热更新MonoBehaviour和ScriptableObject
 
+## clone 示例项目hybridclr_trial （可选）
+
+尽管教程中会一步一步详尽介绍如何从一个空项目搭建HybridCLR热更新项目，但由于过程略长，新手在操作时有可能失误。而hybridclr_trial项目则是一个极佳的现成的可测试的项目，
+包含了教程中用到的所有代码和资源。
+
+你可以从 [github](https://github.com/focus-creative-games/hybridclr_trial) 或 [gitee](https://gitee.com/focus-creative-games/hybridclr_trial) 下载。
+
 HybridCLR完全支持热更新MonoBehaviour和ScriptableObject工作流。你可以无任何限制地通过代码 `go.AddComponent<T>()或go.AddComponent(typeof(T))`来添加运行时热更新脚本。
 
 你也可以在资源上直接挂载热更新MonoBehaviour或者使用 ScriptableObject类对应的资源，但有一些限制，这些限制是Unity的资源管理系统造成的。
