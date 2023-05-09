@@ -31,11 +31,11 @@
 
 ## 初始化Unity热更新项目
 
-从零开始构造热更新项目的过程较冗长，项目结构及资源及代码均可参考hybridclr_trial。
+从零开始构造热更新项目的过程较冗长，项目结构及资源及代码均可参考hybridclr_trial项目，其仓库地址为 [github](https://github.com/focus-creative-games/hybridclr_trial) 或 [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)。
 
 ### 创建项目
 
-- 创建空的Unity项目
+创建空的Unity项目。
 
 ### 创建`ConsoleToScreen.cs`脚本
 
@@ -49,7 +49,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ConsoleToSceen : MonoBehaviour
+public class ConsoleToScreen : MonoBehaviour
 {
     const int maxLines = 50;
     const int maxLineLength = 120;
@@ -117,7 +117,7 @@ public class ConsoleToSceen : MonoBehaviour
 
 ### 安装 `com.focus-creative-games.hybridclr_unity` 包
 
-主菜单中点击`Windows/Package Manager`打开包管理器。如下图所示点击`Add package from git URL...`，填入`https://gitee.com/focus-creative-games/hybridclr_unity`或`https://github.com/focus-creative-games/hybridclr_unity`。
+主菜单中点击`Windows/Package Manager`打开包管理器。如下图所示点击`Add package from git URL...`，填入`https://gitee.com/focus-creative-games/hybridclr_unity.git`或`https://github.com/focus-creative-games/hybridclr_unity.git`。
 
 ![add package](../img/hybridclr/install_hybridclrunity_package.jpg)
 
@@ -160,17 +160,13 @@ public class Hello
 }
 ```
 
-## 编译热更新程序集
+## 加载热更新程序集
 
 为了简化演示，我们不通过http服务器下载HotUpdate.dll，而是直接将HotUpdate.dll放到StreamingAssets目录下。
 
-执行菜单`HybridCLR/CompileDll/ActiveBulidTarget`，然后将`{proj}/HybridCLRData/HotUpdateDlls/StandaloneWindows64(MacOS下为StandaloneOSX)`目录下的HotUpdate.dll复制到`Assets/StreamingAssets/HotUpdate.dll.bytes`。**注意**，要加`.bytes`后缀！！！
-
-## 加载热更新程序集
-
 HybridCLR是原生运行时实现，因此调用`Assembly Assembly.Load(byte[])`即可加载热更新程序集。
 
-创建`Assets/LoadDll.cs`脚本，在main场景中创建一个GameObject对象，挂载LoadDll脚本。
+创建`Assets/LoadDll.cs`脚本，然后**在main场景中创建一个GameObject对象，挂载LoadDll脚本**。
 
 ```csharp
 using HybridCLR;
@@ -191,8 +187,10 @@ public class LoadDll : MonoBehaviour
     {
       // Editor环境下，HotUpdate.dll.bytes已经被自动加载，不需要加载，重复加载反而会出问题。
 #if !UNITY_EDITOR
-      // Android平台不支持直接读取StreamingAssets下文件，请自行修改实现
-      Assembly.Load(File.ReadAllBytes($"{Application.streamingAssetsPath}/HotUpdate.dll.bytes"));
+        Assembly hotUpdateAss = Assembly.Load(File.ReadAllBytes($"{Application.streamingAssetsPath}/HotUpdate.dll.bytes"));
+#else
+      // Editor下无需加载，直接查找获得HotUpdate程序集
+        Assembly hotUpdateAss = System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == "HotUpdate");
 #endif
     }
 }
@@ -202,16 +200,15 @@ public class LoadDll : MonoBehaviour
 
 ## 调用热更新代码
 
-显然，主工程不能直接引用热更新代码，有多种方式可以从主工程调用热更新程序集中的代码。这里通过反射来调用热更新代码。
+显然，主工程不能直接引用热更新代码。有多种方式可以从主工程调用热更新程序集中的代码，这里通过反射来调用热更新代码。
 
-在`LoadDll.Start`函数后面添加反射调用代码，代码如下：
+在`LoadDll.Start`函数后面添加反射调用代码，最终代码如下：
 
 ```csharp
     void Start()
     {
       // Editor环境下，HotUpdate.dll.bytes已经被自动加载，不需要加载，重复加载反而会出问题。
 #if !UNITY_EDITOR
-      // Android平台不支持直接读取StreamingAssets下文件，请自行修改实现
         Assembly hotUpdateAss = Assembly.Load(File.ReadAllBytes($"{Application.streamingAssetsPath}/HotUpdate.dll.bytes"));
 #else
       // Editor下无需加载，直接查找获得HotUpdate程序集
