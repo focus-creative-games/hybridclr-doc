@@ -1,17 +1,3 @@
----
-title: 处理AOT泛型
-date: 2022-09-29 12:31:29
-permalink: /hybridclr/handle_aot_generic/
-categories:
-  - hybridclr
-  - 文档
-tags:
-  - 
-author: 
-  name: Code Philosophy
-  link: https://github.com/focus-creative-games
----
-
 # 处理AOT泛型
 
 你的热更新代码中总会用到一些主工程中没有用过的泛型，例如你在热更新里有如下代码

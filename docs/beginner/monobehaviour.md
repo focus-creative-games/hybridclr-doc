@@ -1,16 +1,3 @@
----
-title: 使用热更新MonoBehaviour和ScriptableObject
-date: 2022-09-29 12:31:29
-permalink: /hybridclr/use_monobehaviour/
-categories:
-  - hybridclr
-  - 文档
-tags:
-  - 
-author: 
-  name: Code Philosophy
-  link: https://github.com/focus-creative-games
----
 
 # 使用热更新MonoBehaviour和ScriptableObject
 
