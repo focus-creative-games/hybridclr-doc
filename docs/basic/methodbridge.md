@@ -1,19 +1,7 @@
----
-title: 桥接函数
-date: 2022-05-25 11:50:18
-permalink: /hybridclr/method_bridge/
-categories:
-  - HybridCLR
-  - performance
-tags:
-  - 
-author: 
-  name: Code Philosophy
-  link: https:://code-philosophy.com
----
+
 # AOT-interpreter 桥接函数
 
-桥接函数HybridCLR的interpreter与AOT之间需要双向函数调用。比如，interpreter调用AOT函数，或者AOT部分有回调函数会调用解释器部分。
+HybridCLR的interpreter与AOT之间需要双向函数调用。比如，interpreter调用AOT函数，或者AOT部分有回调函数会调用解释器部分。
 
 AOT部分与解释器部分的参数传递和存储方式是不一样的。比如解释器部分调用AOT函数，解释器的参数全在解释器栈上，必须借助合适的办法才能将解释器的函数参数传递给AOT函数。同样的，解释器无法直接获得AOT回调函数的参数。必须为每一种签名的函数生成对应的桥接函数，来实现解释器与aot部分的双向函数参数传递。
 
@@ -125,5 +113,5 @@ HybridCLR已经扫描过Unity核心库和常见的第三方库生成了默认的
 
 ## 自定义桥接函数集
 
-实践项目中总会遇到一些aot函数的共享桥接函数不在默认桥接函数集中。因此 [hybridclr_unity package](/hybridclr/hybridclr_unity/)中提供工具脚本，使用菜单命令 `HybridCLR/Generate/MethodBridge` 根据程序集自动生成所有桥接函数。
+实践项目中总会遇到一些aot函数的共享桥接函数不在默认桥接函数集中。因此 [hybridclr_unity package](/basic/com.focus-creative-games.hybridclr_unity.md)中提供工具脚本，使用菜单命令 `HybridCLR/Generate/MethodBridge` 根据程序集自动生成所有桥接函数。
 

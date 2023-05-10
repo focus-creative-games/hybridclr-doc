@@ -36,7 +36,7 @@ HybridCLR对 `MonoPInvokeCallbackAttribute` 的支持跟原生一模一样。由
 
 这些wrapper函数在 `hybridclr/generated/ReversePInvokeMethodStub_{abi}.cpp` 文件中。
 
-[hybridclr_unity](/hybridclr/hybridclr_unity/) 已经提供了脚本帮助自动生成这些wrapper函数,运行菜单命令`HybridCLR/Generate/ReversePInvokeWrapper` 即可。
+[hybridclr_unity](/basic/com.focus-creative-games.hybridclr_unity.md) 已经提供了脚本帮助自动生成这些wrapper函数,运行菜单命令`HybridCLR/Generate/ReversePInvokeWrapper` 即可。
 
 ## 预留 ReversePInvokeWrapper 函数
 

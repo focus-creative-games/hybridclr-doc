@@ -43,7 +43,7 @@ public class Print : MonoBehaviour
 
 ## 将脚本挂载到热更新资源
 
-由于Unity资源管理系统的限制，热更新脚本所挂载的资源（prefab、scene、ScriptableObject资源）**必须打成ab**，从ab包中实例化资源，才能正确还原脚本。
+由于Unity资源管理系统的限制，热更新脚本所挂载的资源（prefab、scene、ScriptableObject资源）**必须打成assetbundle**，从ab包中实例化资源，才能正确还原脚本。
 
 **如果将热更新脚本挂载到Resources等随主包的资源上，会发生scripting missing的错误！**
 

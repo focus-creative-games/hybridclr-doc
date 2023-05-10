@@ -1,7 +1,7 @@
 ---
 title: hybridclr_unity package介绍
 date: 2022-05-25 11:50:18
-permalink: /hybridclr/hybridclr_unity/
+permalink: /basic/com.focus-creative-games.hybridclr_unity.md
 categories:
     - HybridCLR
 tags:
@@ -92,7 +92,7 @@ Generate下包含多种生成工具。
 根据当前的AOT dll集扫描生成桥接函数文件。HybridCLRSettings.asset中`maxGenericReferenceIteration`字段指定了泛型递归扫描最大迭代轮数。大多数项目取
 10以内即可。
 
-更具体的桥接函数相关文档请看[桥接函数](/hybridclr/method_bridge/)文档。
+更具体的桥接函数相关文档请看[桥接函数](/basic/methodbridge.md)文档。
 
 #### AOTGenericReference
 
@@ -117,7 +117,7 @@ HybridCLRSettings.asset中`outputAOTGenericReferenceFile`字段指定了输出�
 这个泛型实例化文档只起到启发作用，告诉你可以aot泛型实例化哪些类和函数。使用补充元数据机制后，
 **不作任何处理**也不影响正常运行。但如果手动对aot泛型实例化，可以提升性能。建议是对于少量性能敏感的类或函数手动泛型实例化即可，如`Dictionary<int,int>`之类。
 
-更具体的AOT泛型相关文档请看[AOT泛型介绍](/hybridclr/aot_generic/)。
+更具体的AOT泛型相关文档请看[AOT泛型介绍](/basic/aotgeneric.md)。
 
 #### ReversePInvokeWrapper
 
@@ -360,7 +360,7 @@ asmdef形式的assembly，你也可以选择不加到`hotUpdateAssemblyDefinitio
 
 当数据模式为`HomologousImageMode::SuperSet`时，可以直接使用原始的aot dll。这个优点是工作流上便利一些，不用每次打包后更新aot dll，缺点是多占了内存，同时大幅增加了裁剪dll的大小，请使用者自己权衡使用原始还是裁剪后的aot dll。
 
-`补充元数据` 更详细的原理性文档请看 [AOT泛型原理](/hybridclr/aot_generic/)
+`补充元数据` 更详细的原理性文档请看 [AOT泛型原理](/basic/aotgeneric.md)
 
 ### 生成一些打包需要的文件和代码
 
@@ -467,3 +467,98 @@ ReversePInvokeWrapperGenerationAttribute 用于为当前添加了 `[MonoPInvokeC
         }
     }
 ```
+
+
+## 设置UNITY_IL2CPP_PATH环境变量
+
+相关代码在 `Editor/BuildProcessors/CheckSettings.cs`中。
+
+脚本根据是否开启HybridCLR，在打包时自动设置或者清除UNITY_IL2CPP_PATH环境变量。
+
+## 打包时自动排除热更新assembly
+
+相关代码在 `Editor/BuildProcessors/FilterHotFixAssemblies.cs`中。
+
+很显然，热更新assembly不应该被il2cpp处理并且编译到最终的包体里。我们处理了`IFilterBuildAssemblies`回调，
+将热更新dll从build assemblies列表移除。
+
+## 打包时将热更新dll名添加到assembly配置列表
+
+相关代码在 `Editor/BuildProcessors/PatchScriptingAssemblyList.cs`中。
+
+对于所有C#类，Assembly.Load后就可以正常使用，但对于MonoBehaviour或者ScriptableObject这种脚本，如果想让挂载在热更新资源上
+脚本正确还原，，热更新MonoBehaviour脚本所在的assembly的dll名必须添加到assembly列表配置文件，Unity的资源管理系统才能正确识别
+和还原脚本。更详细的原理介绍请看 [使用热更新MonoBehaviour](/basic/monobehaviour.md) 。
+
+工具在打包时，会自动将热更新assembly的dll名加入assembly列表配置文件。
+
+## 备份裁剪后的AOT dll
+
+相关代码在 `Editor/BuildProcessors/CopyStrippedAOTAssemblies.cs`中。
+
+[补充元数据](/basic/aotgeneric.md)和[桥接函数](/basic/methodbridge.md))都依赖于打包时生成的裁剪后的AOT dll。脚本会将打包过程中生成的裁剪后的AOT dll
+自动复制到 `HybridCLRData/AssembliesPostIl2CppStrip/{platform}`目录，方便后续处理。
+
+## 编译热更新dll
+
+相关代码在 `Editor/Commands/CompileDllCommand.cs` 中。
+
+对于每个target，必须使用目标平台编译开关下编译出的热更新dll，否则会出现热更新代码与AOT主包或者热更新资源的代码信息不匹配的情况。文档可见[编译热更新dll](/basic/compileassembly.md)。
+
+
+## 生成打包需要的文件和代码
+
+包含以下几个生成功能：
+
+- 生成Il2CppDef
+- 扫描生成link.xml
+- 生成桥接函数
+- 生成AOT泛型实例化代码
+- 生成ReversePInvokeCallback相关wrapper文件
+- 生成裁剪后的AOT dll
+
+菜单`HybridCLR/Generate/*`中包含了这些生成命令，`HybridCLR/Generate/All` 一键运行以上所有命令。详细文档请看[hybridclr_unity介绍](/basic/com.focus-creative-games.hybridclr_unity.md)
+
+### 生成Il2CppDef
+
+对应菜单`HybridCLR/Generate/Il2CppDef`。
+
+hybridclr部分代码依赖Unity版本宏，而il2cpp未提供这些宏。因此需要生成这些宏定义使得hybridclr能够正常编译。
+
+### 生成link.xml
+
+对应菜单`HybridCLR/Generate/LinkXml`。
+
+热更新dll中可能使用到一些主工程代码中未使用的类和函数，而Unity有[代码裁剪机制](https://docs.unity3d.com/Manual/ManagedCodeStripping.html)。
+如果不使用一些办法避免热更新中用到的主工程类和函数被裁剪，运行时会出现 LoadTypeException 或者 MethodNotFoundException之类的错误。
+
+解决办法是在主工程中手动引用这些类型和函数或者配置link.xml文件来避免裁剪。我们提供了脚本自动生成link.xml简化这个工作。
+
+注意，自动生成的link.xml只是扫描了当前热更新dll用到的AOT类型，它不可能知道未来热更新dll中用到的类型，因此手动在`Assets/link.xml`（或其他非自动生成的link.xml）中预留
+将来会用到的类型和函数是很有必要的。
+
+### 生成桥接函数
+
+对应菜单`HybridCLR/Generate/MethodBridge`。
+
+AOT与interpreter之间双向参数传递需要借助桥接函数，桥接函数需要编译到主包内，如果缺失会导致热更新无法调用AOT代码或者AOT无法回调热更新函数。具体原理请看 [桥接函数介绍](/basic/methodbridge.md)。
+
+桥接函数生成依赖于`生成裁剪后的AOT dll`和`生成热更新dll`，而`生成裁剪后的AOT dll`依赖于`生成LinkXml`和`生成Il2CppDef`。因此如果没有使用`HybridCLR/Generate/All`命令，必须先依次运行：
+
+- `HybridCLR/Generate/Il2CppDef`
+- `HybridCLR/Generate/LinkXml`
+- `HybridCLR/CompileDll/ActiveBuildTarget`
+- `HybridCLR/Generate/AotDlls`
+
+### 生成AOT泛型实例化代码
+
+Unity有泛型共享机制，对于泛型如果提前在AOT中泛型实例化，脚本中调用该类型相关函数时以原生方式执行。尽管有补充元数据机制，对于一些性能敏感的代码，
+提前泛型实例化可以明显提升性能。更详细的原理性文档请看 [AOT泛型原理](/basic/aotgeneric.md)
+
+### 生成ReversePInvokeCallback相关wrapper文件
+
+如果项目中用于xlua之类的脚本语言，对于要注册到lua中的C#函数，都需要添加`[MonoPInvokeCallback]`注解。这样可以为这些C#函数返回一个对应的c++
+函数指针，用于注册到脚本语言里。
+
+HybridCLR支持将热更新C#代码注册到lua中，但必须提前生成与`[MonoPInvokeCallback]`对应的C++桩函数，才可能为每个C#函数返回一个相应的C++函数指针。
+脚本提供了自动生成桩函数的功能。详细请见 [MonoPInvokeCallback支持](/hybridclr/monopinvokecallback/) 及 [HybridCLR+lua/js/python](/hybridclr/work_with_script_language/) 文档

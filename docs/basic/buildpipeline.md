@@ -1,20 +1,4 @@
----
-title: HybridCLR打包工作流
-date: 2022-05-25 11:50:18
-permalink: /hybridclr/build_pipeline/
-categories:
-    - HybridCLR
-tags:
-    -
-author:
-    name: Code Philosophy
-    link: https:://code-philosophy.com
----
-
 # HybridCLR打包工作流
-
-- 运行 `HybridCLR/generate/all`
-- 按照你们项目的打包方式打包即可
 
 由于热更新本身的要求以及Unity资源管理的一些限制，对打包工作流需要一些特殊处理，主要分为几部分：
 
@@ -22,152 +6,41 @@ author:
 - 打包时自动排除热更新assembly
 - 打包时将热更新dll名添加到assembly列表
 - 将打包过程中生成的裁剪后的aot dll拷贝出来，供补充元数据使用
-- 使用Unity的`PlayerBuildInterface.CompilePlayerScripts`Api编译热更新dll
+- 编译热更新dll
 - 生成一些打包需要的文件和代码
 - iOS平台的特殊处理
 
-我们提供了 `com.focus-creative-games.hybridclr_unity` package [gitee(推荐)](https://gitee.com/focus-creative-games/hybridclr_unity)或[github](https://github.com/focus-creative-games/hybridclr_unity) ，其中包含了打包工作流相关的标准工具脚本。
-
-更详细的实现请看源码或者[hybridclr_unity介绍](/hybridclr/hybridclr_unity/)
+手动操作这些是烦琐易错的，`com.focus-creative-games.hybridclr_unity` package包含了打包工作流相关的标准工具脚本，将这些复杂流程简化为一键操作。
+详细实现请看源码或者[hybridclr_unity介绍](/basic/com.focus-creative-games.hybridclr_unity.md)
 
 ## 打包流程
 
-- 参照[HybridCLR配置](/hybridclr/project_settings/)进行必要的设置
-- 运行菜单 `HybridCLR/Generate/All` 一键执行必要的生成操作
-- 根据你项目原来的打包流程打包
-- 将`HybridCLRData/HotUpdateDlls`下的热更新dll按照你们项目的热更新资源打包流程处理
-- 将`HybridCLRData/AssembliesPostIl2CppStrip`下的AOT dll按照你们项目的热更新资源打包流程处理
+1. 运行菜单 `HybridCLR/Generate/All` 一键执行必要的生成操作
+1. 将`HybridCLRData/HotUpdateDlls`下的热更新dll添加到项目的热更新资源管理系统
+1. 将`HybridCLRData/AssembliesPostIl2CppStrip`下的初始元数据 dll添加到项目的热更新资源管理系统
+1. 根据你项目原来的打包流程打包
 
-## 设置UNITY_IL2CPP_PATH环境变量
-
-相关代码在 `Editor/BuildProcessors/CheckSettings.cs`中。
-
-脚本根据是否开启HybridCLR，在打包时自动设置或者清除UNITY_IL2CPP_PATH环境变量。
-
-## 打包时自动排除热更新assembly
-
-相关代码在 `Editor/BuildProcessors/FilterHotFixAssemblies.cs`中。
-
-很显然，热更新assembly不应该被il2cpp处理并且编译到最终的包体里。我们处理了`IFilterBuildAssemblies`回调，
-将热更新dll从build assemblies列表移除。
-
-## 打包时将热更新dll名添加到assembly配置列表
-
-相关代码在 `Editor/BuildProcessors/PatchScriptingAssemblyList.cs`中。
-
-对于所有C#类，Assembly.Load后就可以正常使用，但对于MonoBehaviour或者ScriptableObject这种脚本，如果想让挂载在热更新资源上
-脚本正确还原，必须处理Unity的资源管理机制相关的问题。
-
-简单来说，热更新MonoBehaviour脚本所在的assembly的dll名必须添加到assembly列表配置文件，Unity的资源管理系统才能正确识别
-和还原脚本。更详细的原理介绍请看 [使用热更新MonoBehaviour](/hybridclr/monobehaviour/) 。
-
-工具在打包时，会自动将热更新assembly的dll名加入assembly列表配置文件。
-
-
-## 备份裁剪后的AOT dll
-
-相关代码在 `Editor/BuildProcessors/CopyStrippedAOTAssemblies.cs`中。
-
-为了解决AOT泛型问题，我们使用了一个HybridCLR独创的专利技术`补充元数据技术`。该技术需要提供裁剪后的AOT dll来解决
-il2cpp IL->c++转换过程中函数体元数据丢失的问题。
-
-总之，为了无限制地使用AOT泛型，需要获得打包时生成的裁剪后的AOT dll。脚本会打包过程中生成的裁剪后的AOT dll
-自动复制到 `HybridCLRData/AssembliesPostIl2CppStrip/{platform}`目录，方便将来处理。
-
-项目既可以选择将裁减后的AOT dll文件直接放主包的StreamingAssets目录，也可以选择打包后热更下载，自己视喜好灵活处理。
-
-更详细的原理性文档请看 [AOT泛型原理](/hybridclr/aot_generic/)
-
-## 使用Unity的`PlayerBuildInterface.CompilePlayerScripts`Api编译热更新dll
-
-相关代码在 `Editor/Commands/CompileDllCommand.cs` 中。
-
-对于每个target，必须使用目标平台编译开关下编译出的热更新dll，否则会出现热更新代码与AOT主包或者热更新资源的代码信息不匹配的情况。
-
-不匹配时Unity会打印此类日志： `A scripted object (probably XXX?) has a different serialization layout when loading. Did you #ifdef UNITY_EDITOR a section of your serialized properties in any of your scripts?`。
-
-
-## 生成打包需要的文件和代码
-
-包含以下几个生成功能：
-
-- 扫描生成link.xml
-- 生成桥接函数
-- 生成AOT泛型实例化代码
-- 生成ReversePInvokeCallback相关wrapper文件
-
-菜单`HybridCLR/Generate/*`中包含了这些生成命令，详细介绍请看[hybridclr_unity介绍](/hybridclr/hybridclr_unity/)
-
-### 生成link.xml
-
-热更新dll中可能使用到一些主工程代码中未使用的类和函数，而Unity有[代码裁剪机制](https://docs.unity3d.com/Manual/ManagedCodeStripping.html)。
-如果不使用一些办法避免热更新中用到的主工程类和函数被裁剪，运行时出现 LoadTypeException或者 MethodNotFoundException之类的错误。
-
-解决办法是配置link.xml文件来避免裁剪。手写link.xml麻烦又易遗漏，因此提供了脚本自动生成link.xml。
-
-注意，自动生成的link.xml只是扫描了当前热更新dll用到的AOT类型，它不可能知道未来热更新dll中用到的类型，因此手动在`Assets/link.xml`（或其他非自动生成的link.xml）中预留
-将来会用到的类型和函数是很有必要的。
-
-### 生成桥接函数
-
-为了解决AOT与interpreter之间双向参数传递，需要借助桥接函数。具体原理请看 [桥接函数介绍](/hybridclr/method_bridge/)。桥接函数需要在正式打包前生成。
-
-注意！1.0.x及更低版本的hybridclr_unity的桥接函数错误地扫描了editor版本的dll，而editor版本 dll与实际导出的平台的相应dll并不完全相同，导致桥接函数计算与最终打包出的AOT里的不完全一致。1.1.0及更高版本hybridclr_unity修复了桥接函数生成的问题，但需要提前生成裁剪后的aot dll。
-
-因此如果你使用 1.1.0 以上版本的package，在执行`HybridCLR/generate/all`之前需要额外先执行以下操作：
-
-- 运行 `HybridCLR/generate/LinkXml`
-- build settings中临时打包一次（或者导出工程也行），生成裁剪aot dll
-
-如果是1.0.x或更低版本，不需要这些操作，操作也无效（带来的代价是极罕见情况下会有桥接函数缺失的问题）。
-
-### 生成AOT泛型实例化代码
-
-Unity有泛型共享机制，对于泛型如果提前在AOT中泛型实例化，脚本中调用该类型相关函数时以原生方式执行。
-
-尽管有补充元数据机制，对于一些性能敏感的代码，提前泛型实例化可以明显提升性能。更详细的原理性文档请看 [AOT泛型原理](/hybridclr/aot_generic/)
-
-### 生成ReversePInvokeCallback相关wrapper文件
-
-如果项目中用于xlua之类的脚本语言，对于要注册到lua中的C#函数，都需要添加`[MonoPInvokeCallback]`注解。这样可以为这些C#函数返回一个对应的c++
-函数指针，用于注册到脚本语言里。
-
-HybridCLR支持将热更新C#代码注册到lua中，但必须提前生成与`[MonoPInvokeCallback]`对应的C++桩函数，才可能为每个C#函数返回一个相应的C++函数指针。
-脚本提供了自动生成桩函数的功能。详细请见 [MonoPInvokeCallback支持](/hybridclr/monopinvokecallback/) 及 [HybridCLR+lua/js/python](/hybridclr/work_with_script_language/) 文档
 
 ## iOS平台的特殊处理
 
-除了iOS以外平台都是将 `libil2cpp源码` 和 `由il2cpp从原始dll转换成的c++代码` 直接源码编译出目标程序。iOS
-平台比较特殊，它使用由`libil2cpp源码`提前编译好libil2cpp.a文件，和 `由il2cpp从原始dll转换成的c++代码` 链接，
-编译出目标程序。Unity导出的xcode工程包含了提前生成好的libil2cpp.a，而不包含libil2cpp源码。
+除了iOS以外平台都是根据libil2cpp源码编译出目标程序,iOS平台使用提前编译好libil2cpp.a文件。Unity导出的xcode工程引用了提前生成好的libil2cpp.a，而不包含libil2cpp源码，
+直接打包无法支持热更新。因此编译iOS程序时需要自己单独编译libil2cpp.a，再**替换xcode工程的libil2cpp.a文件**，接着再打包。
 
-因此编译iOS程序时需要自己单独编译libil2cpp.a，再替换xcode工程的相应文件，最终再打包出app。
+**替换xcode工程中的libil2cpp.a文件请自行完成**。
 
-编译方法参见[编译iOS版本libil2cpp](/hybridclr/build_ios_libil2cpp/)。替换xcode工程中相应文件请自己手动完成。
+`com.focus-creative-games.hybridclr_unity/Data~/iOSBuild` 目录包含了编译 `libil2cpp.a` 所需的脚本。使用`HybridCLR/Installer...`完成安装后，该iOSBuild目录会被复制到`{project}/HybridCLRData/iOSBuild` 目录。
 
-此文档默认您已经了解了在Windows或mac下的打包构建流程，并了解了相关注意事项。
+## 编译 libil2cpp.a 
 
-
-
-Unity打包iOS目标时生成的xcode工程中并没有像其他平台那样包含libil2cpp源码，而是使用了提前编译好的libil2cpp.a。编译支持HybridCLR热更新的app需要将它替换成扩充了HybridCLR代码libil2cpp.a。**替换xcode工程中的libil2cpp.a文件请自行完成**，下面只介绍如何编译libil2cpp.a。
-
-[com.focus-creative-games.hybridclr_unity](https://github.com/focus-creative-games/hybridclr_unity)/Data~/iOSBuild 目录包含了编译 `libil2cpp.a` 所需的脚本。在安装package并且使用`HybridCLR/Installer...`命令成功初始化HybridCLR插件后，iOSBuild目录会被复制到`{project}/HybridCLRData/iOSBuild` 目录。下面提到的编译操作都在 `{project}/HybridCLRData/iOSBuild` 目录下完成。
-
-
-### libil2cpp.a 编译
-
-- 确保你的macOS版本>=12以及xcode版本>=13。最小支持版本是哪个我们未仔细验证过。
-- 确保已经安装HybridCLR并且使用菜单`HybridCLR/Installer...`成功初始化插件
-- 检查你项目的 HybriCLRSettings 配置(菜单`HybridCLR/Settings`)，确保正确设置了各项参数。
-- 点击菜单 `HybridCLRData/Generate/All` 生成所有必要的文件
-- **可选**设置 `IPHONESIMULATOR_VERSION`变量。该变量指示了iPhoneSimulator版本，未设置时使用系统默认iPhoneSimulator版本。命令类似这样 `export IPHONESIMULATOR_VERSION=15.5`
-- 打开命令控制台，切换到 `{project}/HybridCLRData/iOSBuild` 目录。请确保这个路径的绝对路径不包含空格！否则出错
+- 运行 `HybridCLR/Generate/All` 生成所有必要的文件
+- 打开命令控制台，切换到 `{project}/HybridCLRData/iOSBuild` 目录。请确保这个路径的绝对路径不包含空格！否则会出错。
 - bash ./build_libil2cpp.sh 编译libil2cpp.a 。运行结束后，如果在`iOSBuild/build`目录下能找到libil2cpp.a文件并且size大于60M，表示编译成功
 
+## 常见错误
 
-### 常见错误
-
-- 未正确安装HybridCLR就尝试build
+- 未在`HybridCLR/Installer...`中完成安装
+- 未运行`HybridCLR/Generate/All`
 - 未安装使用较新的macOS(12以上)及最新xcode
+- 未安装cmake
 - 由于git设置的原因，拉下来的build_libil2cpp.sh及build_lump.sh包含不正确的文件结束符，导致脚本运行前几行代码就出错。 错误信息也很明显，如 `/bin/bash^M 文件不存在`。运行命令 `cat -v build_libil2cpp.sh ` 检查确认换行符的正确性。 运行 `git config --global core.autocrlf input`，然后再重新拉取这这两个脚本文件即可。详情可 [参见git换行符设置](https://docs.github.com/cn/get-started/getting-started-with-git/configuring-git-to-handle-line-endings)。
 - `{project}/HybridCLRData/iOSBuild`的绝对路径包含空格，导致gen_lump.sh脚本生成错误的结果

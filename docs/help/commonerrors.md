@@ -306,7 +306,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 - 自己改微信工具源码，将BuildSettings中 `IL2CPP Code Generation` 设置为 `Faster`。
 
 
-具体操作请看[AOT泛型原理介绍](/hybridclr/aot_generic/) 文档。
+具体操作请看[AOT泛型原理介绍](/basic/aotgeneric.md) 文档。
 
 
 #### 情况2： 错误日志中未出现AOT generic method的字眼
@@ -339,7 +339,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 ### 遇到 ExecutionEngineException: GetManaged2NativeMethodPointer not support. xxxx 函数名
 
 缺失 interpreter -> aot 方向的桥接函数。请先确认你的 hybridclr是最新代码， hybridclr_unity package也是最新版本，
-并且已经生成最新的桥接函数。原理请参考 [桥接函数](/hybridclr/method_bridge/) 。
+并且已经生成最新的桥接函数。原理请参考 [桥接函数](/basic/methodbridge.md) 。
 
 如果是iOS平台，则很大可能因为你没有生成最新的libil2cpp.a。
 
@@ -348,7 +348,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 ### 遇到'ExecutionEngineException: NotSupportNative2Managed' 
 
 缺失 aot -> interpreter 方向的桥接函数。请先确认你的 hybridclr是最新代码， hybridclr_unity package也是最新版本，
-并且已经生成最新的桥接函数。原理请参考 [桥接函数](/hybridclr/method_bridge/) 。
+并且已经生成最新的桥接函数。原理请参考 [桥接函数](/basic/methodbridge.md) 。
 
 如果还有问题，请在群里反馈给管理员 技术支持。
 

@@ -12,11 +12,9 @@
 
 如果有多个热更新dll，请一定要**按照依赖顺序加载**，先加载被依赖的assembly。
 
-## 运行热更新代码
+加载完热更新dll后，有多种方式运行热更新代码，这些技巧跟不考虑热更新时完全相同。
 
-加载完热更新dll后，有多种方式运行热更新代码，跟你使用常规的c#代码无特殊区别。
-
-### 通过反射运行
+## 通过反射直接运行热更新函数
 
 假设热更新集中有HotUpdateEntry类，主入口是静态的Main函数，代码类似：
 
@@ -36,13 +34,13 @@ class HotUpdateEntry
 ```csharp
     // ass 为Assembly.Load返回的热更新assembly。
     // 你也可以在Assembly.Load后通过类似如下代码查找获得。
-    // Assembly ass = AppDomain.CurrentDomain.GetAssemblies().First(assembly => assembly.GetName().Name == "Assembly-CSharp");
+    // Assembly ass = AppDomain.CurrentDomain.GetAssemblies().First(assembly => assembly.GetName().Name == "Your-HotUpdate-Assembly");
     Type entryType = ass.GetType("HotUpdateEntry");
     MethodInfo method = entryType.GetMethod("Main");
     method.Invoke(null, null);
 ```
 
-### 通过反射创造出Delegate后 运行
+## 通过反射创造出Delegate后运行
 
 ```csharp
     Type entryType = ass.GetType("HotUpdateEntry");
@@ -51,7 +49,7 @@ class HotUpdateEntry
     mainFunc();
 ```
 
-### 通过反射创建出对象后，再调用接口函数
+## 通过反射创建出对象后，再调用接口函数
 
 假设AOT中有这样的接口
 
@@ -59,7 +57,6 @@ class HotUpdateEntry
 public interface IEntry
 {
     void Start();
-    void Update(float deltaTime);
 }
 ```
 
@@ -72,11 +69,6 @@ class HotUpdateEntry : IEntry
     {
         UnityEngine.Debug.Log("hello, HybridCLR");
     }
-
-    public void Update(float deltaTime)
-    {
-
-    }
 }
 ```
 
@@ -88,7 +80,30 @@ class HotUpdateEntry : IEntry
     entry.Start();
 ```
 
-### 通过直接初始化挂载了热更新脚本的scene或者prefab
+## 通过动态AddComponent运行脚本代码
+
+假设热更新中有这样的代码：
+
+```csharp
+class Rotate : MonoBehaviour
+{
+    void Update()
+    {
+
+    }
+}
+```
+
+你在AOT中运行如下代码：
+
+```csharp
+    Type type = ass.GetType("Rotate");
+    GameObject go = new GameObject("Test");
+    go.AddComponent(type);
+```
+
+
+## 通过初始化从打包成assetbundle的prefab或者scene还原挂载的热更新脚本
 
 假设热更新中有这样的入口脚本，这个脚本被挂到`HotUpdatePrefab.prefab`上。
 
@@ -111,7 +126,4 @@ public class HotUpdateMain : MonoBehaviour
         GameObject testPrefab = Instantiate(prefabAb.LoadAsset<GameObject>("HotUpdatePrefab.prefab"));
 ```
 
-这种方法不需要借助任何反射，而且跟原生的启动工作流非常相似，强烈推荐！
-
-实践中在完成热更新后，通过直接切换到热更新场景的方式直接进入热更新逻辑，对旧工程改动最小。
-
+这种方法不需要借助任何反射，而且跟原生的启动流程相同，推荐使用这种方式初始化热更新入口代码！
