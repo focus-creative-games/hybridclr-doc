@@ -4,7 +4,7 @@
 * 新手教程
   * [快速上手](/beginner/quickstart.md)
   * [使用MonoBehaviour](/beginner/monobehaviour.md)
-  * [使用泛型](/beginner/aotgeneric.md)
+  * [使用泛型](/beginner/generic.md)
   * [其他资料](/beginner/otherhelp.md)
 * 开发者文档-基础
   * [支持的Unity版本与平台](basic/supportedplatformanduniyversion.md)
