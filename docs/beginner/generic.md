@@ -2,51 +2,11 @@
 
 HybridCLR完整支持泛型特性，没有任何限制。
 
-## 使用热更新中定义的泛型类或者函数
+## 使用热更新中定义的泛型类或函数
 
-直接使用即可。示例如下：
+直接使用即可。
 
-```csharp
-
-class Foo
-{
-    // 普通类里的泛型函数
-    public T Empty<T>()
-    {
-      return default(T);
-    }
-}
-
-class MyList<T>
-{
-    // 泛型类里的普通函数
-    public T Get(int index)
-    {
-        return default(T);
-    }
-
-    // 泛型类里的泛型函数
-    public Dictionary<K, T> NewList<K>()
-    {
-        return new Dictionary<K, T>();
-    }
-}
-
-class HotUpdateGenericDemos
-{
-    public void Run()
-    {
-        // 使用热更新泛型的示例代码
-        Foo.Empty<int>();
-        var list = new MyList<Foo>();
-        Foo v = list.Get(1);
-        Dictionary<int, Foo> dic = list.NewList<int>();
-    }
-}
-
-```
-
-## 使用AOT中定义的泛型类或者函数
+## 使用AOT中定义的泛型类或函数
 
 如果AOT中已经有代码实例化过某个泛型类或者函数，则热更新中可以直接使用，例如：
 
@@ -79,7 +39,7 @@ class HotUpdateGenericDemos
 
 关于AOT泛型问题的详细原理请阅读[AOT泛型](/basic/aotgeneric.md)。
 
-对于方法1，有几个硬伤：
+对于方法1，有几个致命缺陷：
 
 - AOT代码中添加实例化代码需要重新打包，不仅开发期很麻烦，上线后短期内重新发主包是不现实的。
 - 泛型参数有可能是热更新类型，不可能在AOT中提前实例化。例如你在热更新代码中定义了` struct MyVector3 {int x, y, z;}`，你不可能在AOT中提前实例化`List<MyVector3>`。
@@ -145,8 +105,5 @@ public class LoadDll : MonoBehaviour
 }    
 ```
 
-现在你可以在热更新代码随意使用泛型了。
-
-
-
+现在你可以在热更新代码随意使用AOT泛型了。
 

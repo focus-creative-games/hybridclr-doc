@@ -8,6 +8,7 @@
   * [其他资料](/beginner/otherhelp.md)
 * 开发者文档-基础
   * [支持的Unity版本与平台](basic/supportedplatformanduniyversion.md)
+  * [HybridCLR代码结构及版本](/basic/architecture.md)
   * [安装HybridCLR](basic/install.md)
   * [配置HybridCLR](basic/projectsettings.md)
   * [创建和配置热更新Assembly](basic/hotupdateassemblysetting.md)

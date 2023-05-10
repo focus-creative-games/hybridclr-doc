@@ -160,6 +160,10 @@ public class Hello
 }
 ```
 
+你可能会关心热更新部分的代码会不会像其他方案那样对C#语法有限制。HybridCLR是近乎完备的实现，对热更新代码几乎没有限制，放飞自我地写吧。
+
+极少数的例外可以查看[不支持的特性](/basic/notsupportedfeatures.md)。
+
 ## 加载热更新程序集
 
 为了简化演示，我们不通过http服务器下载HotUpdate.dll，而是直接将HotUpdate.dll放到StreamingAssets目录下。
