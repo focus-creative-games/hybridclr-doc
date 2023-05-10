@@ -1,40 +1,8 @@
----
-title: 加载和使用热更新代码
-date: 2022-09-29 12:31:29
-permalink: /hybridclr/load_assembly/
-categories:
-  - hybridclr
-  - 文档
-tags:
-  - 
-author: 
-  name: Code Philosophy
-  link: https://github.com/focus-creative-games
----
-
 # 加载和使用热更新代码
-
-## 编译热更新dll
-
-对于热更新代码放在第3方工程的开发者，使用你自己的方式编译出热更新dll即可。
-
-对于热更新代码放在Unity项目中的开发者，你不能直接复制`Library/ScriptAssemblies`目录下的dll，
-这是因为由于编译代码时需要正确的平台宏开关，而`Library/ScriptAssemblies`下的dll是使用Editor平台宏编译出来的，不满足要求。
-
-Unity打包时会自动帮你使用正确的宏开关编译dll，但这样很麻烦，也很费时。更好的办法是借助Unity的`PlayerBuildInterface.CompilePlayerScripts`Api完成编译。
-
-hybridclr_unity提供一个编译各个target对应的热更新dll的编译脚本。使用菜单`HybridCLR/CompileDll/xxxx`来编译你期望的平台的热更新
-dll，编译完成后的热更新dll放到 `{project}/HybridCLRData/HotUpdateDlls/{platform}` 目录下。
-
-## 将热更新dll加入你的热更新资源管理系统
-
-`{project}/HybridCLRData/HotUpdateDlls/{platform}`目录可以获得热更新dll，按照自己项目的情况处理即可，既可以打入ab包，也可以是裸数据。
-
-hybridclr_trial项目出于方便演示起见，直接将 Assembly-CSharp.dll改名为Assembly-CSharp.dll.bytes后放入StreamingAssets目录。
 
 ## 加载更新assembly
 
-根据你们项目资源管理的方式，获得热更新dll的bytes数据。然后再直接调用Assembly.Load(byte[] assemblyData)加载热更新dll。代码类似
+根据你们项目资源管理的方式，获得热更新dll的bytes数据。然后再直接调用Assembly.Load(byte[] assemblyData)即可。代码类似
 如下：
 
 ```csharp
@@ -42,7 +10,7 @@ hybridclr_trial项目出于方便演示起见，直接将 Assembly-CSharp.dll改
     Assembly ass = Assembly.Load(assemblyData);
 ```
 
-如果有多个热更新dll，请一定要按照依赖顺序加载，先加载被依赖的assembly。
+如果有多个热更新dll，请一定要**按照依赖顺序加载**，先加载被依赖的assembly。
 
 ## 运行热更新代码
 

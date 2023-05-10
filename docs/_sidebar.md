@@ -13,7 +13,7 @@
   * [配置HybridCLR](basic/projectsettings.md)
   * [创建和配置热更新Assembly](basic/hotupdateassemblysetting.md)
   * [编译热更新Assembly](basic/compileassembly.md)
-  * [加载与执行热更新代码](basic/load_assembly.md)
+  * [加载与执行热更新代码](basic/runhotupdatecodes.md)
   * [打包工作流](basic/buildpipeline.md)
   * [解决裁剪问题](basic/codestriping.md)
   * [解决AOT泛型问题](basic/aotgeneric.md)
