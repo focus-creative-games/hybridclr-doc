@@ -210,7 +210,7 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 有两种原因
 
 1. 如果非ios平台，则因为未安装HybridCLR。请参照[安装HybridCLR](/basic/install.md)文档操作。
-2. 如果ios平台，因为ios平台并不从源码编译libil2cpp，而是使预先编译好的libil2cpp.a，你需要替换xcode工程中的libil2cpp.a为HybridCLR的编译版本。编译方式请看[build libil2cpp.a for iOS](/hybridclr/build_ios_libil2cpp/)
+2. 如果ios平台，因为ios平台并不从源码编译libil2cpp，而是使预先编译好的libil2cpp.a，你需要替换xcode工程中的libil2cpp.a为HybridCLR的编译版本。编译方式请看[build libil2cpp.a for iOS](/basic/buildpipeline.md)
 
 
 ### unsupported internal call for il2cpp. xxxx 
@@ -325,7 +325,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 ### GetReversePInvokeWrapper fail. exceed max wrapper num of method
 
-Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特性的函数预留Wrapper函数，详见[MonoPInvokeCallback支持](/hybridclr/monopinvokecallback/)
+Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特性的函数预留Wrapper函数，详见[MonoPInvokeCallback支持](/advanced/workwithscriptlanguage.md)
 
 ### 使用addressable进行热更新时，加载资源出现 UnityEngine.AddressableAssets.InvlidKeyException: Exception of type 'UnityEngine.AddressableAssets.InvalidKeyException' was thrown. No Asset found with for key 'xxxx' 异常
 
