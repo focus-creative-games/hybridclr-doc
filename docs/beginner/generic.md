@@ -34,8 +34,8 @@ class HotUpdateGenericDemos
 
 但如果AOT中没有实例化过某个AOT泛型类或者函数，则需要作一定的处理。解决办法有两种：
 
-- 在AOT代码添加相应的实例化代码。
-- **补充元数据技术**。 这是HybridCLR的专利技术。
+1. 在AOT代码添加相应的实例化代码。
+1. **补充元数据技术**。 这是HybridCLR的专利技术。
 
 关于AOT泛型问题的详细原理请阅读[AOT泛型](/basic/aotgeneric.md)。
 
@@ -53,13 +53,11 @@ class HotUpdateGenericDemos
 使用`HybridCLR/Generate/AotDlls`命令也可以立即生成裁剪后的AOT dll，它的工作原理是通过导出一个Temp工程来获得裁剪AOT dll。
 
 从`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`目录获得你所需要的补充元数据dll，加入项目的热更新资源管理系统。示例项目出于演示起见，将它们放到StreamingAssets目录下。
-
 以`List<T>`类型为例，它需要补充`mscorlib.dll`。将`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}/mscorlib.dll`复制到`Assets/StreamingAssets/mscorlib.dll.bytes`。
 
 ## 执行补充元数据
 
 使用`com.focus-creative-games.hybridclr_unity`包中的`HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly`函数为AOT泛型补充元数据。
-
 元数据只需要补充一次，推荐在执行任何热更新代码前。`LoadDll.cs`最终变成类似如下。
 
 ```csharp
@@ -90,14 +88,13 @@ public class LoadDll : MonoBehaviour
             "mscorlib.dll",
             "System.dll",
             "System.Core.dll", // 如果使用了Linq，需要这个
-            // "Newtonsoft.Json.dll",
+            // "Newtonsoft.Json.dll", 
             // "protobuf-net.dll",
         };
 
-        AssetBundle dllAB = LoadDll.AssemblyAssetBundle;
         foreach (var aotDllName in aotDllList)
         {
-            byte[] dllBytes = dllAB.LoadAsset<TextAsset>(aotDllName).bytes;
+            byte[] dllBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{aotDllName}.bytes");
             int err = HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, HomologousImageMode.SuperSet);
             Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. ret:{err}");
         }
