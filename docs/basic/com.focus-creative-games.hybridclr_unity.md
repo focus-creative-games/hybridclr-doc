@@ -349,7 +349,7 @@ asmdef形式的assembly，你也可以选择不加到`hotUpdateAssemblyDefinitio
 工具在打包时，会自动将热更新assembly的dll名加入assembly列表配置文件。
 
 热更新MonoBehaviour脚本所在的assembly的dll名必须添加到assembly列表配置文件，Unity的资源管理系统才能正确识别
-和还原热更新脚本。更详细的原理介绍请看 [使用热更新MonoBehaviour](/hybridclr/monobehaviour/) 。
+和还原热更新脚本。更详细的原理介绍请看 [使用热更新MonoBehaviour](/basic/monobehaviour.md) 。
 
 ### 备份裁剪后的AOT dll
 
@@ -543,7 +543,7 @@ hybridclr部分代码依赖Unity版本宏，而il2cpp未提供这些宏。因此
 
 AOT与interpreter之间双向参数传递需要借助桥接函数，桥接函数需要编译到主包内，如果缺失会导致热更新无法调用AOT代码或者AOT无法回调热更新函数。具体原理请看 [桥接函数介绍](/basic/methodbridge.md)。
 
-桥接函数生成依赖于`生成裁剪后的AOT dll`和`生成热更新dll`，而`生成裁剪后的AOT dll`依赖于`生成LinkXml`和`生成Il2CppDef`。因此如果没有使用`HybridCLR/Generate/All`命令，必须先依次运行：
+桥接函数生成依赖于`裁剪后的AOT dll`和`热更新dll`，而`裁剪后的AOT dll`依赖于`生成LinkXml`和`生成Il2CppDef`。因此如果没有使用`HybridCLR/Generate/All`命令，必须先依次运行：
 
 - `HybridCLR/Generate/Il2CppDef`
 - `HybridCLR/Generate/LinkXml`

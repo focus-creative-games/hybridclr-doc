@@ -1,41 +1,31 @@
----
-title: 运行性能
-date: 2022-05-25 11:50:18
-permalink: /hybridclr/performance/
-categories:
-    - HybridCLR
-tags:
-    -
-author:
-    name: Code Philosophy
-    link: https:://code-philosophy.com
----
-
 # 执行性能
 
-虽然HybridCLR也是解释执行，但无论从理论原理还是真机测试数据表明，HybridCLR相比当前流行的lua及ILRuntime之类的热更新方案，性能有极大的提升(数倍甚至数十倍)。
+虽然HybridCLR也是解释执行，但无论从理论原理还是真机测试数据表明，HybridCLR相比当前流行的lua、ILRuntime之类的热更新方案，性能有极大的提升(数倍甚至数十倍)。
 
 ## 测试报告
 
 社区版本的HybridCLR除了数值计算跟lua持平之外，其他方面数据均大幅（数倍到数十倍）优于lua方案。
 
-**商业版本**的HybridCLR大幅优化了数值计算性能，有近300%的性能提升，其他大多数普通指令也有50%-200%的性能提升，对性能有严苛要求的开发者可以联系我们[商业化服务](/hybridclr/price/)。
+**商业版本**的HybridCLR大幅优化了数值计算性能，有近300%的性能提升，其他大多数普通指令也有50%-200%的性能提升，对性能有严苛要求的开发者可以联系我们[商业化服务](/other/business.md)。
 
 以下是社区版本的HybridCLR在iphone 11及小米5C手机下的实机测试报告,测试代码附录最后。
 
+!> 注意，test2、test8、test9的测试用例极不合理，AOT情况下会被编译器完全优化掉，导致时间为0。真实差距
+应该在10-30倍之间。
+
 AOT 行是原生il2cpp的数据。HotFix 行是HybridCLR的数据。Lua 行是xlua的数据。
 
-![iphone11](/img/hybridclr/benchmark_iphone11.png)
+![iphone11](../img/hybridclr/benchmark_iphone11.png)
 
-![xiaomi5c](/img/hybridclr/benchmark_xiaomi.png)
+![xiaomi5c](../img/hybridclr/benchmark_xiaomi.png)
 
 以下是部分测试用例下的商业化版本相比于社区版本的性能提升数据。
 
-![interpreter_optimization](/img/hybridclr/interpreter_optimization.jpg)
+![interpreter_optimization](../img/hybridclr/interpreter_optimization.jpg)
 
 以下是数值计算方面AOT与HybridCLR在优化后的性能对比，加法大约是7-16倍左右，乘法是4倍，除法是2倍。
 
-![benchmark_numeric](/img/hybridclr/benchmark_numeric.jpg)
+![benchmark_numeric](../img/hybridclr/benchmark_numeric.jpg)
 
 ## 原理
 
@@ -111,6 +101,8 @@ HyridCLR与il2cpp AOT部分交互极其轻量高效。不再有性能问题。
 其他的优化技术
 
 ## 附录：测试用例代码
+
+下面这些测试用例来自第三方提供，用例并不合理，但我们不想有刻意构造之嫌，直接引用它的用例。
 
 ```csharp
 private static void Test0()

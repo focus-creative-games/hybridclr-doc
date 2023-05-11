@@ -1,7 +1,7 @@
 ---
 title: 热更新MonoBehaviour
 date: 2022-05-25 11:50:18
-permalink: /hybridclr/monobehaviour/
+permalink: /basic/monobehaviour.md
 categories:
     - HybridCLR
 tags:

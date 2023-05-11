@@ -13,7 +13,7 @@ author:
 
 # HotReload 热重载技术
 
-HotReload技术用于卸载或者重新加载一个dll，适用于小游戏合集类型的游戏。该方案只提供**商业化版本**，具体请见[商业化服务](/hybridclr/price/)。
+HotReload技术用于卸载或者重新加载一个dll，适用于小游戏合集类型的游戏。该方案只提供**商业化版本**，具体请见[商业化服务](/other/business.md)。
 
 
 - 【优点】支持动态重新加载全新的AOT或热更新Assembly，代码可以任意变更

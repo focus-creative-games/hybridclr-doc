@@ -1,25 +1,12 @@
----
-title: 常见错误
-date: 2022-08-23 09:00:00
-permalink: /hybridclr/common_errors/
-categories:
-  - HybridCLR
-  - errors
-tags:
-  - 
-author: 
-  name: Code Philosophy
-  link: https:://code-philosophy.com
----
-
 # 常见错误
 
 目前提交的版本都经过测试，基本不可能出现编译错误及崩溃或者基础的运行错误。如果查看了常见错误，还未能解决问题，请将hybridclr_unity、hybridclr、il2cpp_plus更新到最新版本，再试一次。
 
 如果仍然没有解决问题，可以加入以下群：
 
-- 新手1群：428404198。新手使用过程中遇到问题，都可以在群里咨询。
-- **悬赏互助群**：762953653。悬赏提问，快速解决问题。
+- 新手1群：428404198（满）
+- 新手2群：**680274677（推荐）**
+- QQ悬赏互助群：762953653。悬赏提问，快速解决问题。
 
 ## Unity Editor下的错误
 
@@ -86,7 +73,7 @@ mian分支已经移除了DHE相关的代码，相应的package版本1.1.6也移�
 
 Unity 2021版本打包`iOS平台`时，由于Unity Editor未提供公开接口可以复制出target为iOS时的裁剪后的AOT dll，故必须使用修改后的UnityEditor.CoreModule.dll覆盖Unity自带的相应文件。
 
-详见 [安装HybridCLR](/hybridclr/install/) 及 [修改Unity编辑器相关dll](/hybridclr/modify_unity_dll/)。
+详见 [安装HybridCLR](/basic/install.md) 及 [修改Unity编辑器相关dll](/hybridclr/modify_unity_dll/)。
 
 ### BuildFailedExceptoin: Build path contains a project prevously built without the "Create Visual Studio Solution"
 
@@ -118,9 +105,6 @@ HybridclrSettings.asset 文件因为版本更迭的原因，配置无法兼容�
 
 你没有安装 vs 及 win 10 sdk。请安装vs，并且在 Visutal Studio Installer中安装 `使用c++的游戏开发` 这个组件。 win 10 sdk选最新的即可。
 
-### 遇到Undefined symbols for architecture arm64:"Il2CppCodeGenWriteBarrier(void**, void*)", referenced from:...
-
-取消PlayerSetting中`Increasemental GC`选项。
 
 ### 遇到 Undefined symbols for architecture arm64:  "_objc_msgSend$initWithName:", referenced from:      il2cpp::os::TimeZoneInfo::GetTimeZoneDataForID
 
@@ -128,7 +112,7 @@ xcode版本太旧导致。更新到较新版本。
 
 ### 打包iOS时出现 Undefined symbols： RuntimeApi_LoadMetadataForAOTAssembly 或 hybridclrApi_LoadMetadataForAOTAssembly
 
-因为 你使用的是原始libil2cpp.a或者过时的libil2cpp.a。请根据 [build iOS libil2cpp.a](/hybridclr/build_ios_libil2cpp/) 文档编译最新的。然后替换xcode项目中的libil2cpp.a文件
+因为你使用的是原始libil2cpp.a。请根据 [build iOS libil2cpp.a](/basic/buildpipeline.md) 文档编译最新的。然后替换xcode项目中的libil2cpp.a文件
 
 ### Building Library/Bee/artifacts/xxxx failed with output: Fatalerror in Unitiy CIL Linker Mono.Cecil.AssemblyResolutionException: Failed to resolve assembly:'xxx'
 
@@ -142,7 +126,7 @@ xcode版本太旧导致。更新到较新版本。
 
 ### Win 下 打包时遇到 xxxx\il2cpp\libil2cpp\utils\Il2CppHashMap.h(71): error C2039: 'hash_compare': is not a member of 'stdext'
 
-这是.net 7发布后最新版本vs改动打破了一些向后兼容性引起。你可以回退2022的旧版本或者使用2019之类的版本。
+这是.net 7发布后最新版本vs改动打破了一些向后兼容性引起。hybridclr_unity `v2.4.0`版本已经完全解决了此问题。你可以升级到此版本或者回退到visual studio 2022的旧版本或者使用2019之类的版本。
 
 一种不需要回退vs版本的解决办法是修改 `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h`，新增 `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS` 即可。可参照下图修改。
 
@@ -152,7 +136,7 @@ xcode版本太旧导致。更新到较新版本。
 
 ### fatal error: 'icalls/mscorlib/System/MonoType.h' file not found #include "icalls/mscorlib/System/MonoType.h"
 
-hybridclr依赖版本宏来同时支持2019-2021的il2cpp。hybridclr代码中版本宏默认是2020版本，如果你使用的不是2020，则会因为版本宏不正确而发生编译错误。你必须将hybridclr_unity更新了0.10.0或更高版本，再运行  `HybridCLR/generate/il2cppdef` 来生成正确的版本宏。
+你没有生成正确的版本宏，请运行 `HybridCLR/Generate/All` 后再打包。
 
 ### Internal build system error. BuildProgram exited with code -2147024894.
 
@@ -182,7 +166,8 @@ WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切�
 
 WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`替换Editor安装目录的原始libil2cpp，导致缺失了函数。解决办法是：
 - 运行`HybridCLR/Generate/Il2cppDef`生成正确的版本宏
-- 复制 `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` 替换Editor安装目录的原始libil2cpp。注意必须是替换目录，而不是合并目录，这个可能会导致多了一些文件而编译出错。你也可以使用创建软链接的方式，详细请看[安装HybridCLR](/hybridclr/install/)中关于全局安装的文档。
+- 复制 `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` 替换Editor安装目录的原始libil2cpp。注意必须是替换目录，而不是合并目录，这个可能会导致多了一些文件而编译出错。
+你也可以使用创建软链接的方式，详细请看[安装HybridCLR](/basic/install.md)中关于全局安装的文档。
 
 ### 打包WebGL平台点击`Generate/All`发生错误
 
@@ -208,9 +193,9 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 
 ### 打包时出现编译错误，通用处理办法
 
-很大程度是你的package 和 hybridclr c++代码版本不匹配导致的。 你需要：
+很大程度是你的package 和 hybridclr c++代码版本不匹配导致的或者你的Unity版本太新，hybridclr暂未支持。 你需要：
 
-- hybridclr_unity 更新到最新
+- 更新hybridclr_unity到最新版本
 - `HybridCLR/installer...` 里安装最新版本
 - `HybridCLR/generate/all` 生成所有
 - 打包
@@ -232,14 +217,15 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 
 - 如果是iOS平台，有可能因为你在热更新dll列表变化后未`Generate/all`并且重新编译和替换libil2cpp.a文件。
 - 如果你使用Unity 2021及以上版本，并且WebGL平台，需要hybridclr_unity版本 >= 2.0.9
-- 如果是其他版本及平台，由于Unity的资源管理的实现机制，资源必须打包为AssetBundle才能正常恢复热更新脚本，放到Resource下不行。详情请看 [MonoBehaviour工作流](/hybridclr/monobehaviour/)。
+- 如果是其他版本及平台，由于Unity的资源管理的实现机制，资源必须打包为AssetBundle才能正常恢复热更新脚本，放到Resource下不行。详情请看 [MonoBehaviour工作流](/basic/monobehaviour.md)。
 - 如果你安装了最新的main分支的hybridclr，则要求hybridclr_unity package版本 >= 1.1.17
+- 加载资源时还未加载对应的热更新程序集
 
 ### 遇到  "This icall is not supported by il2cpp at System.AppDomain.Load"
 
 有两种原因
 
-1. 如果非ios平台，则因为未安装HybridCLR。请参照[安装HybridCLR](/hybridclr/install/)文档操作。
+1. 如果非ios平台，则因为未安装HybridCLR。请参照[安装HybridCLR](/basic/install.md)文档操作。
 2. 如果ios平台，因为ios平台并不从源码编译libil2cpp，而是使预先编译好的libil2cpp.a，你需要替换xcode工程中的libil2cpp.a为HybridCLR的编译版本。编译方式请看[build libil2cpp.a for iOS](/hybridclr/build_ios_libil2cpp/)
 
 

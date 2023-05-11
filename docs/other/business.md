@@ -1,7 +1,7 @@
 ---
 title: 商业化服务
 date: 2022-05-25 23:17:56
-permalink: /hybridclr/price/
+permalink: /other/business.md
 categories:
   - HybridCLR
 tags:

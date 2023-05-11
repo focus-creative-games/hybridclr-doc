@@ -1,15 +1,11 @@
 
 # AOT-interpreter 桥接函数
 
-HybridCLR的interpreter与AOT之间需要双向函数调用。比如，interpreter调用AOT函数，或者AOT部分有回调函数会调用解释器部分。
+HybridCLR的interpreter与AOT之间需要双向函数调用。比如interpreter调用AOT函数，或者AOT通过interface接口或者delegate回调interpreter。
 
-AOT部分与解释器部分的参数传递和存储方式是不一样的。比如解释器部分调用AOT函数，解释器的参数全在解释器栈上，必须借助合适的办法才能将解释器的函数参数传递给AOT函数。同样的，解释器无法直接获得AOT回调函数的参数。必须为每一种签名的函数生成对应的桥接函数，来实现解释器与aot部分的双向函数参数传递。
+AOT部分与解释器部分的参数传递和存储方式是不同的。解释器部分调用AOT函数，解释器的参数全在解释器栈上，必须借助合适的办法才能将解释器的函数参数传递给AOT函数。同样的，解释器无法直接获得AOT回调函数的参数。必须为每一种签名的函数生成对应的桥接函数，来实现解释器与aot部分的双向函数参数传递。`interpreter -> AOT` 方向的调用，虽然可以通过ffi之类的库来完成，但函数调用的成本过高，最合理的方式仍然是提前生成好这种双向桥接函数。解释器内部调用直接走解释器栈，不需要桥接函数。
 
-`interpreter -> AOT` 方向的调用，虽然可以通过ffi之类的库来完成，但函数调用的成本过高，最合理的方式仍然是提前生成好这种双向桥接函数。
-
-解释器内部调用直接走解释器栈，不需要桥接函数。
-
-根据桥接函数的原理，对于固定的AOT部分，桥接函数集是确定的，后续无论进行任何热更新，都不会需要新的额外桥接函数。**因此不用担心热更上线后突然出现桥接函数缺失的问题。**
+?> 根据桥接函数的原理，对于固定的AOT部分，桥接函数集是确定的，后续无论进行任何热更新，都不会需要新的额外桥接函数。**因此不用担心热更上线后突然出现桥接函数缺失的问题。**
 
 ## 桥接函数签名
 
@@ -107,11 +103,15 @@ S,C 分别对应aligment=1、8的值类型。例如UnityEngine.Vector3的签名�
 |Vector4d|v4d|
 
 
-## HybridCLR默认桥接函数集
 
-HybridCLR已经扫描过Unity核心库和常见的第三方库生成了默认的桥接函数集，相关代码文件为 libil2cpp/hybridclr/interpreter/MethodBridge_{abi}.cpp，其中{abi}为Arm64、Universal32或Universal64。
+## 生成桥接函数
 
-## 自定义桥接函数集
+hybridclr_unity package中提供工具脚本，推荐使用菜单命令 `HybridCLR/Generate/All` 自动生成所有桥接函数。你也可以直接使用`HybridCLR/Generate/MethodBridge`
+生成桥接函数，但该命令依赖`裁剪后的AOT dll`和`热更新dll`，而`裁剪后的AOT dll`依赖于`生成LinkXml`和`生成Il2CppDef`。因此如果没有使用`HybridCLR/Generate/All`命令，必须先依次运行：
 
-实践项目中总会遇到一些aot函数的共享桥接函数不在默认桥接函数集中。因此 [hybridclr_unity package](/basic/com.focus-creative-games.hybridclr_unity.md)中提供工具脚本，使用菜单命令 `HybridCLR/Generate/MethodBridge` 根据程序集自动生成所有桥接函数。
+- `HybridCLR/Generate/Il2CppDef`
+- `HybridCLR/Generate/LinkXml`
+- `HybridCLR/CompileDll/ActiveBuildTarget`
+- `HybridCLR/Generate/AotDlls`
+- `HybridCLR/Generate/MethodBridge`
 

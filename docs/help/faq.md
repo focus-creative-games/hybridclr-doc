@@ -1,15 +1,3 @@
----
-title: FAQ
-date: 2022-05-25 11:50:18
-permalink: /hybridclr/faq/
-categories:
-  - HybridCLR
-tags:
-  - 
-author: 
-  name: Code Philosophy
-  link: https:://code-philosophy.com
----
 # FAQ
 
 ## HybridCLR支持哪些平台?
@@ -22,9 +10,7 @@ il2cpp支持的平台都支持
 
 ## 为什么使用HybridCLR打出的包体增大很多
 
-HybridCLR本身只会增加很少包体(1-2M)。包体增大很多是因为你错误地在link.xml保留了太多类，导致包体急剧增大。
-
-请自行参照Unity的裁剪规则优化。
+HybridCLR本身只会增加很少包体(1-2M)。包体增大很多是因为你错误地在link.xml保留了太多类，导致包体急剧增大。请自行参照Unity的裁剪规则优化。
 
 ## HybridCLR是嵌了mono吗？
 
@@ -32,7 +18,7 @@ HybridCLR本身只会增加很少包体(1-2M)。包体增大很多是因为你�
 
 ## HybridCLR写代码有什么限制吗？
 
-几乎没有限制，参见[限制事项](/hybridclr/limit/)
+几乎没有限制，参见[未支持的特性](/basic/notsupportedfeatures.md)
 
 
 ## 支持泛型类和泛型函数吗？
@@ -41,7 +27,7 @@ HybridCLR本身只会增加很少包体(1-2M)。包体增大很多是因为你�
 
 ## 支持热更新MonoBehaviour吗？
 
-完全支持。不仅能在代码中添加，也可以直接挂在热更新资源上。具体参见[使用热更新MonoBehaviour](/hybridclr/monobehaviour/)
+完全支持。不仅能在代码中添加，也可以直接挂在热更新资源上。具体参见[使用热更新MonoBehaviour](/basic/monobehaviour.md)
 
 ## 支持反射吗？
 
@@ -55,9 +41,6 @@ HybridCLR本身只会增加很少包体(1-2M)。包体增大很多是因为你�
 
 支持,最大支持255个。但是不会自动加载依赖dll。需要你手动按依赖顺序加载热更dll。
 
-## 支持创建值类型吗？
-
-支持。
 
 ## 支持 .net standard 2.0 吗？
 
@@ -67,9 +50,4 @@ HybridCLR本身只会增加很少包体(1-2M)。包体增大很多是因为你�
 
 支持。AOT部分的burst代码工作正常，但热更新部分的burst代码以解释方式执行。这个是显然的。
 
-## MethodBridge生成非常耗时，每次打包都需要重新生成吗
-
-桥接函数在版本间变化不大，而且 `interpreter -> AOT` 方面的桥接函数有反射托底，很少会出现缺失的情况。
-
-因此开发期只要没遇到桥接函数缺失的情况，可以不用再生成，但打正式包，强烈推荐生成一次。
 

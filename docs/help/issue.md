@@ -1,21 +1,7 @@
----
-title: BUG反馈模板
-date: 2022-06-15 19:12:10
-permalink: /hybridclr/bug_reporter/
-categories:
-  - HybridCLR
-tags:
-  -  
-comment: false
-editLink: false
-author: 
-  name: Code Philosophy
-  link: https://github.com/focus-creative-games
----
 # BUG反馈模板
 
 反馈bug前，请确认已经完成以下步骤：  
-- 首先仔细查看[常见错误文档](/hybridclr/common_errors/),大多数新手问题都在里面。
+- 仔细查看[常见错误文档](/hybridclr/common_errors/)，大多数新手问题都在里面。
 - 至此，如果还确定是bug，请按照下面 **反馈模板** 发给给技术客服(QQ1732047670)。
 
 ## Bug反馈
