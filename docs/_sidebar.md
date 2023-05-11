@@ -26,7 +26,7 @@
 * 开发者文档-高级
   * [Differential Hybrid Execution技术](advanced/differentialhybridexecution.md)
   * [与lua、javascript等语言交互](advanced/workwithscriptlanguage.md)
-  * [热重载](advanced/hotreloadassembly.md)
+  * [HotReload 热重载技术](advanced/hotreloadassembly.md)
   * [源码阅读与调试](advanced/sourceinspect.md)
   * [il2cpp bugs](advanced/il2cppbugs.md)
 * 帮助

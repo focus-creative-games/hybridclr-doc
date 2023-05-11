@@ -1,16 +1,3 @@
----
-title: 热重载技术
-date: 2022-05-25 11:50:18
-permalink: /hybridclr/hotreload/
-categories:
-    - HybridCLR
-tags:
-    -
-author:
-    name: Code Philosophy
-    link: https:://code-philosophy.com
----
-
 # HotReload 热重载技术
 
 HotReload技术用于卸载或者重新加载一个dll，适用于小游戏合集类型的游戏。该方案只提供**商业化版本**，具体请见[商业化服务](/other/business.md)。
