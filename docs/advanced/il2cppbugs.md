@@ -1,15 +1,3 @@
----
-title: il2cpp bugs
-date: 2022-05-25 11:50:18
-permalink: /hybridclr/129afe/
-categories:
-  - HybridCLR
-tags:
-  - 
-author: 
-  name: Code Philosophy
-  link: https:://code-philosophy.com
----
 # il2cpp bug记录
 
 ## 逆变协变泛型接口调用错误
@@ -133,13 +121,12 @@ metadata/ArrayMetadata.cpp中
 
 ## throw null 会导致崩溃
 
-对于 c#代码  `throw ex;` 会生成如下代码 
+对于 c#代码  `throw ex;` 会生成如下代码，当`ex = null`时崩溃。
 
 ```cpp
     IL2CPP_RAISE_MANAGED_EXCEPTION(L_107, TestCase_Run_m5B897FE9D1ABDC1AA114D3482A6613BAAE3243F6_RuntimeMethod_var);
 ```
 
-当ex=null时崩溃
 
 ## close delegate 的this为null时，抛出的异常不合规范
 
@@ -191,7 +178,7 @@ metadata/ArrayMetadata.cpp中
     }
 ```
 
-## 2019 WebGL 平台的代码有bug
+## 2019 WebGL平台生成的对象成员访问代码未检查空引用
 
 取类成员字段时未检查是否空指针。目前发现只有WebGL平台才会这样。
 

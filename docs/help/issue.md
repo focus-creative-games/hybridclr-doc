@@ -1,7 +1,7 @@
 # BUG反馈模板
 
 反馈bug前，请确认已经完成以下步骤：  
-- 仔细查看[常见错误文档](/hybridclr/common_errors/)，大多数新手问题都在里面。
+- 仔细查看[常见错误文档](/help/commonerrors.md)，大多数新手问题都在里面。
 - 至此，如果还确定是bug，请按照下面 **反馈模板** 发给给技术客服(QQ1732047670)。
 
 ## Bug反馈
@@ -10,12 +10,12 @@
 
 **bug反馈模板**
 
-- Unity Editor版本。如 2020.3.33
-- 操作系统。 如Win 10
-- 出错的Build Target。如 Android 64。
-- com.focus-creative-games.hybridclr_unity的版本号
-- hybridclr仓库的版本号
-- il2cpp_plus仓库的版本号
+- Unity Editor版本。如 2020.3.33。
+- 操作系统。 如Win 10。
+- 出错的BuildTarget。如 Android 64。
+- com.focus-creative-games.hybridclr_unity的版本号。如v2.3.1。
+- hybridclr仓库的版本号。如v2.2.0。
+- il2cpp_plus仓库的版本号。如v2021-2.2.0。
 - 截图及日志文件
 - 复现条件
 - 出错的c#代码位置（如果能定位出的话）

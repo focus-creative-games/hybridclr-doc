@@ -1,16 +1,3 @@
----
-title: 商业化服务
-date: 2022-05-25 23:17:56
-permalink: /other/business.md
-categories:
-  - HybridCLR
-tags:
-  - 
-author: 
-  name: Code Philosophy
-  link: https:://code-philosophy.com
----
-
 # 商业化服务
 
 灵活支持多种商业化形式，既可以是一整套的标准化企业服务，也可以购买单独的技术产品。
@@ -35,11 +22,11 @@ author:
 
 以下是部分测试用例下的商业化版本相比于社区版本的性能提升数据。
 
-![interpreter_optimization](/img/hybridclr/interpreter_optimization.jpg)
+![interpreter_optimization](../img/hybridclr/interpreter_optimization.jpg)
 
 以下是数值计算方面AOT与HybridCLR在优化后的性能对比，加法大约是7-16倍左右，乘法是4倍，除法是2倍。
 
-![benchmark_numeric](/img/hybridclr/benchmark_numeric.jpg)
+![benchmark_numeric](../img/hybridclr/benchmark_numeric.jpg)
 
 
 ## Differential Hybrid Execution（DHE） 差分混合执行技术
@@ -62,7 +49,7 @@ HotReload技术用于卸载或者重新加载一个dll，适用于小游戏合�
 - 【优点】重新加载的Assembly代码可以任意变化甚至完全不同
 - 【优点】卸载大部分内存，但有少量残留（如类型静态成员字段占据的内存）
 - 【缺点】要求业务代码有清理逻辑，主动清除旧对象（核心是确保不会再调用旧代码），并且退出所有在执行的旧逻辑
-- 【缺点】要求重载后在旧Assembly中存在同名类的MonoBehaviour中的被Unity引擎特殊处理函数如Awake之类不发生增删（但函数体可以变化）
+- 【缺点】要求重载后在旧Assembly中存在同名类的MonoBehaviour中的被Unity引擎特殊处理的函数如Awake之类不发生增删（但函数体可以变化）
 
 
 ## 其他服务

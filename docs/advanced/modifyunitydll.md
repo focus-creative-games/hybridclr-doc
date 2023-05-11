@@ -1,22 +1,7 @@
----
-title: 修改Unity编辑器相关dll
-date: 2022-05-29 20:55:59
-permalink: /hybridclr/modify_unity_dll/
-categories:
-  - HybridCLR
-tags:
-  - 
-author: 
-  name: Code Philosophy
-  link: https:://code-philosophy.com
----
-
-# 修改Unity编辑器相关dll
+# 魔改UnityEditor Assembly
 
 由于Unity提供的Editor脚本及il2cpp工具未能完全满足需求，在某些Unity版本或者打包某些目标平台，需要对Unity Edtior
-自带的一些dll进行修改。
-
-目前有两个dll发生修改：
+自带的一些dll进行修改。目前有两个dll需要修改：
 
 - UnityEditor.CoreModule.dll
 - Unity.IL2CPP.dll
@@ -26,9 +11,7 @@ author:
 ## 使用dnspy工具
 
 我们使用 [dnspy](https://github.com/dnSpy/dnSpy) 来修改 dll文件。而dnspy只能在Win下运行，故哪怕是mac版本dll，
-你也得先将相应dll复制到Win下后再修改。
-
-下载 [dnspy](https://github.com/dnSpy/dnSpy/releases)，选择 [Win64版本](https://github.com/dnSpy/dnSpy/releases/download/v6.1.8/dnSpy-net-win64.zip)。
+你也得先将相应dll复制到Win下后再修改。下载 [dnspy](https://github.com/dnSpy/dnSpy/releases)，选择 [Win64版本](https://github.com/dnSpy/dnSpy/releases/download/v6.1.8/dnSpy-net-win64.zip)。
 
 修改dll的操作大致如下：
 
@@ -42,25 +25,21 @@ author:
 
 ## UnityEditor.CoreModule.dll
 
-只有2021版本并且需要build iOS的开发者，才需要使用修改版本的 UnityEditor.CoreModule.dll。
-
-**如果你的hybridclr_unity版本 >= 2.0.1**，由于已经使用MonoHook技术在不修改UnityEditor.CoreModule.dll的情况下也能复制出裁判后的AOT dll，**不需要**执行以下操作。
+!> 只有2021版本并且需要build iOS的开发者，才需要使用修改版本的 UnityEditor.CoreModule.dll。**如果你的hybridclr_unity版本 >= 2.0.1**，
+由于已经使用MonoHook技术在不修改UnityEditor.CoreModule.dll的情况下也能复制出裁判后的AOT dll，**不需要**执行以下操作。
 
 ### 原理
 
-`补充元数据` 技术的`HomologousImageMode::Consistent`模式需要使用裁剪后的AOT dll，此时我们需要获得打包过程中生成的AOT dll。
+`补充元数据`和`生成桥接函数`都依赖裁剪后的AOT dll，此时我们需要获得打包过程中生成的AOT dll。对于Unity 2020及更早版本，
+在 `IIl2CppProcessor.OnBeforeConvertRun` 事件中复制出裁剪后的AOT dll即可。对于Unity 2021版本，除了iOS以外的target，
+可以在 `IPostprocessBuildWithReport.OnPostprocessBuild` 事件中复制出AOT dll。但当target为iOS时，裁减输出目录与其他很不相同，
+为`Temp/StagingArea/Data/Managed/tempStrip` ，并且Unity在转换为c++代码后就会删除这个临时目录。
 
-对于Unity 2020及更早版本，在 `IIl2CppProcessor.OnBeforeConvertRun` 事件中复制出裁剪后的AOT dll即可。
+Unity Editor未提供公开接口可以复制出target为iOS时的AOT dll，故只能修改UnityEditor.CoreModule.dll的代码，在生成裁剪AOT dll后，插入适当的代码，
+将相应dll复制到 `HybridCLRData\AssembliesPostIl2CppStrip\iOS`，供后续打包使用。UnityEditor.CoreModule.dll 代码每个Unity版本都不一样。由于我们时间有限，
+目前只制作了2021.3.1版本 （将来可能会提供更多），其他版本请自行制作。具体操作方式请阅读下面的文档。
 
-对于Unity 2021版本，除了iOS以外的target，可以在 `IPostprocessBuildWithReport.OnPostprocessBuild` 事件中复制出AOT dll。
-
-但当target为iOS时，裁减输出目录与其他很不相同，为`Temp/StagingArea/Data/Managed/tempStrip` ，并且Unity在转换为c++代码后就会删除这个临时目录。
-
-Unity Editor未提供公开接口可以复制出target为iOS时的AOT dll，故只能修改UnityEditor.CoreModule.dll的代码，在生成裁剪AOT dll后，插入适当的代码，将相应dll复制到 `HybridCLRData\AssembliesPostIl2CppStrip\iOS`，供后续打包使用。
-
-UnityEditor.CoreModule.dll 代码每个Unity版本都不一样。由于我们时间有限，目前只提供了2021.3.1、2021.3.6版本 （将来可能会提供更多），其他版本请自行制作。具体操作方式见 `修改 UnityEditor.CoreModule.dll` 这节。
-
-注意！同个版本的Win与Mac版本的UnityEditor.CoreModule.dll并不能混用，必须分别制作。
+!> 同个版本的Win与Mac版本的UnityEditor.CoreModule.dll并不能混用，必须分别制作。
 
 ### 替换原始UnityEditor.CoreModule.dll
 
@@ -87,7 +66,8 @@ UnityEditor.CoreModule.dll 代码每个Unity版本都不一样。由于我们时
 ```
 修改为 
 ```csharp
-	string dstAOTDir = Path.Combine(UnityEngine.Application.dataPath, "../HybridCLRData/AssembliesPostIl2CppStrip", EditorUserBuildSettings.activeBuildTarget.ToString());
+	string dstAOTDir = Path.Combine(UnityEngine.Application.dataPath, "../HybridCLRData/AssembliesPostIl2CppStrip",
+     EditorUserBuildSettings.activeBuildTarget.ToString());
 	Directory.CreateDirectory(dstAOTDir);
 	foreach (string text3 in Directory.GetFiles(fullPath))
 	{
@@ -100,7 +80,7 @@ UnityEditor.CoreModule.dll 代码每个Unity版本都不一样。由于我们时
 		File.Move(text3, Path.Combine(managedAssemblyFolderPath, Path.GetFileName(text3)));
 	}
 ```
-- 注意!反编译的代码中，变量名未必是text3，请按实际情况处理。如有遇到编译错误，请自行酌情处理。
+- 注意！反编译的代码中，变量名未必是text3，请按实际情况处理。如有遇到编译错误，请自行酌情处理。
 - 点击右下角的 `编译` 按钮，如果成功，则无任何提示，退出编辑界面，返回反编译查看模式。如果失败，请自行处理编译错误。有时候dnspy会有莫名其妙的引用错误，退出源码编辑模式，重新右键`编辑方法`，再次进入就能解决。
 - 菜单 `文件 -> 保存模块` 保存修改后的 UnityEditor.CoreModule.dll文件。如果在Win或Mac下，有可能会遇到权限问题，请酌情处理（比如先保存到其他位置，再手动覆盖）
 - 重新打开Unity Editor。此时iOS便能正确获得裁剪AOT dll。
@@ -109,13 +89,11 @@ UnityEditor.CoreModule.dll 代码每个Unity版本都不一样。由于我们时
 
 ### 原理
 
-2019版本，我们需要轻微修改il2cpp生成的代码，将 `Il2CppOutputProject\Source\il2cppOutput\Il2CppTypeDefinitions.c`中定义的常量const Il2CppType换成可变的Il2CppType。我们需要修改`Unity.IL2CPP.dll`代码达到这个目标。
-
-注意！实际操作过程发现dnspy反编译的代码有问题，最终我们在ILSpy反编译的代码基础上调整后，再在dnspy里编辑保存。
-
+2019版本，我们需要轻微修改il2cpp生成的代码，将 `Il2CppOutputProject\Source\il2cppOutput\Il2CppTypeDefinitions.c`中定义的常量const Il2CppType换成可变的Il2CppType。
+我们需要修改`Unity.IL2CPP.dll`代码达到这个目标。注意！实际操作过程发现dnspy反编译的代码有问题，最终我们在ILSpy反编译的代码基础上调整后，再在dnspy里编辑保存。
 直接复制以下我们修改好的代码，在dnspy里编辑保存。修改过程可能会遇到问题，参照上面修改`UnityEditor.CoreModule.dll`中使用的解决办法。
 
-### Unity.IL2CPP.CppDeclarationsWriter::Write(StreamWriter writer, ICppDeclarations declarationsIn, IInteropDataCollector interopDataCollector)
+### 修改 `Unity.IL2CPP.CppDeclarationsWriter::Write(StreamWriter writer, ICppDeclarations declarationsIn, IInteropDataCollector interopDataCollector)`
 
 修改后的代码
 
@@ -219,7 +197,7 @@ UnityEditor.CoreModule.dll 代码每个Unity版本都不一样。由于我们时
     writer.Flush();
 ```
 
-### Unity.IL2CPP.Il2CppTypeWriter::WriteIl2CppTypeDefinitions(IMetadataCollection metadataCollection)
+### 修改`Unity.IL2CPP.Il2CppTypeWriter::WriteIl2CppTypeDefinitions(IMetadataCollection metadataCollection)`
 
 修改后的代码
 
@@ -244,7 +222,7 @@ UnityEditor.CoreModule.dll 代码每个Unity版本都不一样。由于我们时
     return MetadataWriter.WriteTable(base.Writer, "const Il2CppType* const ", "g_Il2CppTypeTable", items.ItemsSortedByValue(), (KeyValuePair<Il2CppTypeData, int> kvp) => "&" + Globals.Naming.ForIl2CppType(kvp.Key.Type, kvp.Key.Attrs), externTable: true);
 ```
 
-### Unity.IL2CPP.Metadata.Il2CppGenericInstWriter::WriteIl2CppGenericInstDefinitions(IIl2CppGenericInstCollectorReaderService genericInstCollection)
+### 修改 `Unity.IL2CPP.Metadata.Il2CppGenericInstWriter::WriteIl2CppGenericInstDefinitions(IIl2CppGenericInstCollectorReaderService genericInstCollection)`
 
 修改后的代码
 

@@ -1,7 +1,6 @@
 # 常见错误
 
 目前提交的版本都经过测试，基本不可能出现编译错误及崩溃或者基础的运行错误。如果查看了常见错误，还未能解决问题，请将hybridclr_unity、hybridclr、il2cpp_plus更新到最新版本，再试一次。
-
 如果仍然没有解决问题，可以加入以下群：
 
 - 新手1群：428404198（满）
@@ -50,18 +49,13 @@ hybridclr_unity 与 hybridclr及il2cpp_plus版本不匹配导致。
 
 - 你从未在主工程中使用过跟该dll相关代码，导致就算link.xml中保留了，仍然整个被裁剪。解决办法是在主工程中随便写段代码引用该dll中的某个类或函数。
 - Unity2021版本，打包iOS平台，使用低于2.0.1版本hybridclr_unity，同时未修改 UnityEditor.CoreModule.dll文件，导致未获得裁剪后的dll。解决办法是升级hybridclr_unity到2.0.1及更高版本或者按照文档[修改Unity编辑器相关dll](/hybridclr/modify_unity_dll/)修改UnityEditor.CoreModule.dll。
-- 你开启了 collectAssetReferenceTypes 选项，它会导致依赖aot dll来生成link.xml，形成死循环。解决办法是 关闭它或者先手动build一次项目。
 - 其他原因。万能的解决办法是手动build一次项目生成aot dll。
-
- 详细请看 [HybridCLR打包工作流](/hybridclr/build_pipeline/)中
-生成桥接函数 这一节的文档。
 
 ### 运行 `HybridCLR/generate/xxx` 时发生 `NullReferenceException. HybridCLR.Editor.ABI.TypeCreatorBase.CreateTypeInfo ...`
 
 如果你的hybridclr_unity package版本低于 1.1.6,则因为你的项目中存在 mscorlib.dll、System.Memory.dll、UnityEngine.dll等跟系统dll重名的冲突dll，导致解析dll时错误地读取了这些dll，进而发生错误。
 
-如果版本 >= 1.1.6, 由于生成桥接函数需要依赖裁减后的AOT dll，而你的AOT dll是旧的，导致热更新代码中依赖的类型在AOT dll中因为卸载而缺失了。因此你需要先 `generate/linkxml`，再build或者导出工程以生成裁剪后的aot dll，再运行你当前的 `generate/xxx` 命令。 详细请看 [HybridCLR打包工作流](/hybridclr/build_pipeline/)中
-生成桥接函数 这一节的文档。
+如果版本 >= 1.1.6, 由于生成桥接函数需要依赖裁减后的AOT dll，而你的AOT dll是旧的，导致热更新代码中依赖的类型在AOT dll中因为卸载而缺失了。因此你需要先 `generate/linkxml`，再build或者导出工程以生成裁剪后的aot dll，再运行你当前的 `generate/xxx` 命令。
 
 ### 运行 `HybridCLR/generate/xxx` 时发生 `DHE start not found`
 
@@ -71,9 +65,7 @@ mian分支已经移除了DHE相关的代码，相应的package版本1.1.6也移�
 
 ### 打包iOS版本时未生成 AssembliesPostIl2CppStrip 目录
 
-Unity 2021版本打包`iOS平台`时，由于Unity Editor未提供公开接口可以复制出target为iOS时的裁剪后的AOT dll，故必须使用修改后的UnityEditor.CoreModule.dll覆盖Unity自带的相应文件。
-
-详见 [安装HybridCLR](/basic/install.md) 及 [修改Unity编辑器相关dll](/hybridclr/modify_unity_dll/)。
+升级hybridclr_unity版本到v2.0.0以上。
 
 ### BuildFailedExceptoin: Build path contains a project prevously built without the "Create Visual Studio Solution"
 
@@ -83,14 +75,8 @@ Unity 2021版本打包`iOS平台`时，由于Unity Editor未提供公开接口�
 
 如果还是遇到这个问题，你完全可以自己手动build一次工程来生成aot dll，然后跳过 `generate/AOTDlls`这一步。
 
-### Project Settings里面没有 HybridCLR Settings
-
-HybridclrSettings.asset 文件因为版本更迭的原因，配置无法兼容导致加载出错。
-
-解决办法为 删除 `ProjectSettings/HybriclrSettings.assets` 文件。
 
 ## 打包时发生错误
-
 
 ### Currently selected scripting backend (IL2CPP) is not installed
 
@@ -120,9 +106,7 @@ xcode版本太旧导致。更新到较新版本。
 
 ### WebGL平台打包时遇到 undefine symbol: send file 之类的错误
 
-这个错误跟HybridCLR无关。 这是因为WebGL对很多函数有限制，比如说send file符号丢失是因为不能调用IO相关函数。
-
-遇到问题请自己剔除那些WebGL平台不支持函数。具体自己阅读Unity文档。
+这个错误跟HybridCLR无关。 这是因为WebGL对很多函数有限制，比如说send file符号丢失是因为不能调用IO相关函数。遇到问题请自己剔除那些WebGL平台不支持函数。具体自己阅读Unity文档。
 
 ### Win 下 打包时遇到 xxxx\il2cpp\libil2cpp\utils\Il2CppHashMap.h(71): error C2039: 'hash_compare': is not a member of 'stdext'
 
@@ -155,8 +139,8 @@ File name: 'Unity.IL2CPP.Bee.BuildLogic.WindowsDesktop, Version=1.0.0.0, Culture
 
 ### 打包WebGL平台时出现 DirectoryNotFoundException: xxx\HybridCLRData\LocalIl2CppData-{yyy}\il2cpp\il2cpp-deps  错误
 
-WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切记
-每次`Generate/xxx`之后必须重新将`{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`目录复制到Editor安装目录，再打包。否则有可能会出现 Scripting Missing或者桥接函数缺失之类的错误。
+WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切记每次`Generate/xxx`之后必须重新将`{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`
+目录复制到Editor安装目录，再打包。否则有可能会出现 Scripting Missing或者桥接函数缺失之类的错误。
 
 ### 打包时出现 GC_set_mark_stck_empty 函数找不到或者签名不匹配的错误
 
@@ -187,7 +171,7 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 
 ### 打包里发现 "Undefined symbols for architecture arm64: "il2cpp::utils::Debugger::xxxxx"
 
-原因是 build_libil2cpp.sh打包出的 libil2cpp.a是 release模式的，与development模式的工程一起编译时会出现编译错误。
+原因是 build_libil2cpp.sh打包出的 libil2cpp.a是release模式的，与development模式的工程一起编译时会出现编译错误。
 
 解决办法是去掉development build选项，或者说自己修改 build_libil2cpp.sh，打包出 debug模式的libil2cpp.a
 
@@ -297,11 +281,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 #### 情况2： 错误日志中未出现AOT generic method的字眼
 
-这是unity代码裁剪引起的函数丢失，你使用常规的避免unity代码裁剪的方式处理即可。
-
-按照Unity防裁剪原理，你在link.xml中添加对丢失代码类的引用即可，但这种事情费时费力。
-
-HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Genrate/LinkXml` 根据热更新dll生成 link.xml
+这是unity代码裁剪引起的函数丢失，运行菜单命令 `HybridCLR/Genrate/LinkXml` 根据热更新dll生成 link.xml。同时要确保被引用的AOT程序集在主工程代码中被引用过，否则linkxml不会生效。
 
 ### 遇到'ExecutionEngineException: Image::ReadTypeFromResolutionScope ReadTypeFromResolutionScope.TYPEREF fail' 
 
@@ -309,7 +289,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 ### 遇到 ExecutionEngineException: metadata type not match
 
-在 LoadMetadataForAOTAssembly 方法中，载入的dll，使用了裁剪之前的版本。应该使用裁剪之后的，具体使用可以参照hybridclr_trial项目。在BuildProcessor中，生成裁剪后的dll后，将dll拷贝到暂存目录。
+补充元数据使用了不匹配的裁剪后的AOT版本，应该使用本次打包生成，或者使用`HomologousImageMode::SuperSet`模式加载。
 
 ### 遇到ExecutionEngineException: not support extern method: xxxx
 
@@ -342,9 +322,6 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 为出错的函数所在的dll补充元数据即可。
 
-### MethodAccessException 错误
-
-你失误开启了增量式GC导致对象内存覆盖。请在player settings里关闭增量式gc
 
 ### GetReversePInvokeWrapper fail. exceed max wrapper num of method
 

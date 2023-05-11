@@ -1,17 +1,3 @@
----
-title: 最佳实践
-date: 2022-05-25 11:50:18
-permalink: /hybridclr/best_practices/
-categories:
-  - HybridCLR
-  - start_up
-tags:
-  - 
-author: 
-  name: Code Philosophy
-  link: https:://code-philosophy.com
----
-
 # 最佳实践
 
 ## unity版本推荐
@@ -28,7 +14,7 @@ author:
 
 ## 原生与解释器部分性能敏感的场合不要用反射来交互，应该通过Delegate或虚函数
 
-以Update函数为例，大多数人会想到主工程跟热更部分的交互像这样
+以Update函数为例，大多数人会想到主工程跟热更部分的交互像这样：
 
 ```csharp
 var klass = ass.GetType("App");

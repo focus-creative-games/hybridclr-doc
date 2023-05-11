@@ -1,21 +1,9 @@
----
-title: 致谢
-date: 2022-05-25 11:50:18
-permalink: /hybridclr/donate/
-categories:
-  - HybridCLR
-tags:
-  - 
-author: 
-  name: Code Philosophy
-  link: https:://code-philosophy.com
----
+# 致谢名单
 
-# 致谢
+感谢这些朋友的慷慨赞助！！！
 
-感谢这些朋友的慷慨赞助
+?> 李旭，慷概解囊捐赠 **20000**！
 
-- 李旭 感谢慷概解囊捐赠 **20000**
 - 小锦鲤也有梦
 - 奶泡泡 [github主页](https://github.com/yimengfan)，推荐框架 [BDFramework.Core](https://github.com/yimengfan/BDFramework.Core)
 - 傑 [JEngine](https://github.com/JasonXuDeveloper/JEngine) 功能强大成

@@ -1,20 +1,6 @@
----
-title: 开发事纪
-date: 2022-05-25 23:17:56
-permalink: /hybridclr/changelog/
-categories:
-  - HybridCLR
-  - changelog
-tags:
-  - 
-author: 
-  name: Code Philosophy
-  link: https:://code-philosophy.com
----
+# 改动日志
 
-# 开发事纪
-
-- 2023.02.26 更新到Unity最新LTS版本 2020.3.47及2021.3.23
+- 2023.04.26 更新到Unity最新LTS版本 2020.3.47及2021.3.23
 - 2023.03.20 hybridclr_unity生成AOTGenericReference时包含aot assembly列表及美化的泛型类及函数名
 - 2023.3.11 更新到Unity最新LTS版本 2020.3.46及2021.3.20
 - 2023.2.4 2021版本WebGL平台支持资源上挂载脚本
@@ -41,8 +27,7 @@ author:
 - 2022.7.14 支持Win 32(x86)
 - 2022.7.13 与UWA合作课程上线
 - 2022.7.10 正式支持Android armv7 32位版本！！！
-- 2022.7.6 **===focus-creative-games独立！！！===**，改名HybridCLR(wolong)
-- 2022.7.5 成功在NS（任天堂）平台运行一个中度RPG游戏
+- 2022.7.6 **成立Code Philosophy（代码哲学）！！！**，改名HybridCLR
 - 2022.7.4 github star数破2000
 - 2022.6.7 上线了第一个Android、iOS双平台的中度游戏
 - 2022.5.31 第一次在PC、Android、iOS 三平台，完整稳定流畅运行起一个重度RPG卡牌项目！！！
@@ -50,7 +35,7 @@ author:
 - 2022.5.18 支持Android(armv8)和iOS(64)平台！！！跑通所有单元测试
 - 2022.4.19 QQ主群人数破1000！！！
 - 2022.4.16 首次在PC平台完整运行一个大型MMORPG项目
-- ** ===== 2022.3.23 ===== ** 开源
+- **2022.3.23** 开源
 - 2022.3.19 跑通了第一个小游戏2048
 - 2022.3.16
   - 利用泛型共享机制，解决了一部分AOT泛型问题

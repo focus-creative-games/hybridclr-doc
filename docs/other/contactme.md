@@ -5,4 +5,4 @@
 - 新手2群：**680274677（推荐）**
 - QQ悬赏互助群：762953653。悬赏提问，快速解决问题。
 - 商业合作邮箱: business@code-philosophy.com
-- [商业化支持](https://focus-creative-games.github.io/other/business.md)
+- [商业化支持](/other/business.md)

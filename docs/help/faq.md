@@ -44,7 +44,7 @@ HybridCLR本身只会增加很少包体(1-2M)。包体增大很多是因为你�
 
 ## 支持 .net standard 2.0 吗？
 
-支持。但请注意，主工程打包用.net standard，而热更新dll打包**必须用.net 4.x**。详细解释请参照[常见错误文档](/hybridclr/common_errors/)
+支持。但请注意，主工程打包用.net standard，而热更新dll打包**必须用.net 4.x**。详细解释请参照[常见错误文档](/help/commonerrors.md)
 
 ## 支持Unity的DOTS框架吗？
 

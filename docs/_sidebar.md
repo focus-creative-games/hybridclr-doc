@@ -27,18 +27,12 @@
   * [Differential Hybrid Execution技术](advanced/differentialhybridexecution.md)
   * [与lua、javascript等语言交互](advanced/workwithscriptlanguage.md)
   * [热重载](advanced/hotreloadassembly.md)
-  * [魔改UnityEditor Assembly](advanced/modifyunitydll.md)
   * [源码阅读与调试](advanced/sourceinspect.md)
   * [il2cpp bugs](advanced/il2cppbugs.md)
 * 帮助
   * [FAQ](help/faq.md)
   * [常见错误](help/commonerrors.md)
   * [报告问题](help/issue.md)
-* 技术Blog
-  * [目录](blog/catelog.md)
-  * [HybridCLR可行性思维实验](blog/mindexperiment.md)
-  * [HybridCLR实现原理](blog/principle.md)
-  * [HybridCLR指令集设计](blog/instructions.md)
 * 商业化
   * [**商业化服务**](other/business.md)
   * [合作案例](other/business_partner.md)
@@ -47,3 +41,8 @@
   * [改动日志](other/changelog.md)
   * [致谢名单](other/donate.md)
   * [支持与联系](other/contactme.md)
+* 技术Blog
+  * [目录](blog/catelog.md)
+  * [HybridCLR可行性思维实验](blog/mindexperiment.md)
+  * [HybridCLR实现原理](blog/principle.md)
+  * [HybridCLR指令集设计](blog/instructions.md)
