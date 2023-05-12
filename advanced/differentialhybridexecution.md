@@ -9,6 +9,13 @@ DHE只提供**商业化版本**，具体请见[商业化服务](/other/business.
 将标记为DHE的程序集也打入主包中，运行后再加载最新的热更新dll。执行过程中，调用某个DHE程序集的函数时，如果函数未发生变化，则直接调用原生的AOT实现，否则以解释方式执行最新的代码。
 由于实践中两个版本往往不会修改太多代码，DHE基本上能接近原生的性能水平。
 
+## 未支持特性
+
+- 加载DHE热更新代码前不能执行DHE对应的AOT assembly中的任何代码。意味着DHE不支持像mscorlib这种基础库的差分混合，但支持传统热更新assembly的差分热更新。
+- 由于第一条的限制，不支持在DHE程序集中使用`[InitializeOnLoadMethod]`、`Script Execution Order settings`。
+- 由于第一条的限制，不支持DHE脚本挂载在随包资源中，包括Resources。
+- 不能在DHE程序集中通过热更新新增extern函数。
+
 ## 安装
 
 `HybridCLR/Installer`中完成安装后，手动将修改版本libil2cpp复制到`{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`，完成安装。
@@ -62,7 +69,7 @@ void InitDifferentialHybridAssembly(string assemblyName)
 示例如下:
 
 ```cpp
-    // Il2CppCompatibleDefs.cpp 文件
+    // hybridclr/generated/AssemblyManifest.cpp 文件
 
 	const char* g_differentialHybridAssemblies[]
 	{
