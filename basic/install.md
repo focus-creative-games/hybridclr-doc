@@ -54,7 +54,7 @@ hybridclr_unity 仓库地址为 [github](https://github.com/focus-creative-games
 - 1.0分支地址为 `https://gitee.com/focus-creative-games/hybridclr_unity.git#1.0`
 - 其他tag版本地址为 `https://gitee.com/focus-creative-games/hybridclr_unity.git#{tag}`
 
-想安装某个分支或者tag版本，请在地址后加上`#{tag}`，如 `https://gitee.com/focus-creative-games/hybridclr_unity.git#{2.4.0}`。
+想安装某个分支或者tag版本，请在地址后加上`#{tag}`，如 `https://gitee.com/focus-creative-games/hybridclr_unity.git#v2.4.1`。
 
 ![add package](../img/hybridclr/install_hybridclrunity_package.jpg)
 
