@@ -165,6 +165,8 @@ hybridclr代码要兼容多个Unity版本，需要当前Unity版本相关宏定�
 
 是否开启HyridCLR热更。默认true。如果为false，则打包不再包含HybridCLR功能。
 
+!> 如果禁用HybridCLR，请同时也移除主工程中对HybridCLR.Runtime程序集的引用，否则打包时会出现`RuntimeApi::LoadMetadataForAOTAssembly`之类符号丢失的错误。
+
 ### useGlobalIl2cpp
 
 是否使用全局安装位置，即editor安装位置下的il2cpp目录。默认false。一般只有打包WebGL时才需要`useGlobalIl2cpp=true`。
