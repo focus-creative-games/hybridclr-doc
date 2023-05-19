@@ -114,7 +114,7 @@ xcode版本太旧导致。更新到较新版本。
 
 一种不需要回退vs版本的解决办法是修改 `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h`，新增 `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS` 即可。可参照下图修改。
 
-![stdext_error](/img/hybridclr/stdext_error.jpg)
+![stdext_error](../img/hybridclr/stdext_error.jpg)
 
 其他解决办法参见[链接](https://forum.unity.com/threads/workaround-for-building-with-il2cpp-with-visual-studio-2022-17-4.1355570/)
 
