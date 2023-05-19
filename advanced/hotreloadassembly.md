@@ -5,7 +5,7 @@ HotReload技术用于完全卸载或者重新加载一个assembly，适用于小
 ## 支持的特性
 
 - 支持卸载assembly
-- 支持重新加载assembly，代码代码基本可以任意变化甚至完全不同（除MonoBehaviour类外）
+- 支持重新加载assembly，代码基本可以任意变化甚至完全不同（除MonoBehaviour类外）
 - 卸载大部分内存（预计95%以上），但有少量残留（如`[ThreadStatic]`标记的线程静态成员字段占据的内存）
 - 支持MonoBehaviour及ScriptableObject的热重载。
 
