@@ -62,8 +62,7 @@ differentialHybridAssemblies和hotUpdateAssemlies列表。必须在执行差分�
 ```csharp
 void InitDifferentialHybridAssembly(string assemblyName)
 {
-
-    LoadImageErrCode err = RuntimeApi::UseDifferentialHybridAOTAssembly(GetAssemblyData(assemblyName), GetAssemblyOptionData(assemblyName));
+    LoadImageErrCode err = RuntimeApi.LoadDifferentialHybridAssembly(GetAssemblyData(assemblyName), GetAssemblyOptionData(assemblyName));
 }
 ```
 ## 打包
@@ -72,26 +71,10 @@ void InitDifferentialHybridAssembly(string assemblyName)
 
 - **关闭 development build 选项**，否则由于编译DHE dll使用release模式，会导致几乎所有函数都被判定为发生变化。
 
-### `HybridCLR/generate/DHEAssemblyList`
 
-打包前需要执行 `HybridCLR/generate/DHEAssemblyList` 命令。因为HybridCLR需要在il2cpp初始化的阶段对差分混合执行assembly作预处理，目前
-以生成的assembly列表代码的方式提供给HybridCLR。
+## 热更新
 
-示例如下:
 
-```cpp
-    // hybridclr/generated/AssemblyManifest.cpp 文件
-
-	const char* g_differentialHybridAssemblies[]
-	{
-
-	//!!!{{DHE
-        "Assembly-CSharp",
-	//!!!}}DHE
-		nullptr,
-	};
-
-```
 
 ### `HybridCLR/generate/DHEAssemblyOptionDatas`
 
