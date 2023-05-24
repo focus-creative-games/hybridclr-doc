@@ -6,7 +6,7 @@
 - UnityEditor.CoreModule.dll
 - Unity.IL2CPP.dll
 
-注意，不是所有版本和平台都需要修改这两个dll，具体下面详细说明。
+!> 不是所有版本和平台都需要修改这两个dll，具体下面详细说明。
 
 ## 使用dnspy工具
 
@@ -80,7 +80,7 @@ Unity Editor未提供公开接口可以复制出target为iOS时的AOT dll，故�
 		File.Move(text3, Path.Combine(managedAssemblyFolderPath, Path.GetFileName(text3)));
 	}
 ```
-- 注意！反编译的代码中，变量名未必是text3，请按实际情况处理。如有遇到编译错误，请自行酌情处理。
+- 注意！**反编译的代码中，变量名未必是text3，请按实际情况处理。如有遇到编译错误，请自行酌情处理。**
 - 点击右下角的 `编译` 按钮，如果成功，则无任何提示，退出编辑界面，返回反编译查看模式。如果失败，请自行处理编译错误。有时候dnspy会有莫名其妙的引用错误，退出源码编辑模式，重新右键`编辑方法`，再次进入就能解决。
 - 菜单 `文件 -> 保存模块` 保存修改后的 UnityEditor.CoreModule.dll文件。如果在Win或Mac下，有可能会遇到权限问题，请酌情处理（比如先保存到其他位置，再手动覆盖）
 - 重新打开Unity Editor。此时iOS便能正确获得裁剪AOT dll。

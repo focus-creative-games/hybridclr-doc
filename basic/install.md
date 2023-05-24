@@ -183,7 +183,7 @@ hybridclr仓库推荐填写`1.0`，即每次安装1.0分支的最新版本；il2
 
 ### Unity 2021
 
-注意！**如果你的hybridclr_unity版本 >= v2.0.1**，由于已经使用MonoHook技术在不修改UnityEditor.CoreModule.dll的情况下也能复制出裁判后的AOT dll，**不需要**执行以下操作。
+!> **如果你的hybridclr_unity版本 >= v2.0.1**，由于已经使用MonoHook技术在不修改UnityEditor.CoreModule.dll的情况下也能复制出裁判后的AOT dll，**不需要**执行以下操作。
 
 补充元数据及`HybridCLR/Generate/*`下的部分命令依赖裁减后的AOT dll。但Unity 2021版本（2019、2020不需要）打包`iOS平台`(其他平台不需要)时，由于Unity Editor未提供公开接口可以复制出target为iOS时的裁剪后的AOT dll，故必须使用修改后的UnityEditor.CoreModule.dll覆盖Unity自带的相应文件。
 

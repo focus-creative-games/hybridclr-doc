@@ -17,7 +17,7 @@
 
 1. 运行菜单 `HybridCLR/Generate/All` 一键执行必要的生成操作
 1. 将`HybridCLRData/HotUpdateDlls`下的热更新dll添加到项目的热更新资源管理系统
-1. 将`HybridCLRData/AssembliesPostIl2CppStrip`下的初始元数据 dll添加到项目的热更新资源管理系统
+1. 将`HybridCLRData/AssembliesPostIl2CppStrip`下的补充元数据 dll添加到项目的热更新资源管理系统
 1. 根据你项目原来的打包流程打包
 
 

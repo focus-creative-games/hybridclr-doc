@@ -80,8 +80,7 @@ void InitDifferentialHybridAssembly(string assemblyName)
 
 使用 `HybridCLR/generate/DHEAssemblyOptionDatas` 生成 相关配置数据文件，酌情配合实际项目的打包流程使用。
 
-注意！由于 DHEAssemblyOptionDatas 的工作原理是对比最新的`DHE dll`与AssembliesPostIl2CppStrip目录下的aot dll的代码，离线生成变化的函数及类型信息。
-
-!> 因此请确保AssembliesPostIl2CppStrip下的aot dll为上一次对外发布的app打包时生成的 aot dll，否则会出现计算错误！
+!> 由于 DHEAssemblyOptionDatas 的工作原理是对比最新的`DHE dll`与AssembliesPostIl2CppStrip目录下的aot dll的代码，离线生成变化的函数及类型信息。
+因此请确保AssembliesPostIl2CppStrip下的aot dll为上一次对外发布的app打包时生成的 aot dll，否则会出现计算错误！
 
 

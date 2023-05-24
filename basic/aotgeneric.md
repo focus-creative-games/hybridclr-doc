@@ -145,7 +145,7 @@ LoadMetadataForAOTAssembly函数可以在任何时机调用，另外既可以在
 
 **补充元数据没有加载顺序的要求**。
 
-注意，是泛型函数丢失了IL函数体元数据，而不是泛型参数类型丢失了元数据。以`List<YourValueType>.Add`为例，
+!> 是泛型函数丢失了IL函数体元数据，而不是泛型参数类型丢失了元数据。以`List<YourValueType>.Add`为例，
 是 `List<T>.Add`函数缺失了原始IL函数体元数据，而不是`YourValueType`丢失了元数据，因此
 应该补充泛型类所在的aot dll的元数据。例如为了使用`List<Vector3>`应该补充`List<T>`所在dll（即`mscorlib`）的元数据，而不是补充`YourValueType`所在的dll的元数据。
 
@@ -154,7 +154,8 @@ LoadMetadataForAOTAssembly函数可以在任何时机调用，另外既可以在
 
 基于补充元数据的泛型函数实例化技术虽然相当完美，但毕竟实例化的函数以解释方式执行，如果能提前在AOT中泛型实例化，可以大幅提升性能。
 所以对于常用尤其是性能敏感的泛型类和函数，可以提前在AOT中实例化。我们提供了工具帮助自动扫描收集相应的泛型实例，你运行菜单命令`HybridCLR/Generate/AOTGenericReference`即可。
-注意，该命令只收集了热更新中用到的AOT泛型实例，并且生成的全部是注释形式的葮，需要你自己参考这个文件，根据实际需求在其他地方显式地实例化部分泛型。
+
+?> 该命令只收集了热更新中用到的AOT泛型实例，并且生成的全部是注释形式的葮，需要你自己参考这个文件，根据实际需求在其他地方显式地实例化部分泛型。
 
 ### 获得补充元数据dll
 
@@ -266,7 +267,7 @@ MissingMethodException: AOT generic method isn't instantiated in aot module
     void System.ValueType<System.Int32, System.String>.ctor()
 ```
 
-注意！值类型的空构造函数没有调用相应的构造函数，而是对应 initobj指令。实际上你无法直接引用它，但你只要强制实例化这个类型就行了，preserve这个类的所有函数，自然就会包含.ctor函数了。
+!> 值类型的空构造函数没有调用相应的构造函数，而是对应 initobj指令。实际上你无法直接引用它，但你只要强制实例化这个类型就行了，preserve这个类的所有函数，自然就会包含.ctor函数了。
 
 实际中你可以用强制装箱 `(object)(default(ValueTuple<int, object>))`。
 

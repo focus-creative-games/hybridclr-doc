@@ -243,7 +243,7 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 
 HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Genrate/LinkXml` 根据热更新dll生成 link.xml。
 
-**注意**，如果你发现在link.xml确实preserve了这个类，但仍然出现这种类型缺失的错误，这是Unity自身引起的。Unity要求必须在代码里引用过dll里的任意类，才会保留这个dll，link中的那些配置才会生效。因此需要你手动在代码里引用缺失的这个类所在的dll里的任意一个类即可。 
+!> 如果你发现在link.xml确实preserve了这个类，但仍然出现这种类型缺失的错误，这是Unity自身引起的。Unity要求必须在代码里引用过dll里的任意类，才会保留这个dll，link中的那些配置才会生效。因此需要你手动在代码里引用缺失的这个类所在的dll里的任意一个类即可。 
 
 #### 情况3：yyyAssembly是热更新assembly
 
