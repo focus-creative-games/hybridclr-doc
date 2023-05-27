@@ -339,6 +339,14 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 这是已知bug，跟unity的代码实现有关，只有挂载在热更新资源上热更新脚本才会有这个问题，通过代码中AddComponent添加的热更新脚本是可以用这个方法查找到。请改用 `GameObject.GetComponent<T>()` 或 `GameObject.GetComponent(typeof(T))`
 
+### 使用MemoryProfile抓取内存快照会崩溃
+
+商业版本支持。请看[商业化服务](/other/business.md)
+
+### profile的 BeginSample和EndSample 无法生效
+
+商业版本支持。请看[商业化服务](/other/business.md)
+
 ### 使用 Unity.netcode.runtime 后出现 NotSupportNative2Managed 桥接函数缺失异常
 
 原因是 在Unity.netcode.runtime.dll中 NetworkManager.RpcReceiveHandler 是internal， 定义如下
