@@ -29,7 +29,7 @@ DHE只提供**商业化版本**，具体请见[商业化服务](/other/business.
 
 ## 安装
 
-`HybridCLR/Installer`中完成安装后，手动将修改版本libil2cpp复制到`{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`，完成安装。
+解压我们提供的libil2cpp-xxx.7zip包，在`Installer`中开启从本地复制libil2cpp选项，将目录指向解压出来的libil2cpp目录，再执行安装即可。
 
 ## 配置
 
@@ -41,15 +41,24 @@ differentialHybridAssemblies和hotUpdateAssemlies列表。必须在执行差分�
 因此不是所有assembly都可以配置成为差分混合执行assembly，因为mscorlib这样的系统assembly运行时机很早。所幸像mscorlib这样的assembly也没有差分混合执行的需求，
 而大多数游戏逻辑assembly都是在热更之后再执行的，满足差分混合执行的条件。
 
+### 配置 原始AOT dll的备份目录
+
+这目录用来保存打包时生成的AOT dll。后面每次生成dhao文件时，使用此目录下的dll为原始AOT dll。
+由于经常进行临时性的打包，AOT dll大多数情况下是不需要备份的，因此备份行为需要手动调用`HybridCLR/CreateAOTDllSnapshot`菜单命令。
+
+!> 正式发包时，一要要记得打包后，自行或者使用该命令备份AOT dll，并且提交你们的版本管理系统。
+
 ### 配置 差分混合执行的assembly的配置数据的导出目录
 
 配置 HybridCLRSetting中 `differentialHybridOptionOutputDir` 字段。使用`HybridCLR/generate/DHEAssemblyOptionDatas` 会为每个差分混合assembly生成一个  `<assembly>.dhao.bytes` 文件 。
 
 加载差分混合执行assembly需要一些配置数据。例如哪些函数发生变化是离线计算好的，这样不需要运行时判定函数是否发生变化了。配置数据在调用`RuntimeApi::LoadDifferentialHybridAssembly` 作为参数传入。
 
-## 标记函数信息
+### 标记函数信息
 
 目前已经可以自动计算变化的函数，不需要手动操作。但也支持手动使用`[Unchanged]`标注哪些函数未发生变化。
+
+!> 强烈建议不要自己手动标记。因为编译器经常生成一些隐藏类或字段，这些类名并不是稳定的。表面看起来一样的C#代码，实际生成的代码未必一样。
 
 ## 代码中使用
 
@@ -67,20 +76,19 @@ void InitDifferentialHybridAssembly(string assemblyName)
 ```
 ## 打包
 
-### Player Building 设置
+- 如果打包使用 **development build 选项**，请一定要对应编译Development模式的热更新dll，否则对比结果为几乎所有函数都被判定为发生变化。
+- 打包完成后记得运行`HybridCLR/CreateAOTDllSnapshot`备份AOT文件。注意！由于裁剪AOT dll生成的不稳定性，千万不要图省事用`HybridCLR/Generate/All`命令生成的AOT dll。
 
-- **关闭 development build 选项**，否则由于编译DHE dll使用release模式，会导致几乎所有函数都被判定为发生变化。
-
+如果想随包携带aot dll和dhao数据，由于必须使用打包时生成的aot dll，目前只能二次打包。即先导出工程，再生成dhao文件，添加到工程中，再编译工程。后面会优化初始打包的过程。
 
 ## 热更新
 
+- 使用 `HybridCLR/CompileDll/ActivedBuildTarget` 生成热更新dll。
+- 确保之前已经运行运行`HybridCLR/CreateAOTDllSnapshot`备份AOT文件了。
+- 使用 `HybridCLR/generate/DHEAssemblyOptionDatas` 生成dhao文件。
 
+!> 由于 DHEAssemblyOptionDatas 的工作原理是对比最新热更新`DHE dll`与原始AOT dll的备份目录的aot dll，生成变化的函数及类型信息。请一定一定要确保热更新dll和备份
+的AOT dll的正确性！
 
-### `HybridCLR/generate/DHEAssemblyOptionDatas`
-
-使用 `HybridCLR/generate/DHEAssemblyOptionDatas` 生成 相关配置数据文件，酌情配合实际项目的打包流程使用。
-
-!> 由于 DHEAssemblyOptionDatas 的工作原理是对比最新的`DHE dll`与AssembliesPostIl2CppStrip目录下的aot dll的代码，离线生成变化的函数及类型信息。
-因此请确保AssembliesPostIl2CppStrip下的aot dll为上一次对外发布的app打包时生成的 aot dll，否则会出现计算错误！
 
 

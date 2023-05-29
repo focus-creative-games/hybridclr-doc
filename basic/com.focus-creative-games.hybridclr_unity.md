@@ -224,6 +224,10 @@ preserveHotUpdateAssemblies字段用来满足这种需求。打包时不检查�
 
 裁剪后的AOT dll的暂存目录。最终目录在该目录的平台子目录下，即 `${strippedAOTDllOutputRootDir}/{platform}`。
 
+### strippedAOTDllSnapshotDir
+
+AOT dll的快照目录。由于经常发生临时性打包，并不是每次打包都需要保存AOT dll。当需要保存AOT dll时，通过运行该菜单命令，将AOT dll复制到该目录。
+
 ### patchAOTAssemblies
 
 补充元数据AOT dll列表。**package本身没有用到这个配置项**。它提供了一个配置AOT dll列表的地方，方便开发者在自己的打包流程中使用，这样就不用开发者单独再定义一个补充元数据AOT dll配置脚本了。
