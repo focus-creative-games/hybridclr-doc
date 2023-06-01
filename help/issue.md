@@ -13,7 +13,7 @@
 - Unity Editor版本。如 2020.3.33。
 - 操作系统。 如Win 10。
 - 出错的BuildTarget。如 Android 64。
-- com.focus-creative-games.hybridclr_unity的版本号。如v2.3.1。
+- com.code-philosophy.hybridclr的版本号。如v2.3.1。
 - hybridclr仓库的版本号。如v2.2.0。
 - il2cpp_plus仓库的版本号。如v2021-2.2.0。
 - 截图及日志文件

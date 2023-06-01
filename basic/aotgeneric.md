@@ -139,7 +139,7 @@ AOT泛型元数据中除了函数以外的所有元数据都可以通过Inflate�
 以`List<T>.Add`函数为例，如果没有原始的IL函数信息，凭现成的`List<int>.Add`或者`List<object>.Add`是无法获得正确的`List<long>.Add`的实现的。我们的解决思路很巧妙——补充上丢失的原始泛型函数体元数据。
 
 
-使用 hybridclr_unity package中的 `HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly`函数为AOT的assembly补充对应的元数据。
+使用 com.code-philosophy.hybridclr package中的 `HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly`函数为AOT的assembly补充对应的元数据。
 LoadMetadataForAOTAssembly函数可以在任何时机调用，另外既可以在AOT中调用，也可以在热更新中调用，你只要在使用AOT泛型前调用即可（只需要调用一次）。
 理论上越早加载越好，实践中比较合理的时机是热更新完成后，或者热更新dll加载后但还未执行任何代码前。如果补充元数据的dll作为额外数据文件也打入了主包（例如放到StreamingAssets下），则主工程启动时加载更优。
 
@@ -159,7 +159,7 @@ LoadMetadataForAOTAssembly函数可以在任何时机调用，另外既可以在
 
 ### 获得补充元数据dll
 
-**打包过程**生成的裁剪后的AOT dll可以用于补充元数据。hybridclr_unity插件会自动把它们复制到`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`。注意，不同BuildTarget的裁剪AOT dll不可复用。
+**打包过程**生成的裁剪后的AOT dll可以用于补充元数据。com.code-philosophy.hybridclr插件会自动把它们复制到`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`。注意，不同BuildTarget的裁剪AOT dll不可复用。
 
 使用`HybridCLR/Generate/AotDlls`命令也可以立即生成裁剪后的AOT dll，它的工作原理是通过导出一个Temp工程来获得裁剪AOT dll。
 

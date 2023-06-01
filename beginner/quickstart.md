@@ -117,7 +117,7 @@ public class ConsoleToScreen : MonoBehaviour
 
 ## 安装和配置HybridCLR
 
-### 安装 `com.focus-creative-games.hybridclr_unity` 包
+### 安装 `com.code-philosophy.hybridclr` 包
 
 主菜单中点击`Windows/Package Manager`打开包管理器。如下图所示点击`Add package from git URL...`，填入`https://gitee.com/focus-creative-games/hybridclr_unity.git`或`https://github.com/focus-creative-games/hybridclr_unity.git`。
 
@@ -125,9 +125,9 @@ public class ConsoleToScreen : MonoBehaviour
 
 不熟悉从url安装package的请看[install from giturl](https://docs.unity3d.com/Manual/upm-ui-giturl.html)。
 
-由于国内网络原因，在unity中可能遇到网络异常而无法安装。你可以先把 `hybridclr_unity` clone或者下载到本地，将文件夹改名为`com.focus-creative-games.hybridclr_unity`，直接移动到项目的`Packages`目录下即可。
+由于国内网络原因，在unity中可能遇到网络异常而无法安装。你可以先把 `com.code-philosophy.hybridclr` clone或者下载到本地，将文件夹改名为`com.code-philosophy.hybridclr`，直接移动到项目的`Packages`目录下即可。
 
-### 初始化 `com.focus-creative-games.hybridclr_unity` 
+### 初始化 `com.code-philosophy.hybridclr` 
 
 打开菜单`HybridCLR/Installer...`， 点击`安装`按钮进行安装。 耐心等待30s左右，安装完成后会在最后打印 `安装成功`日志。
 

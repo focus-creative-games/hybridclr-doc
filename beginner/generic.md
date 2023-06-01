@@ -48,7 +48,7 @@ class HotUpdateGenericDemos
 
 ## 获得补充元数据dll
 
-**打包过程**生成的裁剪后的AOT dll可以用于补充元数据。hybridclr_unity插件会自动把它们复制到`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`。
+**打包过程**生成的裁剪后的AOT dll可以用于补充元数据。com.code-philosophy.hybridclr插件会自动把它们复制到`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`。
 
 !> 不同BuildTarget的裁剪AOT dll不可复用。
 
@@ -59,7 +59,7 @@ class HotUpdateGenericDemos
 
 ## 执行补充元数据
 
-使用`com.focus-creative-games.hybridclr_unity`包中的`HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly`函数为AOT泛型补充元数据。
+使用`com.code-philosophy.hybridclr`包中的`HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly`函数为AOT泛型补充元数据。
 元数据只需要补充一次，推荐在执行任何热更新代码前。`LoadDll.cs`最终变成类似如下。
 
 ```csharp

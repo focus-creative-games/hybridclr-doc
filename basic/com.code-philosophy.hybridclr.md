@@ -1,7 +1,7 @@
 # com.code-philosophy.hybridclr
 
 `com.code-philosophy.hybridclr`是一个Unity package，它提供了HybridCLR所需的Editor工作流工具脚本及Runtime脚本。借助
-hybridclr_unity提供的工作流工具，打包一个支持HybridCLR热更新功能的App变得非常简单。hybridclr_unity包主要包含以下内容：
+com.code-philosophy.hybridclr提供的工作流工具，打包一个支持HybridCLR热更新功能的App变得非常简单。hybridclr_unity包主要包含以下内容：
 
 - Editor相关脚本
 - Runtime相关脚本
@@ -28,7 +28,7 @@ hybridclr_unity提供的工作流工具，打包一个支持HybridCLR热更新�
 
 ?> 如果已经安装HybridCLR，点击安装按钮会安装最新的HybridCLR版本的libil2cpp。
 
-hybridclr_unity中 `Data~/hybridclr_version.json` 文件中已经配置了当前package版本对应的兼容 hybridclr及il2cpp_plus的分支或者tag，
+com.code-philosophy.hybridclr中 `Data~/hybridclr_version.json` 文件中已经配置了当前package版本对应的兼容 hybridclr及il2cpp_plus的分支或者tag，
 Installer会安装配置中指定的版本，不再支持自定义待安装的版本。
 
 配置类似如下：
@@ -67,7 +67,7 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 
 对于每个target，必须使用目标平台编译开关下编译出的热更新dll，否则会出现热更新代码与AOT主包或者热更新资源的代码信息不匹配的情况。
 
-hybridclr_unity的`HybridCLR.Editor`程序集提供了`HybridCLR.Editor.Commands.CompileDllCommand.CompileDll(BuildTarget target)`接口，
+com.code-philosophy.hybridclr的`HybridCLR.Editor`程序集提供了`HybridCLR.Editor.Commands.CompileDllCommand.CompileDll(BuildTarget target)`接口，
 方便开发者灵活地自行编译热更新dll。编译完成后的热更新dll放到 `{project}/HybridCLRData/HotUpdateDlls/{platform}` 目录下。
 
 ### Generate
@@ -283,7 +283,7 @@ preserveHotUpdateAssemblies字段用来满足这种需求。打包时不检查�
 属于打包工作流的一部分，相关代码在 `Editor/BuildProcessors/CheckSettings.cs`中。包含以下操作：
 
 - 根据是否开启HybridCLR，设置或者清除UNITY_IL2CPP_PATH环境变量。脚本中修改的UNITY_IL2CPP_PATH环境变量是本进程的环境变量，不用担心干扰了其他项目。
-- 关闭增量式GC(Use Incremental GC) 选项。因为目前不支持增量式GC。WebGL平台忽略此选项。 **hybridclr_unity会自动关闭此选项，可以不用手动执行此操作**。
+- 关闭增量式GC(Use Incremental GC) 选项。因为目前不支持增量式GC。WebGL平台忽略此选项。 **com.code-philosophy.hybridclr会自动关闭此选项，可以不用手动执行此操作**。
 - `Scripting Backend` 切换为 `il2cpp`, WebGL平台不用设置此选项。**自`v2.4.0`起，会自动设置此选项，可以不用手动执行此操作**。
 - `Api Compatability Level` 切换为 `.NetFramework 4`(Unity 2019、2020) 或 `.Net Framework`（Unity 2021+）。**自`v2.4.0`起，会自动设置此选项，可以不用手动执行此操作**。
 - 如果HybridCLRSettings里未设置任何热更新assembly，提示错误。

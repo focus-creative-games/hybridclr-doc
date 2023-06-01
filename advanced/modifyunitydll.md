@@ -25,8 +25,8 @@
 
 ## UnityEditor.CoreModule.dll
 
-!> 只有2021版本并且需要build iOS的开发者，才需要使用修改版本的 UnityEditor.CoreModule.dll。**如果你的hybridclr_unity版本 >= 2.0.1**，
-由于已经使用MonoHook技术在不修改UnityEditor.CoreModule.dll的情况下也能复制出裁判后的AOT dll，**不需要**执行以下操作。
+!> 只有2021版本并且需要build iOS的开发者，才需要使用修改版本的 UnityEditor.CoreModule.dll。**如果你的com.code-philosophy.hybridclr版本 >= 2.0.1**，
+由于已经使用MonoHook技术在不修改UnityEditor.CoreModule.dll的情况下也能复制出裁剪后的AOT dll，**不需要**执行以下操作。
 
 ### 原理
 
@@ -44,7 +44,7 @@ Unity Editor未提供公开接口可以复制出target为iOS时的AOT dll，故�
 ### 替换原始UnityEditor.CoreModule.dll
 
 - 提前备份 `{Editor安装目录}/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll`。 UnityEditor.CoreModule.dll 具体位置有可能因为操作系统或者Unity版本而有不同。
-- 如果你正好使用2021.3.1等已经提供了制作好的dll的版本，则使用 `com.focus-creative-games.hybridclr_unity/Datas~/ModifiedUnityAssemblies/{version}/UnityEditor.CoreModule-{Win,MAC}.dll` 覆盖 Editor安装目录中的 UnityEditor.CoreModule.dll。
+- 如果你正好使用2021.3.1等已经提供了制作好的dll的版本，则使用 `com.code-philosophy.hybridclr/Datas~/ModifiedUnityAssemblies/{version}/UnityEditor.CoreModule-{Win,MAC}.dll` 覆盖 Editor安装目录中的 UnityEditor.CoreModule.dll。
 
 
 ### 使用dnspy修改

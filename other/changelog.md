@@ -2,7 +2,7 @@
 
 - 2023.05.19 更新到Unity最新LTS版本 2020.3.48及2021.3.25。已经完成最后一个2020LTS版本支持。
 - 2023.04.26 更新到Unity最新LTS版本 2020.3.47及2021.3.23
-- 2023.03.20 hybridclr_unity生成AOTGenericReference时包含aot assembly列表及美化的泛型类及函数名
+- 2023.03.20 com.code-philosophy.hybridclr生成AOTGenericReference时包含aot assembly列表及美化的泛型类及函数名
 - 2023.3.11 更新到Unity最新LTS版本 2020.3.46及2021.3.20
 - 2023.2.4 2021版本WebGL平台支持资源上挂载脚本
 - 2023.2.4 完成DHE最终版本

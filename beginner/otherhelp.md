@@ -5,7 +5,7 @@
 
 - il2cpp_plus [github](https://github.com/focus-creative-games/il2cpp_plus) [gitee](https://gitee.com/focus-creative-games/il2cpp_plus)
 - hybridclr [github](https://github.com/focus-creative-games/hybridclr) [gitee](https://gitee.com/focus-creative-games/hybridclr)
-- hybridclr_unity [github](https://github.com/focus-creative-games/hybridclr_unity) [gitee](https://gitee.com/focus-creative-games/hybridclr_unity)
+- com.code-philosophy.hybridclr [github](https://github.com/focus-creative-games/hybridclr_unity) [gitee](https://gitee.com/focus-creative-games/hybridclr_unity)
 - 示例项目 hybridclr_trial [github](https://github.com/focus-creative-games/hybridclr_trial) [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)
 
 ## 视频教程

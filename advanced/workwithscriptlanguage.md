@@ -20,7 +20,7 @@ xlua并未考虑过模块化，生成的代码全在全局Assembly-CSharp里，�
 HybridCLR对 `[MonoPInvokeCallbackAttribute]` 的支持跟原生完全。由于每个标注 `[MonoPInvokeCallbackAttribute]` 的函数必须有一个唯一对应的c++函数，而AOT限制导致不可能运行时新增函数，
 因而要提前为每个`[MonoPInvokeCallbackAttribute]`函数生成一个`c++ wrapper函数`，用于与之绑定。这些wrapper函数在 `hybridclr/generated/ReversePInvokeMethodStub_{abi}.cpp` 文件中。
 
-[hybridclr_unity](/basic/com.code-philosophy.hybridclr.md) 已经提供了脚本帮助自动生成这些wrapper函数，运行菜单命令`HybridCLR/Generate/ReversePInvokeWrapper` 即可。
+[com.code-philosophy.hybridclr](/basic/com.code-philosophy.hybridclr.md) 已经提供了脚本帮助自动生成这些wrapper函数，运行菜单命令`HybridCLR/Generate/ReversePInvokeWrapper` 即可。
 
 ## 预留 ReversePInvokeWrapper 函数
 

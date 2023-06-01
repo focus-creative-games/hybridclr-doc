@@ -80,7 +80,7 @@ openump地址 [com.focus-creative-games.hybridclr_unity](https://openupm.com/pac
 
 ### 如果你的版本 >= v2.0.5
 
-hybridclr_unity中 `Data~/hybridclr_version.json` 文件中已经配置了当前package版本对应的兼容 hybridclr及il2cpp_plus的分支或者tag，
+com.code-philosophy.hybridclr中 `Data~/hybridclr_version.json` 文件中已经配置了当前package版本对应的兼容 hybridclr及il2cpp_plus的分支或者tag，
 Installer会安装配置中指定的版本，不再支持自定义待安装的版本。
 
 配置类似如下：
@@ -121,7 +121,7 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 
 ### 如果你的版本 >= 1.1.20
 
-hybridclr_unity中 `Data~/hybridclr_version.json` 文件中已经配置了当前package版本对应的兼容 hybridclr及il2cpp_plus的版本，
+com.code-philosophy.hybridclr中 `Data~/hybridclr_version.json` 文件中已经配置了当前package版本对应的兼容 hybridclr及il2cpp_plus的版本，
 Installer会安装配置中指定的版本，不再支持自定义待安装的版本。
 
 配置类似如下：
@@ -158,13 +158,13 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 填写你要安装的hybridclr和il2cpp_plus仓库的 commit id或branch或tag。如果hybridclr的版本号留空，则安装hybridclr仓库main分支的最新版本。
 如果il2cpp_plus的版本号留空，则安装相应年度版本主分支（如2020-main）的最新版本。
 
-**hybridclr_uniyt分支、hybridclr仓库的分支跟il2cpp_plus仓库分支必须匹配**。如果你hybridclr_unity使用了main分支，则hybridclr必须使用main分支，il2cpp_plus必须使用`{version}-main`，如果你hybridclr_unity使用了1.0分支， 则hybridclr必须使用`1.0`分支，il2cpp_plus必须使用`{version}-1.0`分支。 如果你使用了某个tag的版本，确保这个tag所属的分支匹配。
+**hybridclr_uniyt分支、hybridclr仓库的分支跟il2cpp_plus仓库分支必须匹配**。如果你com.code-philosophy.hybridclr使用了main分支，则hybridclr必须使用main分支，il2cpp_plus必须使用`{version}-main`，如果你hybridclr_unity使用了1.0分支， 则hybridclr必须使用`1.0`分支，il2cpp_plus必须使用`{version}-1.0`分支。 如果你使用了某个tag的版本，确保这个tag所属的分支匹配。
 
 hybridclr仓库推荐填写`1.0`，即每次安装1.0分支的最新版本；il2cpp_plus仓库推荐填`{年度版本}-1.0`（如2020-1.0），即每次安装`{年度版本}-1.0`分支的最新版本。如图：
 
 ![image](../img/hybridclr/install_version.jpg)
 
-目前已经发布了1.0.1稳定正式版本，同样推荐追求稳定的项目使用。hybridclr_unity取 `1.0.1-release`，hybridclr 版本取 `1.0.1-release`，il2cpp_plus版本取 `{version}-1.0.1-relase`。
+目前已经发布了1.0.1稳定正式版本，同样推荐追求稳定的项目使用。com.code-philosophy.hybridclr取 `1.0.1-release`，hybridclr 版本取 `1.0.1-release`，il2cpp_plus版本取 `{version}-1.0.1-relase`。
 
 完成以上设置后，点击`install`按钮完成安装。安装成功后，控制台会打印`安装成功`日志。
 
@@ -184,7 +184,7 @@ hybridclr仓库推荐填写`1.0`，即每次安装1.0分支的最新版本；il2
 
 ### Unity 2021
 
-!> **如果你的hybridclr_unity版本 >= v2.0.1**，由于已经使用MonoHook技术在不修改UnityEditor.CoreModule.dll的情况下也能复制出裁判后的AOT dll，**不需要**执行以下操作。
+!> **如果你的com.code-philosophy.hybridclr版本 >= v2.0.1**，由于已经使用MonoHook技术在不修改UnityEditor.CoreModule.dll的情况下也能复制出裁剪后的AOT dll，**不需要**执行以下操作。
 
 补充元数据及`HybridCLR/Generate/*`下的部分命令依赖裁减后的AOT dll。但Unity 2021版本（2019、2020不需要）打包`iOS平台`(其他平台不需要)时，由于Unity Editor未提供公开接口可以复制出target为iOS时的裁剪后的AOT dll，故必须使用修改后的UnityEditor.CoreModule.dll覆盖Unity自带的相应文件。
 
@@ -264,7 +264,7 @@ Unity允许使用环境变量`UNITY_IL2CPP_PATH`自定义`il2cpp`的位置，因
 
 使用`HybridCLR/Installer`完成安装后，在`HybridCLR/Settings`中开启 `useGlobalIl2Cpp` 选项来启动全局安装，此时会清除环境变量`UNITY_IL2CPP_PATH`。
 
-如果你使用替换目录的方式进行全局安装，并且你的hybridclr_unity版本 >= 2.1.0，则**第一次**覆盖libil2cpp前，请先运行`HybridCLR/Generate/Il2cppDef`（只此一次，后面不再需要，除非你切换了项目Unity版本）以生成正确的版本宏，再覆盖原始的libil2cpp目录。**符号链接安装方式或者hybridclr_unity版本低于2.1.0不需要执行此操作，直接覆盖原始的libil2cpp目录即可**。
+如果你使用替换目录的方式进行全局安装，并且你的com.code-philosophy.hybridclr版本 >= 2.1.0，则**第一次**覆盖libil2cpp前，请先运行`HybridCLR/Generate/Il2cppDef`（只此一次，后面不再需要，除非你切换了项目Unity版本）以生成正确的版本宏，再覆盖原始的libil2cpp目录。**符号链接安装方式或者com.code-philosophy.hybridclr版本低于2.1.0不需要执行此操作，直接覆盖原始的libil2cpp目录即可**。
 
 由于权限原因，即使是全局安装，`Generate/xxx`命令修改的是本地`{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`下的文件。**请每次generate后都将本地libil2cpp目录覆盖全局安装目录**。
 

@@ -1,6 +1,6 @@
 # 常见错误
 
-目前提交的版本都经过测试，基本不可能出现编译错误及崩溃或者基础的运行错误。如果查看了常见错误，还未能解决问题，请将hybridclr_unity、hybridclr、il2cpp_plus更新到最新版本，再试一次。
+目前提交的版本都经过测试，基本不可能出现编译错误及崩溃或者基础的运行错误。如果查看了常见错误，还未能解决问题，请将com.code-philosophy.hybridclr、hybridclr、il2cpp_plus更新到最新版本，再试一次。
 如果仍然没有解决问题，可以加入以下群：
 
 - 新手1群：428404198（满）
@@ -31,13 +31,13 @@ hybridclr_unity版本过低。请升级最新版本。
 
 ### Exception. region:PLACE_HOLDER start not find
 
-hybridclr_unity为较新版本，但hybridclr代码太旧导致。
+com.code-philosophy.hybridclr为较新版本，但hybridclr代码太旧导致。
 
 要求你的 hybridclr及il2cpp_plus必须是main分支，并且更新到最新。
 
 ### Exception. region:XXXXXX start not find
 
-hybridclr_unity 与 hybridclr及il2cpp_plus版本不匹配导致。
+com.code-philosophy.hybridclr 与 hybridclr及il2cpp_plus版本不匹配导致。
 
 要求相同版本分支，并且同时更到最新（或者相匹配的版本，但大多数人很难知道哪个是相匹配的版本）。
 
@@ -48,12 +48,12 @@ hybridclr_unity 与 hybridclr及il2cpp_plus版本不匹配导致。
 否则是因为这个生成依赖于裁剪后的aot dll，而此时aot dll还未生成。有几种原因导致这个结果：
 
 - 你从未在主工程中使用过跟该dll相关代码，导致就算link.xml中保留了，仍然整个被裁剪。解决办法是在主工程中随便写段代码引用该dll中的某个类或函数。
-- Unity2021版本，打包iOS平台，使用低于2.0.1版本hybridclr_unity，同时未修改 UnityEditor.CoreModule.dll文件，导致未获得裁剪后的dll。解决办法是升级hybridclr_unity到2.0.1及更高版本或者按照文档[修改Unity编辑器相关dll](/hybridclr/modify_unity_dll/)修改UnityEditor.CoreModule.dll。
+- Unity2021版本，打包iOS平台，使用低于2.0.1版本com.code-philosophy.hybridclr，同时未修改 UnityEditor.CoreModule.dll文件，导致未获得裁剪后的dll。解决办法是升级hybridclr_unity到2.0.1及更高版本或者按照文档[修改Unity编辑器相关dll](/hybridclr/modify_unity_dll/)修改UnityEditor.CoreModule.dll。
 - 其他原因。万能的解决办法是手动build一次项目生成aot dll。
 
 ### 运行 `HybridCLR/generate/xxx` 时发生 `NullReferenceException. HybridCLR.Editor.ABI.TypeCreatorBase.CreateTypeInfo ...`
 
-如果你的hybridclr_unity package版本低于 1.1.6,则因为你的项目中存在 mscorlib.dll、System.Memory.dll、UnityEngine.dll等跟系统dll重名的冲突dll，导致解析dll时错误地读取了这些dll，进而发生错误。
+如果你的com.code-philosophy.hybridclr package版本低于 1.1.6,则因为你的项目中存在 mscorlib.dll、System.Memory.dll、UnityEngine.dll等跟系统dll重名的冲突dll，导致解析dll时错误地读取了这些dll，进而发生错误。
 
 如果版本 >= 1.1.6, 由于生成桥接函数需要依赖裁减后的AOT dll，而你的AOT dll是旧的，导致热更新代码中依赖的类型在AOT dll中因为卸载而缺失了。因此你需要先 `generate/linkxml`，再build或者导出工程以生成裁剪后的aot dll，再运行你当前的 `generate/xxx` 命令。
 
@@ -65,7 +65,7 @@ mian分支已经移除了DHE相关的代码，相应的package版本1.1.6也移�
 
 ### 打包iOS版本时未生成 AssembliesPostIl2CppStrip 目录
 
-升级hybridclr_unity版本到v2.0.0以上。
+升级com.code-philosophy.hybridclr版本到v2.0.0以上。
 
 ### BuildFailedExceptoin: Build path contains a project prevously built without the "Create Visual Studio Solution"
 
@@ -110,7 +110,7 @@ xcode版本太旧导致。更新到较新版本。
 
 ### Win 下 打包时遇到 xxxx\il2cpp\libil2cpp\utils\Il2CppHashMap.h(71): error C2039: 'hash_compare': is not a member of 'stdext'
 
-这是.net 7发布后最新版本vs改动打破了一些向后兼容性引起。hybridclr_unity `v2.4.0`版本已经完全解决了此问题。你可以升级到此版本或者回退到visual studio 2022的旧版本或者使用2019之类的版本。
+这是.net 7发布后最新版本vs改动打破了一些向后兼容性引起。com.code-philosophy.hybridclr `v2.4.0`版本已经完全解决了此问题。你可以升级到此版本或者回退到visual studio 2022的旧版本或者使用2019之类的版本。
 
 一种不需要回退vs版本的解决办法是修改 `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h`，新增 `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS` 即可。可参照下图修改。
 
@@ -144,7 +144,7 @@ WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切�
 
 ### 打包时出现 GC_set_mark_stck_empty 函数找不到或者签名不匹配的错误
 
-这是自Unity2021.3.20起修改了这个函数签名引发的问题。更新到hybridclr_unity 2.0.10+ 版本，重新install即可解决。
+这是自Unity2021.3.20起修改了这个函数签名引发的问题。更新到com.code-philosophy.hybridclr 2.0.10+ 版本，重新install即可解决。
 
 ### 打包WebGL平台出现 `build.js: undefined symbol: RuntimeApi_LoadMetadataForAOTAssembly (referenced by top-level compiled C/C++ code)`
 
@@ -157,7 +157,7 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 
 有两个原因：
 - 没有替换全局安装位置的libil2cpp或者创建其软链接
-- 你使用了hybridclr_unity 2.1.0或更高版本，在替换全局libil2cpp前没有先运行一次`HybridCLR/Generate/Il2cppDef`，导致没有正确生成版本宏，进而引发编译错误。
+- 你使用了com.code-philosophy.hybridclr 2.1.0或更高版本，在替换全局libil2cpp前没有先运行一次`HybridCLR/Generate/Il2cppDef`，导致没有正确生成版本宏，进而引发编译错误。
 
 ### 打包出现 `#error: "not support unity version"`
 
@@ -167,7 +167,7 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 
 ### 打包时出现 'could not find a part of path "xxxx/hybridclr/generated/UnityVersion.h"
 
-你更新 hybridclr_unity包后未重新install，导致本地lil2cpp目录代码过旧。
+你更新 com.code-philosophy.hybridclr包后未重新install，导致本地lil2cpp目录代码过旧。
 
 ### 打包里发现 "Undefined symbols for architecture arm64: "il2cpp::utils::Debugger::xxxxx"
 
@@ -179,7 +179,7 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 
 很大程度是你的package 和 hybridclr c++代码版本不匹配导致的或者你的Unity版本太新，hybridclr暂未支持。 你需要：
 
-- 更新hybridclr_unity到最新版本
+- 更新com.code-philosophy.hybridclr到最新版本
 - `HybridCLR/installer...` 里安装最新版本
 - `HybridCLR/generate/all` 生成所有
 - 打包
@@ -200,9 +200,9 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 有几种原因：
 
 - 如果是iOS平台，有可能因为你在热更新dll列表变化后未`Generate/all`并且重新编译和替换libil2cpp.a文件。
-- 如果你使用Unity 2021及以上版本，并且WebGL平台，需要hybridclr_unity版本 >= 2.0.9
+- 如果你使用Unity 2021及以上版本，并且WebGL平台，需要com.code-philosophy.hybridclr版本 >= 2.0.9
 - 如果是其他版本及平台，由于Unity的资源管理的实现机制，资源必须打包为AssetBundle才能正常恢复热更新脚本，放到Resource下不行。详情请看 [MonoBehaviour工作流](/basic/monobehaviour.md)。
-- 如果你安装了最新的main分支的hybridclr，则要求hybridclr_unity package版本 >= 1.1.17
+- 如果你安装了最新的main分支的hybridclr，则要求com.code-philosophy.hybridclr package版本 >= 1.1.17
 - 加载资源时还未加载对应的热更新程序集
 
 ### 遇到  "This icall is not supported by il2cpp at System.AppDomain.Load"
@@ -304,7 +304,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 ### 遇到 ExecutionEngineException: GetManaged2NativeMethodPointer not support. xxxx 函数名
 
-缺失 interpreter -> aot 方向的桥接函数。请先确认你的 hybridclr是最新代码， hybridclr_unity package也是最新版本，
+缺失 interpreter -> aot 方向的桥接函数。请先确认你的 hybridclr是最新代码， com.code-philosophy.hybridclr package也是最新版本，
 并且已经生成最新的桥接函数。原理请参考 [桥接函数](/basic/methodbridge.md) 。
 
 如果是iOS平台，则很大可能因为你没有生成最新的libil2cpp.a。
@@ -313,7 +313,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 ### 遇到'ExecutionEngineException: NotSupportNative2Managed' 
 
-缺失 aot -> interpreter 方向的桥接函数。请先确认你的 hybridclr是最新代码， hybridclr_unity package也是最新版本，
+缺失 aot -> interpreter 方向的桥接函数。请先确认你的 hybridclr是最新代码， com.code-philosophy.hybridclr package也是最新版本，
 并且已经生成最新的桥接函数。原理请参考 [桥接函数](/basic/methodbridge.md) 。
 
 如果还有问题，请在群里反馈给管理员 技术支持。
@@ -341,9 +341,10 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 ### 使用MemoryProfile抓取内存快照会崩溃
 
-如果你使用Unity 2021或更高的版本，升级 hybridclr package到`v3.0.2`或更高版本即可。如果使用Unity 2019或2022，请自行查看main分支的提交记录，将相应修复代码合并到你当前版本即可。
+如果你使用Unity 2021或更高的版本，升级 hybridclr package到`v3.0.2`或更高版本即可。如果使用Unity 2019或2020，将提交记录
+[修复使用Momery Profiler创建快照时发生崩溃的bug](https://github.com/focus-creative-games/hybridclr/commit/062bfa99c71a53a6cb35fc89a52d67bbff2bb2d0) 的改动合并到你当前版本即可。
 
-### profile的 BeginSample和EndSample 无法生效
+### profiler的 BeginSample和EndSample 无法生效
 
 因为 BeginSample之类的函数有[Condition]编译注解，以Release方式编译dll时，会自动剔除这些代码，导致Profile失效。解决办法是以Developemnt方式编译热更新dll即可，代码如下。
 如果你使用`v3.0.2`及更高版本，已经附带了`HybridCLR/CompileDll/ActivedBuildTarget_Development`菜单命令。
@@ -356,6 +357,7 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
     scriptCompilationSettings.target = target;
     if (developmentBuild)
     {
+        // 核心是这行，使得以Debug模式编译dll，保留Profiler.BeginSample之类的函数调用。
         scriptCompilationSettings.options |= ScriptCompilationOptions.DevelopmentBuild;
     }
     Directory.CreateDirectory(buildDir);

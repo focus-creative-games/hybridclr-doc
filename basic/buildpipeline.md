@@ -10,8 +10,8 @@
 - 生成一些打包需要的文件和代码
 - iOS平台的特殊处理
 
-手动操作这些是烦琐易错的，`com.focus-creative-games.hybridclr_unity` package包含了打包工作流相关的标准工具脚本，将这些复杂流程简化为一键操作。
-详细实现请看源码或者[hybridclr_unity介绍](/basic/com.code-philosophy.hybridclr.md)
+手动操作这些是烦琐易错的，`com.code-philosophy.hybridclr` package包含了打包工作流相关的标准工具脚本，将这些复杂流程简化为一键操作。
+详细实现请看源码或者[com.code-philosophy.hybridclr介绍](/basic/com.code-philosophy.hybridclr.md)
 
 ## 打包流程
 
@@ -28,7 +28,7 @@
 
 **替换xcode工程中的libil2cpp.a文件请自行完成**。
 
-`com.focus-creative-games.hybridclr_unity/Data~/iOSBuild` 目录包含了编译 `libil2cpp.a` 所需的脚本。使用`HybridCLR/Installer...`完成安装后，该iOSBuild目录会被复制到`{project}/HybridCLRData/iOSBuild` 目录。
+`com.code-philosophy.hybridclr/Data~/iOSBuild` 目录包含了编译 `libil2cpp.a` 所需的脚本。使用`HybridCLR/Installer...`完成安装后，该iOSBuild目录会被复制到`{project}/HybridCLRData/iOSBuild` 目录。
 
 ## 编译 libil2cpp.a 
 

@@ -106,7 +106,7 @@ S,C 分别对应aligment=1、8的值类型。例如UnityEngine.Vector3的签名�
 
 ## 生成桥接函数
 
-hybridclr_unity package中提供工具脚本，推荐使用菜单命令 `HybridCLR/Generate/All` 自动生成所有桥接函数。你也可以直接使用`HybridCLR/Generate/MethodBridge`
+com.code-philosophy.hybridclr package中提供工具脚本，推荐使用菜单命令 `HybridCLR/Generate/All` 自动生成所有桥接函数。你也可以直接使用`HybridCLR/Generate/MethodBridge`
 生成桥接函数，但该命令依赖`裁剪后的AOT dll`和`热更新dll`，而`裁剪后的AOT dll`依赖于`生成LinkXml`和`生成Il2CppDef`。因此如果没有使用`HybridCLR/Generate/All`命令，必须先依次运行：
 
 - `HybridCLR/Generate/Il2CppDef`

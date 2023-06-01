@@ -52,17 +52,17 @@ Other hot update solutions are independent vm, and the relationship with il2cpp 
 
 ## Compatibility
 
-- Support 2019.4.x, 2020.3.x, 2021.3.x full series of LTS versions. Version 2022.2.x is also supported, but not released to the public.
+- Support 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x full series of LTS versions. 
 - Support for common platforms. It has stably supported PC (Win32 and Win64), macOS (x86, x64, Arm64), Android (armv7, armv8), iOS (64bit), WebGL, **WeChat applet platform**, and the remaining platforms are yet to be tested.
 - Tested a large number of common game libraries, and did not find a library that is natively compatible with il2cpp but incompatible after using HybridCLR. As long as the library can work under the il2cpp backend, it can work normally under HybridCLR. Even those libraries that are incompatible with il2cpp due to AOT issues can now run normally because of HybridCLR's ability to expand il2cpp.
 
 ## Stability Status
 
-At present, **extremely stable** 1.x and 2.x official versions have been released, which are sufficient to meet the stability requirements of large and medium-sized commercial projects. Since the first game was launched on June 7, 2022, only one small bug occurred in the online project, and it was quickly fixed within a few hours.
+At present, **extremely stable** 1.x, 2.x, 3.x official versions have been released, which are sufficient to meet the stability requirements of large and medium-sized commercial projects. Since the first game was launched on June 7, 2022, only one small bug occurred in the online project, and it was quickly fixed within a few hours.
 
 At present, at least **thousands** commercial game projects have completed access, and **hundreds** of them have been launched on both ends. The online projects include MMORPG, heavy card, heavy tower defense and other games.
 
-Most leading companies such as Tencent, NetEase, funplus, Perfect, Stacked Paper, and Byte have already connected to multiple projects and will soon (or already) go online.
+Most leading companies such as Tencent, NetEase, funplus, Perfect World, Stacked Paper, and ByteDance have already connected to multiple projects and will soon (or already) go online.
 
 
 ## About the author
