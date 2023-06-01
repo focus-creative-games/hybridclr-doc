@@ -16,7 +16,6 @@
 - 包含独创的`DHE`技术，未变化部分代码性能与原生完全相同，相较社区版本纯解释方式提升惊人的**3-30**倍甚至更高，整体**几乎达到**原生性能水平。
 - **高级解释指令优化**，支持函数inline（对于短函数有10多倍的性能提升）、newobj inline、类成员访问优化、typeof优化、**数值指令**优化等重要优化。最为核心的数值指令性能提升100-300%，让解释器模块执行重度数值计算成为可能。
 - 更敏捷的维护支持，随时获得最新的代码（社区版本出于维护成本考虑，只会定期发布版本）。
-- 对Profile支持更佳，支持Memory Profiler的内存快照，支持Profiler.BeginSample和EndSample。
 - 原生代码已全部在包体中，被各大AppStore拒审的风险大幅降低。
 - 附含一年的技术支持，快速解决使用过程中遇到的各种问题。
 
@@ -39,7 +38,6 @@ HotReload特别版提供独创的`热重载技术`的支持。可以运行中完
 - 支持卸载单独的assembly，卸载大部分内存（预计95%以上），但有少量残留（如`[ThreadStatic]`标记的线程静态成员字段占据的内存）
 - 支持重新加载assembly，代码基本可以任意变化甚至完全不同（除MonoBehaviour类外）。MonoBehaviour及ScriptableObject的热重载。
 - 更敏捷的维护支持，随时获得最新的代码（社区版本出于维护成本考虑，只会定期发布版本）。
-- 对Profile支持更佳，支持Memory Profiler的内存快照，支持Profiler.BeginSample和EndSample。
 
 
 ## WebGL 增强版
@@ -50,7 +48,6 @@ HotReload特别版提供独创的`热重载技术`的支持。可以运行中完
 
 - **对WebGL支持更完善**。
 - 更敏捷的维护支持，随时获得最新的代码（社区版本出于维护成本考虑，只会定期发布版本）。
-- 对Profile支持更佳，支持Memory Profiler的内存快照，支持Profiler.BeginSample和EndSample。
 
 ## 企业技术支持
 

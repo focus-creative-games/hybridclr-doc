@@ -11,7 +11,7 @@
 - iOS平台的特殊处理
 
 手动操作这些是烦琐易错的，`com.focus-creative-games.hybridclr_unity` package包含了打包工作流相关的标准工具脚本，将这些复杂流程简化为一键操作。
-详细实现请看源码或者[hybridclr_unity介绍](/basic/com.focus-creative-games.hybridclr_unity.md)
+详细实现请看源码或者[hybridclr_unity介绍](/basic/com.code-philosophy.hybridclr.md)
 
 ## 打包流程
 

@@ -4,11 +4,11 @@
 
 ## 安装兼容的Unity版本
 
-安装 2019.4.x、2020.3.16+、2021.3.x 中任一版本。推荐安装2019.4.40、2020.3.26+、2021.3.x版本。
+支持2019.4.x、2020.3.16+、2021.3.x、2022.3.x 中任一版本。推荐安装2019.4.40、2020.3.26+、2021.3.x、2022.3.x版本。
 
 如果你的版本为 2019.4.0-2019.4.39、2020.3.16-2020.3.25，**需要先切换到2019.4.40和2020.3.33版本完成HybridCLR安装，再切换回当前版本**。
 
-如果你不是经验丰富的Unity开发者，推荐先使用2021.3.1版本来体验HybridCLR。
+?> 如果你不是经验丰富的Unity开发者，推荐先使用2021.3.1版本来体验HybridCLR。
 
 根据你打包的目标平台，安装过程中选择必要模块。如果打包Android或iOS，直接选择相应模块即可。如果你想打包Standalone，必须额外选中 `Windows Build Support(IL2CPP)`或`Mac Build Support(IL2CPP)`。
 
@@ -25,19 +25,21 @@
   - 安装cmake
 
 
-### 选择 `com.focus-creative-games.hybridclr_unity` 版本
+### 选择 `com.code-philosophy.hybridclr` 版本
 
-当前 `v2.x.y` tag 和 `1.0`分支 系列都非常稳定。
+!> v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。
 
-`1.0`分支稳定运行很久，一些较早接入HybridCLR的项目在使用`1.0`分支版本。该分支已经停止维护。
+当前存在三大系列版本：`1.0`分支、`v2.x.y`系列、`v3.x.y`（也是当前main分支）系列。
 
-main分支`v2.x.y`版本对工作流有较大改进，而且修复了一些`1.0`分支的bug。
+- `1.0`分支过于久远，虽然工作稳定，但Package相关工作流比较陈旧，不如后续版本便捷，而且已经停止了维护，强烈建议**不要**再使用。
+- `v2.x.y`系列的tag 版本工作流优化合理，经过大量项目验证，推荐使用Unity 2019或2020版本或马上要上线的项目使用。
+- `v3.x.y`系列tag版本 **移除了对Unity 2019和2020**的支持，新增了`2022`版本支持。推荐使用Unity 2021及以后的版本，并且处于项目中早期的项目使用。
 
-**推荐新接入的项目使用`v2.x.y`系列版本**。
+?> 这三大系列的版本都很稳定，不必纠结哪个更好，一般来说越新的版本优化越多，使用体验越好。
 
-## 安装 com.focus-creative-games.hybridclr_unity package
+## 安装 `com.code-philosophy.hybridclr` package
 
-hybridclr_unity 仓库地址为 [github](https://github.com/focus-creative-games/hybridclr_unity) ,国内快速的镜像仓库为[gitee](https://gitee.com/focus-creative-games/hybridclr_unity)。
+仓库地址为 [github](https://github.com/focus-creative-games/hybridclr_unity) ,国内快速的镜像仓库为[gitee](https://gitee.com/focus-creative-games/hybridclr_unity)。
 
 有三种安装方式：
 
@@ -51,10 +53,9 @@ hybridclr_unity 仓库地址为 [github](https://github.com/focus-creative-games
 
 
 - main分支地址为 `https://gitee.com/focus-creative-games/hybridclr_unity.git`
-- 1.0分支地址为 `https://gitee.com/focus-creative-games/hybridclr_unity.git#1.0`
 - 其他tag版本地址为 `https://gitee.com/focus-creative-games/hybridclr_unity.git#{tag}`
 
-想安装某个分支或者tag版本，请在地址后加上`#{tag}`，如 `https://gitee.com/focus-creative-games/hybridclr_unity.git#v2.4.1`。
+想安装某个分支或者tag版本，请在地址后加上`#{tag}`，如 `https://gitee.com/focus-creative-games/hybridclr_unity.git#v3.0.1`。
 
 ![add package](../img/hybridclr/install_hybridclrunity_package.jpg)
 
@@ -68,7 +69,7 @@ openump地址 [com.focus-creative-games.hybridclr_unity](https://openupm.com/pac
 
 ### 从本地文件安装
 
-将仓库clone到本地后，目录改名为com.focus-creative-games.hybridclr_unity，再直接移到项目的Packages目录即可。
+将仓库clone到本地后，目录改名为`com.code-philosophy.hybridclr`（v3.0.0之前的版本请用 `com.focus-creative-games.hybridclr_unity`），再直接移到项目的Packages目录即可。
 
 
 ## 初始化HybridCLR

@@ -1,11 +1,13 @@
-# com.focus-creative-games.hybridclr_unity
+# com.code-philosophy.hybridclr
 
-`com.focus-creative-games.hybridclr_unity`是一个Unity package，它提供了HybridCLR所需的Editor工作流工具脚本及Runtime脚本。借助
+`com.code-philosophy.hybridclr`是一个Unity package，它提供了HybridCLR所需的Editor工作流工具脚本及Runtime脚本。借助
 hybridclr_unity提供的工作流工具，打包一个支持HybridCLR热更新功能的App变得非常简单。hybridclr_unity包主要包含以下内容：
 
 - Editor相关脚本
 - Runtime相关脚本
 - iOSBuild脚本
+
+!> v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。
 
 
 ## HybridCLR菜单介绍
@@ -18,7 +20,7 @@ hybridclr_unity提供的工作流工具，打包一个支持HybridCLR热更新�
 
 安装器需要从匹配版本的Unity安装目录复制il2cpp(类似`C:\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\il2cpp`)相关文件。
 
-- 对于2019.4.40+、2021.3.26+、2021.3.0+ 版本，直接从该版本的安装目录复制il2cpp文件。
+- 对于2019.4.40+、2021.3.26+、2021.3.0+、2022.3.0+ 版本，直接从该版本的安装目录复制il2cpp文件。
 - 对于2020.3.16-2020.3.25版本，需要额外安装2020.3.26或更高版本，在Installer中完成安装后再切回当前版本。
 - 对于2019.4.0-2019.4.39版本，需要额外安装2019.4.40版本，在Installer中完成安装后再切回当前版本。
 
@@ -223,10 +225,6 @@ preserveHotUpdateAssemblies字段用来满足这种需求。打包时不检查�
 ### strippedAOTDllOutputRootDir
 
 裁剪后的AOT dll的暂存目录。最终目录在该目录的平台子目录下，即 `${strippedAOTDllOutputRootDir}/{platform}`。
-
-### strippedAOTDllSnapshotDir
-
-AOT dll的快照目录。由于经常发生临时性打包，并不是每次打包都需要保存AOT dll。当需要保存AOT dll时，通过运行该菜单命令，将AOT dll复制到该目录。
 
 ### patchAOTAssemblies
 

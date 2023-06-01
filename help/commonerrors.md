@@ -341,11 +341,26 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 ### 使用MemoryProfile抓取内存快照会崩溃
 
-商业版本支持。请看[商业化服务](/other/business.md)
+如果你使用Unity 2021或更高的版本，升级 hybridclr package到`v3.0.2`或更高版本即可。如果使用Unity 2019或2022，请自行查看main分支的提交记录，将相应修复代码合并到你当前版本即可。
 
 ### profile的 BeginSample和EndSample 无法生效
 
-商业版本支持。请看[商业化服务](/other/business.md)
+因为 BeginSample之类的函数有[Condition]编译注解，以Release方式编译dll时，会自动剔除这些代码，导致Profile失效。解决办法是以Developemnt方式编译热更新dll即可，代码如下。
+如果你使用`v3.0.2`及更高版本，已经附带了`HybridCLR/CompileDll/ActivedBuildTarget_Development`菜单命令。
+
+```csharp
+    var group = BuildPipeline.GetBuildTargetGroup(target);
+
+    ScriptCompilationSettings scriptCompilationSettings = new ScriptCompilationSettings();
+    scriptCompilationSettings.group = group;
+    scriptCompilationSettings.target = target;
+    if (developmentBuild)
+    {
+        scriptCompilationSettings.options |= ScriptCompilationOptions.DevelopmentBuild;
+    }
+    Directory.CreateDirectory(buildDir);
+    ScriptCompilationResult scriptCompilationResult = PlayerBuildInterface.CompilePlayerScripts(scriptCompilationSettings, buildDir);
+```
 
 ### 使用 Unity.netcode.runtime 后出现 NotSupportNative2Managed 桥接函数缺失异常
 

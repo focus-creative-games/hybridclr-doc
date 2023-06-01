@@ -21,7 +21,7 @@
   * [内存与GC](basic/memory.md)
   * [运行性能](basic/performance.md)
   * [不支持的特性](basic/notsupportedfeatures.md)
-  * [hybridclr_unity包手册](basic/com.focus-creative-games.hybridclr_unity.md)
+  * [hybridclr Package手册](basic/com.code-philosophy.hybridclr.md)
   * [最佳实践](basic/bestpractice.md)
 * 开发者文档-高级
   * [Differential Hybrid Execution技术](advanced/differentialhybridexecution.md)
