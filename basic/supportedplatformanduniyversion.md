@@ -1,7 +1,7 @@
 
 # 支持的Unity版本和平台
 
-HybridCLR已经稳定支持了2019.4.x、2020.3.x、2021.3.x系列LTS版本，并且支持主流的 Win、MacOS、Android、iOS、WebGL平台。
+HybridCLR已经稳定支持了2019.4.x、2020.3.x、2021.3.x、2022.3.x 系列LTS版本，并且支持主流的 Win、MacOS、Android、iOS、WebGL平台。
 
 ## 兼容的Unity版本
 

@@ -1,0 +1,121 @@
+# Inspect il2cpp&hybridclr
+
+In the process of implementing hybridclr, we deeply studied the CLI specification and il2cpp implementation, and accumulated a lot of valuable experience. Considering that there is not much information about clr and il2cpp in the domestic game industry, we hope to systematically sort out this knowledge to help developers who are eager to study the implementation of CLR Runtime under Unity better master relevant knowledge.
+
+## Inspect il2cpp directory
+
+- il2cpp prologue
+   - Introduction to il2cpp
+   - il2cpp il2cpp architecture and source code structure introduction
+   - il2cpp installation, compilation and debugging
+- il2cpp runtime implementation
+   - Analysis of il2cpp Runtime initialization process
+   - il2cpp metadata (this section is extremely large)
+     - A brief introduction to CLI metadata
+     - Analysis of il2cpp metadata initialization process
+     - Introduction to persistent metadata, namely global-metadata.dat
+     - Introduction to runtime metadata
+   - il2cpp IL to c++ code conversion
+     - Basic instruction set
+     - Object model related instructions (extremely large content)
+     - exception mechanism
+     - Generic sharing mechanism
+     - PInvoke is related to MonoPInvokeCallbackAttribute. (An interesting question: What is the overhead of calling back c# functions in lua in il2cpp compared with calling back ordinary c functions?)
+     - icalls
+     - delegate
+     - Reflection related support
+     - Cross-platform correlation
+   - Type initialization Class::Init process analysis
+   - Generic class implementation
+   - Generic function implementation
+   - Generic sharing mechanism
+   - exception mechanism
+   - Reflection related implementation
+   - Value type related mechanism
+   - box and unbox related mechanism
+   - Exploration of some basic BCL types such as object, string, Array, TypedReference, etc.
+   - icalls implementation
+   - Bug introduction of il2cpp and mono
+   - il2cpp gc management
+   - il2cpp multithreading and memory model processing
+- Evolution of il2cpp implementation in 2018-2022
+
+## Inspect hybridclr directory
+
+- Introduction
+   - History of mobile game hot update technology
+   - Defects of the current mainstream hot update technology
+   - Exploration of the next generation hot update technology - the native c# hot update technology under the unity engine
+- hybridclr overview
+   - hybridclr introduction
+   - [Thought experiment on the feasibility of hybridclr](./2.1.2_%E5%85%B3%E4%BA%8Ehybridclr%E5%8F%AF%E8%A1%8C%E6%80%A7%E7% 9A%84%E6%80%9D%E7%BB%B4%E5%AE%9E%E9%AA%8C.md)
+   - [Analysis of hybridclr technical principles](./2.1.3_hybridclr%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90 .md)
+- metadata loaded
+   - coff file parsing
+   - stream parsing
+   - Original tables parsing
+   - complex metadata analysis
+- metadata registration
+   - assembly registration
+   - TypeDefinition registrations (complex)
+   - generic classes
+   - generic methods
+   - bridge functions
+- register instruction set design
+   - Introduction to IL instruction set
+   - Defects of stack-based instruction set
+   - [Register instruction set](./5.3.1_hybridclr%E6%8C%87%E4%BB%A4%E9%9B%86%E4%BB%8B%E7%BB%8D.md)
+     - Basic conversion rules
+     - Static specialization of instructions
+     - resolve data
+     - Other special treatment
+   - some JIT techniques for the interpreter
+     - InitOnce JIT optimization technology
+- Instruction set transform implementation
+   - Introduction to basic ideas
+   - transform algorithm
+     - basic block division
+     - Instruction stream traversal and conversion based on basic block
+     - common commands
+     - function call instruction
+     - branch related instructions
+     - Exception related instructions
+   - Instruction set optimization
+     - Instruction merging
+     - ValueType related instruction optimization
+     - function inline
+     -instinct function replacement
+   -virtual Execution System
+     -Thread Interpreter Stack
+     - Interpreter Frame implementation and optimization
+     - localloc and Local Memory Pool
+     - bridge function
+     - Command implementation
+     -instinct function
+     -Reflection related implementation
+     - extern function implementation
+   - Cross-platform compatibility handling
+     - 32 bit vs 64 bit
+     - memory aligned access
+     - The difference between x86 and arm series
+       - Conversion between float and int
+       -abi
+     - Virtual address space differences
+     - Some functions with erratic behavior
+       -memcpy
+   - AOT generics (generic instantiation technology based on supplementary metadata)
+   - AOT hotfix implementation
+-misc
+   - Solve the problem of mounting the interpreter script on Unity resources
+   - gc processing
+   - Multi-thread related processing
+- test frame
+   - Test case project
+     - bootstrap cpp test set
+     - .net c# test set
+     - Generate test report
+   - test tools
+     - Create multi-version and multi-platform test projects
+     - Run test cases and collect test reports
+     - Generate final test report
+   - Automated testing DevOps framework

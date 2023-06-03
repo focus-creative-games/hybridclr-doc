@@ -13,17 +13,17 @@ HybridCLR is a **almost perfect** full-platform native c# hot update solution fo
 
 HybridCLR expands the code of il2cpp, making it change from pure [AOT](https://en.wikipedia.org/wiki/Ahead-of-time_compilation) runtime to `AOT+Interpreter` hybrid runtime, and then natively supports dynamic loading of assembly , so that the games packaged based on il2cpp backend can be executed not only on the Android platform, but also on IOS, Consoles and other platforms that limit JIT efficiently in **AOT+interpreter** hybrid mode, completely supporting hot updates from the bottom layer.
 
-HybridCLR not only supports the traditional fully interpreted execution mode, but also pioneered the [Differential Hybrid Execution(DHE)](advanced/differentialhybridexecution.md) differential hybrid execution technology. That is, you can add, delete, or modify the AOT dll at will, and intelligently make the changed or newly added classes and functions run in interpreter mode, but the unchanged classes and functions run in AOT mode, so that the running performance of the hot-updated game logic basically reaches the original AOT level.
+HybridCLR not only supports the traditional fully interpreted execution mode, but also pioneered the [Differential Hybrid Execution(DHE)](/en/advanced/differentialhybridexecution.md) differential hybrid execution technology. That is, you can add, delete, or modify the AOT dll at will, and intelligently make the changed or newly added classes and functions run in interpreter mode, but the unchanged classes and functions run in AOT mode, so that the running performance of the hot-updated game logic basically reaches the original AOT level.
 
 Welcome to embrace modern native C# hot update technology! ! !
 
 
 ## Features
 
-- Features complete. Nearly complete implementation of the [ECMA-335 specification](https://www.ecma-international.org/publications-and-standards/standards/ecma-335/), with only a very small number of [unsupported features](/basic/ notsupportedfeatures.md) features.
+- Features complete. Nearly complete implementation of the [ECMA-335 specification](https://www.ecma-international.org/publications-and-standards/standards/ecma-335/), with only a very small number of [unsupported features](/en/basic/notsupportedfeatures.md) features.
 - Zero learning and use costs. HybridCLR enhances the pure AOT runtime into a complete runtime, making hot update code work seamlessly with AOT code. The script class and the AOT class are in the same runtime, and you can freely write codes such as inheritance, reflection, and multi-threading (volatile, ThreadStatic, Task, async). No need to write any special code, no code generation, almost unlimited.
-- Efficient execution. Implemented an extremely efficient register interpreter, all indicators are significantly better than other hot update schemes. [Performance Test Report](/basic/performance.md)
-- Memory efficient. The classes defined in the hot update script occupy the same memory space as ordinary c# classes, which is far superior to other hot update solutions. [Memory usage report](/basic/memory.md)
+- Efficient execution. Implemented an extremely efficient register interpreter, all indicators are significantly better than other hot update schemes. [Performance Test Report](/en/basic/performance.md)
+- Memory efficient. The classes defined in the hot update script occupy the same memory space as ordinary c# classes, which is far superior to other hot update solutions. [Memory usage report](/en/basic/memory.md)
 - Due to the perfect support for generics, libraries that are not compatible with il2cpp due to AOT generics issues can now run perfectly under il2cpp
 - Support some features not supported by il2cpp, such as __makeref, __reftype, __refvalue directives
 - The original `Differential Hybrid Execution(DHE)` differential hybrid execution technology makes the running performance of hot update basically reach the level of native AOT.
