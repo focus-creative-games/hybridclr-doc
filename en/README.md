@@ -9,7 +9,7 @@
 
 HybridCLR is the representative work of **[Code Philosophy (code philosophy)](https://code-philosophy.com/)** company, we hope to profoundly change the entire industry through our ingenuity and help game teams to produce more excellent game.
 
-HybridCLR is a **almost perfect** full-platform native c# hot update solution for Unity with complete features, zero cost, high performance, and low memory**.
+HybridCLR is a **almost perfect** full-platform native c# hot update solution for Unity with complete features, zero cost, high performance, and low memory.
 
 HybridCLR expands the code of il2cpp, making it change from pure [AOT](https://en.wikipedia.org/wiki/Ahead-of-time_compilation) runtime to `AOT+Interpreter` hybrid runtime, and then natively supports dynamic loading of assembly , so that the games packaged based on il2cpp backend can be executed not only on the Android platform, but also on IOS, Consoles and other platforms that limit JIT efficiently in **AOT+interpreter** hybrid mode, completely supporting hot updates from the bottom layer.
 
