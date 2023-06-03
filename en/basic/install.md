@@ -31,8 +31,8 @@ According to the target platform you packaged, select the necessary modules duri
 Currently there are three series of versions: `1.0` branch, `v2.x.y` series, `v3.x.y` (also the current main branch) series.
 
 - The `1.0` branch is too old. Although the work is stable, the Package-related workflow is relatively old, not as convenient as the subsequent versions, and maintenance has been stopped. It is strongly recommended not to use it again.
-- The tag version of `v2.x.y` series has a reasonable workflow optimization and has been verified by a large number of projects. It is recommended to use the Unity 2019 or 2020 version or the project that will be launched soon.
-- The `v3.x.y` series tag versions **removed support for Unity 2019 and 2020**, and added `2022` version support. It is recommended to use Unity 2021 and later versions, and it is used by early projects in the project.
+- The tag version of `v2.x.y` series has a reasonable workflow optimization and has been verified by a large number of projects. It is recommended to use the Unity 2019 version or the project that will be launched soon.
+- The `v3.x.y` series tag versions **removed support for Unity 2019**, and added `2022` version support. It is recommended to use Unity 2021 and later versions, and it is used by early projects in the project.
 
 ?> The versions of these three series are very stable, so there is no need to worry about which one is better. Generally speaking, the newer the version, the more optimizations and the better the user experience.
 
