@@ -247,6 +247,7 @@ Unity允许使用环境变量`UNITY_IL2CPP_PATH`自定义`il2cpp`的位置，因
 - 从Editor安装目录复制 `MonoBleedingEdge` 目录到 `{project}/HyridCLRData/LocalIl2CppData-{platform}/MonoBleedingEdge`
 - 其他处理。如2019版本将 `{package}/Data~/ModifiedUnityAssemblies/2019.4.40/Unity.IL2CPP.dll` 复制到 `{project}/HybridCLRData/LocalIl2CppData/il2cpp/build/deploy/net471/Unity.IL2CPP.dll`
 
+?> com.code-philosophy.hybridclr 包修改了本UnityEditor**进程内**的环境变量`UNITY_IL2CPP_PATH`，并不会影响其他Unity项目。
 
 创建上层`LocalIl2CppData-{platform}`目录，而不是只创建il2cpp是因为实测发现仅仅指定il2cpp目录位置是不够的，打包时Unity隐含假设了il2cpp同级有一个`MonoBleedingEdge`目录，所以创建了上级目录，将il2cpp及MonoBleedingEdge目录都复制过来。
 

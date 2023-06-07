@@ -217,3 +217,26 @@ IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FT_AOT_Class_Run2_m0451FFC153671CD294EB1
 }
 ```
 
+## Mono 对于ValueType的成员函数的open delegate调用复制而不是传递ref的bug
+
+在il2cpp可以正常运行。
+
+```csharp
+        public void void_valuetype_instance_open_interp()
+        {
+            var b = new FT_ValueType() { x = 1, y = 2f, z = "abc" };
+            var m = typeof(FT_ValueType).GetMethod("Run");
+            var invoke = typeof(ValueTypeRun).GetMethod("Invoke");
+            var del = (ValueTypeRun)Delegate.CreateDelegate(typeof(ValueTypeRun), null, m);
+
+            object c = b;
+            invoke.Invoke(del, new object[] { c, 1 });
+            // mono BUG!!! mono 会在此处断言失败, get value 1。
+            // 但il2cpp却是正确的!
+            Assert.Equal(2, ((FT_ValueType)c).x);
+
+            var dd = del + del;
+            invoke.Invoke(dd, new object[] { c, 1 });
+            Assert.Equal(4, ((FT_ValueType)c).x);
+        }
+```

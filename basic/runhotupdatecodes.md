@@ -6,7 +6,10 @@
 如下：
 
 ```csharp
-    byte[] assemblyData = xxxx; // 从你的资源管理系统中获得热更新dll的数据
+    // 从你的资源管理系统中获得热更新dll的数据
+    byte[] assemblyData = xxxx; 
+    // Assembly.Load函数内部会复制assemblyData,
+    // 调用完此函数请立即释放assemblyData，千万不要保存起来。
     Assembly ass = Assembly.Load(assemblyData);
 ```
 
