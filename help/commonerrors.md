@@ -175,6 +175,12 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 
 解决办法是去掉development build选项，或者说自己修改 build_libil2cpp.sh，打包出 debug模式的libil2cpp.a
 
+### 打包时出现 `error: undefined reference to 'SystemNative-ConvertErrorPalToPlatform'`
+
+你用的Unity版本比较高，libil2cpp新增了一些函数。而你使用的hybridclr版本太低，没有包含这些高版本的函数。
+
+解决办法：升级hybridclr版本，重新install即可。
+
 ### 打包时出现编译错误，通用处理办法
 
 很大程度是你的package 和 hybridclr c++代码版本不匹配导致的或者你的Unity版本太新，hybridclr暂未支持。 你需要：
@@ -329,11 +335,14 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 ### 使用addressable进行热更新时，加载资源出现 UnityEngine.AddressableAssets.InvlidKeyException: Exception of type 'UnityEngine.AddressableAssets.InvalidKeyException' was thrown. No Asset found with for key 'xxxx' 异常
 
-原因是addressable默认加载时会初始化资源中的所有类型，而此时热更新dll还未加载，找不到相应热更新类型。
+解决方案来自[addressables和HybridCLR结合使用导致的资源加载错误](https://github.com/Bian-Sh/Assemblies-Hotfix-Toolkit-Unity/issues/2)。也可以参见视频[踩坑实战:将HybridCLR导入自己的项目并实现热更新](https://www.bilibili.com/video/BV1aP4y1o7xi/) 1:02:30起的内容。
+
+> 当使用addressables来更新热更新的dll时。由于是先使用了Addressables的LoadAssetAsync函数，导致Addressables需要先进行初始化，此时的初始化中如果资源的类型是在热更新的类型，那么Addressables会认为该资源的类型为System.Object。所以需要先进行dll的加载才能够使用Addressables来加载资源，否则就会报UnityEngine.AddressableAssets.InvalidKeyException: Exception of type 'UnityEngine.AddressableAssets.InvalidKeyException' was thrown. No Asset found with for Key=xxx. Key exists as Type=System.Object, which is not assignable from the requested Type=YourHotUpdateAssetType。
+
 
 解决办法有如下几种：
 - 使用LoadAsset<System.Object>接口加载后再强转
-- 是关闭自动加载，然后手动加载热更新dll，再接着自动加载资源。参见视频[踩坑实战:将HybridCLR导入自己的项目并实现热更新](https://www.bilibili.com/video/BV1aP4y1o7xi/) 1:02:30起的内容。
+- 在loaddll结束后重新加载catalog `Addressables.LoadContentCatalogAsync($"{Addressables.RuntimePath}/catalog.json");`
 
 ### GameObject.GetComponent(string name) 接口无法获得组件
 

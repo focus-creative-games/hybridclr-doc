@@ -16,12 +16,11 @@
 
 - 如果是Assembly Definition(asmdef)方式定义的程序集，加入`hotUpdateAssemblyDefinitions`
 - 如果是普通dll或者Assembly-CSharp.dll，则将程序集名字（不包含'.dll'后缀，如Main、Assembly-CSharp）加入`hotUpdateAssemblies`。
-- 如果你的热更新代码在外部项目中（例如使用ET之类的框架，它的热更新代码并不放到Unity项目中），则可以在`externalHotUpdateAssemblyDirs`
-配置项中指定外部热更新dll的搜索路径。注意，**这个路径是相对路径**，相对于Unity项目根目录(即Assets的上级目录)。
 
 `hotUpdateAssemblyDefinitions`和`hotUpdateAssemblies`列表是等价的，不要重复添加，否则会报错。
 
-?> 如果热更新程序集是已经编译好的dll，必须同时在 `外部dll搜索路径`中配置它的搜索路径。搜索路径为相对路径，相对于项目根目录（也就是Assets的父目录）。
+?> 如果热更新程序集是已经编译好的dll（无论放在Assets下还是其他目录），必须同时在 `HybridCLR/Settings`的`外部dll搜索路径`中配置它的搜索路径。
+搜索路径为相对路径，相对于项目根目录（也就是Assets的父目录）。
 
 ## 其他参数
 

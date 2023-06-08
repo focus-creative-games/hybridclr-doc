@@ -165,15 +165,31 @@ LoadMetadataForAOTAssembly函数可以在任何时机调用，另外既可以在
 
 ### 应该补充元数据的assembly列表
 
-`HybridCLR/generate/AOTGenericReference` 命令生成的`AOTGenericReferences.cs`文件中包含了应该补充元数据的assembly列表，类似这样。你不需要运行游戏也能快速知道应该补充哪些元数据。
+`HybridCLR/generate/AOTGenericReference` 命令生成的`AOTGenericReferences.cs`文件中包含了应该补充元数据的assembly列表，示例如下。你不需要运行游戏也能快速知道应该补充哪些元数据。
 
 ```csharp
+using System.Collections.Generic;
+public class AOTGenericReferences : UnityEngine.MonoBehaviour
+{
+
 	// {{ AOT assemblies
-	// Main.dll
-	// System.Core.dll
-	// UnityEngine.CoreModule.dll
-	// mscorlib.dll
-	// }}
+	public static readonly IReadOnlyList<string> PatchedAOTAssemblyList = new List<string>
+	{
+		"Main.dll",
+		"System.Core.dll",
+		"UnityEngine.CoreModule.dll",
+		"mscorlib.dll",
+	};
+
+    	// {{ constraint implement type
+	// }} 
+
+	// {{ AOT generic types
+	// AOTDefs.HierarchyGeneric2<int>
+	// IBar<object>
+	// IRun<object>
+	// System.Action<UnityEngine.RaycastHit>
+}
 ```
 
 ### 元数据模式 HomologousImageMode
