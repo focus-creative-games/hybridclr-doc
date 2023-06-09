@@ -9,6 +9,12 @@
 
 ## Unity Editor下的错误
 
+### Package Manager中安装 com.code-philosophy.hybridclr时出现 package名与com.focus-creative-games.hybridclr_unity不匹配的错误
+
+从3.0.0版本起，com.focus-creative-games.hybridclr_unity改名com.code-philosophy.hybridclr，因此直接升级安装会出现这个错误。
+
+解决办法：先移除旧版本的com.focus-creative-games.hybridclr_unity，再重新安装最新版本即可。
+
 ### 点击 `HybridCLR/Setting`，未能找到HybridCLR设置界面
 
 删除 `ProjectSettings/HybridCLRSettings.asset`文件即可。如果仍未显示，则重启Unity Editor。
@@ -313,14 +319,14 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 缺失 interpreter -> aot 方向的桥接函数。请先确认你的 hybridclr是最新代码， com.code-philosophy.hybridclr package也是最新版本，
 并且已经生成最新的桥接函数。原理请参考 [桥接函数](/basic/methodbridge.md) 。
 
-如果是iOS平台，则很大可能因为你没有生成最新的libil2cpp.a。
+如果Android上正常，而iOS上有问题，则是因为你没有重新编译libil2cpp.a。
 
 如果还有问题，请在群里反馈给管理员 技术支持。
 
 ### 遇到'ExecutionEngineException: NotSupportNative2Managed' 
 
-缺失 aot -> interpreter 方向的桥接函数。请先确认你的 hybridclr是最新代码， com.code-philosophy.hybridclr package也是最新版本，
-并且已经生成最新的桥接函数。原理请参考 [桥接函数](/basic/methodbridge.md) 。
+缺失 aot -> interpreter 方向的桥接函数。请先确认你已生成最新的桥接函数。原理请参考 [桥接函数](/basic/methodbridge.md) 。
+如果Android上正常，而iOS上有问题，则是因为你没有重新编译libil2cpp.a。
 
 如果还有问题，请在群里反馈给管理员 技术支持。
 

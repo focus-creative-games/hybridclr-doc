@@ -203,6 +203,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 代码中加载补充元数据dll的方式见以下示例代码，你也可以参考 [hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial)。
 
+?> 如果RuntimeApi.LoadMetadataForAOTAssembly花费太多时间，造成卡顿，你可以在其他线程异步加载。
+
 ```csharp
     public static unsafe void LoadMetadataForAOTAssembly()
     {

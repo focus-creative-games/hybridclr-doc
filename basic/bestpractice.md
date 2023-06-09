@@ -4,6 +4,10 @@
 
 推荐使用 `2020.3.x(x >= 21)` 系列及 `2021.3.x` 系列，最稳定。
 
+## Assembly.Load之后不要保存 assemblyBytes
+
+assembly的byte[]数据在调用完Assembly.Load后不要保存起来，因为在Assembly.Load中会自动复制一份。
+
 ## 推荐启动脚本挂载到热更新完成后首个加载的热更新场景
 
 推荐将启动脚本挂载到启动热更新场景，这样可以零改动将非热更新工程改造成热更新工程，还不需要任何反射操作。
@@ -11,6 +15,10 @@
 ## `RuntimeApi.LoadMetadataForAOTAssembly` 调用的时机
 
 你只要在使用AOT泛型前调用即可（只需要调用一次），理论上越早加载越好。实践中比较合理的时机是热更新完成后，或者热更新dll加载后但还未执行任何何代码前。如果补充元数据的dll作为额外数据文件也打入了主包，则主工程启动时加载更优。可参考[HybridCLR_trial](https://github.com/focus-creative-games/hybridclr_trial)项目
+
+## `Assembly.Load`或者`RuntimeApi.LoadMetadataForAOTAssembly`执行时间过长，导致游戏卡顿。
+
+可以把它们放到其他线程异步加载。
 
 ## 原生与解释器部分性能敏感的场合不要用反射来交互，应该通过Delegate或虚函数
 
