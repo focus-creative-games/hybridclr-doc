@@ -8,6 +8,8 @@ HybridCLR完整支持泛型特性，没有任何限制。
 
 ## 使用AOT中定义的泛型类或函数
 
+关于AOT泛型问题的详细原理请阅读[AOT泛型](/basic/aotgeneric.md)。
+
 如果AOT中已经有代码实例化过某个泛型类或者函数，则热更新中可以直接使用，例如：
 
 ```csharp
@@ -32,17 +34,12 @@ class HotUpdateGenericDemos
 
 ```
 
-但如果AOT中没有实例化过某个AOT泛型类或者函数，则需要作一定的处理。解决办法有几种：
+但如果AOT中没有实例化过某个AOT泛型类或者函数，解决办法有几种：
 
 1. 在AOT代码添加相应的实例化代码。
 1. **补充元数据技术**。 这是HybridCLR的专利技术，社区版本也能使用。
 1. `full generic sharing` 完全泛型共享技术，相比补充元数据技术，工作流更简单，既不需要随包携带或者下载补充元数据dll，也不需要加载补充元数据dll，包体大小和内存都明显降低。该技术目前只在商业化版本提供。
 
-## `full generic sharing` 完全泛型共享技术
-
-自Unity 2021版本起支持`full generic sharing`技术
-
-关于AOT泛型问题的详细原理请阅读[AOT泛型](/basic/aotgeneric.md)。
 
 对于方法1，有几个致命缺陷：
 
@@ -50,6 +47,8 @@ class HotUpdateGenericDemos
 - 泛型参数有可能是热更新类型，不可能在AOT中提前实例化。例如你在热更新代码中定义了` struct MyVector3 {int x, y, z;}`，你不可能在AOT中提前实例化`List<MyVector3>`。
 
 `补充元数据技术`彻底解决了这个问题。粗略地说，你补充AOT泛型类（或泛型函数）的原始元数据后，就可以任意实例化这个泛型类了。以上面`List<MyVector3>`为例，你补充了List类（而不是MyVector3）所在的`mscorlib.dll`元数据后，就可以在热更新代码中使用任意`List<T>`泛型类了。
+
+补充元数据技术的缺陷是增大了包体或者需要额外下载补充元数据dll，导致工作流复杂一些，另外还多占用了内存。`full generic sharing` 又进一步解决补充元的这些缺陷。由于`full generic sharing`是商业化方案，这儿限于篇幅只介绍补充元数据的用法。
 
 ## 获得补充元数据dll
 
