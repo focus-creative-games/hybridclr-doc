@@ -10,7 +10,7 @@ The parameter passing and storage methods of the AOT part and the interpreter pa
 
 The bridge function must be generated in the AOT part in advance, which is similar to the principle of lua's wrapper function.
 
-In order to find the corresponding bridge function for each function called between `AOT <-> interpreter`, there must be a way to calculate the function signature. In addition, functions with completely equivalent parameter types and return value types can share the same bridge function, which greatly reduces the number of bridge functions. For the following example, for x64 and arm64 platforms, long and class types share the same signature. So they can all share a bridge function with `long (long, long)` signature.
+In order to find the corresponding bridge function for each function called between `AOT <-> interpreter`, there must be a way to calculate the function signature. In addition, functions with completely equivalent parameter types and return value types can sharing the same bridge function, which greatly reduces the number of bridge functions. For the following example, for x64 and arm64 platforms, long and class types sharing the same signature. So they can all sharing a bridge function with `long (long, long)` signature.
 
 ```csharp
 object Fun1(object a, long b);

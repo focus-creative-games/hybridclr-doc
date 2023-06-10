@@ -32,10 +32,15 @@ class HotUpdateGenericDemos
 
 ```
 
-但如果AOT中没有实例化过某个AOT泛型类或者函数，则需要作一定的处理。解决办法有两种：
+但如果AOT中没有实例化过某个AOT泛型类或者函数，则需要作一定的处理。解决办法有几种：
 
 1. 在AOT代码添加相应的实例化代码。
-1. **补充元数据技术**。 这是HybridCLR的专利技术。
+1. **补充元数据技术**。 这是HybridCLR的专利技术，社区版本也能使用。
+1. `full generic sharing` 完全泛型共享技术，相比补充元数据技术，工作流更简单，既不需要随包携带或者下载补充元数据dll，也不需要加载补充元数据dll，包体大小和内存都明显降低。该技术目前只在商业化版本提供。
+
+## `full generic sharing` 完全泛型共享技术
+
+自Unity 2021版本起支持`full generic sharing`技术
 
 关于AOT泛型问题的详细原理请阅读[AOT泛型](/basic/aotgeneric.md)。
 

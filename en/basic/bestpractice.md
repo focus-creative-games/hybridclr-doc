@@ -59,7 +59,7 @@ updateDel(deltaTime);
 
 ## 2021 version don't use `faster(smaller) builds` option
 
-Since the 2021.3.x LTS version, il2cpp has fully supported the `full generic share` technology. When the `Il2Cpp Code Generation` option in Build Settings is `faster runtime`, it is a standard generic sharing mechanism, and `faster(smaller) builds` open when
-`full generic share` mechanism.
+Since the 2021.3.x LTS version, il2cpp has fully supported the `full generic sharing` technology. When the `Il2Cpp Code Generation` option in Build Settings is `faster runtime`, it is a standard generic sharing mechanism, and `faster(smaller) builds` open when
+`full generic sharing` mechanism.
 
-When `full generic share` is enabled, each generic function (regardless of whether the generic parameter is a value type or a class type) will completely share a code. The advantage is to save the size of the package body, and the disadvantage is that it greatly hurts the performance of the generic function . The fully generic shared code is sometimes several to ten times slower than the standard generic shared code, and even worse than the purely interpreted version. Therefore it is strongly recommended to **not enable** the `faster(smaller) builds` option.
+When `full generic sharing` is enabled, each generic function (regardless of whether the generic parameter is a value type or a class type) will completely sharing a code. The advantage is to save the size of the package body, and the disadvantage is that it greatly hurts the performance of the generic function . The fully generic shared code is sometimes several to ten times slower than the standard generic shared code, and even worse than the purely interpreted version. Therefore it is strongly recommended to **not enable** the `faster(smaller) builds` option.

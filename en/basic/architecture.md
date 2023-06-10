@@ -25,7 +25,7 @@ Each current annual version also has an old 1.0 branch `{version}-1.0`, such as 
 
 Warehouse address [github](https://github.com/focus-creative-games/hybridclr) [gitee](https://gitee.com/focus-creative-games/hybridclr)
 
-The hybridclr warehouse contains the core code of the interpreter. All il2cpp_plus share the same set of hybridclr codes, regardless of the major version of Unity. There are currently two branches:
+The hybridclr warehouse contains the core code of the interpreter. All il2cpp_plus sharing the same set of hybridclr codes, regardless of the major version of Unity. There are currently two branches:
 
 - main
 - 1.0

@@ -10,10 +10,11 @@ il2cpp是AOT运行时，它运行时使用的几乎所有（为什么不是全�
 
 泛型类，尤其是泛型容器List、Dictionary之类在代码中使用如此广泛，如果因为AOT限制，导致`List<HotUpdateType>`之类的都不能运行，那游戏热更新的代码限制也太大了。幸运的是，HybridCLR使用两类技术彻底解决了这个问题：
 
-- 基于il2cpp的`泛型共享`技术
-- 基于`补充元数据`技术，这也是HybridCLR的专利技术
+- 基于il2cpp的`泛型共享`技术。
+- 基于`补充元数据`技术。这也是HybridCLR的专利技术。该技术社区版本也可使用。
+- 基于`full generic sharing` 完全泛型共享技术。该技术目前只在商业化版本提供。
 
-?> 由于il2cpp泛型共享技术存在较大限制，强烈推荐使用`补充元数据`技术解决泛型问题。
+?> 由于il2cpp泛型共享技术存在较大限制，强烈推荐使用`补充元数据`或者`full generic sharing`技术解决泛型问题。
 
 ## il2cpp的泛型共享机制
 
@@ -32,11 +33,11 @@ il2cpp为了避免泛型代码膨胀，节约内存，在保证代码逻辑正�
 
 ### 非枚举的值类型
 
-share type为自身。如int的share type为int
+sharing type为自身。如int的share type为int
 
 ### 枚举类型
 
-share type为 underlying type与它相同的枚举。例如
+sharing type为 underlying type与它相同的枚举。例如
 
 ```csharp
 enum MyEnumA
@@ -64,7 +65,7 @@ MyEnumA和MyEnumB共享类型相同，MyEnumC和MyEnumD的共享类型相同。
 
 ### class引用类型
 
-share type为 object
+sharing type为 object
 
 ### 泛型类型
 
@@ -75,7 +76,7 @@ share type为 object
 
 ### 泛型函数的共享泛型函数计算规则
 
-`Class<C1, C2, ...>.Method<M1, M2, ...>(A1, A2, ...)` 的AOT泛型函数为`Class<share(C1), share(C2), ...>.Method<share(M1), share(M2), ...>(share(A1), share(A2), ...)`。例如：
+`Class<C1, C2, ...>.Method<M1, M2, ...>(A1, A2, ...)` 的AOT泛型函数为`Class<sharing(C1), sharing(C2), ...>.Method<sharing(M1), sharing(M2), ...>(sharing(A1), sharing(A2), ...)`。例如：
 
 - `List<string>.ctor` 的共享函数为 `List<object>.ctor`
 - `List<int>.Add(int)` 的共享函数为 `List<int>.Add(int)`
@@ -129,9 +130,9 @@ struct GenericDemo<T>
 
 由于值类型不能泛型共享，泛型实例（类或函数）的泛型参数中如果出现值类型，这个泛型实例必须提前在AOT提前实例化。如果
 你的泛型参数类型是热更新代码中定义的值类型，由于热更新类型显然不可能提前在AOT中泛型实例化，导致你在热更新代码
-中无法使用 `List<热更新值类型>` 这样的代码，给开发带来极多的不便。
+中无法使用 `List<热更新值类型>` 这样的代码。不仅给开发带来极多的不便，上线后短期内重新发主包也是不现实的。
 
-所幸我们创新性地提出`补充元数据`专利技术，彻底解决了这个问题。
+所幸我们创新性地提出`补充元数据`专利技术以及支持il2cpp的`full generic sharing`技术，彻底解决了这个问题。
 
 ## 基于补充元数据的泛型函数实例化技术（HybridCLR的专利技术）
 
@@ -227,6 +228,26 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
     }
 ```
 
+
+## full generic sharing 技术
+
+?> `full generic sharing` 技术当前只提供商业化版本。
+
+补充元数据虽然彻底解决了AOT泛型问题，但补充元数据会导致需要随包携带或者热更新下载补充元数据dll，导致包体增大或者增加了热更新时间。
+加载补充元数据不仅导致内存占用明显增加，还增加了启动时间。对于微信小游戏这些对包体和内存要求严苛的场合，这是一个影响较大的问题。
+被补充的泛型函数以解释方式执行，还降低了运行性能。
+
+HybridCLR支持`full genric sharing`后，不再需要补充元数据，简化了工作流，以原生方式运行AOT泛型，性能大幅提升，彻底解决了补充元数据的以上缺点。
+
+自2021.3.x LTS版本起，il2cpp已经完全支持`完全泛型共享（full generic sharing)`技术，当 Build Settings中 `Il2Cpp Code Generation` 选项为 `faster runtime` 时为之前章节介绍的泛型共享机制，为 `faster(smaller) build` 时开启
+`full generic sharing` 机制。`full generic sharing`技术可以克服传统的il2cpp的值类型泛型无法共享的缺陷，泛型函数的所有泛型实例（无论泛型参数是值类型还是class类型）完全共享一份代码。
+
+自2022.3.x版本起，即使Build Settings中使用`faster runtime`选项也会开启`full generic sharing`机制，使用`faster(smaller) build`选项则迫使同个函数的所有泛型共享都使用一份代码。
+
+`faster(smaller) build`选项的优点是可以任意泛型实例化，而且可以节约代码大小，缺点是极大地伤害了泛型函数的性能。完全泛型共享的代码相比于标准泛型共享代码有时候会慢几倍到十几倍，甚至比不上纯解释版本。因此强烈推荐**不要开启** `faster(smaller) build` 选项。对于2021版本想使用完全泛型共享则只能开启这个选项，而2022版本则可以使用`faster runtime`兼顾普通泛型共享和完全泛型共享，让性能最大化。
+
+
+
 ## 一些C#特殊机制引发的AOT泛型问题
 
 编译器可能为会async之类的复杂语法糖生成隐含的AOT泛型引用。故为了让这些机制能够正常工作，也必须解决它们引发的AOT泛型实例化问题。
@@ -242,16 +263,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 - `void AsyncTaskMethodBuilder<T>::SetException(Exception exception)`
 - `void AsyncTaskMethodBuilder<T>::SetResult(T result)`
 
-两种泛型实例化技术都可以解决这些问题。你可以使用泛型共享机制，即在AOT里提前实例化这些函数，不过要**注意**，Unity在release模式下编译的dll中生成的状态机是ValueType类型，导致无法泛型共享，但debug模式下生成的状态机是class类型，可以泛型共享。因此如果使用il2cpp泛型共享机制，为了能够让热更新中使用async语法，使用脚本编译dll时，务必加上 `scriptCompilationSettings.options = ScriptCompilationOptions.DevelopmentBuild;` 代码，这样编译出的状态机是class类型，在热更新代码中能正常工作。如果已经使用`补充元数据技术`，由于彻底支持AOT泛型，则对编译方式**无限制**。
+两种泛型实例化技术都可以解决这些问题。你可以使用泛型共享机制，即在AOT里提前实例化这些函数，不过要**注意**，Unity在release模式下编译的dll中生成的状态机是ValueType类型，导致无法泛型共享，但debug模式下生成的状态机是class类型，可以泛型共享。因此如果使用il2cpp泛型共享机制，为了能够让热更新中使用async语法，使用脚本编译dll时，务必加上 `scriptCompilationSettings.options = ScriptCompilationOptions.DevelopmentBuild;` 代码，这样编译出的状态机是class类型，在热更新代码中能正常工作。如果已经使用`补充元数据`或`full generic sharing`技术，由于彻底支持AOT泛型，则对编译方式**无限制**。
 
-在AOT中实例化这些泛型非常繁琐，**强烈推荐**使用补充元数据机制。
-
-## `full generic share` 技术补充介绍
-
-自2021.3.x LTS版本起，il2cpp已经完全支持`完全泛型共享（full generic share）`技术，当 Build Settings中 `Il2Cpp Code Generation` 选项为 `faster runtime` 时为之前章节介绍的泛型共享机制，为 `faster(smaller) build` 时开启
-`full generic share` 机制。`full generic share`技术可以克服传统的il2cpp的值类型泛型无法共享的缺陷，泛型函数的所有泛型实例（无论泛型参数是值类型还是class类型）完全共享一份代码。
-
-完全泛型共享的优点是可以任意泛型实例化，而且可以节约代码大小，缺点是极大地伤害了泛型函数的性能。完全泛型共享的代码相比于标准泛型共享代码有时候会慢几倍到十几倍，甚至比不上纯解释版本。因此强烈推荐**不要开启** `faster(smaller) build` 选项。也正因如此，HybridCLR虽然能跟`full generic share` 机制配合工作，但完全没有利用这种机制。因为这种机制除了想极端减少包体的场合，基本没有实践意义。
+?> 在AOT中实例化这些泛型非常繁琐，**强烈推荐**使用`补充元数据`或`full generic sharing`技术。
 
 ## 附录：AOT泛型的共享泛型实例化示例
 
@@ -259,8 +273,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 错误日志
 
-```csharp
-MissingMethodException: AOT generic method isn't instantiated in aot module 
+```text
+MissingMethodException: AOT generic method not instantiated in aot module 
   void System.Collections.Generic.List<System.String>.ctor()
 ```
 
@@ -280,8 +294,8 @@ class RefTypes
 
 错误日志
 
-```csharp
-MissingMethodException: AOT generic method isn't instantiated in aot module 
+```text
+MissingMethodException: AOT generic method not instantiated in aot module 
     void System.ValueType<System.Int32, System.String>.ctor()
 ```
 
@@ -305,8 +319,8 @@ class RefTypes
 
 错误日志
 
-```csharp
-MissingMethodException: AOT generic method isn't instantiated in aot module 
+```text
+MissingMethodException: AOT generic method not instantiated in aot module 
   System.Void System.Runtime.CompilerService.AsyncVoidMethodBuilder::Start<UIMgr+ShowUId__2>(UIMgr+<ShowUI>d__2&)
 ```
 
