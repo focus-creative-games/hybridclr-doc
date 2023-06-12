@@ -6,7 +6,7 @@ authors:
 
 # hybridclr技术原理剖析
 
-我们在[上一节](./2.1.2_%E5%85%B3%E4%BA%8Ehybridclr%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%9A%84%E6%80%9D%E7%BB%B4%E5%AE%9E%E9%AA%8C.md)完成了hybridclr可行性分析。由于hybridclr内容极多，限于篇幅本篇文章主要概述性介绍hybridclr的技术实现。
+我们在上一节完成了hybridclr可行性分析。由于hybridclr内容极多，限于篇幅本篇文章主要概述性介绍hybridclr的技术实现。
 
 ## CLR和il2cpp基础
 

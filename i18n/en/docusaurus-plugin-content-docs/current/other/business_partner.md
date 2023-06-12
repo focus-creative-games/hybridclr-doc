@@ -1,23 +1,21 @@
-# 合作案例
+# Business Case
 
-目前已经上线的商业项目有数百个，已经接入的则有上千个甚至更多。HybridCLR目前已经被广泛验证是非常高效、稳定的Unity热更新解决方案。
-我们几乎跟所有头部公司都有合作，部分如下。出于商业保密原因，我们不列举具体的合作项目。
+At present, there are hundreds of commercial projects that have been launched, and thousands or even more have been connected. HybridCLR has been widely verified as a very efficient and stable hot update solution for Unity.
+We have cooperated with almost all leading companies, some of which are as follows. For reasons of commercial confidentiality, we do not list specific cooperation projects.
 
 :::tip
-标注 (*) 的表示已经明确知道有使用HybridCLR的上线项目，未标注则仅仅是未向我们透露具体项目状态。
+The ones marked with (*) have been clearly known that there are online projects using HybridCLR, and the ones not marked are just that they have not disclosed the specific project status to us.
 :::
 
-- 腾讯
-- 网易 （*）
+- Tencent
+- Netease (*)
 - funplus (*)
-- 字节
-- 百度 （*）
-- 巨人
-- 叠纸 （*）
-- 游族 (*)
+- bytes
+- Baidu (*)
+- giant
+- stack of paper (*)
+- Youzu (*)
 - bilibili
 - IGG
-- 完美
-- 英雄互娱
-
-
+- Perfect
+- Hero Entertainment

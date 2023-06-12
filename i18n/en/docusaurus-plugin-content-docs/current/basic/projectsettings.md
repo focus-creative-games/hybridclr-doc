@@ -1,6 +1,6 @@
 # Configure HybridCLR
 
-After installing the com.code-philosophy.hybridclr package, you need to set the relevant parameters correctly. Detailed configuration related documents can be found in [hybridclr_unity package introduction](/en/basic/com.code-philosophy.hybridclr.md).
+After installing the com.code-philosophy.hybridclr package, you need to set the relevant parameters correctly. Detailed configuration related documents can be found in [hybridclr_unity package introduction](../basic/com.code-philosophy.hybridclr.md).
 
 ## Configure PlayerSettings
 
@@ -10,7 +10,7 @@ After installing the com.code-philosophy.hybridclr package, you need to set the 
 
 ## Configure hot update assembly
 
-Obviously, the code that needs to be hot updated should be split into independent assemblies in order to facilitate hot updating. How to create and split hot update assembly, please see [Create and configure hot update Assembly](/en/basic/hotupdateassemblysetting.md) document.
+Obviously, the code that needs to be hot updated should be split into independent assemblies in order to facilitate hot updating. How to create and split hot update assembly, please see [Create and configure hot update Assembly](../basic/hotupdateassemblysetting.md) document.
 
 Click the menu `HybridCLR/Settings` to open the configuration interface.
 
@@ -27,4 +27,4 @@ If the hot update assembly is a compiled dll, its search path must be configured
 
 ## Other parameters
 
-Most of the parameters can be kept at their default values, and developers generally don’t need to care about them. For details, please refer to [com.code-philosophy.hybridclr package introduction](/en/basic/com.code-philosophy.hybridclr.md).
+Most of the parameters can be kept at their default values, and developers generally don’t need to care about them. For details, please refer to [com.code-philosophy.hybridclr package introduction](../basic/com.code-philosophy.hybridclr.md).

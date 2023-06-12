@@ -107,7 +107,7 @@ If you did not use `HybridCLR/Generate/All` such a one-click generation command,
 
 ### Generate/MethodBridge
 
-Scan and generate bridge function files according to the current AOT dll set. For related documents, please see [bridge function](/en/basic/methodbridge.md).
+Scan and generate bridge function files according to the current AOT dll set. For related documents, please see [bridge function](../basic/methodbridge.md).
 
 Generate bridge function depends on AOT dlls and hot update dlls. If you did not use `HybridCLR/Generate/All` such a one-click generation command, please run the following commands in sequence:
 
@@ -135,7 +135,7 @@ The `AOTGenericReferences.cs` file also contains a list of assemblies that shoul
 
 Please add instantiation references to generic types and functions in other files, as this output file will be overwritten every time it is regenerated.
 This generic instantiation documentation is only for inspiration, telling you which classes and functions can be instantiated with aot generics.
-For more specific AOT generic related documents, please see [AOT Generic Introduction](/en/basic/aotgeneric.md).
+For more specific AOT generic related documents, please see [AOT Generic Introduction](../basic/aotgeneric.md).
 
 :::tip
 After using the supplementary metadata mechanism, **does not process** and does not affect normal operation. But if you manually instantiate aot generics, you can improve performance. The suggestion is to manually instantiate a small number of performance-sensitive classes or functions, such as `Dictionary<int,int>`.
@@ -155,7 +155,7 @@ It is at the discretion of the developer to convert to the correct instantiation
 
 ### Generate/ReversePInvokeWrapper
 
-Generate a ReversePInvokeWrapper function for hot-updated C# static functions marked with `[MonoPInvokeCallback]` annotation. Please refer to the document [MonoPInvokeCallback Support](/en/advanced/workwithscriptlanguage.md) for the specific introduction of MonoPInvokeCallback
+Generate a ReversePInvokeWrapper function for hot-updated C# static functions marked with `[MonoPInvokeCallback]` annotation. Please refer to the document [MonoPInvokeCallback Support](../advanced/workwithscriptlanguage.md) for the specific introduction of MonoPInvokeCallback
 
 
 ### Generate/All
@@ -303,7 +303,7 @@ Remove the hot update dll from the list of build assemblies. The script will add
 It is part of the packaging workflow, and the relevant code is in `Editor/BuildProcessors/PatchScriptingAssemblyList.cs`.
 
 When the tool is packaged, it will automatically add the dll name of the hot update assembly to the assembly list configuration file. The dll name of the assembly where the hot update MonoBehaviour script is located must be added to the assembly list configuration file,
-Unity's resource management system can correctly identify and restore hot update scripts. For a more detailed introduction to the principle, please see [Using Hot Update MonoBehaviour](/en/basic/monobehaviour.md) .
+Unity's resource management system can correctly identify and restore hot update scripts. For a more detailed introduction to the principle, please see [Using Hot Update MonoBehaviour](../basic/monobehaviour.md) .
 
 ### Backup trimmed AOT dll
 
@@ -317,7 +317,7 @@ The original aot dll can be used directly. The advantage of this is that the wor
 ##iOSBuild-script
 
 `Editor/Data~/iOSBuild` in the package contains the scripts needed to compile the iOS version libil2cpp.a. After running the `HybridCLR/Installer...` menu command to successfully initialize HybridCLR, it will be automatically copied to the `{project}/HybridCLRData/iOSBuild` directory.
-** Subsequent operations must be performed in the `{project}/HybridCLRData/iOSBuild` directory**. For the specific operation of compiling libil2cpp.a, please refer to the document [iOS Platform Packaging](/en/basic/buildpipeline.md).
+** Subsequent operations must be performed in the `{project}/HybridCLRData/iOSBuild` directory**. For the specific operation of compiling libil2cpp.a, please refer to the document [iOS Platform Packaging](../basic/buildpipeline.md).
 
 ## Runtime related scripts
 
@@ -362,7 +362,7 @@ The underlying tool class for operating HybridCLR. The more commonly used ones a
 
 If a scripting language such as xlua is used in the project, the `[MonoPInvokeCallback]` annotation needs to be added to the C# function to be registered in lua. This returns a corresponding C++ for these C# functions
 Function pointer, used to register in the scripting language. HybridCLR supports registering hot-updated C# code in lua, but the C++ stub function corresponding to `[MonoPInvokeCallback]` must be generated in advance to return a corresponding C++ function pointer for each C# function.
-The script provides the function of automatically generating stub functions. For details, see [MonoPInvokeCallback support](/en/advanced/workwithscriptlanguage.md) and [HybridCLR+lua/js/python](/hybridclr/work_with_script_language/) documents
+The script provides the function of automatically generating stub functions. For details, see [MonoPInvokeCallback support](../advanced/workwithscriptlanguage.md) and [HybridCLR+lua/js/python](/hybridclr/work_with_script_language/) documents
 
 Each function with the `[MonoPInvokeCallback]` attribute requires a unique corresponding wrapper function. These wrapper functions must be pre-generated during packaging and cannot be changed.
 Therefore, if a function with the `[MonoPInvokeCallback]` feature is added in subsequent hot updates, there will be insufficient wrapper functions. ReversePInvokeWrapperGenerationAttribute

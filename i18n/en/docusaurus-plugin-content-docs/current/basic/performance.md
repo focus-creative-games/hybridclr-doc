@@ -6,7 +6,7 @@ Although HybridCLR is also interpreted and executed, both theoretical principles
 
 The community version of HybridCLR is much (several times to tens of times) better than the Lua solution except that its numerical calculation is equal to that of Lua.
 
-The HybridCLR of the **commercial version** has greatly optimized the performance of numerical calculations, with a performance improvement of nearly 300%. Most other common instructions also have a performance improvement of 50%-200%. Developers who have strict requirements on performance can contact us [Business Services](/en/other/business.md).
+The HybridCLR of the **commercial version** has greatly optimized the performance of numerical calculations, with a performance improvement of nearly 300%. Most other common instructions also have a performance improvement of 50%-200%. Developers who have strict requirements on performance can contact us [Business Services](../other/business.md).
 
 The following is the test report of the community version of HybridCLR under the iphone 11 and Xiaomi 5C mobile phones. The test code is at the end of the appendix.
 

@@ -1,4 +1,4 @@
-# other information
+# Other Information
 
 
 ## Official related warehouse
@@ -14,7 +14,7 @@ You can search for HybridCLR-related videos on [Bilibili](https://bilibili.com),
 
 ## Encounter problems
 
-Please check the [Common Errors](/en/help/commonerrors.md) first.
+Please check the [Common Errors](../help/commonerrors.md) first.
 
 If it is not resolved, you can join the official group for help:
 
@@ -26,4 +26,4 @@ If it is not resolved, you can join the official group for help:
 - Business cooperation email: business@code-philosophy.com
 
 
-If it is determined to be a bug (HybridCLR is already very stable, the probability of novices encountering bugs is extremely low), please report to us according to [Bug Feedback Template](/en/help/issue.md).
+If it is determined to be a bug (HybridCLR is already very stable, the probability of novices encountering bugs is extremely low), please report to us according to [Bug Feedback Template](../help/issue.md).

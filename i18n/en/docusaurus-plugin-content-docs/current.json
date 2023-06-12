@@ -4,7 +4,7 @@
     "description": "The label for version current"
   },
   "sidebar.tutorialSidebar.category.新手教程": {
-    "message": "Getting Started",
+    "message": "Beginner Guides",
     "description": "The label for category 新手教程 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.使用指南": {

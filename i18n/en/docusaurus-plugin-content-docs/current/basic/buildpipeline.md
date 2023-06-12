@@ -11,7 +11,7 @@ Due to the requirements of the hot update itself and some limitations of Unity r
 - Special handling for iOS platform
 
 Manually operating these is cumbersome and error-prone. The `com.code-philosophy.hybridclr` package contains standard tool scripts related to packaging workflows, simplifying these complex processes into one-click operations.
-For detailed implementation, please refer to the source code or [com.code-philosophy.hybridclr introduction](/en/basic/com.code-philosophy.hybridclr.md)
+For detailed implementation, please refer to the source code or [com.code-philosophy.hybridclr introduction](../basic/com.code-philosophy.hybridclr.md)
 
 ## Packaging process
 

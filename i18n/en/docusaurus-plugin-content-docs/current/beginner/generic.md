@@ -1,4 +1,4 @@
-# use generics
+# Use Generics
 
 HybridCLR fully supports generic features without any restrictions.
 
@@ -37,7 +37,7 @@ However, if an AOT generic class or function has not been instantiated in the AO
 1. Add the corresponding instantiation code in the AOT code.
 1. **Supplementary Metadata Technology**. This is HybridCLR's patented technology.
 
-Please read [AOT Generics](/en/basic/aotgeneric.md) for detailed principles of AOT generics.
+Please read [AOT Generics](../basic/aotgeneric.md) for detailed principles of AOT generics.
 
 For method 1, there are several fatal flaws:
 

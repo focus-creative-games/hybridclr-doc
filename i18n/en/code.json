@@ -269,5 +269,29 @@
   "theme.tags.tagsPageTitle": {
     "message": "Tags",
     "description": "The title of the tag list page"
+  },
+  "易于使用": {
+    "message": "Easy to use"
+  },
+  "原生C#热更新体验，开发工作流与传统Unity C#开发几乎相同，零学习和使用成本。": {
+    "message": "Native C# hot update experience, the development workflow is almost the same as traditional Unity C# development, zero learning and use costs."
+  },
+  "实现高效": {
+    "message": "High efficiency"
+  },
+  "C++实现，与il2cpp深度集成，运行性能和内存占用指标都远远优于其他任何热更新方案。开创性的DHE技术让热更新的游戏逻辑的运行性能基本达到原生AOT的水平。": {
+    "message": "C++ implementation, deep integration with il2cpp, running performance and memory usage indicators are far superior to any other hot update solutions. The pioneering DHE technology makes the running performance of hot updated game logic basically reach the level of native AOT."
+  },
+  "稳定可靠": {
+    "message": "Stable and reliable"
+  },
+  "极其稳定可靠，足以满足大中型商业项目的稳定性要求。当前上千个商业游戏项目完成接入，其中有几百款已经双端上线。大多数头部公司如腾讯、网易、字节、funplus都已接入。": {
+    "message": "Extremely stable and reliable, enough to meet the stability requirements of large and medium-sized commercial projects. At present, thousands of commercial game projects have been connected, and hundreds of them have been launched on both ends. Most leading companies such as Tencent, Netease, ByteDance, and funplus have already connected."
+  },
+  "特性完整、零成本、高性能、低内存的Unity全平台原生c#热更方案": {
+    "message": "Full-featured, zero-cost, high-performance, low-memory Unity full-platform native c# hot update solution"
+  },
+  "快速上手": {
+    "message": "Getting Started"
   }
 }

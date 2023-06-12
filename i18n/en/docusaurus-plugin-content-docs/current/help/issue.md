@@ -1,7 +1,7 @@
 # BUG feedback template
 
 Before reporting bugs, please confirm that the following steps have been completed:
-- Check out the [Common Errors Documentation](/en/help/commonerrors.md) carefully, most beginner questions are there.
+- Check out the [Common Errors Documentation](../help/commonerrors.md) carefully, most beginner questions are there.
 - At this point, if it is still confirmed that it is a bug, please send it to the technical customer service (QQ1732047670) according to the **Feedback Template** below.
 
 ## Bug Feedback

@@ -1,75 +1,76 @@
-# 商业化服务
+# Business Services
 
-我们提供多种高端商业版本及可灵活定制的技术服务，满足游戏项目在各种应用场景下的需求。
+We provide a variety of high-end commercial versions and flexible customized technical services to meet the needs of game projects in various application scenarios.
 
-请使用贵公司的**公司邮箱**向邮箱business@code-philosophy.com发起咨询，以QQ或者126邮箱之类发起的邮件会被忽略，敬请谅解。
+Please use your company's **company email** to send inquiries to email business@code-philosophy.com, emails initiated by QQ or 126 emails will be ignored, please understand.
 
-## 旗舰版
+## Ultimate
 
 :::tip
-旗舰版本包含了我们独创的[`Differential Hybrid Execution(DHE)`](/en/advanced/differentialhybridexecution.md)技术，会智能地让变化或者新增的类和函数以interpreter模式运行，但未改动的类和函数以AOT方式运行，
-业内**首次实现**了业务逻辑`任意变化`的同时，运行性能**达到原生AOT的水平**，是大型或性能要求严苛的项目的最佳选择。
+
+The flagship version includes our original [`Differential Hybrid Execution(DHE)`](/advanced/differentialhybridexecution.md) technology, which will intelligently make changed or newly added classes and functions run in interpreter mode, but unchanged classes and The function runs in AOT mode,
+It is the first time in the industry to realize the business logic "arbitrary change" and at the same time, the operating performance **reaches the level of native AOT**, which is the best choice for large-scale or performance-critical projects.
+
 :::
 
-旗舰版本当前已被商业项目线上验证过，达到了较高的稳定性水平，可以放心使用。
+The flagship version has been verified online by commercial projects and has reached a high level of stability, so you can use it with confidence.
 
-旗舰版的优势：
+Advantages of the flagship version:
 
-- 包含独创的`DHE`技术，未变化部分代码性能与原生完全相同，相较社区版本纯解释方式提升惊人的**3-30**倍甚至更高，整体**几乎达到**原生性能水平。
-- **高级解释指令优化**，支持函数inline（对于短函数有10多倍的性能提升）、newobj inline、类成员访问优化、typeof优化、**数值指令**优化等重要优化。最为核心的数值指令性能提升100-300%，让解释器模块执行重度数值计算成为可能。
-- 更敏捷的维护支持，随时获得最新的代码（社区版本出于维护成本考虑，只会定期发布版本）。
-- 原生代码已全部在包体中，被各大AppStore拒审的风险大幅降低。
-- 附含一年的技术支持，快速解决使用过程中遇到的各种问题。
+- Contains the original `DHE` technology, the performance of the unchanged part of the code is exactly the same as that of the original, compared with the pure interpretation method of the community version, it is astonishing **3-30** times or even higher, and the overall **almost reaches** the original performance level.
+- Supports the `full generic sharing` technology of il2cpp starting from Unity 2021. Value types can also be shared generically. AOT generic functions are executed natively, which greatly improves the execution performance of generic functions. It is no longer necessary to add metadata to AOT, which simplifies the workflow, effectively reduces the package size, and significantly reduces memory usage. Especially useful for packages and memory-critical platforms such as WebGL.
+- **Advanced Interpretation Instruction Optimization**, support function inline (more than 10 times performance improvement for short functions), newobj inline, class member access optimization, typeof optimization, **numerical instruction** optimization and other important optimizations. The performance of the most core numerical instructions has been improved by 100-300%, making it possible for the interpreter module to perform heavy numerical calculations.
+- More agile maintenance support, get the latest code at any time (the community version will only be released regularly due to maintenance cost considerations).
+- All the native codes are in the package body, the risk of being rejected by major AppStore is greatly reduced.
+- One-year technical support is included to quickly solve various problems encountered during use.
 
 
-以下是旗舰版本相比于社区版本的解释性能提升数据。注意，只有变化代码才会走解释，如果未改动，两者的性能和原生是一样的。
+The following is the interpretation performance improvement data of the flagship version compared to the community version. Note that only the changed code will be interpreted. If it is not changed, the performance of the two is the same as the original.
 
 ![interpreter_optimization](/img/hybridclr/interpreter_optimization.jpg)
 
-以下是数值计算方面原生与旗舰版本的解释性能对比，加法大约为7-16倍左右，乘法是4倍，除法是2倍。注意，只有变化代码才会走解释，如果未改动，性能和原生是一样的。
+The following is a comparison of the interpretation performance of the native version and the flagship version in terms of numerical calculations. The addition is about 7-16 times, the multiplication is 4 times, and the division is 2 times. Note that only the changed code will be interpreted. If it is not changed, the performance is the same as the original.
 
 ![benchmark_numeric](/img/hybridclr/benchmark_numeric.jpg)
 
 
-## HotReload特别版
+## Professional version
 
-HotReload特别版提供独创的`热重载技术`的支持。可以运行中完全卸载或者重新加载一个assembly，尤其适用于小游戏合集类型的游戏。
+Provides some advanced features not supported by the community version, **very high cost performance**.
 
-版本优势：
+Version advantages:
 
-- 支持卸载单独的assembly，卸载大部分内存（预计95%以上），但有少量残留（如`[ThreadStatic]`标记的线程静态成员字段占据的内存）
-- 支持重新加载assembly，代码基本可以任意变化甚至完全不同（除MonoBehaviour类外）。MonoBehaviour及ScriptableObject的热重载。
-- 更敏捷的维护支持，随时获得最新的代码（社区版本出于维护成本考虑，只会定期发布版本）。
+- Supports the `full generic sharing` technology of il2cpp starting from Unity 2021. Value types can also be shared generically. AOT generic functions are executed natively, which greatly improves the execution performance of generic functions. It is no longer necessary to add metadata to AOT, which simplifies the workflow, effectively reduces the package size, and significantly reduces memory usage. Especially useful for packages and memory-critical platforms such as WebGL.
+- Includes basic interpreted instruction optimizations (DHE includes more instruction optimizations). Support function inline (more than 10 times performance improvement for short functions such as Property access), newobj inline and other optimization technologies.
+- More agile maintenance support, get the latest code at any time (the community version will only be released regularly due to maintenance cost considerations).
 
+## HotReload Special Edition
 
-## WebGL 增强版
+HotReload Special Edition provides support for the original `Hot Reload Technology`. It can completely unload or reload an assembly during operation, especially suitable for small game collection type games.
 
-相对于社区版本对WebGL支持更稳定和完善，并提供了一些社区版本所不支持的高级特性，**性价比极高**。
+Version advantages:
 
-版本优势：
-
-- **对WebGL支持更完善**。
-- 更敏捷的维护支持，随时获得最新的代码（社区版本出于维护成本考虑，只会定期发布版本）。
-
-## 企业技术支持
-
-可以灵活选择企业所需要的技术服务项目，如果按年订阅则根据服务项计费，否则根据服务时长计费。
-
-- 对Android64、iOS64平台的技术支持（其他服务均只针对这些平台）
-- 对Android32、**WebGL（含MiniGame、微信小游戏）**、Win64、MacOS平台的技术支持
-- 移植对Linux、Switch等未支持平台的支持
-- Bug标准响应及解决，包含一对一远程协助指导，大多数可复现bug会在2-7天内修复或者提供规避方案
-- 对2019.4.x、2020.3.x等已经过期的LTS版本的bug修复支持
-- 移植非标准支持范围内小版本的技术指导，例如指导支持2022.2.4版本。
-- **提前获得Unity 2022、2023系列预览版本的支持**
-- 提前获得社区版本暂未跟进的LTS小版本的支持
-- 对.net standard 2.0及2.1的支持
-- 对增量式GC的支持
-- 优化指导
-- 其他特殊的定制服务
-
-## 联系方式
+- Support the `full generic sharing` technology of il2cpp starting from Unity 2021, value types can also be shared generically. It is no longer necessary to add metadata to AOT, which simplifies the workflow, effectively reduces the package size, and significantly reduces memory usage. Especially useful for packages and memory-critical platforms such as WebGL.
+- Support unloading a single assembly, unloading most of the memory (expected to be more than 95%), but there is a small amount of residue (such as the memory occupied by the thread static member field marked by `[ThreadStatic]`)
+- Support reloading assembly, the code can be changed arbitrarily or even completely different (except MonoBehaviour class). Hot overloading of MonoBehaviour and ScriptableObject.
+- Support **Limit the collection of functions that can be accessed in the hot update assembly**, suitable for creating a sandbox environment in UGC games to avoid damage caused by malicious player code.
+- More agile maintenance support, get the latest code at any time (the community version will only be released regularly due to maintenance cost considerations).
 
 
 
+## Enterprise Technical Support
 
+You can flexibly choose the technical service items required by the enterprise. If you subscribe annually, you will be charged according to the service item, otherwise you will be charged according to the service duration.
+
+- Technical support for Android64 and iOS64 platforms (other services are only for these platforms)
+- Technical support for Android32, **WebGL (including MiniGame, WeChat games)**, Win64, MacOS platforms
+- Transplant support for unsupported platforms such as Linux and Switch
+- Bug standard response and resolution, including one-to-one remote assistance guidance, most reproducible bugs will be fixed within 2-7 days or provide circumvention solutions
+- Bug fix support for expired LTS versions such as 2019.4.x
+- Transplant technical guidance for minor versions within the scope of non-standard support, such as guidance to support version 2022.2.4.
+- **Get the support of Unity2023 series preview version in advance**
+- Obtain the support of the LTS minor version that the community version has not followed up in advance
+- Support for .net standard 2.0 and 2.1
+- Support for incremental GC
+- Optimization guidance
+- Other special customized services

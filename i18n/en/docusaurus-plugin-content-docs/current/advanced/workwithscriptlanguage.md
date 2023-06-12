@@ -22,7 +22,7 @@ Make sure that enough ReversePInvokeWrapper functions are reserved and the gener
 HybridCLR supports `[MonoPInvokeCallbackAttribute]` exactly as natively. Since each function marked `[MonoPInvokeCallbackAttribute]` must have a unique corresponding c++ function, and AOT restrictions make it impossible to add functions at runtime,
 Therefore, it is necessary to generate a `c++ wrapper function` for each `[MonoPInvokeCallbackAttribute]` function in advance for binding with it. These wrapper functions are in `hybridclr/generated/ReversePInvokeMethodStub_{abi}.cpp` file.
 
-[com.code-philosophy.hybridclr](/en/basic/com.code-philosophy.hybridclr.md) has provided scripts to help automatically generate these wrapper functions, just run the menu command `HybridCLR/Generate/ReversePInvokeWrapper`.
+[com.code-philosophy.hybridclr](../basic/com.code-philosophy.hybridclr.md) has provided scripts to help automatically generate these wrapper functions, just run the menu command `HybridCLR/Generate/ReversePInvokeWrapper`.
 
 ## Reserved ReversePInvokeWrapper function
 

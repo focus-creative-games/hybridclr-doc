@@ -1,6 +1,6 @@
 # HotReload hot reload technology
 
-The HotReload technology is used to completely unload or reload an assembly, and is suitable for mini-game collection games. This solution only provides **commercial version**, please refer to [commercial service](/en/other/business.md) for details.
+The HotReload technology is used to completely unload or reload an assembly, and is suitable for mini-game collection games. This solution only provides **commercial version**, please refer to [commercial service](../other/business.md) for details.
 
 ## Supported Features
 
