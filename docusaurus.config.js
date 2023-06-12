@@ -19,8 +19,9 @@ const config = {
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'Code Philosophy', // Usually your GitHub org/user name.
-  projectName: 'HybridCLR', // Usually your repo name.
+  organizationName: 'focus-creative-games', // Usually your GitHub org/user name.
+  projectName: 'hybridclr-doc', // Usually your repo name.
+  trailingSlash: false,
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
