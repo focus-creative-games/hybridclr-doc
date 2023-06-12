@@ -28,8 +28,20 @@ const config = {
   // metadata like html lang. For example, if your site is Chinese, you may want
   // to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'zh-cn',
-    locales: ['zh-cn', 'en'],
+    defaultLocale: 'zh',
+    locales: ['zh', 'en'],
+    localeConfigs: {
+      zh: {
+        htmlLang: 'zh-cn',
+      },
+      en: {
+        htmlLang: 'en-us',
+      },
+      // You can omit a locale (e.g. fr) if you don't need to override the defaults
+      fa: {
+        direction: 'rtl',
+      },
+    },
   },
 
   presets: [
@@ -89,6 +101,10 @@ const config = {
           {
             href: 'https://github.com/focus-creative-games/hybridclr',
             label: 'GitHub',
+            position: 'right',
+          },
+          {
+            type: 'localeDropdown',
             position: 'right',
           },
         ],

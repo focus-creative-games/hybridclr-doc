@@ -1,0 +1,34 @@
+{
+  "version.label": {
+    "message": "Next",
+    "description": "The label for version current"
+  },
+  "sidebar.tutorialSidebar.category.新手教程": {
+    "message": "Getting Started",
+    "description": "The label for category 新手教程 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.使用指南": {
+    "message": "Guides",
+    "description": "The label for category 使用指南 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.进阶指南": {
+    "message": "Advanced Guides",
+    "description": "The label for category 进阶指南 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.帮助": {
+    "message": "Help",
+    "description": "The label for category 帮助 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.商业化": {
+    "message": "Business",
+    "description": "The label for category 商业化 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.其他": {
+    "message": "Others",
+    "description": "The label for category 其他 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.doc.介绍": {
+    "message": "Introduction",
+    "description": "The label for the doc item 介绍 in sidebar tutorialSidebar, linking to the doc intro"
+  }
+}
