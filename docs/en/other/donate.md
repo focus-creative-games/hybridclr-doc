@@ -2,7 +2,7 @@
 
 Thanks to these friends for their generous sponsorship! ! !
 
-?> 李旭，慷概解囊捐赠 **20000**！
+> 李旭，慷概解囊捐赠 **20000**！
 
 - 小锦鲤也有梦
 - 奶泡泡 [github主页](https://github.com/yimengfan)，推荐框架 [BDFramework.Core](https://github.com/yimengfan/BDFramework.Core)

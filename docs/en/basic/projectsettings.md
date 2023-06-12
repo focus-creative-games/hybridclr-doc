@@ -21,7 +21,9 @@ The search path of the external hot update dll is specified in the configuration
 
 The `hotUpdateAssemblyDefinitions` and `hotUpdateAssemblies` lists are equivalent, do not add them repeatedly, otherwise an error will be reported.
 
-?> If the hot update assembly is a compiled dll, its search path must be configured in `external dll search path` at the same time. The search path is a relative path, relative to the project root directory (that is, the parent directory of Assets).
+:::caution
+If the hot update assembly is a compiled dll, its search path must be configured in `external dll search path` at the same time. The search path is a relative path, relative to the project root directory (that is, the parent directory of Assets).
+:::
 
 ## Other parameters
 

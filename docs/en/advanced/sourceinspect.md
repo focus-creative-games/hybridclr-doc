@@ -35,7 +35,9 @@ const char* il2cpp::vm::GlobalMetadata::GetStringFromIndex(StringIndex index)
 
 ### Transform Implementation Introduction
 
-?> The core code is the `HiTransform::Transform` function in `hybridclr/transform/Transform.cpp`.
+:::tip
+The core code is the `HiTransform::Transform` function in `hybridclr/transform/Transform.cpp`.
+:::
 
 Very similar to regular instruction tree analysis. divided into parts
 
@@ -45,7 +47,9 @@ Very similar to regular instruction tree analysis. divided into parts
 
 ### Interpreter Implementation Introduction
 
-?> The core code is in the `Interpreter::Execute` function in `hybridclr/interpreter/Interpreter_Execute.cpp`.
+:::tip
+The core code is in the `Interpreter::Execute` function in `hybridclr/interpreter/Interpreter_Execute.cpp`.
+:::
 
 More directly, it is a huge switch statement that interprets and executes instructions.
 
@@ -75,5 +79,5 @@ After the Build is completed, a debuggable project will be generated. For more i
 - Assuming that the packaging output path is build_android, select Build->Make Module 'build_android.unityLibrary' in Android Studio, compile unityLibrary, and wait for the compilation to complete
 - Select `Run->Edit Configurations...` and set as shown below.
 
-![android studio debug](../../img/hybridclr/android_studio_debug.png)
+![android studio debug](/img/hybridclr/android_studio_debug.png)
 - Normal debugging is fine.

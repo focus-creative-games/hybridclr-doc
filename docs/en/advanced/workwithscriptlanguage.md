@@ -3,7 +3,9 @@
 Some projects have already been launched, and most of their codes have been implemented in lua; or some new projects have been developed in lua, and they cannot completely switch to full C# development, but hope
 It can be connected to HybridCLR at the same time, helping to gradually transition to all native C# hot updates. Since HybridCLR is a native C# hot update technology, native support works with these scripting languages.
 
-?> What you need to do is to generate the hot update wrapper files to the hot update module, and reserve enough ReversePInvoke functions in advance.
+:::tip
+What you need to do is to generate the hot update wrapper files to the hot update module, and reserve enough ReversePInvoke functions in advance.
+:::
 
 ## xlua
 

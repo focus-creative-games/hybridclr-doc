@@ -35,11 +35,11 @@ Most basic instructions operate on function parameters, local variables, and dat
 
 The layout of the logical address is as follows
 
-![method frame](./images/method_frame.jpg)
+![method frame](/img/blog/method_frame.jpg)
 
 According to its nesting order, the position of the function frame on the data stack expands from low to high, as shown in the figure below
 
-![method frame](./images/method_frame2.jpg)
+![method frame](/img/blog/method_frame2.jpg)
 
 Each slot of the data stack is a StackObject type object with size=8, and each variable may occupy one or more slots. For example, an int type variable occupies only one slot, but a Vector3 type variable occupies two slots.
 
@@ -82,7 +82,7 @@ Except for the instructions that only operate the function frame stack and the c
 
 The hybridclr instruction structure is as follows
 
-![instrument](./images/instrument.jpg)
+![instrument](/img/blog/instrument.jpg)
 
 The first 2 bytes of the instruction is opcode, and the remaining instruction data is called instruction param. Param is divided into several types:
 

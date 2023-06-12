@@ -26,7 +26,9 @@ The installer needs to copy il2cpp (similar to `C:\Program Files\Unity\Hub\Edito
 
 `Installation Status: Installed | Not Installed` in the installation interface indicates whether HybridCLR initialization is complete. Click Install, if successful, the `Installation Successful` log will be displayed at the end, and the installation status will switch to `Installed`, otherwise please check the error log.
 
-?> If HybridCLR is already installed, clicking the Install button will install the latest HybridCLR version of libil2cpp.
+:::tip
+If HybridCLR is already installed, clicking the Install button will install the latest HybridCLR version of libil2cpp.
+:::
 
 The branch or tag compatible with hybridclr and il2cpp_plus corresponding to the current package version has been configured in the `Data~/hybridclr_version.json` file in com.code-philosophy.hybridclr.
 The Installer will install the version specified in the configuration, and no longer supports customizing the version to be installed.
@@ -57,11 +59,11 @@ The configuration looks like this:
 
 If you must install other versions of hybridclr or il2cpp_plus, modify the branch in the configuration file to be the target branch or tag.
 
-![install_default](../../img/hybridclr/install_default.jpg)
+![install_default](/img/hybridclr/install_default.jpg)
 
 From version 2.3.1 onwards, it supports copying and installing directly from the libil2cpp directory that contains hybridclr made locally. If your network is not good, or git is not installed and you cannot download and install remotely from the warehouse, you can first [il2cpp_plus](https://github.com/focus-creative-games/il2cpp_plus) and [hybridclr](https:/ /github.com/focus-creative-games/hybridclr) is downloaded to the local, and then according to the document in the **Installation Principle** section below, the libil2cpp directory containing hybridclr is merged from these two warehouses, and then installed in `Installer` Enable `Copy libil2cpp from local` option in the interface, select the libil2cpp directory you made, and click `Install` to execute the installation. As shown below.
 
-![install](../../img/hybridclr/install.jpg)
+![install](/img/hybridclr/install.jpg)
 
 ### Compile Dll
 
@@ -135,8 +137,9 @@ Please add instantiation references to generic types and functions in other file
 This generic instantiation documentation is only for inspiration, telling you which classes and functions can be instantiated with aot generics.
 For more specific AOT generic related documents, please see [AOT Generic Introduction](/en/basic/aotgeneric.md).
 
-?> After using the supplementary metadata mechanism, **does not process** and does not affect normal operation. But if you manually instantiate aot generics, you can improve performance. The suggestion is to manually instantiate a small number of performance-sensitive classes or functions, such as `Dictionary<int,int>`.
-
+:::tip
+After using the supplementary metadata mechanism, **does not process** and does not affect normal operation. But if you manually instantiate aot generics, you can improve performance. The suggestion is to manually instantiate a small number of performance-sensitive classes or functions, such as `Dictionary<int,int>`.
+:::
 
 It is at the discretion of the developer to convert to the correct instantiation reference (**this operation is optional, it can be completely ignored or only partially processed**), that is, instantiate the generic class or generic in this annotation in the AOT code type function. The method is roughly as follows:
 

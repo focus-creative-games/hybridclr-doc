@@ -1,3 +1,9 @@
+---
+slug: mindexperiment
+authors:
+  name: walon
+---
+
 # 关于hybridclr可行性的思维实验
 
 在确定目标，动手实现hybridclr前，有一个必须考虑的问题——我们如何确定hybridclr的可行性？

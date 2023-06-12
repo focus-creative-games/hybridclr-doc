@@ -40,7 +40,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '开发者文档-基础',
+      label: '使用指南',
       link: {
         type: 'generated-index',
         slug: '/basic',
@@ -66,7 +66,7 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '开发者文档-高级',
+      label: '进阶指南',
       link: {
         type: 'generated-index',
         slug: '/advanced',
@@ -94,25 +94,19 @@ const sidebars = {
         'help/issue',
       ],
     },
-    // {
-    //   type: 'category',
-    //   label: '商业化',
-    //   link: {
-    //     type: 'generated-index',
-    //     slug: '/business',
-    //   },
-    //   collapsed: true,
-    //   items: [
-    //     'other/business',
-    //     'other/business_partner',
-    //   ],
-    // },
-    'other/business',
-    'other/business_partner',
-    'other/roadmap',
-    'other/changelog',
-    'other/donate',
-    'other/contactme',
+    {
+      type: 'category',
+      label: '商业化',
+      link: {
+        type: 'generated-index',
+        slug: '/business',
+      },
+      collapsed: true,
+      items: [
+        'other/business',
+        'other/business_partner',
+      ],
+    },
     {
       type: 'category',
       label: '其他',
@@ -121,6 +115,10 @@ const sidebars = {
       },
       collapsed: true,
       items: [
+        'other/roadmap',
+        'other/changelog',
+        'other/donate',
+        'other/contactme',
       ],
     },
   ],

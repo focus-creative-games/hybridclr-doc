@@ -108,13 +108,13 @@ You mistakenly referenced the 'xxx' hot update dll in the main project. If you c
 
 This error has nothing to do with HybridCLR. This is because WebGL has restrictions on many functions. For example, the send file symbol is lost because IO-related functions cannot be called. If you encounter problems, please eliminate those functions that the WebGL platform does not support. Specifically read the Unity documentation yourself.
 
-### Encountered xxxx\il2cpp\libil2cpp\utils\Il2CppHashMap.h(71): error C2039: 'hash_compare': is not a member of 'stdext' when packaging under Win
+### Encountered `xxxx\\il2cpp\\libil2cpp\\utils\\Il2CppHashMap.h(71): error C2039: 'hash_compare': is not a member of 'stdext' when packaging under Win`
 
 This is caused by the latest version vs changes breaking some backward compatibility after the release of .net 7. The com.code-philosophy.hybridclr `v2.4.0` version has completely solved this problem. You can upgrade to this version or fall back to an older version of visual studio 2022 or use something like 2019.
 
 A solution that does not need to roll back the vs version is to modify `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h` and add `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS`. Refer to the figure below for modification.
 
-![stdext_error](../../img/hybridclr/stdext_error.jpg)
+![stdext_error](/img/hybridclr/stdext_error.jpg)
 
 For other solutions, see [Link](https://forum.unity.com/threads/workaround-for-building-with-il2cpp-with-visual-studio-2022-17-4.1355570/)
 
@@ -332,7 +332,7 @@ Wrapper functions are insufficient. You need to reserve a Wrapper function for t
 The reason is that when addressable is loaded by default, all types in the resource will be initialized, but at this time the hot update dll has not been loaded, and the corresponding hot update type cannot be found.
 
 There are several solutions:
-- Use the LoadAsset<System.Object> interface to load and then force forward
+- Use the `LoadAsset<System.Object>` interface to load and then force forward
 - It is to turn off automatic loading, then manually load the hot update dll, and then automatically load resources. See the content from 1:02:30 onwards in the video [Treading the Pit: Importing HybridCLR into your own project and implementing hot updates] (https://www.bilibili.com/video/BV1aP4y1o7xi/).
 
 ### GameObject.GetComponent(string name) interface cannot get component

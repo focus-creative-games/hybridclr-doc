@@ -1,6 +1,6 @@
 # Analysis of hybridclr technical principles
 
-We are in the [previous section](./2.1.2_%E5%85%B3%E4%BA%8Ehybridclr%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%9A%84% E6%80%9D%E7%BB%B4%E5%AE%9E%E9%AA%8C.md) completed the hybridclr feasibility analysis. Due to the large amount of hybridclr content, this article mainly introduces the technical implementation of hybridclr in an overview due to space limitations.
+We are in the previous section completed the hybridclr feasibility analysis. Due to the large amount of hybridclr content, this article mainly introduces the technical implementation of hybridclr in an overview due to space limitations.
 
 ## CLR and il2cpp basics
 

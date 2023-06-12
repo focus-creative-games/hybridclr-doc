@@ -13,7 +13,9 @@ Generic classes, especially generic containers such as List and Dictionary are w
 - `Generic sharing` technology based on il2cpp
 - Based on `Supplementary Metadata` technology, which is also HybridCLR's patented technology
 
-?> Since the il2cpp generic sharing technology has great limitations, it is strongly recommended to use the `supplementary metadata` technology to solve the generic problem.
+:::tip
+Since the il2cpp generic sharing technology has great limitations, it is strongly recommended to use the `supplementary metadata` technology to solve the generic problem.
+:::
 
 ## Generic sharing mechanism of il2cpp
 
@@ -155,7 +157,9 @@ If the AOT generic supplements the corresponding generic metadata, and il2cpp ge
 Although the generic function instantiation technology based on supplementary metadata is quite perfect, after all, the instantiated function is executed in an interpreted manner. If the generic instantiation in AOT can be performed in advance, the performance can be greatly improved.
 Therefore, generic classes and functions that are commonly used, especially performance-sensitive, can be instantiated in AOT in advance. We provide tools to help automatically scan and collect corresponding generic instances, you can run the menu command `HybridCLR/Generate/AOTGenericReference`.
 
-?> This command only collects the AOT generic instances used in the hot update, and all generated are in the form of annotations. You need to refer to this file yourself and explicitly instantiate some generics in other places according to actual needs.
+:::tip
+This command only collects the AOT generic instances used in the hot update, and all generated are in the form of annotations. You need to refer to this file yourself and explicitly instantiate some generics in other places according to actual needs.
+:::
 
 ### Get Supplementary Metadata dll
 

@@ -1,8 +1,8 @@
-#HybridCLR
+# Introduction
 
 [![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/focus-creative-games/hybridclr/blob/main/LICENSE)
 
-![logo](../img/logo.png)
+![logo](/img/logo.png)
 
 <br/>
 <br/>
@@ -32,7 +32,7 @@ Welcome to embrace modern native C# hot update technology! ! !
 
 Inspired by mono's [mixed mode execution](https://www.mono-project.com/news/2017/11/13/mono-interpreter/) technology, HybridCLR provides an additional interpreter module for unity's il2cpp runtime , Transform them from pure AOT runtime to `AOT + Interpreter` hybrid runtime.
 
-![icon](../img/hybridclr/architecture.png)
+![icon](/img/hybridclr/architecture.png)
 
 More specifically, HybridCLR does the following:
 

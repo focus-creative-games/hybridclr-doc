@@ -15,17 +15,17 @@ It should be between 10-30 times.
 
 AOT lines are native il2cpp data. The HotFix line is HybridCLR data. Lua lines are data for xlua.
 
-![iphone11](../../img/hybridclr/benchmark_iphone11.png)
+![iphone11](/img/hybridclr/benchmark_iphone11.png)
 
-![xiaomi5c](../../img/hybridclr/benchmark_xiaomi.png)
+![xiaomi5c](/img/hybridclr/benchmark_xiaomi.png)
 
 The following is the performance improvement data of the commercial version under some test cases compared with the community version.
 
-![interpreter_optimization](../../img/hybridclr/interpreter_optimization.jpg)
+![interpreter_optimization](/img/hybridclr/interpreter_optimization.jpg)
 
 The following is the performance comparison between AOT and HybridCLR after optimization in terms of numerical calculation. The addition is about 7-16 times, the multiplication is 4 times, and the division is 2 times.
 
-![benchmark_numeric](../../img/hybridclr/benchmark_numeric.jpg)
+![benchmark_numeric](/img/hybridclr/benchmark_numeric.jpg)
 
 ## principle
 

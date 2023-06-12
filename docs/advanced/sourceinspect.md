@@ -35,7 +35,11 @@ const char* il2cpp::vm::GlobalMetadata::GetStringFromIndex(StringIndex index)
 
 ### transform 实现简介
 
-?> 核心代码在 `hybridclr/transform/Transform.cpp`中`HiTransform::Transform`函数。
+:::tip
+
+核心代码在 `hybridclr/transform/Transform.cpp`中`HiTransform::Transform`函数。
+
+:::
 
 跟常规的指令树分析非常相似。分为几部分
 
@@ -45,7 +49,11 @@ const char* il2cpp::vm::GlobalMetadata::GetStringFromIndex(StringIndex index)
 
 ### interpreter 实现简介
 
-?> 核心代码在`hybridclr/interpreter/Interpreter_Execute.cpp`中`Interpreter::Execute`函数。
+:::tip
+
+核心代码在`hybridclr/interpreter/Interpreter_Execute.cpp`中`Interpreter::Execute`函数。
+
+:::
 
 比较直接，就是一个巨大的switch语句，解释执行指令。
 

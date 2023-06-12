@@ -19,8 +19,10 @@
 
 `hotUpdateAssemblyDefinitions`和`hotUpdateAssemblies`列表是等价的，不要重复添加，否则会报错。
 
-?> 如果热更新程序集是已经编译好的dll（无论放在Assets下还是其他目录），必须同时在 `HybridCLR/Settings`的`外部dll搜索路径`中配置它的搜索路径。
+:::caution
+如果热更新程序集是已经编译好的dll（无论放在Assets下还是其他目录），必须同时在 `HybridCLR/Settings`的`外部dll搜索路径`中配置它的搜索路径。
 搜索路径为相对路径，相对于项目根目录（也就是Assets的父目录）。
+:::
 
 ## 其他参数
 

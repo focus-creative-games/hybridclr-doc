@@ -7,11 +7,13 @@ Any version of 2019.4.x, 2020.3.16+, 2021.3.x, or 2022.3.x is supported. It is r
 
 If your version is 2019.4.0-2019.4.39, 2020.3.16-2020.3.25, **You need to switch to 2019.4.40 and 2020.3.33 to complete HybridCLR installation, and then switch back to the current version**.
 
-?> If you are not an experienced Unity developer, it is recommended to use version 2021.3.1 to experience HybridCLR first.
+:::caution
+If you are not an experienced Unity developer, it is recommended to use version 2021.3.1 to experience HybridCLR first.
+:::
 
 According to the target platform you packaged, select the necessary modules during the installation process. If you package Android or iOS, just select the corresponding module directly. If you want to package Standalone, you must additionally select `Windows Build Support(IL2CPP)` or `Mac Build Support(IL2CPP)`.
 
-![select il2cpp modules](../../img/hybridclr/select_il2cpp_modules.jpg)
+![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
 
 ## Install IDE and related tools
 
@@ -34,7 +36,9 @@ Currently there are three series of versions: `1.0` branch, `v2.x.y` series, `v3
 - The tag version of `v2.x.y` series has a reasonable workflow optimization and has been verified by a large number of projects. It is recommended to use the Unity 2019 version or the project that will be launched soon.
 - The `v3.x.y` series tag versions **removed support for Unity 2019**, and added `2022` version support. It is recommended to use Unity 2021 and later versions, and it is used by early projects in the project.
 
-?> The versions of these three series are very stable, so there is no need to worry about which one is better. Generally speaking, the newer the version, the more optimizations and the better the user experience.
+:::tip
+The versions of these three series are very stable, so there is no need to worry about which one is better. Generally speaking, the newer the version, the more optimizations and the better the user experience.
+:::
 
 ## Install the `com.code-philosophy.hybridclr` package
 
@@ -56,7 +60,7 @@ Click `Windows/Package Manager` in the main menu to open the package manager. Cl
 
 If you want to install a certain branch or tag version, please add `#{tag}` after the address, such as `https://gitee.com/focus-creative-games/hybridclr_unity.git#v3.0.1`.
 
-![add package](../../img/hybridclr/install_hybridclrunity_package.jpg)
+![add package](/img/hybridclr/install_hybridclrunity_package.jpg)
 
 If you are not familiar with installing packages from url, please see [install from giturl](https://docs.unity3d.com/Manual/upm-ui-giturl.html).
 
@@ -110,11 +114,11 @@ If you must install other versions of hybridclr or il2cpp_plus, modify the branc
 
 In most cases, just click `Install` to download and install from the remote repository by default. After the installation is successful, the console will print the `installation successful` log. As shown below.
 
-![install_default](../../img/hybridclr/install_default.jpg)
+![install_default](/img/hybridclr/install_default.jpg)
 
 From version 2.3.1 onwards, it supports copying and installing directly from the libil2cpp directory that contains hybridclr made locally. If your network is not good, or git is not installed and you cannot download and install remotely from the warehouse, you can first [il2cpp_plus](https://github.com/focus-creative-games/il2cpp_plus) and [hybridclr](https:/ /github.com/focus-creative-games/hybridclr) is downloaded to the local, and then according to the document in the **Installation Principle** section below, the libil2cpp directory containing hybridclr is merged from these two warehouses, and then installed in `Installer` Enable `Copy libil2cpp from local` option in the interface, select the libil2cpp directory you made, and click `Install` to execute the installation. As shown below.
 
-![install](../../img/hybridclr/install.jpg)
+![install](/img/hybridclr/install.jpg)
 
 
 
@@ -163,7 +167,7 @@ If the version number of il2cpp_plus is left blank, install the latest version o
 
 The hybridclr warehouse recommends filling in `1.0`, that is, the latest version of the 1.0 branch is installed each time; the il2cpp_plus warehouse recommends filling in `{annual version}-1.0` (such as 2020-1.0), that is, each installation of the `{annual version}-1.0` branch latest version of . As shown in the picture:
 
-![image](../../img/hybridclr/install_version.jpg)
+![image](/img/hybridclr/install_version.jpg)
 
 At present, the stable official version 1.0.1 has been released, and it is also recommended for projects that pursue stability. Com.code-philosophy.hybridclr takes `1.0.1-release`, the hybridclr version takes `1.0.1-release`, and the il2cpp_plus version takes `{version}-1.0.1-relase`.
 
@@ -193,7 +197,7 @@ The specific operation is to cover `{package directory}/Data~/ModifiedUnityAssem
 
 **Due to permission issues, this operation cannot be completed automatically, and you need to perform the copy operation manually. **
 
-`UnityEditor.CoreModule.dll` Each small version of Unity is different. We currently only provide version 2021.3.1. If you need other versions, please make them manually. For details, please refer to [Modify Unity Editor-related dll](/en /advanced/modifyunitydll.md).
+`UnityEditor.CoreModule.dll` Each small version of Unity is different. We currently only provide version 2021.3.1. If you need other versions, please make them manually. For details, please refer to [Modify Unity Editor-related dll](/en/advanced/modifyunitydll.md).
 
 ### Unity 2019
 
@@ -236,7 +240,7 @@ resemblance. hybridclr is the core code of the interpreter, including metadata l
 
 As shown in the figure below, merge the `il2cpp_plus/libil2cpp` directory with the `hybridclr/hybridclr` directory to create the final libil2cpp that supports hot updates.
 
-![merge_hybridclr_dir](../../img/hybridclr/merge_hybridclr_dir.jpg)
+![merge_hybridclr_dir](/img/hybridclr/merge_hybridclr_dir.jpg)
 
 
 ### Local installation

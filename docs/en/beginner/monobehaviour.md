@@ -1,4 +1,4 @@
-# Use hot update MonoBehaviour
+# Use MonoBehaviour
 
 HybridCLR fully supports the MonoBehaviour workflow. You can not only dynamically mount the hot update script in the code through AddComponent, but also hang the hot update script on the resource, and then restore the script by loading the resource.
 

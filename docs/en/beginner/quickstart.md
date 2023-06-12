@@ -19,7 +19,7 @@ Please run through the hot update process correctly on the Standalone platform a
 - Install any version of 2020.3.26+, 2021.3.0+, 2022.3.0+. If you are not an experienced Unity developer, version 2021.3.1 is recommended.
 - Depending on your operating system, when selecting modules during installation, you must select `Windows Build Support(IL2CPP)` or `Mac Build Support(IL2CPP)`.
 
-![select il2cpp modules](../../img/hybridclr/select_il2cpp_modules.jpg)
+![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
 
 ### Install IDE and related compilation environment
 
@@ -121,7 +121,7 @@ public class ConsoleToScreen : MonoBehaviour
 
 Click `Windows/Package Manager` in the main menu to open the package manager. Click `Add package from git URL...` as shown below, fill in `https://gitee.com/focus-creative-games/hybridclr_unity.git` or `https://github.com/focus-creative -games/hybridclr_unity.git`.
 
-![add package](../../img/hybridclr/install_hybridclrunity_package.jpg)
+![add package](/img/hybridclr/install_hybridclrunity_package.jpg)
 
 If you are not familiar with installing packages from url, please see [install from giturl](https://docs.unity3d.com/Manual/upm-ui-giturl.html).
 
@@ -135,7 +135,7 @@ Open the menu `HybridCLR/Installer...`, click the `Install` button to install. W
 
 Open the menu `HybridCLR/Settings`, add the `HotUpdate` assembly in the `Hot Update Assemblies` configuration item, as shown below:
 
-![settings](../../img/hybridclr/settings.jpg)
+![settings](/img/hybridclr/settings.jpg)
 
 ### Configure PlayerSettings
 
@@ -143,7 +143,7 @@ Open the menu `HybridCLR/Settings`, add the `HotUpdate` assembly in the `Hot Upd
 - `Scripting Backend` switched to `IL2CPP`.
 - `Api Compatability Level` switched to `.Net 4.x` (Unity 2019-2020) or `.Net Framework` (Unity 2021+).
 
-![player settings](../../img/hybridclr/player-setting.png)
+![player settings](/img/hybridclr/player-setting.png)
 
 ## Create hot update script
 

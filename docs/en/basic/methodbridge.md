@@ -4,7 +4,9 @@ Two-way function calls are required between the Interpreter of HybridCLR and AOT
 
 The parameter passing and storage methods of the AOT part and the interpreter part are different. The interpreter part calls the AOT function, and the parameters of the interpreter are all on the interpreter stack, and the function parameters of the interpreter must be passed to the AOT function by means of a suitable method. Similarly, the interpreter cannot directly obtain the parameters of the AOT callback function. Corresponding bridge functions must be generated for each type of signature function to realize the two-way function parameter transfer between the interpreter and the aot part. Calling in the direction of `interpreter -> AOT` can be done through libraries like ffi, but the cost of function calls is too high. The most reasonable way is to generate this bidirectional bridge function in advance. The internal calls of the interpreter go directly to the interpreter stack, no bridge function is needed.
 
-?> According to the principle of bridge functions, for a fixed AOT part, the set of bridge functions is determined, and no new additional bridge functions will be needed no matter any subsequent hot updates. **Therefore, there is no need to worry about the problem that the bridge function is missing suddenly after the hot update goes online. **
+:::tip
+According to the principle of bridge functions, for a fixed AOT part, the set of bridge functions is determined, and no new additional bridge functions will be needed no matter any subsequent hot updates. **Therefore, there is no need to worry about the problem that the bridge function is missing suddenly after the hot update goes online. **
+:::
 
 ## Bridge function signature
 

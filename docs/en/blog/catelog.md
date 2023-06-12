@@ -48,8 +48,8 @@ In the process of implementing hybridclr, we deeply studied the CLI specificatio
    - Exploration of the next generation hot update technology - the native c# hot update technology under the unity engine
 - hybridclr overview
    - hybridclr introduction
-   - [Thought experiment on the feasibility of hybridclr](./2.1.2_%E5%85%B3%E4%BA%8Ehybridclr%E5%8F%AF%E8%A1%8C%E6%80%A7%E7% 9A%84%E6%80%9D%E7%BB%B4%E5%AE%9E%E9%AA%8C.md)
-   - [Analysis of hybridclr technical principles](./2.1.3_hybridclr%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%89%96%E6%9E%90 .md)
+   - Thought experiment on the feasibility of hybridclr
+   - Analysis of hybridclr technical principles
 - metadata loaded
    - coff file parsing
    - stream parsing
@@ -64,7 +64,7 @@ In the process of implementing hybridclr, we deeply studied the CLI specificatio
 - register instruction set design
    - Introduction to IL instruction set
    - Defects of stack-based instruction set
-   - [Register instruction set](./5.3.1_hybridclr%E6%8C%87%E4%BB%A4%E9%9B%86%E4%BB%8B%E7%BB%8D.md)
+   - Register instruction set
      - Basic conversion rules
      - Static specialization of instructions
      - resolve data

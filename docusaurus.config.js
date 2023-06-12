@@ -78,7 +78,7 @@ const config = {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Tutorial',
+            label: '文档',
           },
           // {
           //   position: 'left',
@@ -100,25 +100,25 @@ const config = {
             title: 'Docs',
             items: [
               {
-                label: 'Tutorial',
+                label: '文档',
                 to: '/docs/intro',
               },
             ],
           },
           {
-            title: 'Community',
+            title: 'Repository',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'hybridclr',
+                href: 'https://github.com/focus-creative-games/hybridclr',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'il2cpp_plus',
+                href: 'https://github.com/focus-creative-games/il2cpp_plus',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: 'hybridclr package',
+                href: 'https://github.com/focus-creative-games/hybridclr_unity',
               },
             ],
           },
@@ -131,7 +131,11 @@ const config = {
               },
               {
                 label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                href: 'https://gitee.com/focus-creative-games/hybridclr',
+              },
+              {
+                label: 'Gitee',
+                href: 'https://github.com/focus-creative-games/hybridclr',
               },
             ],
           },

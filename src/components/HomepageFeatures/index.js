@@ -4,32 +4,31 @@ import styles from './styles.module.css';
 
 const FeatureList = [
   {
-    title: 'Easy to Use',
-    Svg: require('@site/static/img/undraw_docusaurus_mountain.svg').default,
+    title: '易于使用',
+    Svg: require('@site/static/img/easy.svg').default,
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        原生C#热更新体验，开发工作流与传统Unity C#开发几乎相同，零学习和使用成本。
       </>
     ),
   },
   {
-    title: 'Focus on What Matters',
-    Svg: require('@site/static/img/undraw_docusaurus_tree.svg').default,
+    title: '实现高效',
+    Svg: require('@site/static/img/efficient.svg').default,
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        C++实现，与il2cpp深度集成，运行性能和内存占用指标都远远优于其他任何热更新方案。
+        开创性的DHE技术让热更新的游戏逻辑的运行性能基本达到原生AOT的水平。
       </>
     ),
   },
   {
-    title: 'Powered by React',
-    Svg: require('@site/static/img/undraw_docusaurus_react.svg').default,
+    title: '稳定可靠',
+    Svg: require('@site/static/img/reliable-dark.svg').default,
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+      极其稳定可靠，足以满足大中型商业项目的稳定性要求。当前上千个商业游戏项目完成接入，其中有几百款已经双端上线。
+      大多数头部公司如腾讯、网易、字节、funplus都已接入。
       </>
     ),
   },

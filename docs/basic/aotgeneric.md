@@ -19,7 +19,9 @@ il2cpp是AOT运行时，它运行时使用的几乎所有（为什么不是全�
 - 基于`补充元数据`技术。这也是HybridCLR的专利技术。该技术社区版本也可使用。
 - 基于`full generic sharing` 完全泛型共享技术。该技术目前只在商业化版本提供。
 
-?> 由于il2cpp泛型共享技术存在较大限制，强烈推荐使用`补充元数据`或者`full generic sharing`技术解决泛型问题。
+:::tip
+由于il2cpp泛型共享技术存在较大限制，强烈推荐使用`补充元数据`或者`full generic sharing`技术解决泛型问题。
+:::
 
 ## il2cpp的泛型共享机制
 
@@ -161,8 +163,9 @@ LoadMetadataForAOTAssembly函数可以在任何时机调用，另外既可以在
 基于补充元数据的泛型函数实例化技术虽然相当完美，但毕竟实例化的函数以解释方式执行，如果能提前在AOT中泛型实例化，可以大幅提升性能。
 所以对于常用尤其是性能敏感的泛型类和函数，可以提前在AOT中实例化。我们提供了工具帮助自动扫描收集相应的泛型实例，你运行菜单命令`HybridCLR/Generate/AOTGenericReference`即可。
 
-?> 该命令只收集了热更新中用到的AOT泛型实例，并且生成的全部是注释形式的葮，需要你自己参考这个文件，根据实际需求在其他地方显式地实例化部分泛型。
-
+:::tip
+该命令只收集了热更新中用到的AOT泛型实例，并且生成的全部是注释形式的葮，需要你自己参考这个文件，根据实际需求在其他地方显式地实例化部分泛型。
+:::
 ### 获得补充元数据dll
 
 **打包过程**生成的裁剪后的AOT dll可以用于补充元数据。com.code-philosophy.hybridclr插件会自动把它们复制到`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`。注意，不同BuildTarget的裁剪AOT dll不可复用。
@@ -209,8 +212,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 代码中加载补充元数据dll的方式见以下示例代码，你也可以参考 [hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial)。
 
-?> 如果RuntimeApi.LoadMetadataForAOTAssembly花费太多时间，造成卡顿，你可以在其他线程异步加载。
-
+:::tip
+如果RuntimeApi.LoadMetadataForAOTAssembly花费太多时间，造成卡顿，你可以在其他线程异步加载。
+:::
 ```csharp
     public static unsafe void LoadMetadataForAOTAssembly()
     {
@@ -236,7 +240,9 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 ## full generic sharing 技术
 
-?> `full generic sharing` 技术当前只提供商业化版本。
+:::tip
+`full generic sharing` 技术当前只提供商业化版本。
+:::
 
 补充元数据虽然彻底解决了AOT泛型问题，但补充元数据会导致需要随包携带或者热更新下载补充元数据dll，导致包体增大或者增加了热更新时间。
 加载补充元数据不仅导致内存占用明显增加，还增加了启动时间。对于微信小游戏这些对包体和内存要求严苛的场合，这是一个影响较大的问题。
@@ -285,7 +291,9 @@ MissingMethodException: AOT generic method not instantiated in aot module
     void System.ValueType<System.Int32, System.String>.ctor()
 ```
 
-?> 值类型的空构造函数没有调用相应的构造函数，而是对应 initobj指令。实际上你无法直接引用它，但你只要强制实例化这个类型就行了，preserve这个类的所有函数，自然就会包含.ctor函数了。
+:::tip
+值类型的空构造函数没有调用相应的构造函数，而是对应 initobj指令。实际上你无法直接引用它，但你只要强制实例化这个类型就行了，preserve这个类的所有函数，自然就会包含.ctor函数了。
+:::
 
 实际中你可以用强制装箱 `(object)(default(ValueTuple<int, object>))`。
 

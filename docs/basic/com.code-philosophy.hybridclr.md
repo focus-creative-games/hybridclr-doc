@@ -26,7 +26,9 @@ com.code-philosophy.hybridclr提供的工作流工具，打包一个支持Hybrid
 
 安装界面中 `安装状态：已安装|未安装` 指示是否完成HybridCLR初始化。点击安装，如成功，则最后会显示`安装成功`日志，并且安装状态切换为`已安装`，否则请检查错误日志。
 
-?> 如果已经安装HybridCLR，点击安装按钮会安装最新的HybridCLR版本的libil2cpp。
+:::tip
+如果已经安装HybridCLR，点击安装按钮会安装最新的HybridCLR版本的libil2cpp。
+:::
 
 com.code-philosophy.hybridclr中 `Data~/hybridclr_version.json` 文件中已经配置了当前package版本对应的兼容 hybridclr及il2cpp_plus的分支或者tag，
 Installer会安装配置中指定的版本，不再支持自定义待安装的版本。
@@ -135,8 +137,9 @@ hybridclr代码要兼容多个Unity版本，需要当前Unity版本相关宏定�
 这个泛型实例化文档只起到启发作用，告诉你可以aot泛型实例化哪些类和函数。
 更具体的AOT泛型相关文档请看[AOT泛型介绍](/basic/aotgeneric.md)。
 
-?> 使用补充元数据机制后，**不作任何处理**也不影响正常运行。但如果手动对aot泛型实例化，可以提升性能。建议是对于少量性能敏感的类或函数手动泛型实例化即可，如`Dictionary<int,int>`之类。
-
+:::tip
+使用补充元数据机制后，**不作任何处理**也不影响正常运行。但如果手动对aot泛型实例化，可以提升性能。建议是对于少量性能敏感的类或函数手动泛型实例化即可，如`Dictionary<int,int>`之类。
+:::
 
 由开发者自己酌情转换为正确的实例化引用（**这个操作是可选的，可以完全不处理或只处理一部分**），即在AOT代码中实例化这注释中的泛型类或泛型函数。方法大致如下：
 
