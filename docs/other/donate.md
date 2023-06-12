@@ -43,6 +43,6 @@
 - 流星语传媒 [github](https://github.com/ChineseGod)
 - 光辉 [github](https://github.com/guanghui1987)
 - 光头佬(485925113)
-- han [github](170487453@qq.com)
+- han 170487453@qq.com
 - 鲶巴啷 （657542753）
 - C和弦® (632020710)

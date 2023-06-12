@@ -94,7 +94,7 @@ The hybridclr code needs to be compatible with multiple Unity versions, and macr
 
 Scan the AOT type referenced by the hot update dll, generate link.xml, and prevent the AOT type or function used by the hot update script from being clipped. The output file path is specified in the `OuputLinkXml` field in HybridCLRSettings.asset, and the default is `LinkGenerator/link.xml`.
 
-For a more specific introduction to clipping, please see [Code Clipping Principles and Solutions](/hybridclr/code_striping/).
+For a more specific introduction to clipping, please see [Code Clipping Principles and Solutions](codestriping.md).
 
 ### Generate/AotDlls
 
@@ -107,7 +107,7 @@ If you did not use `HybridCLR/Generate/All` such a one-click generation command,
 
 ### Generate/MethodBridge
 
-Scan and generate bridge function files according to the current AOT dll set. For related documents, please see [bridge function](../basic/methodbridge.md).
+Scan and generate bridge function files according to the current AOT dll set. For related documents, please see [bridge function](methodbridge.md).
 
 Generate bridge function depends on AOT dlls and hot update dlls. If you did not use `HybridCLR/Generate/All` such a one-click generation command, please run the following commands in sequence:
 
@@ -362,7 +362,7 @@ The underlying tool class for operating HybridCLR. The more commonly used ones a
 
 If a scripting language such as xlua is used in the project, the `[MonoPInvokeCallback]` annotation needs to be added to the C# function to be registered in lua. This returns a corresponding C++ for these C# functions
 Function pointer, used to register in the scripting language. HybridCLR supports registering hot-updated C# code in lua, but the C++ stub function corresponding to `[MonoPInvokeCallback]` must be generated in advance to return a corresponding C++ function pointer for each C# function.
-The script provides the function of automatically generating stub functions. For details, see [MonoPInvokeCallback support](../advanced/workwithscriptlanguage.md) and [HybridCLR+lua/js/python](/hybridclr/work_with_script_language/) documents
+The script provides the function of automatically generating stub functions. For details, see [MonoPInvokeCallback support](../advanced/workwithscriptlanguage.md) and [HybridCLR+lua/js/python](../advanced/workwithscriptlanguage.md) documents
 
 Each function with the `[MonoPInvokeCallback]` attribute requires a unique corresponding wrapper function. These wrapper functions must be pre-generated during packaging and cannot be changed.
 Therefore, if a function with the `[MonoPInvokeCallback]` feature is added in subsequent hot updates, there will be insufficient wrapper functions. ReversePInvokeWrapperGenerationAttribute

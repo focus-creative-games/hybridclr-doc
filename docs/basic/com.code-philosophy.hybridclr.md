@@ -94,7 +94,7 @@ hybridclr代码要兼容多个Unity版本，需要当前Unity版本相关宏定�
 
 扫描热更新dll引用的AOT类型，生成link.xml，避免热更新脚本用到的AOT类型或函数被裁剪。输出的文件路径在 HybridCLRSettings.asset中`OuputLinkXml`字段中指定，默认为`LinkGenerator/link.xml`。
 
-更具体的裁剪相关介绍请看[代码裁剪原理及解决办法](/hybridclr/code_striping/)。
+更具体的裁剪相关介绍请看[代码裁剪原理及解决办法](codestriping.md)。
 
 ### Generate/AotDlls
 
@@ -107,7 +107,7 @@ hybridclr代码要兼容多个Unity版本，需要当前Unity版本相关宏定�
 
 ### Generate/MethodBridge
 
-根据当前的AOT dll集扫描生成桥接函数文件。相关文档请看[桥接函数](/basic/methodbridge.md)。
+根据当前的AOT dll集扫描生成桥接函数文件。相关文档请看[桥接函数](methodbridge.md)。
 
 生成桥接函数依赖AOT dlls和热更新dlls。如果你没有用 `HybridCLR/Generate/All` 这样的一键生成命令，请依次运行以下命令：
 
@@ -362,7 +362,7 @@ package中 `Editor/Data~/iOSBuild` 包含了编译iOS版本libil2cpp.a所需的�
 
 如果项目中用于xlua之类的脚本语言，对于要注册到lua中的C#函数，都需要添加`[MonoPInvokeCallback]`注解。这样可以为这些C#函数返回一个对应的c++
 函数指针，用于注册到脚本语言里。HybridCLR支持将热更新C#代码注册到lua中，但必须提前生成与`[MonoPInvokeCallback]`对应的C++桩函数，才可能为每个C#函数返回一个相应的C++函数指针。
-脚本提供了自动生成桩函数的功能。详细请见 [MonoPInvokeCallback支持](/advanced/workwithscriptlanguage.md) 及 [HybridCLR+lua/js/python](/hybridclr/work_with_script_language/) 文档
+脚本提供了自动生成桩函数的功能。详细请见 [MonoPInvokeCallback支持](/advanced/workwithscriptlanguage.md) 及 [HybridCLR+lua/js/python](../advanced/workwithscriptlanguage.md) 文档
 
 每个带 `[MonoPInvokeCallback]` 特性的函数都需要一个唯一对应的wrapper函数。这些wrapper函数必须是打包时预先生成，不可变化。
 因此如果后续热更新新增了 带 `[MonoPInvokeCallback]` 特性的函数，则会发生wrapper函数不足的情况。ReversePInvokeWrapperGenerationAttribute
