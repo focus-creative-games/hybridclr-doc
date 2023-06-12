@@ -18,7 +18,7 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/docs/intro">
-            HybridCLR 快速上手
+            快速上手
           </Link>
         </div>
       </div>

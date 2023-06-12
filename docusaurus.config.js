@@ -80,6 +80,11 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
+          // {
+          //   position: 'left',
+          //   label: 'Tutorial2',
+          //   to: '/docs/intro',
+          // },
           {to: '/blog', label: 'Blog', position: 'left'},
           {
             href: 'https://github.com/focus-creative-games/hybridclr',
@@ -131,11 +136,12 @@ const config = {
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Code Philosophy, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} <a href="https://code-philosophy.com/">Code Philosophy</a>. All Rights Reserved.`,
       },
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
+        additionalLanguages: ['csharp', 'cpp'],
       },
     }),
 };

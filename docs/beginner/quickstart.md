@@ -19,7 +19,7 @@
 - 安装 2020.3.26+、 2021.3.0+、2022.3.0+ 中任一版本。如果你不是经验丰富的Unity开发者，推荐使用2021.3.1版本。
 - 根据你所用的操作系统，安装过程中选择模块时，必须选中 `Windows Build Support(IL2CPP)`或`Mac Build Support(IL2CPP)`。
 
-![select il2cpp modules](../img/hybridclr/select_il2cpp_modules.jpg)
+![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
 
 ### 安装IDE及相关编译环境
 
@@ -121,7 +121,7 @@ public class ConsoleToScreen : MonoBehaviour
 
 主菜单中点击`Windows/Package Manager`打开包管理器。如下图所示点击`Add package from git URL...`，填入`https://gitee.com/focus-creative-games/hybridclr_unity.git`或`https://github.com/focus-creative-games/hybridclr_unity.git`。
 
-![add package](../img/hybridclr/install_hybridclrunity_package.jpg)
+![add package](/img/hybridclr/install_hybridclrunity_package.jpg)
 
 不熟悉从url安装package的请看[install from giturl](https://docs.unity3d.com/Manual/upm-ui-giturl.html)。
 
@@ -135,7 +135,7 @@ public class ConsoleToScreen : MonoBehaviour
 
 打开菜单 `HybridCLR/Settings`， 在`Hot Update Assemblies`配置项中添加`HotUpdate`程序集，如下图：
 
-![settings](../img/hybridclr/settings.jpg)
+![settings](/img/hybridclr/settings.jpg)
 
 ### 配置PlayerSettings
 
@@ -143,7 +143,7 @@ public class ConsoleToScreen : MonoBehaviour
 - `Scripting Backend` 切换为 `IL2CPP`。
 - `Api Compatability Level` 切换为 `.Net 4.x`(Unity 2019-2020) 或 `.Net Framework`（Unity 2021+）。
 
-![player settings](../img/hybridclr/player-setting.png)
+![player settings](/img/hybridclr/player-setting.png)
 
 ## 创建热更新脚本
 

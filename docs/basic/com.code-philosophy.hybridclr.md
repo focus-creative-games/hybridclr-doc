@@ -1,4 +1,4 @@
-# com.code-philosophy.hybridclr
+# hybridclr Package手册
 
 `com.code-philosophy.hybridclr`是一个Unity package，它提供了HybridCLR所需的Editor工作流工具脚本及Runtime脚本。借助
 com.code-philosophy.hybridclr提供的工作流工具，打包一个支持HybridCLR热更新功能的App变得非常简单。hybridclr_unity包主要包含以下内容：
@@ -57,11 +57,11 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 
 如果你一定要安装其他版本的hybridclr或il2cpp_plus，修改该配置文件中的branch为目标分支或者tag。
 
-![install_default](../img/hybridclr/install_default.jpg)
+![install_default](/img/hybridclr/install_default.jpg)
 
 从版本2.3.1起新增支持直接从本地自己制作的包含hybridclr的libil2cpp目录复制安装。如果你网络不好，或者没有安装git导致无法从仓库远程下载安装，则可以先将 [il2cpp_plus](https://github.com/focus-creative-games/il2cpp_plus)和[hybridclr](https://github.com/focus-creative-games/hybridclr)下载到本地后，再根据下面**安装原理**小节的文档，由这两个仓库合并出含hybridclr的libil2cpp目录，接着在`Installer`安装界面中启用`从本地复制libil2cpp`选项，选择你制作的libil2cpp目录，再点击`安装`执行安装。如下图所示。
 
-![install](../img/hybridclr/install.jpg)
+![install](/img/hybridclr/install.jpg)
 
 ### Compile Dll
 

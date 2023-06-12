@@ -1,14 +1,5 @@
 ---
 title: 热更新MonoBehaviour
-date: 2022-05-25 11:50:18
-permalink: /basic/monobehaviour.md
-categories:
-    - HybridCLR
-tags:
-    -
-author:
-    name: Code Philosophy
-    link: https:://code-philosophy.com
 ---
 
 # 热更新MonoBehaviour

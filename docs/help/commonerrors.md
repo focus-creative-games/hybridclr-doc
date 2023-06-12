@@ -114,13 +114,13 @@ xcode版本太旧导致。更新到较新版本。
 
 这个错误跟HybridCLR无关。 这是因为WebGL对很多函数有限制，比如说send file符号丢失是因为不能调用IO相关函数。遇到问题请自己剔除那些WebGL平台不支持函数。具体自己阅读Unity文档。
 
-### Win 下 打包时遇到 xxxx\il2cpp\libil2cpp\utils\Il2CppHashMap.h(71): error C2039: 'hash_compare': is not a member of 'stdext'
+### Win 下 打包时遇到 `xxxx\\il2cpp\\libil2cpp\\utils\\Il2CppHashMap.h(71): error C2039: 'hash_compare': is not a member of 'stdext'`
 
 这是.net 7发布后最新版本vs改动打破了一些向后兼容性引起。com.code-philosophy.hybridclr `v2.4.0`版本已经完全解决了此问题。你可以升级到此版本或者回退到visual studio 2022的旧版本或者使用2019之类的版本。
 
 一种不需要回退vs版本的解决办法是修改 `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h`，新增 `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS` 即可。可参照下图修改。
 
-![stdext_error](../img/hybridclr/stdext_error.jpg)
+![stdext_error](/img/hybridclr/stdext_error.jpg)
 
 其他解决办法参见[链接](https://forum.unity.com/threads/workaround-for-building-with-il2cpp-with-visual-studio-2022-17-4.1355570/)
 
@@ -347,7 +347,7 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 
 解决办法有如下几种：
-- 使用LoadAsset<System.Object>接口加载后再强转
+- 使用`LoadAsset<System.Object>`接口加载后再强转
 - 在loaddll结束后重新加载catalog `Addressables.LoadContentCatalogAsync($"{Addressables.RuntimePath}/catalog.json");`
 
 ### GameObject.GetComponent(string name) 接口无法获得组件

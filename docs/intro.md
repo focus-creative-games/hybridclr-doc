@@ -1,6 +1,6 @@
 ---
 id: intro
-title: HybridCLR介绍
+title: 介绍
 ---
 # HybridCLR
 

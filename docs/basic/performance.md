@@ -15,17 +15,17 @@
 
 AOT 行是原生il2cpp的数据。HotFix 行是HybridCLR的数据。Lua 行是xlua的数据。
 
-![iphone11](../img/hybridclr/benchmark_iphone11.png)
+![iphone11](/img/hybridclr/benchmark_iphone11.png)
 
-![xiaomi5c](../img/hybridclr/benchmark_xiaomi.png)
+![xiaomi5c](/img/hybridclr/benchmark_xiaomi.png)
 
 以下是部分测试用例下的商业化版本相比于社区版本的性能提升数据。
 
-![interpreter_optimization](../img/hybridclr/interpreter_optimization.jpg)
+![interpreter_optimization](/img/hybridclr/interpreter_optimization.jpg)
 
 以下是数值计算方面AOT与HybridCLR在优化后的性能对比，加法大约是7-16倍左右，乘法是4倍，除法是2倍。
 
-![benchmark_numeric](../img/hybridclr/benchmark_numeric.jpg)
+![benchmark_numeric](/img/hybridclr/benchmark_numeric.jpg)
 
 ## 原理
 

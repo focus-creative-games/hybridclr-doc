@@ -35,11 +35,11 @@ hybridclr使用经典的寄存器指令集配合一些其他运行时设施实�
 
 逻辑地址的布局如下
 
-![method frame](./images/method_frame.jpg)
+![method frame](/img/blog/method_frame.jpg)
 
 函数帧根据其嵌套顺序，在数据栈上的位置从低位向高位扩展，如下图
 
-![method frame](./images/method_frame2.jpg)
+![method frame](/img/blog/method_frame2.jpg)
 
 数据栈每个slot都为一个size=8的StackObject类型对象，每个变量可能占1个或多个slot。例如int类型变量只占一个slot，但Vector3类型变量占2个slot。
 
@@ -82,7 +82,7 @@ StackObject* localVarBase;
 
 hybridclr指令结构如下
 
-![instrument](./images/instrument.jpg)
+![instrument](/img/blog/instrument.jpg)
 
 其中指令的前2字节是opcode，剩下的指令数据我们称之为指令param。param分为几种类型：
 

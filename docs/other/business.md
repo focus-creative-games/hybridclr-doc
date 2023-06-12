@@ -23,11 +23,11 @@
 
 以下是旗舰版本相比于社区版本的解释性能提升数据。注意，只有变化代码才会走解释，如果未改动，两者的性能和原生是一样的。
 
-![interpreter_optimization](../img/hybridclr/interpreter_optimization.jpg)
+![interpreter_optimization](/img/hybridclr/interpreter_optimization.jpg)
 
 以下是数值计算方面原生与旗舰版本的解释性能对比，加法大约为7-16倍左右，乘法是4倍，除法是2倍。注意，只有变化代码才会走解释，如果未改动，性能和原生是一样的。
 
-![benchmark_numeric](../img/hybridclr/benchmark_numeric.jpg)
+![benchmark_numeric](/img/hybridclr/benchmark_numeric.jpg)
 
 
 ## 专业版本

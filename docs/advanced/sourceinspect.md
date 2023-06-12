@@ -75,5 +75,5 @@ Build完成后，即产生一个可调试的工程。想了解更多，可参考
 - 假设打包输出路径为build_android，在Android Studio中选择 Build->Make Module 'build_android.unityLibrary'，编译unityLibrary，等待编译完成
 - 选择`Run->Edit Configurations...`，按下图所示进行设置。
 
-![android studio debug](../img/hybridclr/android_studio_debug.png)
+![android studio debug](/img/hybridclr/android_studio_debug.png)
 - 正常debug即可。

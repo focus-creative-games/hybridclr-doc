@@ -10,7 +10,7 @@
 
 根据你打包的目标平台，安装过程中选择必要模块。如果打包Android或iOS，直接选择相应模块即可。如果你想打包Standalone，必须额外选中 `Windows Build Support(IL2CPP)`或`Mac Build Support(IL2CPP)`。
 
-![select il2cpp modules](../img/hybridclr/select_il2cpp_modules.jpg)
+![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
 
 ## 安装IDE及相关工具
 
@@ -55,7 +55,7 @@
 
 想安装某个分支或者tag版本，请在地址后加上`#{tag}`，如 `https://gitee.com/focus-creative-games/hybridclr_unity.git#v3.0.1`。
 
-![add package](../img/hybridclr/install_hybridclrunity_package.jpg)
+![add package](/img/hybridclr/install_hybridclrunity_package.jpg)
 
 不熟悉从url安装package的请看[install from giturl](https://docs.unity3d.com/Manual/upm-ui-giturl.html)。
 
@@ -109,11 +109,11 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 
 绝大多数情况下，直接点击`安装`默认从远程仓库下载安装即可。安装成功后，控制台会打印`安装成功`日志。如下图所示。
 
-![install_default](../img/hybridclr/install_default.jpg)
+![install_default](/img/hybridclr/install_default.jpg)
 
 从版本2.3.1起新增支持直接从本地自己制作的包含hybridclr的libil2cpp目录复制安装。如果你网络不好，或者没有安装git导致无法从仓库远程下载安装，则可以先将 [il2cpp_plus](https://github.com/focus-creative-games/il2cpp_plus)和[hybridclr](https://github.com/focus-creative-games/hybridclr)下载到本地后，再根据下面**安装原理**小节的文档，由这两个仓库合并出含hybridclr的libil2cpp目录，接着在`Installer`安装界面中启用`从本地复制libil2cpp`选项，选择你制作的libil2cpp目录，再点击`安装`执行安装。如下图所示。
 
-![install](../img/hybridclr/install.jpg)
+![install](/img/hybridclr/install.jpg)
 
 
 
@@ -160,7 +160,7 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 
 hybridclr仓库推荐填写`1.0`，即每次安装1.0分支的最新版本；il2cpp_plus仓库推荐填`{年度版本}-1.0`（如2020-1.0），即每次安装`{年度版本}-1.0`分支的最新版本。如图：
 
-![image](../img/hybridclr/install_version.jpg)
+![image](/img/hybridclr/install_version.jpg)
 
 目前已经发布了1.0.1稳定正式版本，同样推荐追求稳定的项目使用。com.code-philosophy.hybridclr取 `1.0.1-release`，hybridclr 版本取 `1.0.1-release`，il2cpp_plus版本取 `{version}-1.0.1-relase`。
 
@@ -233,7 +233,7 @@ il2cpp_plus仓库为对原始libil2cpp作了少量修改以支持动态**registe
 
 如下图所示，将`il2cpp_plus/libil2cpp`目录和`hybridclr/hybridclr`目录合并，制作出最终的支持热更新的libil2cpp。
 
-![merge_hybridclr_dir](../img/hybridclr/merge_hybridclr_dir.jpg)
+![merge_hybridclr_dir](/img/hybridclr/merge_hybridclr_dir.jpg)
 
 
 ### 本地安装
