@@ -1,6 +1,8 @@
-# AOT泛型问题
+# AOT泛型
 
 CLR中有两类泛型特性：泛型类型和泛型函数。泛型是c#中使用极其广泛的特性，即使一个没有明显包含泛型的用法，也可能隐含了泛型相关的定义或者操作。
+
+## AOT泛型问题
 
 对于**热更新代码中定义**的泛型类，可以随意使用没有限制，但是对于**AOT泛型**，则遇到了一些问题。
 
@@ -8,7 +10,10 @@ il2cpp是AOT运行时，它运行时使用的几乎所有（为什么不是全�
 ，但不能使用 `new List<float>()`。因为尽管il2cpp可以在内存中创建出`List<float>`类型的大多数元数据，但它无法创建出它的各个成员函数实现。
 比如你可以通过反射获得`typeof(List<float>)`，却无法调用它的任何成员函数，包括构造函数。
 
-泛型类，尤其是泛型容器List、Dictionary之类在代码中使用如此广泛，如果因为AOT限制，导致`List<HotUpdateType>`之类的都不能运行，那游戏热更新的代码限制也太大了。幸运的是，HybridCLR使用两类技术彻底解决了这个问题：
+另外一些C#特殊机制也会引发的AOT泛型问题，如编译器可能为会async之类的复杂语法糖生成隐含的AOT泛型引用。故为了让这些机制能够正常工作，也必须解决它们引发的AOT泛型实例化问题。
+以async为例，编译器为async生成了若干类及状态机及一些代码，这些隐藏生成的代码中包含了对多个AOT泛型函数的调用。例如 `void AsyncTaskMethodBuilder::Start<TStateMachine>(ref TStateMachine stateMachine)`。
+
+泛型类，尤其是泛型容器List、Dictionary之类在代码中使用如此广泛，如果因为AOT限制，导致`List<HotUpdateType>`之类的都不能运行，那游戏热更新的代码限制也太大了。幸运的是，HybridCLR使用几类技术彻底解决了这个问题：
 
 - 基于il2cpp的`泛型共享`技术。
 - 基于`补充元数据`技术。这也是HybridCLR的专利技术。该技术社区版本也可使用。
@@ -19,7 +24,7 @@ il2cpp是AOT运行时，它运行时使用的几乎所有（为什么不是全�
 ## il2cpp的泛型共享机制
 
 il2cpp为了避免泛型代码膨胀，节约内存，在保证代码逻辑正确性的情况下对于一些能够共享代码，只生成一份代码。为此引入一个概念叫**泛型代码共享** [Generic Sharing](https://blog.unity.com/technology/il2cpp-internals-generic-sharing-implementation)。
-泛型参数为class类型的泛型的函数实现可以共享。例如为List&lt;String&gt;方法编译的代码可以直接用于List&lt;Stream&gt;方法，但对于值类型的泛型参数则无法共享。
+简单来说，你只要**在AOT中实例化过某个泛型类或泛型函数的共享实例**，你就可以在热更新代码中使用它了。
 
  以List&lt;T&gt; 举例：
 
@@ -29,7 +34,7 @@ il2cpp为了避免泛型代码膨胀，节约内存，在保证代码逻辑正�
 
 ## 共享类型计算规则
 
-假设泛型类 T 的共享类型为share type， 计算规则如下。
+假设泛型类 T 的共享类型为sharing type， 计算规则如下。
 
 ### 非枚举的值类型
 
@@ -246,28 +251,9 @@ HybridCLR支持`full genric sharing`后，不再需要补充元数据，简化�
 
 `faster(smaller) build`选项的优点是可以任意泛型实例化，而且可以节约代码大小，缺点是极大地伤害了泛型函数的性能。完全泛型共享的代码相比于标准泛型共享代码有时候会慢几倍到十几倍，甚至比不上纯解释版本。因此强烈推荐**不要开启** `faster(smaller) build` 选项。对于2021版本想使用完全泛型共享则只能开启这个选项，而2022版本则可以使用`faster runtime`兼顾普通泛型共享和完全泛型共享，让性能最大化。
 
-
-
-## 一些C#特殊机制引发的AOT泛型问题
-
-编译器可能为会async之类的复杂语法糖生成隐含的AOT泛型引用。故为了让这些机制能够正常工作，也必须解决它们引发的AOT泛型实例化问题。
-
-以async为例，编译器为async生成了若干类及状态机及一些代码，这些隐藏生成的代码中包含了对多个AOT泛型函数的调用，常见的有：
-
-- `void AsyncTaskMethodBuilder::Start<TStateMachine>(ref TStateMachine stateMachine)`
-- `void AsyncTaskMethodBuilder::AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>(ref TAwaiter awaiter, ref TStateMachine stateMachine)`
-- `void AsyncTaskMethodBuilder::SetException(Exception exception)`
-- `void AsyncTaskMethodBuilder::SetResult()`
-- `void AsyncTaskMethodBuilder<T>::Start<TStateMachine>(ref TStateMachine stateMachine)`
-- `void AsyncTaskMethodBuilder<T>::AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>(ref TAwaiter awaiter, ref TStateMachine stateMachine)`
-- `void AsyncTaskMethodBuilder<T>::SetException(Exception exception)`
-- `void AsyncTaskMethodBuilder<T>::SetResult(T result)`
-
-两种泛型实例化技术都可以解决这些问题。你可以使用泛型共享机制，即在AOT里提前实例化这些函数，不过要**注意**，Unity在release模式下编译的dll中生成的状态机是ValueType类型，导致无法泛型共享，但debug模式下生成的状态机是class类型，可以泛型共享。因此如果使用il2cpp泛型共享机制，为了能够让热更新中使用async语法，使用脚本编译dll时，务必加上 `scriptCompilationSettings.options = ScriptCompilationOptions.DevelopmentBuild;` 代码，这样编译出的状态机是class类型，在热更新代码中能正常工作。如果已经使用`补充元数据`或`full generic sharing`技术，由于彻底支持AOT泛型，则对编译方式**无限制**。
-
-?> 在AOT中实例化这些泛型非常繁琐，**强烈推荐**使用`补充元数据`或`full generic sharing`技术。
-
 ## 附录：AOT泛型的共享泛型实例化示例
+
+!> HybridCLR性能非常优异，除非确实遇到到性能问题，否则绝大多数情况下你应该使用补充元技术或者`full generic sharing`技术来解决AOT泛型问题。
 
 ### 示例1
 
@@ -278,7 +264,7 @@ MissingMethodException: AOT generic method not instantiated in aot module
   void System.Collections.Generic.List<System.String>.ctor()
 ```
 
-你在RefType里加上 `List<string>.ctor()` 的调用，即 `new List<string>()`。由于**泛型共享机制**，你调用 `new List<object>()` 即可。
+你在主工程中随便找个地方（比如在RefTypes.cs）加上 `List<string>.ctor()` 的调用，即 `new List<string>()`。由于**泛型共享机制**，你调用 `new List<object>()` 即可。
 
 ```csharp
 class RefTypes
@@ -299,7 +285,7 @@ MissingMethodException: AOT generic method not instantiated in aot module
     void System.ValueType<System.Int32, System.String>.ctor()
 ```
 
-!> 值类型的空构造函数没有调用相应的构造函数，而是对应 initobj指令。实际上你无法直接引用它，但你只要强制实例化这个类型就行了，preserve这个类的所有函数，自然就会包含.ctor函数了。
+?> 值类型的空构造函数没有调用相应的构造函数，而是对应 initobj指令。实际上你无法直接引用它，但你只要强制实例化这个类型就行了，preserve这个类的所有函数，自然就会包含.ctor函数了。
 
 实际中你可以用强制装箱 `(object)(default(ValueTuple<int, object>))`。
 
