@@ -1,6 +1,8 @@
 # Unsupported features
 
-!> HybridCLR supports all the features that are not in the restrictions, please don't ask if HybridCLR supports a certain feature.
+:::tip
+HybridCLR supports all the features that are not in the restrictions, please don't ask if HybridCLR supports a certain feature.
+:::
 
 - Incremental gc is not supported yet. At present, the memory barrier details of incremental gc have not been carefully handled, and this problem will be resolved later.
 - Temporarily does not support defining extern functions in hot update scripts, but you can call extern functions in AOT.

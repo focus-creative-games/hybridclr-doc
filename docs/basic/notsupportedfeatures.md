@@ -1,6 +1,8 @@
 # 不支持的特性
 
-!> 不在限制事项中的特性HybridCLR都支持，请不要再问HybridCLR是否支持某个功能。
+:::tip
+不在限制事项中的特性HybridCLR都支持，请不要再问HybridCLR是否支持某个功能。
+:::
 
 - 暂不支持增量式gc。目前未仔细处理增量式gc的memory barrier细节，这个问题会在后面解决。
 - 暂时不支持在热更新脚本中定义extern函数，但可以调用AOT中extern函数。

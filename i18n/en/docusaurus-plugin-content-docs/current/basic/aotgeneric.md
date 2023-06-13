@@ -147,10 +147,11 @@ In theory, the earlier the loading, the better. In practice, the more reasonable
 
 **Supplementary metadata has no load order requirement**.
 
-!> It is the generic function that loses the IL function body metadata, not the generic parameter type that loses metadata. Take `List<YourValueType>.Add` as an example,
+:::tip
+It is the generic function that loses the IL function body metadata, not the generic parameter type that loses metadata. Take `List<YourValueType>.Add` as an example,
 It is the `List<T>.Add` function that is missing raw IL function body metadata, not `YourValueType` that is missing metadata, so
 The metadata of the aot dll where the generic class resides should be supplemented. For example, in order to use `List<Vector3>`, you should supplement the metadata of the dll where `List<T>` resides (namely `mscorlib`), instead of supplementing the metadata of the dll where `YourValueType` resides.
-
+:::
 
 If the AOT generic supplements the corresponding generic metadata, and il2cpp generic sharing instantiation also exists, in order to maximize performance, HybridCLR will give priority to il2cpp generic sharing.
 
@@ -272,7 +273,9 @@ MissingMethodException: AOT generic method isn't instantiated in aot module
      void System.ValueType<System.Int32, System.String>.ctor()
 ```
 
-!> The empty constructor of the value type does not call the corresponding constructor, but corresponds to the initobj instruction. In fact, you can't directly reference it, but you just need to force the instantiation of this type, and all functions of the preserve class will naturally include the .ctor function.
+:::info
+The empty constructor of the value type does not call the corresponding constructor, but corresponds to the initobj instruction. In fact, you can't directly reference it, but you just need to force the instantiation of this type, and all functions of the preserve class will naturally include the .ctor function.
+:::
 
 In practice you can use forced boxing `(object)(default(ValueTuple<int, object>))`.
 

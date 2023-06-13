@@ -48,7 +48,9 @@ differentialHybridAssemblies和hotUpdateAssemlies列表。必须在执行差分�
 这目录用来保存打包时生成的AOT dll。后面每次生成dhao文件时，使用此目录下的dll为原始AOT dll。
 由于经常进行临时性的打包，AOT dll大多数情况下是不需要备份的，因此备份行为需要手动调用`HybridCLR/CreateAOTDllSnapshot`菜单命令。
 
-!> 正式发包时，一定要记得打包后，自行或者使用该命令备份AOT dll，并且提交你们的版本管理系统。
+:::caution
+正式发包时，一定要记得打包后，自行或者使用该命令备份AOT dll，并且提交你们的版本管理系统。
+:::
 
 ### 配置 差分混合执行的assembly的配置数据的导出目录
 
@@ -60,7 +62,9 @@ differentialHybridAssemblies和hotUpdateAssemlies列表。必须在执行差分�
 
 目前已经可以自动计算变化的函数，不需要手动操作。但也支持手动使用`[Unchanged]`标注哪些函数未发生变化。
 
-!> 强烈建议不要自己手动标记。因为编译器经常生成一些隐藏类或字段，这些类名并不是稳定的。表面看起来一样的C#代码，实际生成的代码未必一样。
+:::caution
+强烈建议不要自己手动标记。因为编译器经常生成一些隐藏类或字段，这些类名并不是稳定的。表面看起来一样的C#代码，实际生成的代码未必一样。
+:::
 
 ## 代码中使用
 
@@ -115,8 +119,10 @@ public class CopyDHEAOTDllsToAndroidProject : IPostGenerateGradleAndroidProject
 - 确保之前已经运行运行`HybridCLR/CreateAOTDllSnapshot`备份AOT文件，确保备份目录下的AOT dll为打包时生成的AOT dll。
 - 使用 `HybridCLR/generate/DHEAssemblyOptionDatas` 生成dhao文件。
 
-!> 由于 DHEAssemblyOptionDatas 的工作原理是对比最新热更新`DHE dll`与原始AOT dll的备份目录的aot dll，生成变化的函数及类型信息。请一定一定要确保热更新dll和备份
+:::caution
+由于 DHEAssemblyOptionDatas 的工作原理是对比最新热更新`DHE dll`与原始AOT dll的备份目录的aot dll，生成变化的函数及类型信息。请一定一定要确保热更新dll和备份
 的AOT dll的正确性！
+:::
 
 
 

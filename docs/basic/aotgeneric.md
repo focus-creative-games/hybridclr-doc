@@ -153,10 +153,11 @@ LoadMetadataForAOTAssembly函数可以在任何时机调用，另外既可以在
 
 **补充元数据没有加载顺序的要求**。
 
-!> 是泛型函数丢失了IL函数体元数据，而不是泛型参数类型丢失了元数据。以`List<YourValueType>.Add`为例，
+:::tip
+是泛型函数丢失了IL函数体元数据，而不是泛型参数类型丢失了元数据。以`List<YourValueType>.Add`为例，
 是 `List<T>.Add`函数缺失了原始IL函数体元数据，而不是`YourValueType`丢失了元数据，因此
 应该补充泛型类所在的aot dll的元数据。例如为了使用`List<Vector3>`应该补充`List<T>`所在dll（即`mscorlib`）的元数据，而不是补充`YourValueType`所在的dll的元数据。
-
+:::
 
 如果AOT泛型补充相应的泛型元数据，同时il2cpp泛型共享实例化也存在，为了最大程度提升性能，HybridCLR会优先尝试il2cpp泛型共享。
 
@@ -259,7 +260,9 @@ HybridCLR支持`full genric sharing`后，不再需要补充元数据，简化�
 
 ## 附录：AOT泛型的共享泛型实例化示例
 
-!> HybridCLR性能非常优异，除非确实遇到到性能问题，否则绝大多数情况下你应该使用补充元技术或者`full generic sharing`技术来解决AOT泛型问题。
+:::caution
+HybridCLR性能非常优异，除非确实遇到到性能问题，否则绝大多数情况下你应该使用补充元技术或者`full generic sharing`技术来解决AOT泛型问题。
+:::
 
 ### 示例1
 

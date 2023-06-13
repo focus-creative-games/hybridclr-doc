@@ -7,8 +7,9 @@ com.code-philosophy.hybridclr提供的工作流工具，打包一个支持Hybrid
 - Runtime相关脚本
 - iOSBuild脚本
 
-!> v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。
-
+:::caution
+v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。
+:::
 
 ## HybridCLR菜单介绍
 
@@ -170,7 +171,9 @@ hybridclr代码要兼容多个Unity版本，需要当前Unity版本相关宏定�
 
 是否开启HyridCLR热更。默认true。如果为false，则打包不再包含HybridCLR功能。
 
-!> 如果禁用HybridCLR，请同时也移除主工程中对HybridCLR.Runtime程序集的引用，否则打包时会出现`RuntimeApi::LoadMetadataForAOTAssembly`之类符号丢失的错误。
+:::caution
+如果禁用HybridCLR，请同时也移除主工程中对HybridCLR.Runtime程序集的引用，否则打包时会出现`RuntimeApi::LoadMetadataForAOTAssembly`之类符号丢失的错误。
+:::
 
 ### useGlobalIl2cpp
 
@@ -192,7 +195,9 @@ il2cpp_plus 仓库的地址，默认值为 `https://gitee.com/focus-creative-gam
 
 以assembly definition(asmdef) 形式定义的热更新模块列表，它与下面的`hotUpdateAssemblies`是等效的，只不过编辑器下拖入asmdef模块比较方便，也不容易失误写错名称。
 
-!> `hotUpdateAssemblyDefinitions`和`hotUpdateAssemblies`合并后构成最终的热更新dll列表。同一个assembly不要在两个列表中同时出现，会报错！
+:::caution
+`hotUpdateAssemblyDefinitions`和`hotUpdateAssemblies`合并后构成最终的热更新dll列表。同一个assembly不要在两个列表中同时出现，会报错！
+:::
 
 ### hotUpdateAssemblies
 
@@ -200,7 +205,7 @@ il2cpp_plus 仓库的地址，默认值为 `https://gitee.com/focus-creative-gam
 填写assembly名称时不要包含'.dll'后缀，像`Main`、`Assembly-CSharp`这样即可。asmdef形式的assembly，你也可以选择不加到`hotUpdateAssemblyDefinitions`，
 而是加到`hotUpdateAssemblies`。不过这样不如直接拖入列表方便，你自己酌情选择。
 
-!> `hotUpdateAssemblyDefinitions`和`hotUpdateAssemblies`合并后构成最终的热更新dll列表。同一个assembly不要在两个列表中同时出现，会报错！
+`hotUpdateAssemblyDefinitions`和`hotUpdateAssemblies`合并后构成最终的热更新dll列表。同一个assembly不要在两个列表中同时出现，会报错！
 
 ### preserveHotUpdateAssemblies
 
@@ -238,7 +243,9 @@ preserveHotUpdateAssemblies字段用来满足这种需求。打包时不检查�
 
 运行菜单`HybridCLR/Generate/LinkXml`命令时，输出的link.xml文件路径。
 
-!> 千万不要指向 `Assets/link.xml`，那个link.xml一般用来手动预留AOT类型，而这个自动输出的link.xml每次都会覆盖。
+:::caution
+千万不要指向 `Assets/link.xml`，那个link.xml一般用来手动预留AOT类型，而这个自动输出的link.xml每次都会覆盖。
+:::
 
 ### outputAOTGenericReferenceFile
 

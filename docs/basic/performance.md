@@ -10,8 +10,10 @@
 
 以下是社区版本的HybridCLR在iphone 11及小米5C手机下的实机测试报告,测试代码附录最后。
 
-!> 注意，test2、test8、test9的测试用例极不合理，AOT情况下会被编译器完全优化掉，导致时间为0。真实差距
+:::caution
+注意，test2、test8、test9的测试用例极不合理，AOT情况下会被编译器完全优化掉，导致时间为0。真实差距
 应该在10-30倍之间。
+:::
 
 AOT 行是原生il2cpp的数据。HotFix 行是HybridCLR的数据。Lua 行是xlua的数据。
 

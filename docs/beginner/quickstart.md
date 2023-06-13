@@ -14,7 +14,9 @@
 
 ### 安装Unity
 
-!> HybridCLR也支持2019.4.x，但新手请先按照下面要求跑通流程后，再根据[安装HybridCLR](/basic/install.md)文档尝试2019.4.x。
+:::caution
+HybridCLR也支持2019.4.x，但新手请先按照下面要求跑通流程后，再根据[安装HybridCLR](/basic/install.md)文档尝试2019.4.x。
+:::
 
 - 安装 2020.3.26+、 2021.3.0+、2022.3.0+ 中任一版本。如果你不是经验丰富的Unity开发者，推荐使用2021.3.1版本。
 - 根据你所用的操作系统，安装过程中选择模块时，必须选中 `Windows Build Support(IL2CPP)`或`Mac Build Support(IL2CPP)`。

@@ -6,7 +6,9 @@
 
 支持2019.4.x、2020.3.16+、2021.3.x、2022.3.x 中任一版本。推荐安装2019.4.40、2020.3.26+、2021.3.x、2022.3.x版本。
 
-!> 如果你的版本为 2019.4.0-2019.4.39、2020.3.16-2020.3.25，**需要先切换到 2019.4.40 和 2020.3.26+ 版本完成HybridCLR安装，再切换回当前版本**。
+:::tip
+如果你的版本为 2019.4.0-2019.4.39、2020.3.16-2020.3.25，**需要先切换到 2019.4.40 和 2020.3.26+ 版本完成HybridCLR安装，再切换回当前版本**。
+:::
 
 根据你打包的目标平台，安装过程中选择必要模块。如果打包Android或iOS，直接选择相应模块即可。如果你想打包Standalone，必须额外选中 `Windows Build Support(IL2CPP)`或`Mac Build Support(IL2CPP)`。
 
@@ -25,7 +27,9 @@
 
 ### 选择 `com.code-philosophy.hybridclr` 版本
 
-!> v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。从`v3.0.0`版本起，移除了对Unity 2019的支持，使用2019的开发者请选择`v2.x.y`系列版本。
+:::tip
+v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。从`v3.0.0`版本起，移除了对Unity 2019的支持，使用2019的开发者请选择`v2.x.y`系列版本。
+:::
 
 当前存在三大系列版本：`1.0`分支、`v2.x.y`系列、`v3.x.y`（也是当前main分支）系列。
 
@@ -182,7 +186,9 @@ hybridclr仓库推荐填写`1.0`，即每次安装1.0分支的最新版本；il2
 
 ### Unity 2021
 
-!> **如果你的com.code-philosophy.hybridclr版本 >= v2.0.1**，由于已经使用MonoHook技术在不修改UnityEditor.CoreModule.dll的情况下也能复制出裁剪后的AOT dll，**不需要**执行以下操作。
+:::caution
+**如果你的com.code-philosophy.hybridclr版本 >= v2.0.1**，由于已经使用MonoHook技术在不修改UnityEditor.CoreModule.dll的情况下也能复制出裁剪后的AOT dll，**不需要**执行以下操作。
+:::
 
 补充元数据及`HybridCLR/Generate/*`下的部分命令依赖裁减后的AOT dll。但Unity 2021版本（2019、2020不需要）打包`iOS平台`(其他平台不需要)时，由于Unity Editor未提供公开接口可以复制出target为iOS时的裁剪后的AOT dll，故必须使用修改后的UnityEditor.CoreModule.dll覆盖Unity自带的相应文件。
 

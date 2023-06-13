@@ -46,7 +46,9 @@ Most game logic assemblies are executed after the hot update, which satisfies th
 This directory is used to save the AOT dll generated during packaging. Every time a dhao file is generated later, the dll in this directory is used as the original AOT dll.
 Due to frequent temporary packaging, AOT dll does not need to be backed up in most cases, so the backup behavior needs to manually call the `HybridCLR/CreateAOTDllSnapshot` menu command.
 
-!> When you officially release the package, you must remember to back up the AOT dll by yourself or use this command after packaging, and submit it to your version management system.
+:::caution
+When you officially release the package, you must remember to back up the AOT dll by yourself or use this command after packaging, and submit it to your version management system.
+:::
 
 ### Configure the export directory of the configuration data of the assembly executed by the differential hybrid
 
@@ -58,7 +60,9 @@ Loading a differential hybrid execution assembly requires some configuration dat
 
 At present, the function of change can be automatically calculated without manual operation. But it also supports manually using `[Unchanged]` to mark which functions have not changed.
 
-!> It is strongly recommended not to manually tag your own. Because the compiler often generates some hidden classes or fields, these class names are not stable. The C# code that looks the same on the surface may not actually generate the same code.
+:::danger
+It is strongly recommended not to manually tag your own. Because the compiler often generates some hidden classes or fields, these class names are not stable. The C# code that looks the same on the surface may not actually generate the same code.
+:::
 
 ## used in the code
 
@@ -113,5 +117,7 @@ public class CopyDHEAOTDllsToAndroidProject : IPostGenerateGradleAndroidProject
 - Make sure you have run `HybridCLR/CreateAOTDllSnapshot` to back up the AOT file, and make sure that the AOT dll in the backup directory is the AOT dll generated during packaging.
 - Use `HybridCLR/generate/DHEAssemblyOptionDatas` to generate dhao files.
 
-!> Because the working principle of DHEAssemblyOptionDatas is to compare the latest hot update `DHE dll` with the aot dll in the backup directory of the original AOT dll, and generate changed function and type information. Please be sure to ensure hot update dll and backup
+:::caution
+ Because the working principle of DHEAssemblyOptionDatas is to compare the latest hot update `DHE dll` with the aot dll in the backup directory of the original AOT dll, and generate changed function and type information. Please be sure to ensure hot update dll and backup
 The correctness of the AOT dll!
+:::

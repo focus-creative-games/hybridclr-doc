@@ -10,8 +10,10 @@ The HybridCLR of the **commercial version** has greatly optimized the performanc
 
 The following is the test report of the community version of HybridCLR under the iphone 11 and Xiaomi 5C mobile phones. The test code is at the end of the appendix.
 
-!> Note that the test cases of test2, test8, and test9 are extremely unreasonable. In the case of AOT, they will be completely optimized by the compiler, resulting in a time of 0. real gap
+:::caution
+Note that the test cases of test2, test8, and test9 are extremely unreasonable. In the case of AOT, they will be completely optimized by the compiler, resulting in a time of 0. real gap
 It should be between 10-30 times.
+:::
 
 AOT lines are native il2cpp data. The HotFix line is HybridCLR data. Lua lines are data for xlua.
 

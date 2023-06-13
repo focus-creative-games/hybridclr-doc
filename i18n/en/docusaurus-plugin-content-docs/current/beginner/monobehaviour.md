@@ -44,7 +44,9 @@ After the hot update, a line of log `[Print] GameObject:Test1 value:1` will be a
 
 Due to the limitations of the Unity resource management system, the resources (prefab, scene, ScriptableObject resources) mounted by the hot update script must be typed into assetbundle**, and the resources can be instantiated from the ab package to restore the script correctly.
 
-!> If you mount the hot update script to Resources and other resources that come with the main package, a scripting missing error will occur!
+:::danger
+If you mount the hot update script to Resources and other resources that come with the main package, a scripting missing error will occur!
+:::
 
 Since the whole process involves packing the ab package, it is relatively lengthy, so I won't detail it here. Try the hyridclr_trial project ([github](https://focus-creative-games/hybridclr_trial) or [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)) directly.
 

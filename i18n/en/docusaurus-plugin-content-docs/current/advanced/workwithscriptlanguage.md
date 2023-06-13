@@ -72,7 +72,9 @@ public class MonoPInvokeWrapperPreserves
 
 ## limit
 
-!> Please make sure that the function parameters are simple primitive types such as int, float and so on.
+:::caution
+Please make sure that the function parameters are simple primitive types such as int, float and so on.
+:::
 
 At present, there is no marshal processing for reference type parameters. Reference type parameters such as string are directly passed as parameters, which will inevitably lead to a crash after use!
 If there is such a need, you can put the callback function in the AOT, and call back the hot update in the AOT

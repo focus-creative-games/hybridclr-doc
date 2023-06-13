@@ -7,8 +7,9 @@ The workflow tool provided by com.code-philosophy.hybridclr makes it very easy t
 - Runtime related scripts
 -iOSBuild script
 
-!> Before v3.0.0 the package name was `com.focus-creative-games.hybridclr_unity`.
-
+:::caution
+Before v3.0.0 the package name was `com.focus-creative-games.hybridclr_unity`.
+:::
 
 ## HybridCLR menu introduction
 
@@ -170,7 +171,9 @@ Click the menu `HybridCLR/Settings` to open the configuration interface. The fie
 
 Whether to enable HyridCLR hot update. The default is true. If false, the packaging no longer includes HybridCLR functionality.
 
-!> If HybridCLR is disabled, please also remove the reference to the HybridCLR.Runtime assembly in the main project, otherwise there will be errors such as missing symbols such as `RuntimeApi::LoadMetadataForAOTAssembly` when packaging.
+:::caution
+If HybridCLR is disabled, please also remove the reference to the HybridCLR.Runtime assembly in the main project, otherwise there will be errors such as missing symbols such as `RuntimeApi::LoadMetadataForAOTAssembly` when packaging.
+:::
 
 ### useGlobalIl2cpp
 
@@ -192,7 +195,9 @@ The address of the il2cpp_plus warehouse, the default value is `https://gitee.co
 
 The list of hot update modules defined in the form of assembly definition (asmdef) is equivalent to `hotUpdateAssemblies` below, but it is more convenient to drag and drop asmdef modules in the editor, and it is not easy to make mistakes and write wrong names.
 
-!> `hotUpdateAssemblyDefinitions` and `hotUpdateAssemblies` are combined to form the final hot update dll list. The same assembly should not appear in two lists at the same time, an error will be reported!
+:::caution
+`hotUpdateAssemblyDefinitions` and `hotUpdateAssemblies` are combined to form the final hot update dll list. The same assembly should not appear in two lists at the same time, an error will be reported!
+:::
 
 ###hotUpdateAssemblies
 
@@ -200,7 +205,7 @@ Some assemblies exist in the form of dll, such as the hot update dll you created
 Do not include the '.dll' suffix when filling in the assembly name, just like `Main`, `Assembly-CSharp`. Assembly in asmdef form, you can also choose not to add it to `hotUpdateAssemblyDefinitions`,
 Instead, add to `hotUpdateAssemblies`. But this is not as convenient as directly dragging into the list, you can choose at your own discretion.
 
-!> `hotUpdateAssemblyDefinitions` and `hotUpdateAssemblies` are combined to form the final hot update dll list. The same assembly should not appear in two lists at the same time, an error will be reported!
+`hotUpdateAssemblyDefinitions` and `hotUpdateAssemblies` are combined to form the final hot update dll list. The same assembly should not appear in two lists at the same time, an error will be reported!
 
 ### preserveHotUpdateAssemblies
 
@@ -238,7 +243,9 @@ Do not include the '.dll' suffix when filling in the assembly name, just like `M
 
 When running the menu `HybridCLR/Generate/LinkXml` command, the output link.xml file path.
 
-!> Do not point to `Assets/link.xml`, that link.xml is generally used to manually reserve the AOT type, and this automatically output link.xml will be overwritten every time.
+:::danger
+Do not point to `Assets/link.xml`, that link.xml is generally used to manually reserve the AOT type, and this automatically output link.xml will be overwritten every time.
+:::
 
 ### outputAOTGenericReferenceFile
 

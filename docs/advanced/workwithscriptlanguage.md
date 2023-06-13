@@ -74,7 +74,9 @@ public class MonoPInvokeWrapperPreserves
 
 ## 限制
 
-!> 请确保函数参数都是简单primitive类型如int、float之类。
+:::caution
+请确保函数参数都是简单primitive类型如int、float之类。
+:::
 
 目前没有对引用类型参数作marshal处理，诸如string之类引用类型的参数都是直接传参处理，使用后必然会导致崩溃！
 如果实在有这种需求，可以将回调函数放到AOT中，在AOT中再回调热更新

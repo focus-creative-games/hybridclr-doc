@@ -243,7 +243,9 @@ According to the Unity anti-clipping principle, you can add a reference to the m
 
 HybridCLR provides a quick automatic generation tool, run the menu command `HybridCLR/Genrate/LinkXml` to generate link.xml according to the hot update dll.
 
-!> If you find that this class is indeed preserved in the link.xml, but this type of missing error still occurs, it is caused by Unity itself. Unity requires that any class in the dll must be referenced in the code before the dll will be retained, and the configurations in the link will take effect. Therefore, you need to manually reference any class in the dll where the missing class is located in the code.
+:::tip
+If you find that this class is indeed preserved in the link.xml, but this type of missing error still occurs, it is caused by Unity itself. Unity requires that any class in the dll must be referenced in the code before the dll will be retained, and the configurations in the link will take effect. Therefore, you need to manually reference any class in the dll where the missing class is located in the code.
+:::
 
 #### Case 3: yyyAssembly is hot update assembly
 

@@ -54,7 +54,9 @@ class HotUpdateGenericDemos
 
 **打包过程**生成的裁剪后的AOT dll可以用于补充元数据。com.code-philosophy.hybridclr插件会自动把它们复制到`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`。
 
-!> 不同BuildTarget的裁剪AOT dll不可复用。
+:::danger
+不同BuildTarget的裁剪AOT dll不可复用。
+:::
 
 使用`HybridCLR/Generate/AotDlls`命令也可以立即生成裁剪后的AOT dll，它的工作原理是通过导出一个Temp工程来获得裁剪AOT dll。
 

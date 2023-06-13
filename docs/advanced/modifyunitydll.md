@@ -6,7 +6,9 @@
 - UnityEditor.CoreModule.dll
 - Unity.IL2CPP.dll
 
-!> 不是所有版本和平台都需要修改这两个dll，具体下面详细说明。
+:::caution
+不是所有版本和平台都需要修改这两个dll，具体下面详细说明。
+:::
 
 ## 使用dnspy工具
 
@@ -25,8 +27,10 @@
 
 ## UnityEditor.CoreModule.dll
 
-!> 只有2021版本并且需要build iOS的开发者，才需要使用修改版本的 UnityEditor.CoreModule.dll。**如果你的com.code-philosophy.hybridclr版本 >= 2.0.1**，
+:::caution
+只有2021版本并且需要build iOS的开发者，才需要使用修改版本的 UnityEditor.CoreModule.dll。**如果你的com.code-philosophy.hybridclr版本 >= 2.0.1**，
 由于已经使用MonoHook技术在不修改UnityEditor.CoreModule.dll的情况下也能复制出裁剪后的AOT dll，**不需要**执行以下操作。
+:::
 
 ### 原理
 
@@ -39,7 +43,9 @@ Unity Editor未提供公开接口可以复制出target为iOS时的AOT dll，故�
 将相应dll复制到 `HybridCLRData\AssembliesPostIl2CppStrip\iOS`，供后续打包使用。UnityEditor.CoreModule.dll 代码每个Unity版本都不一样。由于我们时间有限，
 目前只制作了2021.3.1版本 （将来可能会提供更多），其他版本请自行制作。具体操作方式请阅读下面的文档。
 
-!> 同个版本的Win与Mac版本的UnityEditor.CoreModule.dll并不能混用，必须分别制作。
+:::info
+同个版本的Win与Mac版本的UnityEditor.CoreModule.dll并不能混用，必须分别制作。
+:::
 
 ### 替换原始UnityEditor.CoreModule.dll
 

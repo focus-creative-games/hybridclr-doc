@@ -28,7 +28,9 @@ According to the target platform you packaged, select the necessary modules duri
 
 ### Select `com.code-philosophy.hybridclr` version
 
-!> Before v3.0.0 the package name was `com.focus-creative-games.hybridclr_unity`.
+:::caution
+Before v3.0.0 the package name was `com.focus-creative-games.hybridclr_unity`.
+:::
 
 Currently there are three series of versions: `1.0` branch, `v2.x.y` series, `v3.x.y` (also the current main branch) series.
 
@@ -189,7 +191,9 @@ Due to Unity's own reasons, the WebGL platform must be installed globally. See t
 
 ###Unity 2021
 
-!> **If your com.code-philosophy.hybridclr version >= v2.0.1**, since the MonoHook technology has been used, the cropped AOT dll can be copied without modifying UnityEditor.CoreModule.dll,* *Not required** to do the following.
+:::caution
+**If your com.code-philosophy.hybridclr version >= v2.0.1**, since the MonoHook technology has been used, the cropped AOT dll can be copied without modifying UnityEditor.CoreModule.dll,* *Not required** to do the following.
+:::
 
 Supplementary metadata and some commands under `HybridCLR/Generate/*` depend on the reduced AOT dll. However, when Unity 2021 version (not required for 2019 and 2020) packages the `iOS platform` (not required for other platforms), since the Unity Editor does not provide a public interface to copy the tailored AOT dll when the target is iOS, the modified version must be used The UnityEditor.CoreModule.dll overrides the corresponding file that comes with Unity.
 
