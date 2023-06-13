@@ -112,6 +112,7 @@ const sidebars = {
       label: '其他',
       link: {
         type: 'generated-index',
+        slug: '/other',
       },
       collapsed: true,
       items: [
