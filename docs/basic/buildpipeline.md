@@ -21,7 +21,11 @@
 1. 根据你项目原来的打包流程打包
 
 
-## iOS平台的特殊处理
+## iOS平台的特殊处理（仅针对小于（不含）v3.2.0的版本）
+
+:::tip
+ 自 com.code-philosophy.hybridclr v3.2.0版本起，已经支持直接从源码编译，直接导出工程再打包即可，不再需要单独编译libil2cpp并且替换工程中的libil2cpp.a了。
+:::
 
 除了iOS以外平台都是根据libil2cpp源码编译出目标程序,iOS平台使用提前编译好libil2cpp.a文件。Unity导出的xcode工程引用了提前生成好的libil2cpp.a，而不包含libil2cpp源码，
 直接打包无法支持热更新。因此编译iOS程序时需要自己单独编译libil2cpp.a，再**替换xcode工程的libil2cpp.a文件**，接着再打包。
