@@ -20,12 +20,31 @@
 1. 将`HybridCLRData/AssembliesPostIl2CppStrip`下的补充元数据 dll添加到项目的热更新资源管理系统
 1. 根据你项目原来的打包流程打包
 
+## 优化的打包流程
 
-## iOS平台的特殊处理（仅针对小于（不含）v3.2.0的版本）
+`HybridCLR/Generate/All` 命令运行过程中会执行一次导出工程，以生成裁剪后的AOT dll。这一步对于大型项目来说可能非常耗时，几乎将打包时间增加了一倍。如果需要优化打包时间，可以按照如下流程一次出包。
 
-:::tip
- 自 com.code-philosophy.hybridclr v3.2.0版本起，已经支持直接从源码编译，直接导出工程再打包即可，不再需要单独编译libil2cpp并且替换工程中的libil2cpp.a了。
+- 运行 `HybridCLR/Generate/LinkXml`
+- 导出工程
+- 运行 `HybridCLR/Generate/Il2cppDef`
+- 运行 `HybridCLR/Generate/MethodBridge`生成桥接函数
+- 运行 `HybridCLR/Generate/PReverseInvokeWrapper`。 不需要与lua之类交互的项目可跳过此步。
+- 将 `{proj}\HybridCLRData\LocalIl2CppData-{platform}\il2cpp\libil2cpp\hybridclr\generated`目录 替换导出工程中的此目录。
+- 在导出工程上执行build
+
+
+## iOS平台的特殊处理
+
+### 当 com.code-philosophy.hybridclr 版本 &ge; v3.2.0
+
+不需要任何处理，直接导出xcode工程，再打包即可。由于在build完成后才将libil2cpp源码加入xcode工程，因此只能先导出xcode，再手动或者命令行编译，试图直接`Build And Run`会出错。
+
+:::danger
+由于xcode工程里写死了 libil2cpp相关代码的路径，如果你导出xcode工程，推送到其他电脑上打包，会出现代码文件找不到的错误！
 :::
+
+
+### 当 com.code-philosophy.hybridclr 版本 &lt; v3.2.0
 
 除了iOS以外平台都是根据libil2cpp源码编译出目标程序,iOS平台使用提前编译好libil2cpp.a文件。Unity导出的xcode工程引用了提前生成好的libil2cpp.a，而不包含libil2cpp源码，
 直接打包无法支持热更新。因此编译iOS程序时需要自己单独编译libil2cpp.a，再**替换xcode工程的libil2cpp.a文件**，接着再打包。
