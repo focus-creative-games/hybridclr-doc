@@ -31,7 +31,6 @@ HybridCLR也支持2019.4.x，但新手请先按照下面要求跑通流程后，
 - Mac
   - 要求MacOS版本 >= 12，xcode版本 >= 13，例如`xcode 13.4.1， macos 12.4`。
   - 安装 git
-  - 安装cmake
 
 ## 初始化Unity热更新项目
 
@@ -164,9 +163,7 @@ public class Hello
 }
 ```
 
-你可能会关心热更新部分的代码会不会像其他方案那样对C#语法有限制。HybridCLR是近乎完备的实现，对热更新代码几乎没有限制，放飞自我地写吧。
-
-极少数的例外可以查看[不支持的特性](/basic/notsupportedfeatures.md)。
+你可能会关心热更新部分的代码会不会像其他方案那样对C#语法有限制。HybridCLR是近乎完备的实现，对热更新代码**几乎没有限制**。极少数的例外可以查看[不支持的特性](/basic/notsupportedfeatures.md)。
 
 ## 加载热更新程序集
 
@@ -208,7 +205,7 @@ public class LoadDll : MonoBehaviour
 
 ## 调用热更新代码
 
-显然，主工程不能直接引用热更新代码。有多种方式可以从主工程调用热更新程序集中的代码，这里通过反射来调用热更新代码。
+显然，主工程不能直接引用热更新代码。有[多种方式](../basic/runhotupdatecodes.md)可以从主工程调用热更新程序集中的代码，这里通过反射来调用热更新代码。
 
 在`LoadDll.Start`函数后面添加反射调用代码，最终代码如下：
 

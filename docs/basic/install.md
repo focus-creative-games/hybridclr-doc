@@ -35,7 +35,7 @@ v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。从`v3.0.
 
 - `1.0`分支过于久远，虽然工作稳定，但Package相关工作流比较陈旧，不如后续版本便捷，而且已经停止了维护，强烈建议**不要**再使用。
 - `v2.x.y`系列的tag 版本工作流优化合理，经过大量项目验证，推荐使用Unity 2019版本或马上要上线的项目使用。
-- `v3.x.y`系列tag版本 **移除了对Unity 2019**的支持，新增了`2022`版本支持。推荐使用Unity 2021及以后的版本，并且处于项目中早期的项目使用。
+- `v3.x.y`系列tag版本 **移除了对Unity 2019的支持**，新增了Unity 2022版本支持。推荐使用Unity 2021+版本并且处于项目中早期的项目使用。
 
 这三大系列的版本都很稳定，不必纠结哪个更好，一般来说越新的版本优化越多，使用体验越好。
 
@@ -43,10 +43,9 @@ v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。从`v3.0.
 
 仓库地址为 [github](https://github.com/focus-creative-games/hybridclr_unity) ,国内快速的镜像仓库为[gitee](https://gitee.com/focus-creative-games/hybridclr_unity)。
 
-有三种安装方式：
+有几种安装方式：
 
 - 使用Package Manager从git url安装
-- 使用Package Manager从openupm安装
 - 本地安装
 
 ### 从git url安装
@@ -63,16 +62,9 @@ v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。从`v3.0.
 
 不熟悉从url安装package的请看[install from giturl](https://docs.unity3d.com/Manual/upm-ui-giturl.html)。
 
-### 从openupm安装
-
-openump地址 [com.focus-creative-games.hybridclr_unity](https://openupm.com/packages/com.focus-creative-games.hybridclr_unity/)。
-
-具体安装方式请打开该链接，查看页面中的详细安装说明。
-
 ### 从本地文件安装
 
 将仓库clone到本地后，目录改名为`com.code-philosophy.hybridclr`（v3.0.0之前的版本请用 `com.focus-creative-games.hybridclr_unity`），再直接移到项目的Packages目录即可。
-
 
 ## 初始化HybridCLR
 
@@ -109,9 +101,7 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 }
 ```
 
-如果你一定要安装其他版本的hybridclr或il2cpp_plus，修改该配置文件中的branch为目标分支或者tag。
-
-绝大多数情况下，直接点击`安装`默认从远程仓库下载安装即可。安装成功后，控制台会打印`安装成功`日志。如下图所示。
+如果你一定要安装其他版本的hybridclr或il2cpp_plus，修改该配置文件中的branch为目标分支或者tag。绝大多数情况下，直接点击`安装`默认从远程仓库下载安装即可。安装成功后，控制台会打印`安装成功`日志。如下图所示。
 
 ![install_default](/img/hybridclr/install_default.jpg)
 
@@ -151,9 +141,7 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 
 ```
 
-如果你想安装其他版本的hybridclr或il2cpp_plus，修改该配置文件中的branch和hash即可。
-
-直接点击`安装`完成安装。安装成功后，控制台会打印`安装成功`日志。
+如果你想安装其他版本的hybridclr或il2cpp_plus，修改该配置文件中的branch和hash即可。直接点击`安装`完成安装。安装成功后，控制台会打印`安装成功`日志。
 
 ### 如果你的package版本 <= 1.1.19
 
@@ -204,7 +192,9 @@ hybridclr仓库推荐填写`1.0`，即每次安装1.0分支的最新版本；il2
 
 **注意，该操作在Installer安装时自动完成，不需要手动操作。**
 
+:::tip
 对于使用2019.4.0-2019.4.39版本的开发者，请先切换到2019.4.40版本完成安装，再切回你当前版本。
+:::
 
 ## 在非兼容的Unity版本中使用HybridCLR
 
