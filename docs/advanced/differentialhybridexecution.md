@@ -75,6 +75,7 @@ differentialHybridAssemblies和hotUpdateAssemlies列表。必须在执行差分�
 
 - 要按照assembly的依赖顺序加载 差分混合执行 assembly。
 - 如果某个程序集未发生改变，dhao字段可以传null，但此时一定要使用打包时生成的AOT dll，而不能使用通过`HybridCLR/CompileDll/xxx`命令生成的热更新dll。
+- DHE程序集已经包含了元数据，因此不要对DHE程序集进行补充元数据，补充了也会失败。
 
 示例代码如下。
 

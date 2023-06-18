@@ -1,5 +1,6 @@
 # 支持与联系
 
+- discord频道 [https://discord.gg/eSXTZ3TH](https://discord.gg/eSXTZ3TH)
 - 官方1群：651188171（满）
 - 新手1群：428404198（满）
 - 新手2群：**680274677（推荐）**
