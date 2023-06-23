@@ -14,6 +14,7 @@
 - 百度 （*）
 - 巨人
 - 叠纸 （*）
+- 雷霆游戏 (*)。 **奇葩战斗家**, [iOS](https://apps.apple.com/cn/app/%E5%A5%87%E8%91%A9%E6%88%98%E6%96%97%E5%AE%B6/id1434798394) 11w评论，[taptap](https://www.taptap.cn/app/45981?utm_medium=seo&utm_source=google) 上有169万关注和357万下载。
 - 游族 (*)
 - bilibili
 - IGG
