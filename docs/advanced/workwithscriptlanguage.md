@@ -12,8 +12,7 @@
 ## xlua
 
 xlua并未考虑过模块化，生成的代码全在全局Assembly-CSharp里，甚至做成partial类与Runtime代码关联，因此你可能需要对这些热更新方案的生成代码做少量调整，才能与热更新配合工作。
-
-已经有群友制作了 `HybridCLR+xlua` 的项目 [HybridCLRXlua](https://gitee.com/ldr123/HybridCLRXlua)，已经跑通并且完善了工作流。推荐参考。
+已经有群友制作了 `HybridCLR+xlua` 的项目 [HybridCLRXlua](https://gitee.com/ldr123/HybridCLRXlua)，已经跑通。没有充分理解的开发者可以借鉴学习。
 
 ## tolua、slua、puerts
 
@@ -32,7 +31,7 @@ HybridCLR对 `[MonoPInvokeCallbackAttribute]` 的支持跟原生完全。由于�
 但如果仅仅生成跟当前拥有`[MonoPInvokeCallbackAttribute]`特性的函数相同个数的wrapper函数，后面新增热更新函数则
 会发生wrapper函数不足的问题。解决方法是使用`HybridCLR.ReversePInvokeWrapperGenerationAttribute`进行预留操作。
 
-在带有`MonoPInvokeCallbackAttribute`的函数上新增一个特性 `[ReversePInvokeWrapperGeneration(int preserveCount)]`，则为**这个签名**的函数生成 preserveCount 个wrapper函数。如果不包含此特性，则只会为这个函数生成
+在带有`MonoPInvokeCallbackAttribute`的函数上新增一个特性 `[ReversePInvokeWrapperGeneration(int preserveCount)]`，则为**这个签名**的函数生成preserveCount个wrapper函数。如果不包含此特性，则只会为这个函数生成
 一个wrapper函数。如果对多个相同签名的函数添加了`[ReversePInvokeWrapperGeneration(xx)]` 特性，则wrapper函数总数为 `所有 preserveCount之和 + 不包含 ReversePInvokeWrapperGenerationAttribute 特性的函数个数`。
 
 如下如示， `LuaFunction` 类型的wrapper有10个， `Func<int, int, int>` 类型的wrapper有101个，`Func<int, int>` 类型的wrapper有1个。 

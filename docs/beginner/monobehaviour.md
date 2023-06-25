@@ -16,11 +16,9 @@ using UnityEngine;
 
 public class Print : MonoBehaviour
 {
-    public int value = 1;
-
     void Start()
     {
-        Debug.Log($"[Print] GameObject:{name} value:{value}");   
+        Debug.Log($"[Print] GameObject:{name}");   
     }
 }
 ```
@@ -39,7 +37,7 @@ public class Print : MonoBehaviour
     }
 ```
 
-热更新后，屏幕上会新增一行日志 `[Print] GameObject:Test1 value:1`。
+热更新后，屏幕上会新增一行日志 `[Print] GameObject:Test1`。
 
 ## 将脚本挂载到热更新资源
 
