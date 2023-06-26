@@ -55,6 +55,7 @@ const sidebars = {
         'basic/runhotupdatecodes',
         'basic/buildpipeline',
         'basic/codestriping',
+        'basic/monobehaviour',
         'basic/aotgeneric',
         'basic/methodbridge',
         'basic/memory',
