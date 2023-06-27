@@ -4,7 +4,11 @@
 
 ## 配置PlayerSettings
 
-- 关闭增量式GC(Use Incremental GC) 选项。因为目前不支持增量式GC。WebGL平台忽略此选项。 **com.code-philosophy.hybridclr会自动关闭此选项，可以不用手动执行此操作**。
+:::tip
+商业化版本（专业版、旗舰版、hotreload特别版）已经支持增量式GC。
+:::
+
+- 关闭增量式GC(Use Incremental GC) 选项。因为**社区版本**不支持增量式GC。WebGL平台忽略此选项。 **com.code-philosophy.hybridclr会自动关闭此选项，可以不用手动执行此操作**。
 - `Scripting Backend` 切换为 `il2cpp`, WebGL平台不用设置此选项。**自`v2.4.0`起，会自动设置此选项，可以不用手动执行此操作**。
 - `Api Compatability Level` 切换为 `.NetFramework 4`(Unity 2019、2020) 或 `.Net Framework`（Unity 2021+）。
 

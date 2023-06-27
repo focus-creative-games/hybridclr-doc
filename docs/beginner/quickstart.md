@@ -140,7 +140,11 @@ public class ConsoleToScreen : MonoBehaviour
 
 ### 配置PlayerSettings
 
-- 关闭增量式GC(Use Incremental GC) 选项。因为目前不支持增量式GC。
+:::tip
+商业化版本（专业版、旗舰版、hotreload特别版）已经支持增量式GC。
+:::
+
+- 关闭增量式GC(Use Incremental GC) 选项。因为**社区版本**不支持增量式GC。
 - `Scripting Backend` 切换为 `IL2CPP`。
 - `Api Compatability Level` 切换为 `.Net 4.x`(Unity 2019-2020) 或 `.Net Framework`（Unity 2021+）。
 
