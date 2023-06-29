@@ -2,6 +2,7 @@
 
 此文档只记录关键性事件，更具体的发布日志请看 [RELEASELOG](https://github.com/focus-creative-games/hybridclr_unity/blob/main/RELEASELOG.md)。
 
+- 2023.06.29 支持2023.2.0a20版本
 - 2023.05.21 发布v3.0.0，正式支持 2022.3.0
 - 2023.05.19 更新到Unity最新LTS版本 2020.3.48及2021.3.25。已经完成最后一个2020LTS版本支持。
 - 2023.04.26 更新到Unity最新LTS版本 2020.3.47及2021.3.23

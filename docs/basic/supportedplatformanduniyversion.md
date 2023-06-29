@@ -31,7 +31,7 @@ HybridCLR已经稳定支持了2019.4.x、2020.3.x、2021.3.x、2022.3.x 系列LT
 
 ### 微信小游戏
 
-微信小游戏转换工具，默认会将IL2CPP Code Generation设置为Faster(Smaller) builds模式，如果未补充元数据，会导致无法访问AOT泛型函数。由于 Faster(smaller) 模式会严重伤害泛型函数的执行性能，即使使用补充元数据，也强烈推荐自己改微信工具源码，将BuildSettings中 `IL2CPP Code Generation` 设置为 `Faster`。
+微信小游戏转换工具，默认会将IL2CPP Code Generation设置为Faster(Smaller) builds模式，如果未补充元数据，会导致无法访问AOT泛型函数。
 
 ### MiniGame
 
