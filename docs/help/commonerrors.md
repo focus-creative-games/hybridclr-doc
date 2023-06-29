@@ -65,7 +65,7 @@ com.code-philosophy.hybridclr 与 hybridclr及il2cpp_plus版本不匹配导致�
 
 ### 运行 `HybridCLR/generate/xxx` 时发生 `DHE start not found`
 
-mian分支已经移除了DHE相关的代码，相应的package版本1.1.6也移除了DHE相关生成。这个错误是因为你package版本低于1.1.6，但install了最新`hybridclr+il2cpp_plus`代码导致。
+main分支已经移除了DHE相关的代码，相应的package版本1.1.6也移除了DHE相关生成。这个错误是因为你package版本低于1.1.6，但install了最新`hybridclr+il2cpp_plus`代码导致。
 
 解决办法是升级package到1.1.6及更高版本。或者将package回退到1.0分支的版本，同时install 1.0分支相关的`hybridclr+il2cpp_plus`代码。
 
@@ -380,6 +380,10 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
     Directory.CreateDirectory(buildDir);
     ScriptCompilationResult scriptCompilationResult = PlayerBuildInterface.CompilePlayerScripts(scriptCompilationSettings, buildDir);
 ```
+
+### iOS使用相机没有任何响应，但也不报错
+
+这是WebCamTexture.devices未在AOT中保留导致。需要手动在AOT中引用 WebCamTexture.devices。
 
 ### 使用 Unity.netcode.runtime 后出现 NotSupportNative2Managed 桥接函数缺失异常
 
