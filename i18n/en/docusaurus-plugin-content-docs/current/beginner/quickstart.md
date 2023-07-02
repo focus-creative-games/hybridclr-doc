@@ -25,10 +25,10 @@ HybridCLR also supports 2019.4.x, but beginners must install the appropriate ver
 
 ### Install IDE and related compilation environment
 
--Windows
+- Windows
    - Under Win, you need to install `visual studio 2019` or later. The installation must include at least the `Game Development with Unity` and `Game Development with C++` components.
    - install git
--Mac
+- Mac
    - Requires MacOS version >= 12, xcode version >= 13, for example `xcode 13.4.1, macos 12.4`.
    - install git
    - install cmake
