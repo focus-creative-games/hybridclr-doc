@@ -1,4 +1,4 @@
-# Business Services
+# Commercial Services
 
 We provide a variety of high-end commercial versions and flexible customized technical services to meet the needs of game projects in various application scenarios.
 
@@ -8,18 +8,22 @@ Please use your company's **company email** to send inquiries to email business@
 
 :::tip
 
-The flagship version includes our original [`Differential Hybrid Execution(DHE)`](/advanced/differentialhybridexecution.md) technology, which will intelligently make changed or newly added classes and functions run in interpreter mode, but unchanged classes and The function runs in AOT mode,
-It is the first time in the industry to realize the business logic "arbitrary change" and at the same time, the operating performance **reaches the level of native AOT**, which is the best choice for large-scale or performance-critical projects.
-
+Compared with the community version, the performance of the flagship version has been greatly improved, and it has basically reached the native performance level. At the same time, the fully generic sharing technology has significantly optimized the workflow, package body and memory usage. It is the best for large-scale or performance-critical projects. choose.
+`Deep Instruction Optimization Technology` Due to the conversion of the original instruction in advance, the dll file does not contain the original IL instruction, which is naturally resistant to decompilation and cracking, and is safer and more reliable!
 :::
 
-The flagship version has been verified online by commercial projects and has reached a high level of stability, so you can use it with confidence.
+The flagship version has been verified online by commercial projects and has reached a high level of stability, so you can use it with confidence. Here is a list of some live projects:
+
+- **Wonderful Fighter**, from Thunder Games. [iOS](https://apps.apple.com/cn/app/%E5%A5%87%E8%91%A9%E6%88%98%E6%96%97%E5%AE%B6/id1434798394 ) 11w comments, [taptap](https://www.taptap.cn/app/45981?utm_medium=seo&utm_source=google) has 1.69 million followers and 3.57 million downloads.
 
 Advantages of the flagship version:
 
-- Contains the original `DHE` technology, the performance of the unchanged part of the code is exactly the same as that of the original, compared with the pure interpretation method of the community version, it is astonishing **3-30** times or even higher, and the overall **almost reaches** the original performance level.
+- Contains the original `DHE` technology, the performance of the unchanged part of the code is exactly the same as that of the original, compared with the pure interpretation method of the community version, it is astonishingly improved by **3-30** times or even higher, and the overall **almost reaches** the original performance level.
 - Supports the `full generic sharing` technology of il2cpp starting from Unity 2021. Value types can also be shared generically. AOT generic functions are executed natively, which greatly improves the execution performance of generic functions. It is no longer necessary to add metadata to AOT, which simplifies the workflow, effectively reduces the package size, and significantly reduces memory usage. Especially useful for packages and memory-critical platforms such as WebGL.
-- **Advanced Interpretation Instruction Optimization**, support function inline (more than 10 times performance improvement for short functions), newobj inline, class member access optimization, typeof optimization, **numerical instruction** optimization and other important optimizations. The performance of the most core numerical instructions has been improved by 100-300%, making it possible for the interpreter module to perform heavy numerical calculations.
+- **Support incremental GC**
+- Will support **Deep Instruction Optimization Technology** in 2023.7, deeply optimize the instructions, and the interpretation performance will be improved by 100%-1000% (you read it correctly, more than 10 times) or even higher, and the overall improvement for numerical instructions will be nearly 300% , while having better loading performance.
+- Support for dll code obfuscation, natural resistance to decompilation and cracking.
+- Optimize metadata allocation during loading and running to save memory
 - More agile maintenance support, get the latest code at any time (the community version will only be released regularly due to maintenance cost considerations).
 - All the native codes are in the package body, the risk of being rejected by major AppStore is greatly reduced.
 - One-year technical support is included to quickly solve various problems encountered during use.
@@ -41,7 +45,8 @@ Provides some advanced features not supported by the community version, **very h
 Version advantages:
 
 - Supports the `full generic sharing` technology of il2cpp starting from Unity 2021. Value types can also be shared generically. AOT generic functions are executed natively, which greatly improves the execution performance of generic functions. It is no longer necessary to add metadata to AOT, which simplifies the workflow, effectively reduces the package size, and significantly reduces memory usage. Especially useful for packages and memory-critical platforms such as WebGL.
-- Includes basic interpreted instruction optimizations (DHE includes more instruction optimizations). Support function inline (more than 10 times performance improvement for short functions such as Property access), newobj inline and other optimization technologies.
+- **Support incremental GC**
+- Optimize metadata allocation during loading and running to save memory
 - More agile maintenance support, get the latest code at any time (the community version will only be released regularly due to maintenance cost considerations).
 
 ## HotReload Special Edition
@@ -51,7 +56,8 @@ HotReload Special Edition provides support for the original `Hot Reload Technolo
 Version advantages:
 
 - Support the `full generic sharing` technology of il2cpp starting from Unity 2021, value types can also be shared generically. It is no longer necessary to add metadata to AOT, which simplifies the workflow, effectively reduces the package size, and significantly reduces memory usage. Especially useful for packages and memory-critical platforms such as WebGL.
-- Support unloading a single assembly, unloading most of the memory (expected to be more than 95%), but there is a small amount of residue (such as the memory occupied by the thread static member field marked by `[ThreadStatic]`)
+- **Support incremental GC**
+- Support unloading a single assembly, unloading most of the memory (expected to be more than 90%), but there is a small amount of residue (such as the memory occupied by the thread static member field marked by `[ThreadStatic]`)
 - Support reloading assembly, the code can be changed arbitrarily or even completely different (except MonoBehaviour class). Hot overloading of MonoBehaviour and ScriptableObject.
 - Support **Limit the collection of functions that can be accessed in the hot update assembly**, suitable for creating a sandbox environment in UGC games to avoid damage caused by malicious player code.
 - More agile maintenance support, get the latest code at any time (the community version will only be released regularly due to maintenance cost considerations).
@@ -71,6 +77,5 @@ You can flexibly choose the technical service items required by the enterprise. 
 - **Get the support of Unity2023 series preview version in advance**
 - Obtain the support of the LTS minor version that the community version has not followed up in advance
 - Support for .net standard 2.0 and 2.1
-- Support for incremental GC
 - Optimization guidance
 - Other special customized services
