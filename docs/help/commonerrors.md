@@ -201,7 +201,10 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 
 ### EntryPointNotFoundException. Unable to find entry point named 'RuntimeApi_LoadMetadataForAOTAssembly' in 'GameAssembly`
 
-你当前的scripting backend为mono，请切换到il2cpp。
+有几种原因：
+
+- 你当前的scripting backend为mono，请切换到il2cpp。有时候因为缓存原因，即使切换了仍然会有错误，请清空Libraries目录后再试一次。
+- HybridCLRSettings里开启了全局安装。
 
 ### A scripted object (probably XXX?) has a different serialization layout when loading. Did you #ifdef UNITY_EDITOR a section of your serialized properties in any of your scripts?
 
