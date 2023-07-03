@@ -40,7 +40,7 @@ The following is a comparison of the interpretation performance of the native ve
 
 ## Professional version
 
-Provides some advanced features not supported by the community version, **very high cost performance**.
+Provides some advanced features not supported by the community version, **very affordable**.
 
 Version advantages:
 
