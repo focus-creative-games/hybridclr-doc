@@ -1,40 +1,41 @@
-# Supported Unity versions and platforms
 
-HybridCLR has stably supported the 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x series of LTS versions, and supports mainstream Win, MacOS, Android, iOS, and WebGL platforms.
+# 支持的Unity版本和平台
 
-## Compatible Unity versions
+HybridCLR已经稳定支持了2019.4.x、2020.3.x、2021.3.x、2022.3.x 系列LTS版本，并且支持主流的 Win、MacOS、Android、iOS、WebGL平台。
 
-For maintenance cost considerations, HybridCLR only supports LTS series versions. And versions before 2019 are no longer supported.
+## 兼容的Unity版本
+
+出于维护成本考虑，HybridCLR只支持LTS系列版本。而且不再支持2019之前的版本。
 
 - 2019.4.x
-- 2020.3.16-48 (`2020.3.0 - 2020.3.15` Due to large changes, it needs to be transplanted separately, if necessary, please contact us to provide [business technical support](/other/business.md))
+- 2020.3.x
 - 2021.3.x
 - 2022.3.x
-- 2023.2.0ax (already supported, **not yet released**)
+- 2023.2.0ax （已经支持，**尚未对外发布**）
 
 
-Although we only support the LTS version, since the il2cpp minor version does not change much, the minor version of the non-LTS series may still work, you just need to switch to a minor version that can be supported recently to complete the HybridCLR installation, and then switch back The current version will do.
+尽管我们只支持LTS版本，由于il2cpp小版本之间变化不大，非LTS系列的小版本仍然可能是能工作的，你只需要先切到一个最近能支持的小版本完成HybridCLR安装，再切回当前版本即可。
 
-If a minor version is not our standard support version, you can also contact us to provide [commercialization service](/other/business.md).
+如果某个小版本非我们标准支持版本，也可以联系我们提供[商业化服务](/other/business.md)。
 
 
-## Supported platforms
+## 支持的平台
 
-- Windows x86, x64
-- MacOS x86, x64, arm64 (silicon)
-- Android armv7, armv8(arm64)
+- Windows x86、x64
+- MacOS x86、x64、arm64(silicon)
+- Android armv7、armv8(arm64)
 - iOS arm64
-- WebGL Standard WebGL, MiniGame, WeChat Mini Games
+- WebGL 标准WebGL、MiniGame、微信小游戏
 
-## Special Instructions
+## 特殊说明
 
-### WeChat Mini Game
+### 微信小游戏
 
-The WeChat mini game conversion tool will set IL2CPP Code Generation to Faster(Smaller) builds mode by default. If the metadata is not supplemented, the AOT generic functions will not be accessible.
+微信小游戏转换工具，默认会将IL2CPP Code Generation设置为Faster(Smaller) builds模式，如果未补充元数据，会导致无法访问AOT泛型函数。由于 Faster(smaller) 模式会严重伤害泛型函数的执行性能，即使使用补充元数据，也强烈推荐自己改微信工具源码，将BuildSettings中 `IL2CPP Code Generation` 设置为 `Faster`。
 
-###MiniGame
+### MiniGame
 
-Additional notes on version compatibility:
+有关版本兼容性的补充说明：
 
-- The recommended versions of MiniGame2019 and 2020 overlap with the compatible version of HybridCLR. Try to choose those cross-versions directly (such as 2019.4.35, 2020.3.33), because they have been verified by the project, and basically you will not encounter problems.
-- The recommended version of the MiniGame2021 series is 2021.2.5-2021.2.18, which is not an LTS version supported by HybridCLR, but these versions have been verified by other developers and can also use HybridCLR normally (a small amount of code adjustment may be required). If you encounter any problems, you can contact us to provide [business technical support](/other/business.md).
+- MiniGame2019和2020版本的推荐版本与HybridCLR的兼容版本有交叉，尽量直接选择那些交叉版本（如2019.4.35、2020.3.33），因为已经被项目验证过，基本不会遇到问题。
+- MiniGame2021系列推荐版本为2021.2.5-2021.2.18，非HybridCLR支持的LTS版本，但这些版本已经被其他开发者验证过，也是可以正常使用HybridCLR的（可能需要少量代码调整）。如果有遇到问题，可以联系我们提供[商业技术支持](/other/business.md)。

@@ -1,13 +1,40 @@
-# Unsupported features
+# Supported Unity versions and platforms
 
-:::tip
-Features that are not in the restrictions are supported by HybridCLR, please don't ask if HybridCLR supports a certain feature.
-:::
+HybridCLR has stably supported the 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x series of LTS versions, and supports mainstream Win, MacOS, Android, iOS, and WebGL platforms.
 
-- Commercial editions (Professional Edition, Ultimate Edition, hotreload special edition) already support incremental GC. However, the Community Edition does not include this feature.
-- Temporarily does not support defining extern functions in hot update scripts, but you can call extern functions in AOT.
-- Fully supports the dots technology of 2022, but cannot take advantage of burst acceleration. If the burst part is in the AOT, it is still executed natively; if the burst part is in the hot update part, although the jobs are executed concurrently, they are executed in an interpreted manner.
-- Functions that serialize structures such as `Marshal.StructureToPtr` in `System.Runtime.InteropServices.Marshal` are not supported, but ordinary Marshal functions such as `Marshal.PtrToStringAnsi` can work normally.
-- [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.xxx)] is not supported. It's purely a matter of timing. Unity collects these functions very early, before the hot update dll is loaded. A recommended way is that you use reflection to collect these functions and call them actively at the right time.
-- Does not support C# level debugging of the interpreted code part, because there is no time to write a debugger
-- `RequireComponent(typeof(AAA))` requires that AAA must have been instantiated or AddComponent in other resources, otherwise Unity will not recognize AAA as a script and ignore the processing.
+## Compatible Unity versions
+
+For maintenance cost considerations, HybridCLR only supports LTS series versions. And versions before 2019 are no longer supported.
+
+- 2019.4.x
+- 2020.3.x
+- 2021.3.x
+- 2022.3.x
+- 2023.2.0ax (already supported, **not yet released**)
+
+
+Although we only support the LTS version, since the il2cpp minor version does not change much, the minor version of the non-LTS series may still work, you just need to switch to a minor version that can be supported recently to complete the HybridCLR installation, and then switch back The current version will do.
+
+If a minor version is not our standard support version, you can also contact us to provide [commercialization service](/other/business.md).
+
+
+## Supported platforms
+
+- Windows x86, x64
+- MacOS x86, x64, arm64 (silicon)
+- Android armv7, armv8(arm64)
+- iOS arm64
+- WebGL Standard WebGL, MiniGame, WeChat Mini Games
+
+## Special Instructions
+
+### WeChat Mini Game
+
+The WeChat mini game conversion tool will set IL2CPP Code Generation to Faster(Smaller) builds mode by default. If the metadata is not supplemented, the AOT generic functions will not be accessible.
+
+###MiniGame
+
+Additional notes on version compatibility:
+
+- The recommended versions of MiniGame2019 and 2020 overlap with the compatible version of HybridCLR. Try to choose those cross-versions directly (such as 2019.4.35, 2020.3.33), because they have been verified by the project, and basically you will not encounter problems.
+- The recommended version of the MiniGame2021 series is 2021.2.5-2021.2.18, which is not an LTS version supported by HybridCLR, but these versions have been verified by other developers and can also use HybridCLR normally (a small amount of code adjustment may be required). If you encounter any problems, you can contact us to provide [business technical support](/other/business.md).

@@ -94,12 +94,25 @@ void InitDifferentialHybridAssembly(string assemblyName)
 - 运行`HybridCLR/CreateAOTDllSnapshot`备份AOT文件，并且加入版本管理系统。注意！由于裁剪AOT dll生成的不稳定性，千万不要图省事用`HybridCLR/Generate/All`命令生成的AOT dll。
 - 由于打包时DHE程序集是最新的，没有任何变化，因此不需要携带dhao文件。
 - 如果想随包携带DHE程序集对应的aot dll，根据你的BuildTarget：
-  - iOS。在导出xcode工程后复制 `{proj}/HybridCLRData/AssembliesPostIl2CppStrip/{buildTarget}`下的DHE dll到StreamingAssets目录（或子目录）
-  - Android。如果你是先导出gradle工程再打包，则跟iOS相同。否则可以新建一个Editor脚本，实现 `IPostGenerateGradleAndroidProject` 接口，在OnPostGenerateGradleAndroidProject事件中复制生成的DHE AOT程序集到gradle工程。
+  - iOS。新增`IPostprocessBuildWithReport`处理类，在OnPostprocessBuild函数中复制 `{proj}/HybridCLRData/AssembliesPostIl2CppStrip/{buildTarget}`下的DHE dll到StreamingAssets目录（或子目录）。也可以手动在导出工程后复制。
+  - Android。**如果你是先导出gradle工程再打包，则跟iOS相同**。如果是直接出APK包，则新增 `IPostGenerateGradleAndroidProject`处理类，在OnPostGenerateGradleAndroidProject事件中复制生成的DHE AOT程序集到gradle工程。
 
 ```csharp
 
-// 示例代码
+// iOS或者Android导出工程后，复制文件到工程
+public class CopyDHEAOTDllsToProject : IPostprocessBuildWithReport
+{
+    public int callbackOrder => 0;
+
+    public void OnPostprocessBuild(BuildReport report)
+    {
+        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+        string dstStreamingAssets = "xxx"; // 目标StreamingAssets目录
+        HybridCLR.Editor.Installer.BashUtil.CopyDir(SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target), dstStreamingAssets);
+    }
+}
+
+/// 生成Gradle工程后，复制需要的文件
 public class CopyDHEAOTDllsToAndroidProject : IPostGenerateGradleAndroidProject
 {
     public int callbackOrder => 0;
@@ -107,8 +120,8 @@ public class CopyDHEAOTDllsToAndroidProject : IPostGenerateGradleAndroidProject
     public void OnPostGenerateGradleAndroidProject(string path)
     {
         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-        string pathInGradleProjectOfStreamingAssets = "xxx"; // StreamingAssets目录在导出的gradle工程中的路径
-        HybridCLR.Editor.Installer.BashUtil.CopyDir(SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target), pathInGradleProjectOfStreamingAssets);
+        string dstStreamingAssets = "xxx"; // StreamingAssets目录在导出的gradle工程中的路径
+        HybridCLR.Editor.Installer.BashUtil.CopyDir(SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target), dstStreamingAssets);
     }
 }
 

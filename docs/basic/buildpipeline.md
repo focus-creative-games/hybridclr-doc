@@ -40,7 +40,7 @@
 不需要任何处理，直接导出xcode工程，再打包即可。由于在build完成后才将libil2cpp源码加入xcode工程，因此只能先导出xcode，再手动或者命令行编译，试图直接`Build And Run`会出错。
 
 :::danger
-由于xcode工程里写死了 libil2cpp相关代码的路径，如果你导出xcode工程，推送到其他电脑上打包，会出现代码文件找不到的错误！
+如果你的 com.code-philosophy.hybridclr 版本 &lt; v3.3.0, 由于xcode工程里写死了libil2cpp相关代码的路径，如果你导出xcode工程，推送到其他电脑上打包，会出现代码文件找不到的错误！
 :::
 
 
