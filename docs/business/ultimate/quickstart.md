@@ -20,18 +20,18 @@
 :::
 
 - 安装 2020.3.26+、 2021.3.0+、2022.3.0+ 中任一版本。也支持2020.3.0-2020.3.25版本，但在Installer中完成安装后，需要额外从2020.3.26+任一版本的安装目录复制`2020.3.x/Editor/Data/il2cpp/external`替换
- `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/external`。
-- 根据你所用的操作系统，安装过程中选择模块时，必须选中 `Windows Build Support(IL2CPP)`或`Mac Build Support(IL2CPP)`。
+ `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
+- 根据你所用的操作系统，安装过程中选择模块时，必须选中 `Windows Build Support(IL2CPP)`或`Mac Build Support(IL2CPP)`
 
 ![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
 
 ### 安装IDE及相关编译环境
 
 - Windows
-  - Win下需要安装`visual studio 2019`或更高版本。安装时至少要包含 `使用Unity的游戏开发` 和 `使用c++的游戏开发` 组件。
+  - Win下需要安装`visual studio 2019`或更高版本。安装时至少要包含 `使用Unity的游戏开发` 和 `使用c++的游戏开发` 组件
   - 安装git
 - Mac
-  - 要求MacOS版本 >= 12，xcode版本 >= 13，例如`xcode 13.4.1， macos 12.4`。
+  - 要求MacOS版本 >= 12，xcode版本 >= 13，例如`xcode 13.4.1， macos 12.4`
   - 安装 git
 
 ## 初始化Unity热更新项目
@@ -131,16 +131,16 @@ public class ConsoleToScreen : MonoBehaviour
 
 ### 配置HybridCLR
 
-- 打开菜单 `HybridCLR/Settings`。
+- 打开菜单 `HybridCLR/Settings`
 - 在`differentialHybridAssemblies`列表中添加`HotUpdate`程序集
 
 ![settings](/img/hybridclr/ultimate-hybridclr-settings.jpg)
 
 ### 配置PlayerSettings
 
-- 关闭增量式GC(Use Incremental GC) 选项。因为目前还不稳定，不在本教程中演示。
-- `Scripting Backend` 切换为 `IL2CPP`。
-- `Api Compatability Level` 切换为 `.Net 4.x`(Unity 2019-2020) 或 `.Net Framework`（Unity 2021+）。
+- 关闭增量式GC(Use Incremental GC) 选项。因为目前还不稳定，不在本教程中演示
+- `Scripting Backend` 切换为 `IL2CPP`
+- `Api Compatability Level` 切换为 `.Net 4.x`(Unity 2019-2020) 或 `.Net Framework`（Unity 2021+）
 
 ![player settings](/img/hybridclr/ultimate-project-settings.jpg)
 
@@ -187,7 +187,7 @@ public class LoadDll : MonoBehaviour
     void Start()
     {
         // Editor环境下，HotUpdate.dll.bytes已经被自动加载，不需要加载，重复加载反而会出问题。
-#if UNITY_EDITOR
+#if !UNITY_EDITOR
         Assembly hotUpdateAss = LoadDifferentialHybridAssembly("HotUpdate");
 #else
         // Editor下无需加载，直接查找获得HotUpdate程序集
@@ -238,7 +238,7 @@ public class LoadDll : MonoBehaviour
 
 - 修改`Assets/HotUpdate/Hello.cs`的Run函数中`Debug.Log("Hello, HybridCLR");`代码，改成`Debug.Log("Hello, World");`。
 - 运行菜单命令`HybridCLR/CompileDll/ActiveBulidTarget`重新编译热更新代码。
-- 运行`HybridCLR/generate/DHEAssmeblyOptionData` 生成 dhao数据。
+- 运行`HybridCLR/Generate/DHEAssmeblyOptionData` 生成 dhao数据。
 - 将`{proj}/HybridCLRData/HotUpdateDlls/StandaloneWindows64/HotUpdate.dll`复制替换`XXX_Data/StreamingAssets/HotUpdate.dll.bytes`
 - 将`{proj}/HybridCLRData/DifferentialHybridOptionDatas/HotUpdate.dhao.bytes`复制为`XXX_Data/StreamingAssets/HotUpdate.dhao.bytes`
 - 重新运行程序，会发现屏幕中显示`Hello, World`，表示热更新代码生效了！ 

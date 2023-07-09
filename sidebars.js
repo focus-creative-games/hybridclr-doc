@@ -77,7 +77,7 @@ const sidebars = {
       },
       collapsed: true,
       items: [
-        'business/businessservices',
+        'business/intro',
         'business/businesscase',
         {
           type: 'category',
