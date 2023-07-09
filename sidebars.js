@@ -117,6 +117,7 @@ const sidebars = {
           collapsed: true,
           items: [
             'business/reload/intro',
+            'business/reload/quickstart',
             'business/reload/hotreloadassembly',
           ],
         },

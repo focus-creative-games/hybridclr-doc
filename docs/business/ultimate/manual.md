@@ -19,12 +19,26 @@ Installer中完成安装后，一定要替换Unity.IL2CPP.dll，否则DHE机制�
 
 ### 配置PlayerSettings
 
-- 推荐关闭增量式GC(Use Incremental GC) 选项，因为目前属于alpha版本，还不稳定。
 - `Scripting Backend` 切换为 `IL2CPP`
 - `Api Compatability Level` 切换为 `.Net 4.x`(Unity 2019-2020) 或 `.Net Framework`（Unity 2021+）
-- 开启完全泛型支持。此项可选，如果未开启则需要补充元数据。
 
 ![player settings](/img/hybridclr/ultimate-project-settings.jpg)
+
+
+### 开启增量式GC
+
+`Player Settings`中启用 `use incremental GC` 选项即可， 不需要对HybridCLR进行任何设置。
+
+:::caution
+
+目前增量式GC处理alpha阶段，建议已经上线或者快上线的项目不要开启这个选项。
+:::
+
+### 开启完全泛型共享
+
+- 2020版本不支持完全泛型共享
+- 2021版本需要设置 IL2CPP Code Generation选项为`faster(smaller)`
+- 2022版本默认开启完全泛型共享，无法关闭。如果设置 IL2CPP Code Generation选项为`faster(smaller)`则能进一步减少包体。
 
 ### 配置HybridCLR
 
