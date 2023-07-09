@@ -90,6 +90,7 @@ const sidebars = {
           items: [
             'business/ultimate/intro',
             'business/ultimate/quickstart',
+            'business/ultimate/manual',
             'business/ultimate/differentialhybridexecution',
           ],
         },
