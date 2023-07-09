@@ -156,7 +156,7 @@ hybridclr代码要兼容多个Unity版本，需要当前Unity版本相关宏定�
 
 ### Generate/ReversePInvokeWrapper
 
-为标记了`[MonoPInvokeCallback]`注解的热更新C#静态函数生成ReversePInvokeWrapper函数。具体的MonoPInvokeCallback介绍请看文档[MonoPInvokeCallback支持](/advanced/workwithscriptlanguage.md)
+为标记了`[MonoPInvokeCallback]`注解的热更新C#静态函数生成ReversePInvokeWrapper函数。具体的MonoPInvokeCallback介绍请看文档[MonoPInvokeCallback支持](./workwithscriptlanguage.md)
 
 
 ### Generate/All
@@ -369,7 +369,7 @@ package中 `Editor/Data~/iOSBuild` 包含了编译iOS版本libil2cpp.a所需的�
 
 如果项目中用于xlua之类的脚本语言，对于要注册到lua中的C#函数，都需要添加`[MonoPInvokeCallback]`注解。这样可以为这些C#函数返回一个对应的c++
 函数指针，用于注册到脚本语言里。HybridCLR支持将热更新C#代码注册到lua中，但必须提前生成与`[MonoPInvokeCallback]`对应的C++桩函数，才可能为每个C#函数返回一个相应的C++函数指针。
-脚本提供了自动生成桩函数的功能。详细请见 [MonoPInvokeCallback支持](/advanced/workwithscriptlanguage.md) 及 [HybridCLR+lua/js/python](../advanced/workwithscriptlanguage.md) 文档
+脚本提供了自动生成桩函数的功能。详细请见 [MonoPInvokeCallback支持](workwithscriptlanguage.md) 及 [HybridCLR+lua/js/python](workwithscriptlanguage.md) 文档
 
 每个带 `[MonoPInvokeCallback]` 特性的函数都需要一个唯一对应的wrapper函数。这些wrapper函数必须是打包时预先生成，不可变化。
 因此如果后续热更新新增了 带 `[MonoPInvokeCallback]` 特性的函数，则会发生wrapper函数不足的情况。ReversePInvokeWrapperGenerationAttribute

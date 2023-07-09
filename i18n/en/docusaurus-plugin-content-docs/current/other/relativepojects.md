@@ -1,16 +1,12 @@
----
-title: 相关第三方项目
----
+# Related Third-party Projects
 
-# 相关的第三方项目
-
-1. [et7_fgui_yooasset_luban_hybridclr](https://github.com/wqaetly/ET/tree/et7_fgui_yooasset_luban_hybridclr) 。 作者：[烟雨迷离半世殇](https://github.com/wqaetly)，[个人网站](https://www.lfzxb.top/)
-1. 基于GameFramework框架衍生的一个HybridCLR热更框架 [Deer_GameFramework_HybridCLR](https://github.com/It-Life/Deer_GameFramework_hybridclr_hybridclr)。作者：[AlanDu](https://github.com/It-Life) ，[博客](https://www.cnblogs.com/AlanDu/)
-1. UnityGameFramework框架 [UnityGameFramework_HybridCLR](https://github.com/Dango1992/UnityGameFramework_hybridclr)  
-作者：[Dango1992](https://github.com/Dango1992)  
-1. 简单且强大的Unity框架 [TEngine](https://github.com/ALEXTANGXIAO/TEngine)
-作者：[Alex](https://github.com/ALEXTANGXIAO)
-1. 基于 Addressables 的无感知逻辑热更工具 [Assemblies-Hotfix-Toolkit-Unity](https://github.com/Bian-Sh/Assemblies-Hotfix-Toolkit-Unity)   
-作者：[斜雨孤泪](https://github.com/Bian-Sh) 
-1. 加解密库和小工具，可以集成到 hybridclr 中 加密/解密 global-metadata.dat. 热更新assembly等等。[xenctrypt](https://github.com/Y-way/xencrypt)、[xFileEncoder](https://github.com/Y-way/xFileEncoder)。
-
+- ET Framework [ET](https://github.com/egametang/ET)
+- UnityGameFramework framework [UnityGameFramework_HybridCLR](https://github.com/Dango1992/UnityGameFramework_hybridclr)
+Author: [Dango1992](https://github.com/Dango1992)
+- [et7_fgui_yooasset_luban_hybridclr](https://github.com/wqaetly/ET/tree/et7_fgui_yooasset_luban_hybridclr). Author: [Misty Rain and Blurred Half a Life](https://github.com/wqaetly),[Personal Website](https://www.lfzxb.top/)
+- A HybridCLR hot update framework [Deer_GameFramework_HybridCLR](https://github.com/It-Life/Deer_GameFramework_hybridclr_hybridclr) derived from the GameFramework framework. Author: [AlanDu](https://github.com/It-Life), [Blog](https://www.cnblogs.com/AlanDu/)
+- Simple and powerful Unity framework [TEngine](https://github.com/ALEXTANGXIAO/TEngine)
+Author: [Alex](https://github.com/ALEXTANGXIAO)
+- Addressables-based non-aware logic hot update tool [Assemblies-Hotfix-Toolkit-Unity](https://github.com/Bian-Sh/Assemblies-Hotfix-Toolkit-Unity)
+Author: [Xianyu Gulei](https://github.com/Bian-Sh)
+- Encryption and decryption libraries and small tools, which can be integrated into hybridclr to encrypt/decrypt global-metadata.dat. Hot update assembly and so on. [xenctrypt](https://github.com/Y-way/xencrypt), [xFileEncoder](https://github.com/Y-way/xFileEncoder).

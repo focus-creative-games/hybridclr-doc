@@ -187,7 +187,7 @@ hybridclr仓库推荐填写`1.0`，即每次安装1.0分支的最新版本；il2
 
 **由于权限问题，该操作无法自动完成，需要你手动执行复制操作。**
 
-`UnityEditor.CoreModule.dll` 每个Unity小版本都不相同，我们目前暂时只提供了2021.3.1版本，如需其他版本请自己手动制作，详情请见 [修改Unity编辑器相关dll](/advanced/modifyunitydll.md)。
+`UnityEditor.CoreModule.dll` 每个Unity小版本都不相同，我们目前暂时只提供了2021.3.1版本，如需其他版本请自己手动制作，详情请见 [修改Unity编辑器相关dll](./modifyunitydll.md)。
 
 ### Unity 2019
 
@@ -208,7 +208,7 @@ hybridclr仓库推荐填写`1.0`，即每次安装1.0分支的最新版本；il2
 - 切换回你的Unity版本。
 - 尝试打包，如果能顺利运行，则表明HybridCLR支持你这个版本，如果有问题，那还是升级版本吧。
 
-如果你一定要使用该版本，可以联系我们提供[商业技术支持](/other/business.md)。
+如果你一定要使用该版本，可以联系我们提供[商业技术支持](../business/intro.md)。
 
 ## `HybridCLR/Installer`工作原理
 

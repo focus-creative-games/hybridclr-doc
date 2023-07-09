@@ -206,7 +206,7 @@ The specific operation is to cover `{package directory}/Data~/ModifiedUnityAssem
 
 **Due to permission issues, this operation cannot be completed automatically, and you need to perform the copy operation manually. **
 
-`UnityEditor.CoreModule.dll` Each small version of Unity is different. We currently only provide version 2021.3.1. If you need other versions, please make them manually. For details, please refer to [Modify Unity Editor-related dll](../advanced/modifyunitydll.md).
+`UnityEditor.CoreModule.dll` Each small version of Unity is different. We currently only provide version 2021.3.1. If you need other versions, please make them manually. For details, please refer to [Modify Unity Editor-related dll](modifyunitydll.md).
 
 ### Unity 2019
 
@@ -225,7 +225,7 @@ Since we haven't fully tested all Unity versions, in fact, some Unity versions t
 - Switch back to your Unity version.
 - Try to package, if it can run smoothly, it means that HybridCLR supports your version, if there is a problem, then upgrade the version.
 
-If you must use this version, you can contact us for [Business Technical Support](../other/business.md).
+If you must use this version, you can contact us for [Business Technical Support](../business/intro.md).
 
 ## How `HybridCLR/Installer` works
 

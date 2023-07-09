@@ -156,7 +156,7 @@ It is at the discretion of the developer to convert to the correct instantiation
 
 ### Generate/ReversePInvokeWrapper
 
-Generate a ReversePInvokeWrapper function for hot-updated C# static functions marked with `[MonoPInvokeCallback]` annotation. Please refer to the document [MonoPInvokeCallback Support](../advanced/workwithscriptlanguage.md) for the specific introduction of MonoPInvokeCallback
+Generate a ReversePInvokeWrapper function for hot-updated C# static functions marked with `[MonoPInvokeCallback]` annotation. Please refer to the document [MonoPInvokeCallback Support](workwithscriptlanguage.md) for the specific introduction of MonoPInvokeCallback
 
 
 ### Generate/All
@@ -369,7 +369,7 @@ The underlying tool class for operating HybridCLR. The more commonly used ones a
 
 If a scripting language such as xlua is used in the project, the `[MonoPInvokeCallback]` annotation needs to be added to the C# function to be registered in lua. This returns a corresponding C++ for these C# functions
 Function pointer, used to register in the scripting language. HybridCLR supports registering hot-updated C# code in lua, but the C++ stub function corresponding to `[MonoPInvokeCallback]` must be generated in advance to return a corresponding C++ function pointer for each C# function.
-The script provides the function of automatically generating stub functions. For details, see [MonoPInvokeCallback support](../advanced/workwithscriptlanguage.md) and [HybridCLR+lua/js/python](../advanced/workwithscriptlanguage.md) documents
+The script provides the function of automatically generating stub functions. For details, see [MonoPInvokeCallback support](workwithscriptlanguage.md) and [HybridCLR+lua/js/python](workwithscriptlanguage.md) documents
 
 Each function with the `[MonoPInvokeCallback]` attribute requires a unique corresponding wrapper function. These wrapper functions must be pre-generated during packaging and cannot be changed.
 Therefore, if a function with the `[MonoPInvokeCallback]` feature is added in subsequent hot updates, there will be insufficient wrapper functions. ReversePInvokeWrapperGenerationAttribute

@@ -1,4 +1,4 @@
-# BUG feedback template
+# Issue Report
 
 Before reporting bugs, please confirm that the following steps have been completed:
 - Check out the [Common Errors Documentation](../help/commonerrors.md) carefully, most beginner questions are there.
@@ -8,7 +8,7 @@ Before reporting bugs, please confirm that the following steps have been complet
 
 If it is determined to be a bug, please submit the issue according to the following bug feedback template (some larger files such as export projects do not need to be submitted), and then directly feedback the issue to the technical customer service, and attach materials on QQ (such as export projects, etc. ).
 
-**bug feedback template**
+**Issue Template**
 
 - Unity Editor version. Such as 2020.3.33.
 - operating system. Such as Win10.

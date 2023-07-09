@@ -13,7 +13,7 @@ HybridCLR is a **almost perfect** full-platform native c# hot update solution fo
 
 HybridCLR expands the code of il2cpp, making it change from pure [AOT](https://en.wikipedia.org/wiki/Ahead-of-time_compilation) runtime to `AOT+Interpreter` hybrid runtime, and then natively supports dynamic loading of assembly , so that the games packaged based on il2cpp backend can be executed not only on the Android platform, but also on IOS, Consoles and other platforms that limit JIT efficiently in **AOT+interpreter** hybrid mode, completely supporting hot updates from the bottom layer.
 
-HybridCLR not only supports the traditional fully interpreted execution mode, but also pioneered the [Differential Hybrid Execution(DHE)](advanced/differentialhybridexecution.md) differential hybrid execution technology. That is, you can add, delete, or modify the AOT dll at will, and intelligently make the changed or newly added classes and functions run in interpreter mode, but the unchanged classes and functions run in AOT mode, so that the running performance of the hot-updated game logic basically reaches the original AOT level.
+HybridCLR not only supports the traditional fully interpreted execution mode, but also pioneered the [Differential Hybrid Execution(DHE)](./business/intro.md) differential hybrid execution technology. That is, you can add, delete, or modify the AOT dll at will, and intelligently make the changed or newly added classes and functions run in interpreter mode, but the unchanged classes and functions run in AOT mode, so that the running performance of the hot-updated game logic basically reaches the original AOT level.
 
 Welcome to embrace modern native C# hot update technology! ! !
 

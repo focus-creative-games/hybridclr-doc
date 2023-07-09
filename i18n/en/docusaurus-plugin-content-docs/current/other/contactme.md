@@ -5,4 +5,4 @@
 - Novice QQ group 2: **680274677 (recommended)**
 - QQ reward mutual aid group: 762953653. Offer a reward for asking questions and solving problems quickly.
 - Business cooperation email: business@code-philosophy.com
-- [Business Support](../other/business.md)
+- [Business Support](../business/intro.md)

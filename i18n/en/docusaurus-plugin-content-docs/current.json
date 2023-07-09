@@ -30,5 +30,21 @@
   "sidebar.tutorialSidebar.doc.介绍": {
     "message": "Introduction",
     "description": "The label for the doc item 介绍 in sidebar tutorialSidebar, linking to the doc intro"
+  },
+  "sidebar.tutorialSidebar.category.商业化版本": {
+    "message": "Business Edition",
+    "description": "The label for category 商业化版本 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.旗舰版": {
+    "message": "Ultimate Edition",
+    "description": "The label for category 旗舰版 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.专业版": {
+    "message": "Professional Edition",
+    "description": "The label for category 专业版 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.热重载版": {
+    "message": "Hotreload Edition",
+    "description": "The label for category 热重载版 in sidebar tutorialSidebar"
   }
 }
