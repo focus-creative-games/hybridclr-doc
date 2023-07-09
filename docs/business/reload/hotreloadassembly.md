@@ -1,4 +1,4 @@
-# HotReload 热重载技术
+# 热重载技术
 
 HotReload技术用于完全卸载或者重新加载一个assembly，适用于小游戏合集类型的游戏。该方案只提供**商业化版本**，具体请见[商业化服务](/other/business.md)。
 

@@ -63,22 +63,62 @@ const sidebars = {
         'basic/notsupportedfeatures',
         'basic/com.code-philosophy.hybridclr',
         'basic/bestpractice',
+        'basic/workwithscriptlanguage',
+        'basic/sourceinspect',
+        'basic/il2cppbugs',
       ],
     },
     {
       type: 'category',
-      label: '进阶指南',
+      label: '商业化版本',
       link: {
         type: 'generated-index',
-        slug: '/advanced',
+        slug: '/business',
       },
       collapsed: true,
       items: [
-        'advanced/differentialhybridexecution',
-        'advanced/workwithscriptlanguage',
-        'advanced/hotreloadassembly',
-        'advanced/sourceinspect',
-        'advanced/il2cppbugs',
+        'business/businessservices',
+        'business/businesscase',
+        {
+          type: 'category',
+          label: '旗舰版',
+          link: {
+            type: 'generated-index',
+            slug: '/ultimate',
+          },
+          collapsed: true,
+          items: [
+            'business/ultimate/intro',
+            'business/ultimate/quickstart',
+            'business/ultimate/differentialhybridexecution',
+          ],
+        },
+        {
+          type: 'category',
+          label: '专业版',
+          link: {
+            type: 'generated-index',
+            slug: '/pro',
+          },
+          collapsed: true,
+          items: [
+            'business/pro/intro',
+            'business/pro/quickstart',
+          ],
+        },
+        {
+          type: 'category',
+          label: '热重载版',
+          link: {
+            type: 'generated-index',
+            slug: '/reload',
+          },
+          collapsed: true,
+          items: [
+            'business/reload/intro',
+            'business/reload/hotreloadassembly',
+          ],
+        },
       ],
     },
     {
@@ -97,19 +137,6 @@ const sidebars = {
     },
     {
       type: 'category',
-      label: '商业化',
-      link: {
-        type: 'generated-index',
-        slug: '/business',
-      },
-      collapsed: true,
-      items: [
-        'other/business',
-        'other/business_partner',
-      ],
-    },
-    {
-      type: 'category',
       label: '其他',
       link: {
         type: 'generated-index',
@@ -117,6 +144,8 @@ const sidebars = {
       },
       collapsed: true,
       items: [
+        'other/businesscase',
+        'other/relativepojects',
         'other/roadmap',
         'other/changelog',
         'other/donate',
