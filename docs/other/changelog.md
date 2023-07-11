@@ -2,6 +2,7 @@
 
 此文档只记录关键性事件，更具体的发布日志请看 [RELEASELOG](https://github.com/focus-creative-games/hybridclr_unity/blob/main/RELEASELOG.md)。
 
+- 2023.07.11 支持 2021.3.28和2022.3.4
 - 2023.06.29 支持2023.2.0a20版本
 - 2023.06.25 支持增量式GC
 - 2023.06.10 支持完全泛型共享
