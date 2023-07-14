@@ -50,6 +50,11 @@ Installer中完成安装后，一定要替换Unity.IL2CPP.dll，否则DHE机制�
 |strippedAOTDllSnapshotDir| 用于保存打包时生成的AOT dll。与`HybridCLR/CreateAOTDllSnapshot`菜单命令配合使用。|
 |differentialHybridOptionOutputDir|dhao文件的生成目录|
 
+### 在link.xml中预留所有DHE程序集
+
+对于Assembly-CSharp这种用户自己的代码，il2cpp一般不会裁剪。但对于以dll形式直接加到Unity中的第三方程序集，如果不预留所有，会导致打包时这些dll被裁剪，导致生成dhao文件时有巨量的变化。
+在`Assets/link.xml`（或者其他自定义的link.xml）中为你的所有dhe程序集添加类似配置`<assembly fullname="YourExternDll" preserve="all"/>`。
+
 ## dhao文件
 
 dhao文件是DHE技术的核心概念。dhao文件中包含了离线计算好的最新的热更新dll中变化的类型和函数的信息，运行时直接根据dhao文件中信息决定执行某个热更新函数时，应该使用最新的解释版本还是直接调用原始的AOT函数。
@@ -163,5 +168,11 @@ public class CopyDHEAOTDllsToAndroidProject : IPostGenerateGradleAndroidProject
 的AOT dll的正确性！
 :::
 
+## 注意事项
 
+### 外部dll引发的计算dhao的结果有巨量差异
 
+如果有外部dll被标记为DHE程序集，由于外部dll打包时会被裁剪，而计算dhao文件时，取的是原始的外部dll，导致产生巨量的差异，这不是所期望的。解决办法有几个：
+
+1. 在link.xml里`<assembly fullname="YourExternDll" preserve="all"/>` 完全保留外部dll
+2. 不用最新的热更新dll去计算差异，而是使用最新代码重新打包时生成的aot dll去计算差异。这个需要你自己修改计算dhao相关的代码，使用`AssembliesPostIl2CppStrip`目录跟`AOTDllSnapshot`目录对比。

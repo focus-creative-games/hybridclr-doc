@@ -18,11 +18,17 @@
 
 - 不能在被卸载程序集的代码中卸载自己。
 - 要求业务代码不会再使用被卸载的Assembly中的对象或者函数，并且退出所有在执行的旧逻辑
-- 要求重载后在旧Assembly中存在同名类的MonoBehaviour中的被Unity引擎特殊处理函数如Awake之类不发生增删（但函数体可以变化）
+- 要求重载的MonoBehaviour中的事件或消息函数如Awake、OnEable之类不发生增删（但函数体可以变化）
+- 要求重载的MonoBehaviour中自定义的Message函数名符合OnXXX形式
+- 要求重载后在旧Assembly中存在同名类的MonoBehaviour类的序列化字段名不发生变化（类型可以变）
 - 不能直接卸载被依赖的Assembly，必须按照逆依赖顺序先卸载依赖者，再卸载被依赖者。例如A依赖B，则需要先卸载B，再卸载A。
 - 由于Unity自身实现的原因，与2022的Jobs不兼容，需要自行小幅修改UnityEngine.CoreModule.dll的代码。 2020-2021仍然可以正常工作。
 - 不支持 卸载包含 MonoBehaviour或者Scriptable 脚本的程序集。暂时推荐放在另一个不会卸载的aot或者热更新程序集里，在可卸载程序集里引用它。
 - 不支持析构函数，~XXX()。也不允许实例化泛型参数带本程序集类型的带析构函数的泛型类
+
+## 一些较佳实践
+
+- 热重载程序集的MonoBehaviour的类型名上加版本号，一旦特殊函数（如Awake）发生增删或者字段发生增删或改名，则版本号+1
 
 
 
