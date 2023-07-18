@@ -119,6 +119,7 @@ const sidebars = {
             'business/reload/intro',
             'business/reload/quickstart',
             'business/reload/hotreloadassembly',
+            'business/reload/modifydll',
           ],
         },
       ],
