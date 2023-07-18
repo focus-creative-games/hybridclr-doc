@@ -7,7 +7,7 @@ Almost identical to the community version of [Quickstart](../../beginner/quickst
 - After decompressing hyridclr_unity, put it in the project Packages directory and rename it to com.code-philosophy.hybridclr
 - Decompress the corresponding `libil2cpp-{version}.7z` according to your unity version
 - Open `HybridCLR/Installer`, turn on the `Copy libil2cpp from Local` option, select the libil2cpp directory you just decompressed, and install it
-- **Unity 2022+ version needs to use the modified version of UnityEngine.CoreModule.dll**, see [Modify dll](./modifydll.md) for details
+- **Unity 2022+ version needs to use the modified version of UnityEngine.CoreModule.dll**, see [Modify dll](modifydll.md) for details
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
