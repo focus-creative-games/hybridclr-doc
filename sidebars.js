@@ -54,6 +54,7 @@ const sidebars = {
         'basic/hotupdateassemblysetting',
         'basic/runhotupdatecodes',
         'basic/buildpipeline',
+        'basic/buildwebgl',
         'basic/codestriping',
         'basic/monobehaviour',
         'basic/aotgeneric',
