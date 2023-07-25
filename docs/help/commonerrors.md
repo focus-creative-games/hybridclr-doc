@@ -102,9 +102,12 @@ main分支已经移除了DHE相关的代码，相应的package版本1.1.6也移�
 
 xcode版本太旧导致。更新到较新版本。
 
-### 打包iOS时出现 Undefined symbols： RuntimeApi_LoadMetadataForAOTAssembly 或 hybridclrApi_LoadMetadataForAOTAssembly
+### 打包出现 Undefined symbols： RuntimeApi_LoadMetadataForAOTAssembly 或 hybridclrApi_LoadMetadataForAOTAssembly
 
-因为你使用的是原始libil2cpp.a。请根据 [build iOS libil2cpp.a](/basic/buildpipeline.md) 文档编译最新的。然后替换xcode项目中的libil2cpp.a文件
+根本原因是因为你使用的是原始libil2cpp代码，有几个情形会导致这个结果：
+
+- 开启了`全局安装`选项，但没有正确替换Editor安装目录的libil2cpp
+- com.code-philosophy.hybridclr的版本低于v3.1.0，同时没有替换xcode工程的libil2cpp.a文件。请根据 [build iOS libil2cpp.a](/basic/buildpipeline.md) 文档编译最新的。然后替换xcode项目中的libil2cpp.a文件
 
 ### Building Library/Bee/artifacts/xxxx failed with output: Fatalerror in Unitiy CIL Linker Mono.Cecil.AssemblyResolutionException: Failed to resolve assembly:'xxx'
 
