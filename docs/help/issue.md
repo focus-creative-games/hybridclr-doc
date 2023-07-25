@@ -10,12 +10,10 @@
 
 **bug反馈模板**
 
-- Unity Editor版本。如 2020.3.33。
-- 操作系统。 如Win 10。
-- 出错的BuildTarget。如 Android 64。
-- com.code-philosophy.hybridclr的版本号。如v2.3.1。
-- hybridclr仓库的版本号。如v2.2.0。
-- il2cpp_plus仓库的版本号。如v2021-2.2.0。
+- Unity Editor版本。如 2020.3.33
+- 操作系统。 如Win 10
+- 出错的BuildTarget。如 Android 64
+- com.code-philosophy.hybridclr的版本号。如v2.3.1
 - 截图及日志文件
 - 复现条件
 - 出错的c#代码位置（如果能定位出的话）
