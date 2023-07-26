@@ -79,6 +79,7 @@ const sidebars = {
       collapsed: true,
       items: [
         'business/intro',
+        'business/performance',
         'business/businesscase',
         {
           type: 'category',
