@@ -5,7 +5,6 @@ If you still can't solve the problem, you can join the following groups:
 
 - Novice group 1: 428404198 (full)
 - Novice group 2: **680274677 (recommended)**
-- QQ reward mutual aid group: 762953653. Offer a reward for asking questions and solving problems quickly.
 
 ## Errors under Unity Editor
 

@@ -48,7 +48,7 @@ class HotUpdateGenericDemos
 
 `补充元数据技术`彻底解决了这个问题。粗略地说，你补充AOT泛型类（或泛型函数）的原始元数据后，就可以任意实例化这个泛型类了。以上面`List<MyVector3>`为例，你补充了List类（而不是MyVector3）所在的`mscorlib.dll`元数据后，就可以在热更新代码中使用任意`List<T>`泛型类了。
 
-补充元数据技术的缺陷是增大了包体或者需要额外下载补充元数据dll，导致工作流复杂一些，另外还多占用了内存。`full generic sharing` 又进一步解决补充元的这些缺陷。由于`full generic sharing`是商业化方案，这儿限于篇幅只介绍补充元数据的用法。
+补充元数据技术的缺陷是增大了包体或者需要额外下载补充元数据dll，导致工作流复杂一些，另外还多占用了内存。`full generic sharing` 又进一步解决补充元数据的这些缺陷。由于`full generic sharing`是商业化方案，这儿限于篇幅只介绍补充元数据的用法。
 
 ## 获得补充元数据dll
 
