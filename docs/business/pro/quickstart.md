@@ -26,4 +26,8 @@
 - 2021版本需要设置 IL2CPP Code Generation选项为`faster(smaller)`
 - 2022版本默认开启完全泛型共享，无法关闭。如果设置 IL2CPP Code Generation选项为`faster(smaller)`则能进一步减少包体。
 
+## 开启和关闭初级指令优化
+
+默认已经开启初级优化。可以通过 `RuntimeApi.EnableTransformOptimization`函数主动控制开启或者关闭这个特性。
+
 

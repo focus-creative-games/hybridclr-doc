@@ -15,6 +15,7 @@ There are currently three commercial versions: Professional Edition, Ultimate Ed
 |Incremental GC||✔|✔|✔|
 |**Differential Hybrid Execution**|||✔||
 |Memory Optimization||✔|✔|✔|
+|Basic instruction optimization||✔|✔|✔|
 |Deep instruction optimization|||✔||
 |Code Protection|||✔||
 |Hot Reload||||✔|

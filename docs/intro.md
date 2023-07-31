@@ -17,7 +17,7 @@ HybridCLR是一个**特性完整、零成本、高性能、低内存**的**近�
 
 HybridCLR扩充了il2cpp的代码，使它由纯[AOT](https://en.wikipedia.org/wiki/Ahead-of-time_compilation) runtime变成`AOT+Interpreter` 混合runtime，进而原生支持动态加载assembly，使得基于il2cpp backend打包的游戏不仅能在Android平台，也能在IOS、Consoles等限制了JIT的平台上高效地以**AOT+interpreter**混合模式执行，从底层彻底支持了热更新。
 
-HybridCLR不仅支持传统的全解释执行模式，还开创性地实现了 [Differential Hybrid Execution(DHE)](./business/ultimate/differentialhybridexecution.md) 差分混合执行技术。即可以对AOT dll任意增删改，会智能地让变化或者新增的类和函数以interpreter模式运行，但未改动的类和函数以AOT方式运行，让热更新的游戏逻辑的运行性能基本达到原生AOT的水平。
+HybridCLR不仅支持传统的全解释执行模式，还开创性地实现了 [Differential Hybrid Execution(DHE)](./basic/differentialhybridexecution) 差分混合执行技术。即可以对AOT dll任意增删改，会智能地让变化或者新增的类和函数以interpreter模式运行，但未改动的类和函数以AOT方式运行，让热更新的游戏逻辑的运行性能基本达到原生AOT的水平。
 
 欢迎拥抱现代原生C#热更新技术 ！！！
 

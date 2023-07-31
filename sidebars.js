@@ -61,6 +61,7 @@ const sidebars = {
         'basic/methodbridge',
         'basic/memory',
         'basic/performance',
+        'basic/differentialhybridexecution',
         'basic/notsupportedfeatures',
         'basic/com.code-philosophy.hybridclr',
         'basic/bestpractice',
@@ -93,7 +94,6 @@ const sidebars = {
             'business/ultimate/intro',
             'business/ultimate/quickstart',
             'business/ultimate/manual',
-            'business/ultimate/differentialhybridexecution',
           ],
         },
         {

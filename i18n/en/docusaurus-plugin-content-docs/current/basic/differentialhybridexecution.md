@@ -4,7 +4,7 @@ HybridCLR pioneered the implementation of Differential Hybrid Execution (DHE) di
 
 :::tip
 
-DHE is only included in **Ultimate Edition**, please refer to [Ultimate Edition Introduction](./intro.md) for details.
+DHE is only included in **Ultimate Edition**, please refer to [Ultimate Edition Introduction](../business/ultimate/intro) for details.
 
 :::
 

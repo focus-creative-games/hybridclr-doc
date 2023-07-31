@@ -4,7 +4,7 @@ HybridCLR开创性地实现了 Differential Hybrid Execution(DHE) 差分混合�
 
 :::tip
 
-DHE只包含在**旗舰版**中，具体请见[旗舰版介绍](./intro.md)。
+DHE只包含在**旗舰版**中，具体请见[旗舰版介绍](../business/ultimate/intro)。
 
 :::
 
