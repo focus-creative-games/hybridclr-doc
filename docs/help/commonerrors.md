@@ -18,9 +18,13 @@
 
 删除 `ProjectSettings/HybridCLRSettings.asset`文件即可。如果仍未显示，则重启Unity Editor。
 
+### Installer中安装时出现 `Win32Exception:ApplicationName='git', xxxx, Native erro=系统找不到指定的文件。` 错误
+
+因为git未安装（Windows 下安装 [GitForWindows](https://gitforwindows.org/)。其他平台请自己酌情安装），或者安装git后未重启UnityEditor和UnityHub。如果你确信安装了git，cmd中也确实能运行git，则尝试重启电脑。
+
 ### Installer点击安装出现：git不是内部或外部命令，也不是可运行的程序
 
-最常见原因为git未安装（Windows 下安装 [GitForWindows](https://gitforwindows.org/)。其他平台请自己酌情安装），或者安装git后未重启UnityEditor和UnityHub。如果你确信安装了git，cmd中也确实能运行git，则尝试重启电脑。
+同上。
 
 ### 使用Installer安装时发生 DirectoryNotFoundException: Counld not find a part of the path 'xxx'
 
@@ -32,7 +36,6 @@
 ### Exception. region:UNITY_CONFIG start not find
 
 hybridclr_unity版本过低。请升级最新版本。
-
 
 ### Exception. region:PLACE_HOLDER start not find
 
@@ -61,12 +64,6 @@ com.code-philosophy.hybridclr 与 hybridclr及il2cpp_plus版本不匹配导致�
 如果你的com.code-philosophy.hybridclr package版本低于 1.1.6,则因为你的项目中存在 mscorlib.dll、System.Memory.dll、UnityEngine.dll等跟系统dll重名的冲突dll，导致解析dll时错误地读取了这些dll，进而发生错误。
 
 如果版本 >= 1.1.6, 由于生成桥接函数需要依赖裁减后的AOT dll，而你的AOT dll是旧的，导致热更新代码中依赖的类型在AOT dll中因为卸载而缺失了。因此你需要先 `generate/linkxml`，再build或者导出工程以生成裁剪后的aot dll，再运行你当前的 `generate/xxx` 命令。
-
-### 运行 `HybridCLR/generate/xxx` 时发生 `DHE start not found`
-
-main分支已经移除了DHE相关的代码，相应的package版本1.1.6也移除了DHE相关生成。这个错误是因为你package版本低于1.1.6，但install了最新`hybridclr+il2cpp_plus`代码导致。
-
-解决办法是升级package到1.1.6及更高版本。或者将package回退到1.0分支的版本，同时install 1.0分支相关的`hybridclr+il2cpp_plus`代码。
 
 ### 打包iOS版本时未生成 AssembliesPostIl2CppStrip 目录
 
