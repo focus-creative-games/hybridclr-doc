@@ -117,6 +117,9 @@ void InitDifferentialHybridAssembly(string assemblyName)
 }
 ```
 
+你可以通过传递 `new DifferentialHybridAssemblyOptions() { ForceAllChanged = true }` 来强迫hybridclr认为所有函数都发生变化，此时等价于社区版本的全解释模式。由于线上项目并不能很完整地测试各种代码变化的情形，这种方式可以较方便地
+检验发生变化后是否各项功能正常。
+
 ## 打包
 
 在打包管线中生成AOT dll后运行`HybridCLR/CreateAOTDllSnapshot`备份AOT文件，并且加入版本管理系统，因为将来热更新生成dhao文件时需要它们。注意！由于裁剪AOT dll生成的不稳定性，千万不要用`HybridCLR/Generate/All`命令生成的AOT dll。
