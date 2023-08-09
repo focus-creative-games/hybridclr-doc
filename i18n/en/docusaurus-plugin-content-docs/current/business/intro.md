@@ -17,7 +17,7 @@ There are currently three commercial versions: Professional Edition, Ultimate Ed
 |Memory Optimization||✔|✔|✔|
 |Basic instruction optimization||✔|✔|✔|
 |Deep instruction optimization|||✔||
-|Code Protection|||✔||
+|Code Protection||✔|✔||
 |Hot Reload||||✔|
 |Security Sandbox||||✔|
 |Technical Support|||✔|✔|
