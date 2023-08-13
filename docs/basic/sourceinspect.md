@@ -66,22 +66,32 @@ HybridCLR解释器核心工作包括两部分：
 
 只要断点到这两个函数，就很容易逐步跟踪IL函数的转换转换到解决执行的整个流程。
 
-### PC, MAC创建调试工程
+### 创建Win, Mac Standalone调试工程
 
 - `Project Settings`设置
-  - 修改 `C++ Compiler Configuration`为Debug。
-- `Building Settings`中选中 "Create VisualStudio Solution"。
+  - 修改 `C++ Compiler Configuration`为Debug
+- `Building Settings`中选中 "Create VisualStudio Solution"
 
 Build完成后，即产生一个可调试的工程。想了解更多，可参考[Unity官方文档](https://docs.unity3d.com/2020.3/Documentation/Manual/windowsstore-debugging-il2cpp.html)
 
-### Android 创建调试工程
+### 创建Android调试工程
 
 - `Project Settings`设置
-  - 修改 `C++ Compiler Configuration`为Debug。
-- `Building Settings`选中`Export Project`。
+  - 修改 `C++ Compiler Configuration`为Debug
+- `Building Settings`选中`Export Project`
 - Build完成后，使用Android Studio打开工程。
 - 假设打包输出路径为build_android，在Android Studio中选择 Build->Make Module 'build_android.unityLibrary'，编译unityLibrary，等待编译完成
 - 选择`Run->Edit Configurations...`，按下图所示进行设置。
 
 ![android studio debug](/img/hybridclr/android_studio_debug.png)
 - 正常debug即可。
+
+
+### 创建iOS调试工程
+
+必须使用 `com.code-philosophy.hybridclr` v3.2.0及以上版本才可直接源码调试，低版本由于使用了独立编译的release版本libil2cpp.a，无法调试。
+
+- `Project Settings`设置
+  - 修改 `C++ Compiler Configuration`为Debug
+- 点击`Build`生成xcode工程
+- 在xcode工程内调试即可
