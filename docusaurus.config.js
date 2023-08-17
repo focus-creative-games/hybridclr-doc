@@ -145,11 +145,11 @@ const config = {
               },
               {
                 label: 'GitHub',
-                  href: 'https://github.com/focus-creative-games/hybridclr',
+                href: 'https://gitee.com/focus-creative-games/hybridclr',
               },
               {
                 label: 'Gitee',
-                  href: 'https://gitee.com/focus-creative-games/hybridclr',
+                href: 'https://github.com/focus-creative-games/hybridclr',
               },
             ],
           },
