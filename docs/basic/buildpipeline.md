@@ -53,7 +53,7 @@
 
 `com.code-philosophy.hybridclr/Data~/iOSBuild` 目录包含了编译 `libil2cpp.a` 所需的脚本。使用`HybridCLR/Installer...`完成安装后，该iOSBuild目录会被复制到`{project}/HybridCLRData/iOSBuild` 目录。
 
-## 编译 libil2cpp.a 
+### 编译 libil2cpp.a 
 
 - 运行 `HybridCLR/Generate/All` 生成所有必要的文件
 - 打开命令控制台，切换到 `{project}/HybridCLRData/iOSBuild` 目录。请确保这个路径的绝对路径不包含空格！否则会出错。
