@@ -4,7 +4,12 @@ After installing the com.code-philosophy.hybridclr package, you need to set the 
 
 ## Configure PlayerSettings
 
-- Turn off the incremental GC (Use Incremental GC) option. Because incremental GC is not currently supported. WebGL platforms ignore this option. **com.code-philosophy.hybridclr will automatically turn off this option, you don't have to do it manually**.
+:::caution
+
+At present, the incremental GC process is in the alpha stage. It is recommended not to enable this option for projects that have already been launched or are about to be launched.
+:::
+
+- if your package version less than v4.0.0, you have to turn off the incremental GC (Use Incremental GC) option. Because incremental GC is not currently supported. WebGL platforms ignore this option. **com.code-philosophy.hybridclr will automatically turn off this option, you don't have to do it manually**.
 - `Scripting Backend` is switched to `il2cpp`, WebGL platform does not need to set this option. **Since `v2.4.0`, this option is set automatically, you can do it without manually**.
 - `Api Compatability Level` switched to `.NetFramework 4` (Unity 2019, 2020) or `.Net Framework` (Unity 2021+).
 

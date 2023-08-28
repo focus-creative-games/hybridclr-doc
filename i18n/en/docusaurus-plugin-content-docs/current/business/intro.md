@@ -11,8 +11,8 @@ There are currently three commercial versions: Professional Edition, Ultimate Ed
 |Explain execution|✔|✔|✔|✔|
 |MonoBehaviour|✔|✔|✔|✔|
 |Supplementary metadata|✔|✔|✔|✔|
+|Incremental GC|✔|✔|✔|✔|
 |Full Generic Sharing||✔|✔|✔|
-|Incremental GC||✔|✔|✔|
 |**Differential Hybrid Execution**|||✔||
 |Memory Optimization||✔|✔|✔|
 |Basic instruction optimization||✔|✔|✔|
@@ -38,10 +38,6 @@ Full generic sharing no longer needs to load supplementary metadata dll, which s
 - It is no longer necessary to carry with the package or download supplementary metadata dll for hot update, which simplifies the hot update workflow
 
 For detailed documentation, see [AOT Generic](../basic/aotgeneric.md)
-
-### Incremental GC
-
-You can enable `use incremental GC` option to reduce the lag caused by full GC.
 
 ### DHE Technology
 

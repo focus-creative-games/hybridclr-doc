@@ -11,17 +11,6 @@ Almost identical to the community version of [Quickstart](../../beginner/quickst
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
-
-## Enable incremental GC
-
-
-Just enable the `use incremental GC` option in `Player Settings`, no need to make any settings for HybridCLR.
-
-:::caution
-
-At present, the incremental GC process is in the alpha stage. It is recommended not to enable this option for projects that have already been launched or are about to be launched.
-:::
-
 ## Enable full generic sharing
 
 - The 2020 version does not support fully generic sharing

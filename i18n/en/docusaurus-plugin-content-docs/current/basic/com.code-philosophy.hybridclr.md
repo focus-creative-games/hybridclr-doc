@@ -293,7 +293,7 @@ It mainly includes the following functions:
 It is part of the packaging workflow, and the relevant code is in `Editor/BuildProcessors/CheckSettings.cs`. Contains the following actions:
 
 - Set or clear the UNITY_IL2CPP_PATH environment variable according to whether HybridCLR is enabled. The UNITY_IL2CPP_PATH environment variable modified in the script is the environment variable of this process, so don't worry about interfering with other projects.
-- Turn off the incremental GC (Use Incremental GC) option. Because incremental GC is not currently supported. WebGL platforms ignore this option. **com.code-philosophy.hybridclr will automatically turn off this option, you don't have to do it manually**.
+- if your package version less than v4.0.0, you have to turn off the incremental GC (Use Incremental GC) option. Because incremental GC is not currently supported. WebGL platforms ignore this option. **com.code-philosophy.hybridclr will automatically turn off this option, you don't have to do it manually**.
 - `Scripting Backend` is switched to `il2cpp`, WebGL platform does not need to set this option. **Since `v2.4.0`, this option is set automatically, you can do it without manually**.
 - `Api Compatability Level` switched to `.NetFramework 4` (Unity 2019, 2020) or `.Net Framework` (Unity 2021+). **Since `v2.4.0`, this option is set automatically, you can do it without manually**.
 - If no hot update assembly is set in HybridCLRSettings, an error will be displayed.

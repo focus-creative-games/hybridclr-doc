@@ -4,7 +4,6 @@
 Features that are not in the restrictions are supported by HybridCLR, please don't ask if HybridCLR supports a certain feature.
 :::
 
-- Commercial editions (Professional Edition, Ultimate Edition, hotreload special edition) already support incremental GC. However, the Community Edition does not include this feature.
 - Temporarily does not support defining extern functions in hot update scripts, but you can call extern functions in AOT.
 - Fully supports the dots technology of 2022, but cannot take advantage of burst acceleration. If the burst part is in the AOT, it is still executed natively; if the burst part is in the hot update part, although the jobs are executed concurrently, they are executed in an interpreted manner.
 - Functions that serialize structures such as `Marshal.StructureToPtr` in `System.Runtime.InteropServices.Marshal` are not supported, but ordinary Marshal functions such as `Marshal.PtrToStringAnsi` can work normally.

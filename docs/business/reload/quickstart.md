@@ -11,17 +11,6 @@
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
-
-## 开启增量式GC
-
-
-`Player Settings`中启用 `use incremental GC` 选项即可， 不需要对HybridCLR进行任何设置。
-
-:::caution
-
-目前增量式GC处理alpha阶段，建议已经上线或者快上线的项目不要开启这个选项。
-:::
-
 ## 开启完全泛型共享
 
 - 2020版本不支持完全泛型共享

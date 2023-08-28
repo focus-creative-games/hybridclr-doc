@@ -4,8 +4,9 @@
 
 ## 配置PlayerSettings
 
-:::tip
-商业化版本（专业版、旗舰版、hotreload特别版）已经支持增量式GC。
+:::caution
+
+目前增量式GC处理alpha阶段，建议已经上线或者快上线的项目不要开启这个选项。
 :::
 
 - 如果你的com.code-philosophy.hybridclr版本低于v4.0.0，需要关闭增量式GC(Use Incremental GC) 选项。自v4.0.0起已经支持增量式GC，

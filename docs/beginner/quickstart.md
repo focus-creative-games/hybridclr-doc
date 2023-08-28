@@ -140,10 +140,6 @@ public class ConsoleToScreen : MonoBehaviour
 
 ### 配置PlayerSettings
 
-:::tip
-商业化版本（专业版、旗舰版、hotreload特别版）已经支持增量式GC。
-:::
-
 - 如果你用的hybridclr包**低于v4.0.0版本**，需要关闭增量式GC(Use Incremental GC) 选项
 - `Scripting Backend` 切换为 `IL2CPP`
 - `Api Compatability Level` 切换为 `.Net 4.x`(Unity 2019-2020) 或 `.Net Framework`（Unity 2021+）

@@ -138,7 +138,7 @@ public class ConsoleToScreen : MonoBehaviour
 
 ### Configure PlayerSettings
 
-- Turn off the incremental GC (Use Incremental GC) option. Because it is not yet stable, it will not be demonstrated in this tutorial
+- if your package version less than v4.0.0, you have to turn off the incremental GC (Use Incremental GC) option. Because it is not yet stable, it will not be demonstrated in this tutorial
 - `Scripting Backend` switched to `IL2CPP`
 - `Api Compatability Level` switched to `.Net 4.x` (Unity 2019-2020) or `.Net Framework` (Unity 2021+)
 

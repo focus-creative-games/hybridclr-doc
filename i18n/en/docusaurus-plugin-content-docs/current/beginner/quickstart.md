@@ -141,7 +141,7 @@ Open the menu `HybridCLR/Settings`, add the `HotUpdate` assembly in the `Hot Upd
 
 ### Configure PlayerSettings
 
-- Turn off the incremental GC (Use Incremental GC) option. Because incremental GC is not currently supported.
+- if your package version less than v4.0.0, you have to turn off the incremental GC (Use Incremental GC) option. Because incremental GC is not currently supported.
 - `Scripting Backend` switched to `IL2CPP`.
 - `Api Compatability Level` switched to `.Net 4.x` (Unity 2019-2020) or `.Net Framework` (Unity 2021+).
 

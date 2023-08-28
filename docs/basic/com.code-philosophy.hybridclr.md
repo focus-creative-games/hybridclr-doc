@@ -293,7 +293,7 @@ preserveHotUpdateAssemblies字段用来满足这种需求。打包时不检查�
 属于打包工作流的一部分，相关代码在 `Editor/BuildProcessors/CheckSettings.cs`中。包含以下操作：
 
 - 根据是否开启HybridCLR，设置或者清除UNITY_IL2CPP_PATH环境变量。脚本中修改的UNITY_IL2CPP_PATH环境变量是本进程的环境变量，不用担心干扰了其他项目。
-- 关闭增量式GC(Use Incremental GC) 选项。因为目前不支持增量式GC。WebGL平台忽略此选项。 **com.code-philosophy.hybridclr会自动关闭此选项，可以不用手动执行此操作**。
+- 如果低于（不含）v4.0.0版本，需要关闭增量式GC(Use Incremental GC) 选项。因为目前不支持增量式GC。WebGL平台忽略此选项。 **com.code-philosophy.hybridclr会自动关闭此选项，可以不用手动执行此操作**。
 - `Scripting Backend` 切换为 `il2cpp`, WebGL平台不用设置此选项。**自`v2.4.0`起，会自动设置此选项，可以不用手动执行此操作**。
 - `Api Compatability Level` 切换为 `.NetFramework 4`(Unity 2019、2020) 或 `.Net Framework`（Unity 2021+）。**自`v2.4.0`起，会自动设置此选项，可以不用手动执行此操作**。
 - 如果HybridCLRSettings里未设置任何热更新assembly，提示错误。
