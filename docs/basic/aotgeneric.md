@@ -159,7 +159,7 @@ LoadMetadataForAOTAssembly函数可以在任何时机调用，另外既可以在
 :::tip
 是泛型函数丢失了IL函数体元数据，而不是泛型参数类型丢失了元数据。以`List<YourValueType>.Add`为例，
 是 `List<T>.Add`函数缺失了原始IL函数体元数据，而不是`YourValueType`丢失了元数据，因此
-应该补充泛型类所在的aot dll的元数据。例如为了使用`List<Vector3>`应该补充`List<T>`所在dll（即`mscorlib`）的元数据，而不是补充`YourValueType`所在的dll的元数据。
+应该补充`List<T>.Add`所在的`mscorlib.dll`的元数据，而不是补充`YourValueType`所在的dll的元数据。
 :::
 
 如果AOT泛型补充相应的泛型元数据，同时il2cpp泛型共享实例化也存在，为了最大程度提升性能，HybridCLR会优先尝试il2cpp泛型共享。

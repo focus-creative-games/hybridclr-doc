@@ -28,6 +28,8 @@ HybridCLR扩展il2cpp运行时，需要对原始il2cpp代码作少量调整，�
 hybridclr仓库中包含了解释器的核心代码，所有il2cpp_plus共享同一套hybridclr代码，不区分Unity大版本。当前有两个分支：
 
 - main
+- 3.x
+- 2.x
 - 1.0
 
 ## com.code-philosophy.hybridclr
@@ -39,6 +41,8 @@ com.code-philosophy.hybridclr是Unity Package，包含一些使用HybridCLR所�
 com.code-philosophy.hybridclr也不区分Unity大版本，因此像hybridclr一样，当前有两个分支：
 
 - main
+- 2.x
+- 3.x
 - 1.0
 
 在早期版本中（如1.0分支）,需要在Installer中指定你要安装的il2cpp_plus和hybridclr的分支。这两个仓库的分支必须匹配，

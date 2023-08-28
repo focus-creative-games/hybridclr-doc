@@ -2,6 +2,7 @@
 
 此文档只记录关键性事件，更具体的发布日志请看 [RELEASELOG](https://github.com/focus-creative-games/hybridclr_unity/blob/main/RELEASELOG.md)。
 
+- 2023.08.24 重构桥接函数，支持所有il2cpp支持的平台
 - 2023.07.11 支持 2021.3.28和2022.3.4
 - 2023.06.29 支持2023.2.0a20版本
 - 2023.06.25 支持增量式GC
@@ -35,7 +36,7 @@
 - 2022.7.14 支持Win 32(x86)
 - 2022.7.13 与UWA合作课程上线
 - 2022.7.10 正式支持Android armv7 32位版本！！！
-- 2022.7.6 **成立Code Philosophy（代码哲学）！！！**，改名HybridCLR
+- 2022.7.6 改名HybridCLR
 - 2022.7.4 github star数破2000
 - 2022.6.7 上线了第一个Android、iOS双平台的中度游戏
 - 2022.5.31 第一次在PC、Android、iOS 三平台，完整稳定流畅运行起一个重度RPG卡牌项目！！！

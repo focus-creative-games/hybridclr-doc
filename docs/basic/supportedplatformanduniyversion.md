@@ -15,17 +15,19 @@ HybridCLR已经稳定支持了2019.4.x、2020.3.x、2021.3.x、2022.3.x 系列LT
 
 
 尽管我们只支持LTS版本，由于il2cpp小版本之间变化不大，非LTS系列的小版本仍然可能是能工作的，你只需要先切到一个最近能支持的小版本完成HybridCLR安装，再切回当前版本即可。
-
 如果某个小版本非我们标准支持版本，也可以联系我们提供[商业化服务](../business/intro.md)。
 
 
 ## 支持的平台
+
+支持il2cpp能运行的所有平台。
 
 - Windows x86、x64
 - MacOS x86、x64、arm64(silicon)
 - Android armv7、armv8(arm64)
 - iOS arm64
 - WebGL 标准WebGL、MiniGame、微信小游戏
+- 其他平台未测试
 
 ## 特殊说明
 
