@@ -201,7 +201,7 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 - `HybridCLR/generate/all` 生成所有
 - 打包
 
-### 打包时出现Building.BuilderFailedException:In file included from xxx\HyridCLRData\LocalIl2CppData-{platform}\il2cpp\
+### 打包时出现Building.BuilderFailedException:In file included from xxx\HyridCLRData\LocalIl2CppData-{platform}\il2cpp
 
 如果你的版本为 2020.3.0-2020.3.25， 在Installer中完成安装后，从2020.3.26+任一版本的安装目录复制`2020.3.x/Editor/Data/il2cpp/external`替换 `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
 
