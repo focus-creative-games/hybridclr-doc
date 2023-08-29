@@ -60,6 +60,17 @@ HybridCLR是原生的c#热更新方案。通俗地说，il2cpp相当于mono的ao
 - 支持常见平台。已稳定支持 PC(Win32和Win64)、macOS(x86、x64、Arm64)、Android(armv7、armv8)、iOS(64bit)、WebGL、**微信小程序平台**，剩余平台有待测试。
 - 测试过大量游戏常见库，未发现跟il2cpp原生兼容但使用HybridCLR后不兼容性的库。只要能在il2cpp backend下工作的库都可以在HybridCLR下正常工作。甚至那些与il2cpp因为AOT问题不兼容的库，现在因为HybridCLR对il2cpp的能力扩充，反而可以正常运行了。
 
+## 低拒审风险
+
+:::tip
+
+HybridCLR在中国大陆地区非常流行，目前已经至少有数百款使用了HybridCLR的游戏上架了App Store和Google Play。
+
+:::
+
+HybridCLR的底层原理仍然是解释执行，从这点来说与lua并无本质区别。因此符合App Store及Google Play商店的要求，并无特殊的拒审风险。而且因为HybridCLR与il2cpp的高度集成，
+它甚至比lua方案要安全很多，拒审的概率很低。
+
 ## 稳定性状况
 
 当前已经发布了**极其稳定**的1.x、2.x、3.x正式版本，足以满足大中型商业项目的稳定性要求。自2022.6.7上线第一个游戏起，线上项目中只发生过一起小bug，并且迅速地在几个小时内被修复。

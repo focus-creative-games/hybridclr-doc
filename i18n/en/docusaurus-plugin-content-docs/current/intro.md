@@ -56,6 +56,17 @@ Other hot update solutions are independent vm, and the relationship with il2cpp 
 - Support for common platforms. It has stably supported PC (Win32 and Win64), macOS (x86, x64, Arm64), Android (armv7, armv8), iOS (64bit), WebGL, **WeChat applet platform**, and the remaining platforms are yet to be tested.
 - Tested a large number of common game libraries, and did not find a library that is natively compatible with il2cpp but incompatible after using HybridCLR. As long as the library can work under the il2cpp backend, it can work normally under HybridCLR. Even those libraries that are incompatible with il2cpp due to AOT issues can now run normally because of HybridCLR's ability to expand il2cpp.
 
+## Low risk of rejection
+
+:::tip
+
+HybridCLR is very popular in mainland China, and there are at least hundreds of games using HybridCLR on the App Store and Google Play.
+
+:::
+
+The underlying principle of HybridCLR is still interpretation and execution, and from this point of view there is no essential difference from lua. Therefore, it meets the requirements of App Store and Google Play Store, and there is no special risk of rejection. And because of the high integration of HybridCLR and il2cpp,
+It is even much safer than the lua scheme, and the probability of rejection is very low.
+
 ## Stability Status
 
 At present, **extremely stable** 1.x, 2.x, 3.x official versions have been released, which are sufficient to meet the stability requirements of large and medium-sized commercial projects. Since the first game was launched on June 7, 2022, only one small bug occurred in the online project, and it was quickly fixed within a few hours.
