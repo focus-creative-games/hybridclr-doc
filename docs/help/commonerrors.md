@@ -33,6 +33,10 @@
 - 如果出错目录不存在，则因为网络或者各种原因，git clone hybridclr或il2cpp_plus仓库失败了。 此时你可以重试几次。
 - 如果出错目录存在，则因为路径长度超过256字符导致。请避免过深的目录。
 
+### 使用Installer安装时提示Mono.CompilerServices.SymbolWriter.dll path is too long. copy ignore!
+
+MonoBleedingEdge在installer中会被复制到 HybridCLrData， 但这个目录中的 lib\mono目录其实是没有用到的，所以是没有影响的。
+
 ### Exception. region:UNITY_CONFIG start not find
 
 hybridclr_unity版本过低。请升级最新版本。
@@ -196,6 +200,10 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 - `HybridCLR/installer...` 里安装最新版本
 - `HybridCLR/generate/all` 生成所有
 - 打包
+
+### 打包时出现Building.BuilderFailedException:In file included from xxx\HyridCLRData\LocalIl2CppData-{platform}\il2cpp\
+
+如果你的版本为 2020.3.0-2020.3.25， 在Installer中完成安装后，从2020.3.26+任一版本的安装目录复制`2020.3.x/Editor/Data/il2cpp/external`替换 `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
 
 
 ## 运行时错误
