@@ -37,11 +37,12 @@ According to the target platform you packaged, select the necessary modules duri
 Before v3.0.0 the package name was `com.focus-creative-games.hybridclr_unity`.
 :::
 
-Currently there are three series of versions: `1.0` branch, `v2.x.y` series, `v3.x.y` (also the current main branch) series.
+These versions currently exist: `1.0` branch, `v2.x.y`, `v3.x.y`, `v.4.x.y` (also current main branch) .
 
-- The `1.0` branch is too old. Although the work is stable, the Package-related workflow is relatively old, not as convenient as the subsequent versions, and maintenance has been stopped. It is strongly recommended not to use it again.
-- The tag version of `v2.x.y` series has a reasonable workflow optimization and has been verified by a large number of projects. It is recommended to use the Unity 2019 version or the project that will be launched soon.
-- The `v3.x.y` series tag versions **removed support for Unity 2019**, and added `2022` version support. It is recommended to use Unity 2020+ versions, and it is used by projects in early phase.
+- The `1.0` branch is too old, although the work is stable, but the Package-related workflow is relatively old, not as convenient as subsequent versions, and maintenance has been stopped, it is strongly recommended not to use it again
+- The workflow of `v2.x.y` versions is well optimized and verified by a large number of projects. It is recommended to use the Unity 2019 version or the projects that will be launched soon
+- `v3.x.y` versions **removed support for Unity 2019**, added support for Unity 2022 version. It is recommended to use Unity 2020+ version or projects that will be launched soon
+- The `v4.x.y` versions supports incremental GC and fully supports all platforms. Since it has just been released, it will take a few weeks to stabilize. It is recommended for projects in the early or middle stages of the project.
 
 :::tip
 The versions of these three series are very stable, so there is no need to worry about which one is better. Generally speaking, the newer the version, the more optimizations and the better the user experience.
@@ -81,6 +82,9 @@ For the specific installation method, please open this link and view the detaile
 
 After cloning the warehouse locally, rename the directory to `com.code-philosophy.hybridclr` (for versions before v3.0.0, please use `com.focus-creative-games.hybridclr_unity`), and then directly move to the Packages directory of the project. Can.
 
+## Update com.code-philosophy.hybridclr
+
+After updating com.code-philosophy.hybridclr, you need to re-run `HybridCLR/Installer`.
 
 ## Initialize HybridCLR
 

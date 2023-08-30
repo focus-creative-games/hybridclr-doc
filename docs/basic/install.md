@@ -34,13 +34,14 @@
 v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。从`v3.0.0`版本起，移除了对Unity 2019的支持，使用2019的开发者请选择`v2.x.y`系列版本。
 :::
 
-当前存在三大系列版本：`1.0`分支、`v2.x.y`系列、`v3.x.y`（也是当前main分支）系列。
+当前存在这些版本：`1.0`分支、`v2.x.y`、`v3.x.y`、`v.4.x.y`（也是当前main分支）系列。
 
-- `1.0`分支过于久远，虽然工作稳定，但Package相关工作流比较陈旧，不如后续版本便捷，而且已经停止了维护，强烈建议**不要**再使用。
-- `v2.x.y`系列版本工作流优化合理，经过大量项目验证，推荐使用Unity 2019版本或马上要上线的项目使用。
-- `v3.x.y`系列 **移除了对Unity 2019的支持**，新增了Unity 2022版本支持。推荐使用Unity 2020+版本并且处于项目中早期的项目使用。
+- `1.0`分支过于久远，虽然工作稳定，但Package相关工作流比较陈旧，不如后续版本便捷，而且已经停止了维护，强烈建议**不要**再使用
+- `v2.x.y`系列版本工作流优化合理，经过大量项目验证，推荐使用Unity 2019版本或马上要上线的项目使用
+- `v3.x.y`系列 **移除了对Unity 2019的支持**，新增了Unity 2022版本支持。推荐使用Unity 2020+版本或马上要上线的项目使用
+- `v4.x.y`系列支持增量式GC并且彻底支持全平台。由于刚刚发布，需要几个星期时间才能稳定，推荐处于项目初期或中期的项目使用。
 
-这三大系列的版本都很稳定，不必纠结哪个更好，一般来说越新的版本优化越多，使用体验越好。
+这些版本都很稳定，不必纠结哪个更好，一般来说越新的版本优化越多，使用体验越好。
 
 ## 安装 `com.code-philosophy.hybridclr` package
 
@@ -68,6 +69,11 @@ v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。从`v3.0.
 ### 从本地文件安装
 
 将仓库clone到本地后，目录改名为`com.code-philosophy.hybridclr`（v3.0.0之前的版本请用 `com.focus-creative-games.hybridclr_unity`），再直接移到项目的Packages目录即可。
+
+
+## 更新 com.code-philosophy.hybridclr
+
+更新完com.code-philosophy.hybridclr后需要重新运行`HybridCLR/Installer`。
 
 ## 初始化HybridCLR
 
