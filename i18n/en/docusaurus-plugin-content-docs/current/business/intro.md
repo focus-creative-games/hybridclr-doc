@@ -30,6 +30,12 @@ There are currently three commercial versions: Professional Edition, Ultimate Ed
 
 ### Full generic sharing
 
+:::tip
+
+il2cpp supports full generic sharing since Unity 2021+, so you can't use this feature if you are using Unity 2020 or older versions.
+
+:::
+
 Full generic sharing no longer needs to load supplementary metadata dll, which solves the defects of supplementary metadata technology. Compared with supplementary metadata technology, it has several advantages:
 
 - It is no longer necessary to download supplementary metadata dll with the package or hot update, reducing the package body and update time

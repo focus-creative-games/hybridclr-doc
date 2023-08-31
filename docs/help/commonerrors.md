@@ -55,7 +55,10 @@ com.code-philosophy.hybridclr 与 hybridclr及il2cpp_plus版本不匹配导致�
 
 ### 运行 `HybridCLR/generate/xxx` 时发生 `Exception: resolve assembly: yyyAssembly fail`
 
-如果 yyyAssembly为`netstandard`，则你需要将Build Settings中Api Compatible Level切为 .Net 4.x或.Net Framework。
+如果 yyyAssembly为`netstandard`，则因为项目中有程序集引用了.net standard，有几种方式会引起这种错误：
+
+- Api Compatible Level为.net standard。 解决办法为将它切为 .Net 4.x或.Net Framework
+- 你项目中使用了某个预编译好的dll，它引用了.net standard。解决办法为将这个dll换成引用.net framework的版本
 
 否则是因为没有找到依赖的AOT或者热更新dll。有几种原因导致这个结果：
 
@@ -275,17 +278,18 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 这是因为你没有按照依赖顺序加载热更新dll。例如，如果A依赖于B，那你应该先加载B，再加载A。
 
-### 遇到  MissingMethodException xxx 错误
+### MissingMethodException: MethodNotFind xxClass::yyyMethod 错误
 
-区分两种情况：
+这是unity代码裁剪引起的函数丢失，运行菜单命令 `HybridCLR/Genrate/LinkXml` 根据热更新dll生成 link.xml。同时要确保被引用的AOT程序集在主工程代码中被引用过，否则linkxml不会生效。
 
-#### 情况1： MissingMethodException: AOT generic method isn't instantiated in aot module xxx 
+
+### MissingMethodException: AOT generic method isn't instantiated in aot module xxx 
 
 有几个原因：
 
-- 这是因为AOT泛型函数实例化缺失引起的
-- 使用了Unity 2021并且 `Il2Cpp Code Generation` 选项为 `faster runtime`，导致生成的代码为完全泛型模式，所有泛型函数签名均发生变化。如果没有补充元数据，调用即使已经在AOT中实例化的泛型函数，仍然会出现这个错误。
-- 微信小游戏转换工具，默认会将IL2CPP Code Generation设置为Faster(Smaller) builds模式，如果未补充元数据，会导致无法访问AOT泛型函数。
+1. 这是因为AOT泛型函数实例化缺失引起的
+2. 使用了Unity 2021并且 `Il2Cpp Code Generation` 选项为 `faster runtime`，导致生成的代码为完全泛型模式，所有泛型函数签名均发生变化。如果没有补充元数据，调用即使已经在AOT中实例化的泛型函数，仍然会出现这个错误。
+3. 微信小游戏转换工具，默认会将IL2CPP Code Generation设置为Faster(Smaller) builds模式，如果未补充元数据，会导致无法访问AOT泛型函数。
 
 原因1的解决办法为：
 
@@ -304,14 +308,6 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 具体操作请看[AOT泛型原理介绍](/basic/aotgeneric.md) 文档。
 
-
-#### 情况2： 错误日志中未出现AOT generic method的字眼
-
-这是unity代码裁剪引起的函数丢失，运行菜单命令 `HybridCLR/Genrate/LinkXml` 根据热更新dll生成 link.xml。同时要确保被引用的AOT程序集在主工程代码中被引用过，否则linkxml不会生效。
-
-### 遇到'ExecutionEngineException: Image::ReadTypeFromResolutionScope ReadTypeFromResolutionScope.TYPEREF fail' 
-
-由裁剪引起，裁剪的是类的内部类。处理方式同上。
 
 ### 遇到 ExecutionEngineException: metadata type not match
 
