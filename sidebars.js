@@ -65,6 +65,7 @@ const sidebars = {
         'basic/notsupportedfeatures',
         'basic/com.code-philosophy.hybridclr',
         'basic/bestpractice',
+        'basic/migratefromnetstandard',
         'basic/workwithscriptlanguage',
         'basic/sourceinspect',
         'basic/il2cppbugs',
