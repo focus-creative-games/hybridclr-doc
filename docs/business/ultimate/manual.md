@@ -41,11 +41,11 @@ Installer中完成安装后，一定要替换Unity.IL2CPP.dll，否则DHE机制�
 - 2022版本默认开启完全泛型共享，无法关闭。如果设置 IL2CPP Code Generation选项为`faster(smaller)`则能进一步减少包体。
 
 
-## 开启和关闭初级指令优化
+## 开启和关闭标准指令优化
 
-默认已经开启初级优化。可以通过 `RuntimeApi.EnableTransformOptimization`函数主动控制开启或者关闭这个特性。
+默认已经开启标准优化。可以通过 `RuntimeApi.EnableTransformOptimization`函数主动控制开启或者关闭这个特性。
 
-初级指令优化与深度指令优化是完全独立并且互斥的两个特性，对于每个解释函数，只能选择使用两者之一或者完全不使用它们。
+标准指令优化与深度指令优化是完全独立并且互斥的两个特性，对于每个解释函数，只能选择使用两者之一或者完全不使用它们。
 
 ### 配置HybridCLR
 

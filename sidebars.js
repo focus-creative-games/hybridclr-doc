@@ -82,6 +82,7 @@ const sidebars = {
       items: [
         'business/intro',
         'business/performance',
+        'business/encryption',
         'business/businesscase',
         {
           type: 'category',

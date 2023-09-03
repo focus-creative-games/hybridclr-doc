@@ -2,6 +2,9 @@
 
 The professional version provides some advanced features that are not supported by the community version. It is **highly cost-effective** and is suitable for occasions that require high memory and package size, such as WebGL games.
 
+## Supported versions
+
+All Unity 2020-2022 LTS versions are supported.
 
 ## Advantage
 

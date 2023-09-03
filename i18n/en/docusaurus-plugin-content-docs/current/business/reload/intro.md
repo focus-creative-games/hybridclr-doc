@@ -2,6 +2,10 @@
 
 Hot Reload Special Edition provides support for the original `Hot Reload Technology`. It can completely unload or reload an assembly during operation, especially suitable for small game collection type games.
 
+## Supported versions
+
+All Unity 2021-2022 LTS versions are supported.
+
 ## Advantage
 
 - Support the `full generic sharing` technology of il2cpp starting from Unity 2021, value types can also be shared generically. It is no longer necessary to add metadata to AOT, which simplifies the workflow, effectively reduces the package size, and significantly reduces memory usage. Especially useful for packages and memory-critical platforms such as WebGL.

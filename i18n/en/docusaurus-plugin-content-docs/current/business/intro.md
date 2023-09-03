@@ -13,13 +13,13 @@ There are currently three commercial versions: Professional Edition, Ultimate Ed
 |Supplementary metadata|✔|✔|✔|✔|
 |Incremental GC|✔|✔|✔|✔|
 |Full Generic Sharing||✔|✔|✔|
-|**Differential Hybrid Execution**|||✔||
 |Memory Optimization||✔|✔|✔|
 |Basic instruction optimization||✔|✔|✔|
-|Deep instruction optimization|||✔||
-|Code Protection||✔|✔||
+|Basic Code Encryption||✔|✔|✔|
+|**Differential Hybrid Execution**|||✔||
+|Advanced instruction optimization|||✔||
+|Advanced Code Encryption|||✔||
 |Hot Reload||||✔|
-|Security Sandbox||||✔|
 |Technical Support|||✔|✔|
 
 - Professional Edition [detailed introduction](./pro/intro.md)
@@ -38,32 +38,37 @@ il2cpp supports full generic sharing since Unity 2021+, so you can't use this fe
 
 Full generic sharing no longer needs to load supplementary metadata dll, which solves the defects of supplementary metadata technology. Compared with supplementary metadata technology, it has several advantages:
 
-- It is no longer necessary to download supplementary metadata dll with the package or hot update, reducing the package body and update time
-- It is no longer necessary to load the supplementary metadata dll at runtime, which significantly saves memory (generally on the order of tens of M)
-- It is no longer necessary to load supplementary metadata dll at runtime, which improves the startup speed, and can even shorten a few seconds on the WebGL platform
-- It is no longer necessary to carry with the package or download supplementary metadata dll for hot update, which simplifies the hot update workflow
+- reducing the package body and update time
+- significantly saves memory (generally on the order of tens of M)
+- improves the startup speed, and can even shorten a few seconds on the WebGL platform
+- simplifies the hot update workflow
 
 For detailed documentation, see [AOT Generic](../basic/aotgeneric.md)
-
-### DHE Technology
-
-Pioneering Differential Hybrid Execution technology. After the AOT assembly is marked as a DHE assembly, you can add, delete, or modify the assembly at will. After the hot update, it will intelligently make the changed or newly added classes and functions run in interpreter mode, but the unchanged classes and functions will run in AOT mode. Running, let the running performance of the game logic basically reach the level of native AOT. DHE technology greatly improves the performance of hot update projects.
 
 ### Memory optimization
 
 Optimized metadata allocation and reduced memory usage to a certain extent.
 
-### Deep instruction optimization technology
+### Basic instruction optimization
 
-Deep instruction optimization technology greatly improves the performance of the interpreter module. Instructions are optimized offline and converted to register instructions in advance. The overall execution performance of optimized instructions is improved by 100%-1000% (you read that right, more than 10 times) or even higher, especially the overall improvement of numerical instructions by nearly 300%. The loading and instruction translation process is faster and less stuttering due to the pre-translation.
+Careful and reliable optimization of common code paradigms has greatly improved the performance of common instructions such as variable access (50%-100%), numerical calculations (100-300%), object access (50-200%), etc., like some special The performance of codes such as typeof instructions has been improved by more than 1000%.
 
-### Code Protection
+### Basic Code Encryption
 
-Deep instruction technology converts IL instructions into register instructions in advance, which is naturally resistant to cracking and tracking by decompilation tools such as ILSpy, and is safer and more reliable.
+Preprocess the IL instructions so that they cannot be directly cracked by decompilation tools such as ILSpy. For detailed documentation, see [Basic Code Encryption](./encryption).
 
-### Security Sandbox
+### DHE Technology
 
-It supports limiting the set of functions that can be called in the hot update part, which is very suitable for the case of UGC code, and prevents the malicious code submitted by the player from performing operations that endanger the security of the App.
+Pioneering Differential Hybrid Execution technology. After the AOT assembly is marked as a DHE assembly, you can add, delete, or modify the assembly at will. After the hot update, it will intelligently make the changed or newly added classes and functions run in interpreter mode, but the unchanged classes and functions will run in AOT mode. Running, let the running performance of the game logic basically reach the level of native AOT. DHE technology greatly improves the performance of hot update projects.
+
+
+### Advanced instruction optimization technology
+
+Advanced instruction optimization technology greatly improves the performance of the interpreter module. Instructions are optimized offline and converted to register instructions in advance. The overall execution performance of optimized instructions is improved by 100%-1000% (you read that right, more than 10 times) or even higher, especially the overall improvement of numerical instructions by nearly 300%. The loading and instruction translation process is faster and less stuttering due to the pre-translation.
+
+### Advanced Code Encryption
+
+Advanced Code Encryption  technology converts IL instructions into register instructions in advance, which is naturally resistant to cracking and tracking by decompilation tools such as ILSpy, and is safer and more reliable.
 
 ### Technical Support
 
