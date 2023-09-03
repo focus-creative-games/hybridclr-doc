@@ -22,7 +22,7 @@ Basic code encryption does not perform irreversible instruction set conversion l
 Enabling the `enableEncryption` option in HybridCLRSettings enables basic code encryption. After command encryption is enabled, the `encryptionSeed` field needs to be configured at the same time.
 This field is an int type value, which provides a default value, and developers are strongly recommended to modify this value.
 
-Each different `ecryptionSeed` will cause `HybridCLR/Genrate/EncryptXXX` instructions to generate completely different hybridclr code.
+Each different `encryptionSeed` will cause `HybridCLR/Genrate/EncryptXXX` instructions to generate completely different hybridclr code.
 
 ## Packaging process
 

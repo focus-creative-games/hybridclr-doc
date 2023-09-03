@@ -22,7 +22,7 @@
 在HybridCLRSettings中启用`enableEncryption`选项，即开启了标准代码加固。开启指令加固后，需要同时配置`encryptionSeed`字段。
 该字段是一个int类型值，提供了一个默认值，强烈建议开发者修改此值。
 
-每个不同的`ecryptionSeed`会导致`HybridCLR/Genrate/EncryptXXX`指令生成完全不同的hybridclr代码。
+每个不同的`encryptionSeed`会导致`HybridCLR/Genrate/EncryptXXX`指令生成完全不同的hybridclr代码。
 
 ## 打包流程
 
