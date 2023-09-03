@@ -61,7 +61,6 @@ const sidebars = {
         'basic/methodbridge',
         'basic/memory',
         'basic/performance',
-        'basic/differentialhybridexecution',
         'basic/notsupportedfeatures',
         'basic/com.code-philosophy.hybridclr',
         'basic/bestpractice',
@@ -81,8 +80,12 @@ const sidebars = {
       collapsed: true,
       items: [
         'business/intro',
-        'business/performance',
-        'business/encryption',
+        'business/differentialhybridexecution',
+        'business/fullgenericsharing',
+        'business/basiccodeoptimization',
+        'business/advancedcodeoptimization',
+        'business/basicencryption',
+        'business/advancedencryption',
         'business/businesscase',
         {
           type: 'category',

@@ -236,7 +236,7 @@ Staging directory for trimmed AOT dlls. The final directory is under the platfor
 
 ### patchAOTA Assemblies
 
-Supplementary metadata AOT dll list. **package itself does not use this configuration item**. It provides a place to configure the AOT dll list, which is convenient for developers to use in their own packaging process, so that developers do not need to define a supplementary metadata AOT dll configuration script separately.
+Supplementary metadata AOT dll list. **package itself does not use this configuration item**. It provides a place to configure the AOT dll list, which is convenient for developers to use in their own building pipeline, so that developers do not need to define a supplementary metadata AOT dll configuration script separately.
 Do not include the '.dll' suffix when filling in the assembly name, just like `Main`, `Assembly-CSharp`.
 
 ### outputLinkFile
@@ -316,7 +316,7 @@ Unity's resource management system can correctly identify and restore hot update
 
 It is part of the packaging workflow, and the relevant code is in `Editor/BuildProcessors/CopyStrippedAOTAssemblies.cs`.
 
-When the supplementary metadata mode is `HomologousImageMode::Consistent`, the cropped AOT dll generated during packaging needs to be used. Therefore, the cropped AOT dll generated during the packaging process will be automatically
+When the supplementary metadata mode is `HomologousImageMode::Consistent`, the cropped AOT dll generated during packaging needs to be used. Therefore, the cropped AOT dll generated during the building pipeline will be automatically
 Copy it to the `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{platform}` directory for future processing. When the data mode is `HomologousImageMode::SuperSet`,
 The original aot dll can be used directly. The advantage of this is that the workflow is more convenient, and there is no need to update the aot dll after each package. The disadvantage is that it takes up more memory, and at the same time greatly increases the size of the trimmed dll. Please use the original or trimmed aot dll.
 

@@ -253,13 +253,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 被补充的泛型函数以解释方式执行，还降低了运行性能。
 
 HybridCLR支持`full genric sharing`后，不再需要补充元数据，简化了工作流，以原生方式运行AOT泛型，性能大幅提升，彻底解决了补充元数据的以上缺点。
-
-自2021.3.x LTS版本起，il2cpp已经完全支持`完全泛型共享（full generic sharing）`技术，当 Build Settings中 `Il2Cpp Code Generation` 选项为 `faster runtime` 时为之前章节介绍的泛型共享机制，为 `faster(smaller) build` 时开启
-`full generic sharing` 机制。`full generic sharing`技术可以克服传统的il2cpp的值类型泛型无法共享的缺陷，泛型函数的所有泛型实例（无论泛型参数是值类型还是class类型）完全共享一份代码。
-自2022.3.x LTS版本起，即使Build Settings中使用`faster runtime`选项也会开启`full generic sharing`机制，使用`faster(smaller) build`选项则迫使同个函数的所有泛型共享都使用一份代码。
-
-`faster(smaller) build`选项的优点是可以任意泛型实例化，而且可以节约代码大小，缺点是极大地伤害了泛型函数的性能。完全泛型共享的代码相比于标准泛型共享代码有时候会慢几倍到十几倍，甚至比不上纯解释版本。因此除了WebGL以外的平台建议
-**不要开启** `faster(smaller) build` 选项。对于2021版本想使用完全泛型共享则只能开启这个选项，而2022版本则可以使用`faster runtime`兼顾普通泛型共享和完全泛型共享，让性能最大化。
+详细文档见[完全泛型共享](../business/fullgenericsharing)。
 
 ## 附录：AOT泛型的共享泛型实例化示例
 

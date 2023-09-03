@@ -1,30 +1,26 @@
-# Basic code encryption
-
-:::tip
-All commercial versions support basic code encryption.
-:::
+# Standard Code Encryption
 
 The community version directly loads the original dll, making developers have to carry and download the original dll, and these original dll can be decompiled by tools such as ILSpy
 , causing serious security problems. Even if the developer has done encryption, it is easy to be intercepted in the memory and obtain the decrypted dll content.
 
-Basic code encryption provides a certain degree of obfuscation and encryption functions to ensure code security.
+Standard code encryption provides a certain degree of obfuscation and encryption to ensure code security.
 
-## implementation
+## Implementation
 
-After the basic code encryption is enabled, the hybridclr code will be refactored and disrupted, and the dll parsing method will be changed so that only the encrypted dll can be loaded.
-Basic code encryption not only encrypts the dll itself, but also randomly transforms the IL alone. Even if the dll itself is decrypted, it cannot be detected by programs such as ILSpy
+After standard code encryption is turned on, the hybridclr code will be reconstructed and disrupted, and the parsing method of dll will be changed. Only encrypted dll can be loaded.
+Standard code encryption not only encrypts the dll itself, but also randomly transforms the IL separately. Even if the dll itself is decrypted, it cannot be used by ILSpy or the like.
 Tool analysis can effectively prevent the code from being easily cracked.
 
-Basic code encryption does not perform irreversible instruction set conversion like deep code encryption, so the degree of protection is not as good as deep code encryption.
+Standard code encryption does not perform irreversible instruction set conversion like advanced code encryption, so the degree of protection is not as good as advanced code encryption.
 
 ## Configuration
 
-Enabling the `enableEncryption` option in HybridCLRSettings enables basic code encryption. After command encryption is enabled, the `encryptionSeed` field needs to be configured at the same time.
+Enable the `enableEncryption` option in HybridCLRSettings to enable standard code encryption. After command encryption is enabled, the `encryptionSeed` field needs to be configured at the same time.
 This field is an int type value, which provides a default value, and developers are strongly recommended to modify this value.
 
-Each different `encryptionSeed` will cause `HybridCLR/Genrate/EncryptXXX` instructions to generate completely different hybridclr code.
+Each different `encryptionSeed` will cause the `HybridCLR/Genrate/EncryptXXX` instructions to generate completely different hybridclr code.
 
-## Packaging process
+## Building Games
 
 - `HybridCLR/Generate/All`
 - Use `HybridCLR.Editor.Encryption.DllEncrypter` class to encrypt supplementary metadata dll and hot update dll (even supplementary metadata dll needs to be encrypted!)

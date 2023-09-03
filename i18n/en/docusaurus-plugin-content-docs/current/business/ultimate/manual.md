@@ -114,7 +114,7 @@ If you want to carry the AOT dll corresponding to the DHE assembly with the pack
 -iOS. Add `IPostprocessBuildWithReport` processing class, copy the DHE dll under `{proj}/HybridCLRData/AssembliesPostIl2CppStrip/{buildTarget}` to the StreamingAssets directory (or subdirectory) in the OnPostprocessBuild function. You can also manually copy after exporting the project
 -Android. **If you export the gradle project first and then package it, it is the same as iOS**. If the APK package is exported directly, add the `IPostGenerateGradleAndroidProject` processing class, and copy the generated DHE AOT assembly to the gradle project in the OnPostGenerateGradleAndroidProject event
 
-```csharp title="Copy DHE assembly during packaging process"
+```csharp title="Copy DHE assembly during building pipeline"
 
 // After iOS or Android exports the project, copy the file to the project
 public class CopyDHEAOTDllsToProject : IPostprocessBuildWithReport

@@ -279,7 +279,7 @@
   "实现高效": {
     "message": "High efficiency"
   },
-  "C++实现，与il2cpp深度集成，运行性能和内存占用指标都远远优于其他任何热更新方案。开创性的DHE技术让热更新的游戏逻辑的运行性能基本达到原生AOT的水平。": {
+  "C++实现，与il2cpp高级集成，运行性能和内存占用指标都远远优于其他任何热更新方案。开创性的DHE技术让热更新的游戏逻辑的运行性能基本达到原生AOT的水平。": {
     "message": "C++ implementation, deep integration with il2cpp, running performance and memory usage indicators are far superior to any other hot update solutions. The pioneering DHE technology makes the running performance of hot updated game logic basically reach the level of native AOT."
   },
   "稳定可靠": {

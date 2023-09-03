@@ -26,7 +26,7 @@ Welcome to embrace modern native C# hot update technology! ! !
 - Memory efficient. The classes defined in the hot update script occupy the same memory space as ordinary c# classes, which is far superior to other hot update solutions. [Memory usage report](basic/memory.md)
 - Due to the perfect support for generics, libraries that are not compatible with il2cpp due to AOT generics issues can now run perfectly under il2cpp
 - Support some features not supported by il2cpp, such as __makeref, __reftype, __refvalue directives
-- The original `Differential Hybrid Execution(DHE)` differential hybrid execution technology makes the running performance of hot update basically reach the level of native AOT.
+- The original [Differential Hybrid Execution(DHE)](./business/differentialhybridexecution) makes the running performance of hot update basically reach the level of native AOT.
 
 ## working principle
 
