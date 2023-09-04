@@ -1,4 +1,4 @@
-# 配置HybridCLR
+# 配置
 
 安装完com.code-philosophy.hybridclr包后，需要正确设置相关参数。配置相关详细文档可见 [hybridclr_unity包介绍](/basic/com.code-philosophy.hybridclr.md)。
 

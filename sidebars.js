@@ -48,7 +48,6 @@ const sidebars = {
       collapsed: true,
       items: [
         'basic/supportedplatformanduniyversion',
-        'basic/architecture',
         'basic/install',
         'basic/projectsettings',
         'basic/hotupdateassemblysetting',
@@ -66,6 +65,7 @@ const sidebars = {
         'basic/bestpractice',
         'basic/migratefromnetstandard',
         'basic/workwithscriptlanguage',
+        'basic/architecture',
         'basic/sourceinspect',
         'basic/il2cppbugs',
       ],

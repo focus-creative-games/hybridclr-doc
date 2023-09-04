@@ -1,4 +1,4 @@
-# HybridCLR code structure and version
+# Code Architecture And Version
 
 The complete HybridCLR code consists of three repositories:
 

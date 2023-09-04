@@ -1,4 +1,4 @@
-# Unsupported features
+# Unsupported Features
 
 :::tip
 Features that are not in the restrictions are supported by HybridCLR, please don't ask if HybridCLR supports a certain feature.

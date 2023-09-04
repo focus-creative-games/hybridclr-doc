@@ -1,4 +1,4 @@
-# Create and configure hot update assembly
+# Configure Assemblies
 
 Generally speaking, the hot update code must be separated into an assembly to facilitate hot update.
 

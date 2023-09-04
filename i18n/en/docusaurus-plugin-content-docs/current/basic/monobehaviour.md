@@ -1,56 +1,52 @@
----
-title: Use MonoBehaviour
----
+# MonoBehaviour Support
 
-# 热更新MonoBehaviour
+HybridCLR fully supports the hot update MonoBehaviour and ScriptableObject workflow, that is, you can add a hot update script on the GameObject in the code or mount it directly on the resource.
+Hot update script. However, due to the particularity of Unity's resource management mechanism, mounting hot update scripts on resources requires some special processing in the packaging workflow.
 
-HybridCLR完全支持热更新MonoBehaviour和ScriptableObject工作流，即可以在代码里在GameObject上Add热更新脚本或者在资源上直接挂载
-热更新脚本。但由于Unity资源管理机制的特殊性，对于资源上挂载热更新脚本，需要打包工作流上作一些特殊处理。
+## Used through code
 
-## 通过代码使用
+`AddComponent<T>()` or `AddComponent(Type type)` is fully supported at all times. Just load the hot update dll into the runtime through Assembly.Load in advance
+Just within.
 
-`AddComponent<T>()`或者`AddComponent(Type type)`任何时候都是完美支持的。只需要提前通过Assembly.Load将热更新dll加载到运行时
-内即可。
+## Mount MonoBehaviour on the resource or create a ScriptableObject type resource
 
-## 在资源上挂载MonoBehaviour或者创建ScriptableObject类型资源
+When the Unity resource management system deserializes hot update scripts in resources, it needs to meet the following conditions:
 
-Unity资源管理系统在反序列化资源中的热更新脚本时，需要满足以下条件：
+1. The dll where the script is located has been loaded into the runtime
+1. It must be a resource packaged using AssetBundle (**addressable and other frameworks that indirectly use ab can also**)
+1. The dll where the script is located must be added to the assembly list file generated during packaging. This list file is loaded when Unity starts and is immutable data. The list file names and formats of different versions of Unity are different.
 
-1. 脚本所在的dll已经加载到运行时中
-1. 必须是使用AssetBundle打包的资源（**addressable之类间接使用了ab的框架也可以**）
-1. 脚本所在的dll必须添加到打包时生成的assembly列表文件。这个列表文件是unity启动时即加载的，不可变数据。不同版本的Unity的列表文件名和格式不相同。
+If no processing is done on the packaging process, since the hot update dll has been removed in the `IFilterBuildAssemblies` callback, it will definitely not appear in the assembly list file.
+Since condition 3 is not met, the hot update script mounted in the hot update resource cannot be restored, and a `Scripting Missing` error will occur during runtime.
 
-如果未对打包流程作任何处理，由于热更新dll已经在`IFilterBuildAssemblies`回调中被移除，肯定不会出现在assembly列表文件中。
-由于不满足条件3，挂载在热更新资源中的热更新脚本无法被还原，运行时会出现 `Scripting Missing`的错误。
+Therefore, we have made special processing in the `Editor/BuildProcessors/PatchScriptingAssemblyList.cs` script, adding the hot update dll to the assembly list file.
+You need to add the hot update assembly in the project to the HotUpdateAssemblyDefinitions or HotUpdateAssemblies field in the HybridCLRSettings configuration.
 
-因此我们在`Editor/BuildProcessors/PatchScriptingAssemblyList.cs` 脚本中作了特殊处理，把热更新dll加入到assembly列表文件中。
-你需要把项目中的热更新assembly添加到`HybridCLRSettings配置的HotUpdateAssemblyDefinitions或HotUpdateAssemblies 字段`中。
+It only restricts hot update resources to be packaged in the form of ab package, and there is no limit to the way hot update dll is packaged. You can freely choose the hot update method according to the project requirements**, you can package the dll into ab, or bare data
+files, or encrypted compression, etc. As long as it can be guaranteed to use Assembly.Load to load the hot update resource before loading it.
 
-只限制了热更新资源以ab包形式打包，热更新dll打包方式没有限制。你可以按照项目需求**自由选择热更新方式**，可以将dll打包到ab中，或者裸数据
-文件，或者加密压缩等等。只要能保证在加载热更新资源前使用Assembly.Load将其加载即可。
+## assembly list file
 
-## assembly列表文件
+The names and formats of the assembly list files are different in different Unity versions.
 
-不同Unity版本下assembly列表文件的名称和格式都不一样。
+- 2019 version. It is a globalgamemanagers file when uncompressed and packaged. When compressed and packaged, it is first saved to the globalgamemanagers file, and then packaged into the data.unity3d file in BundleFile format and other files.
+- 2020-2021 version. Saved in the ScriptingAssembles.json file.
 
-- 2019版本。 非压缩打包时为globalgamemanagers文件，压缩打包时先保存到globalgamemanagers文件，再以BundleFile格式和其他文件打包到data.unity3d文件。
-- 2020-2021版本。 保存在ScriptingAssembles.json文件中。
+## Known issues
 
-## 已知问题
+### GameObject.GetComponent(string name) interface cannot get component
 
-### GameObject.GetComponent(string name) 接口无法获得组件
+This is a known bug, which is related to the code implementation of unity. This problem occurs only when the hot update script is mounted on the hot update resource. The hot update script added through AddComponent in the code can be found by this method. If you encounter this problem please use `GameObject.GetComponent<T>()` or `GameObject.GetComponent(typeof(T))` instead
 
-这是已知bug,跟unity的代码实现有关，只有挂载在热更新资源上热更新脚本才会有这个问题，通过代码中AddComponent添加的热更新脚本是可以用这个方法查找到。如果遇到这个问题请改用 `GameObject.GetComponent<T>()` 或 `GameObject.GetComponent(typeof(T))`
+## Others
 
-## 其它
+Do not modify the name of the dll where the script that needs to be linked to the resource is online, because the assembly list file cannot be modified after it is packaged.
 
-需要被挂到资源上的脚本所在dll名称上线后勿修改，因为assembly列表文件打包后无法修改。
+It is recommended not to disable TypeTree when typing AB, otherwise the normal AB loading method will fail. (The reason is that for scripts that disable TypeTree, Unity will verify the signature of the script in order to prevent the binary mismatch from causing process crash during the deserialization of MonoBehaviour. The content of the signature is the Hash generated by the script FullName and TypeTree data, but because we The hot update script information does not exist in the packaged installation package, so the verification will definitely fail)
 
-建议打AB时不要禁用TypeTree，否则普通的AB加载方式会失败。（原因是对于禁用TypeTree的脚本，Unity为了防止二进制不匹配导致反序列化MonoBehaviour过程中进程Crash，会对脚本的签名进行校验，签名的内容是脚本FullName及TypeTree数据生成的Hash, 但由于我们的热更脚本信息不存在于打包后的安装包中，因此校验必定会失败）
-
-如果必须要禁用TypeTree，一个变通的方法是禁止脚本的Hash校验, 此种情况下用户必须保证打包时代码与资源版本一致，否则可能会导致Crash，示例代码
+If TypeTree must be disabled, a workaround is to disable the Hash verification of the script. In this case, the user must ensure that the code is consistent with the resource version when packaging, otherwise it may cause Crash, sample code
 
 ```csharp
-    AssetBundleCreateRequest req = AssetBundle.LoadFromFileAsync(path);
-    req.SetEnableCompatibilityChecks(false); // 非public，需要通过反射调用
+     AssetBundleCreateRequest req = AssetBundle. LoadFromFileAsync(path);
+     req.SetEnableCompatibilityChecks(false); // Non-public, needs to be called by reflection
 ```

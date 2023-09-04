@@ -1,4 +1,4 @@
-# HybridCLR代码结构及版本
+# 代码结构及版本
 
 完整的HybridCLR代码由三个仓库构成：
 
@@ -41,8 +41,8 @@ com.code-philosophy.hybridclr是Unity Package，包含一些使用HybridCLR所�
 com.code-philosophy.hybridclr也不区分Unity大版本，因此像hybridclr一样，当前有两个分支：
 
 - main
-- 2.x
 - 3.x
+- 2.x
 - 1.0
 
 在早期版本中（如1.0分支）,需要在Installer中指定你要安装的il2cpp_plus和hybridclr的分支。这两个仓库的分支必须匹配，

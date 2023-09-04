@@ -1,8 +1,8 @@
-# Execution performance
+# Performance
 
 Although HybridCLR is also interpreted and executed, both theoretical principles and real machine test data show that HybridCLR has greatly improved performance (several times or even dozens of times) compared to the current popular hot update solutions such as lua and ILRuntime.
 
-## testing report
+## Benchmark
 
 The community version of HybridCLR is much (several times to tens of times) better than the Lua solution except that its numerical calculation is equal to that of Lua.
 
@@ -29,7 +29,7 @@ The following is the performance comparison between AOT and HybridCLR after opti
 
 ![benchmark_numeric](/img/hybridclr/benchmark_numeric.jpg)
 
-## principle
+## Principle
 
 Since HybridCLR is implemented in C++ and seamlessly integrated directly with il2cpp runtime, it can directly access the underlying data and various interfaces of runtime. Compared with ILRuntime and Xlua, the additional cost of the C# layer is saved, and the interaction cost is greatly reduced.
 

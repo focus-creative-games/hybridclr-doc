@@ -1,4 +1,4 @@
-# AOT-interpreter bridge function
+# Method Bridge
 
 Two-way function calls are required between the Interpreter of HybridCLR and AOT. For example, the interpreter calls the AOT function, or the AOT calls back the interpreter through the interface interface or delegate.
 

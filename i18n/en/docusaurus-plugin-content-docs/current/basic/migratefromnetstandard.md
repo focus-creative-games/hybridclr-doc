@@ -1,4 +1,4 @@
-# Migrate projects whose Api Level is netstandard
+# Migrate from netstandard to .Net Framework
 
 During the building pipeline, Unity will convert all references to netstandard.dll into final references such as mscorlib.dll, resulting in original code
 The reference relationship is very different from the final reference relationship. This difference will cause the command under `Generate/All/*` to run incorrectly. At the same time due to

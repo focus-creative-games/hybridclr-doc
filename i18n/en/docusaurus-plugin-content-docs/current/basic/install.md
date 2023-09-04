@@ -1,4 +1,4 @@
-# Install HybridCLR
+# Install
 
 
 ## Install a compatible Unity version

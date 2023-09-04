@@ -17,13 +17,10 @@ v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。
 
 ### Installer...
 
-提供一个方便的安装器，帮助正确设置本地il2cpp目录，其中包含替换`HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`目录为HybridCLR修改版本。
+详细文档见[安装HybridCLR](./install.md)。
 
-安装器需要从匹配版本的Unity安装目录复制il2cpp(类似`C:\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\il2cpp`)相关文件。
+Installer是一个方便的安装器，帮助正确设置本地il2cpp目录，其中包含替换`HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`目录为HybridCLR修改版本。
 
-- 对于2019.4.40+、2021.3.26+、2021.3.0+、2022.3.0+ 版本，直接从该版本的安装目录复制il2cpp文件。
-- 对于2020.3.16-2020.3.25版本，需要额外安装2020.3.26或更高版本，在Installer中完成安装后再切回当前版本。
-- 对于2019.4.0-2019.4.39版本，需要额外安装2019.4.40版本，在Installer中完成安装后再切回当前版本。
 
 安装界面中 `安装状态：已安装|未安装` 指示是否完成HybridCLR初始化。点击安装，如成功，则最后会显示`安装成功`日志，并且安装状态切换为`已安装`，否则请检查错误日志。
 
@@ -53,6 +50,11 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
         "unity_version":"2021",
         "hybridclr" : { "branch":"v2.0.1"},
         "il2cpp_plus": { "branch":"v2021-2.0.1"}
+    },
+    {
+        "unity_version":"2022",
+        "hybridclr" : { "branch":"v2.0.1"},
+        "il2cpp_plus": { "branch":"v2020-2.0.1"}
     }
     ]
 }
@@ -293,9 +295,9 @@ preserveHotUpdateAssemblies字段用来满足这种需求。打包时不检查�
 属于打包工作流的一部分，相关代码在 `Editor/BuildProcessors/CheckSettings.cs`中。包含以下操作：
 
 - 根据是否开启HybridCLR，设置或者清除UNITY_IL2CPP_PATH环境变量。脚本中修改的UNITY_IL2CPP_PATH环境变量是本进程的环境变量，不用担心干扰了其他项目。
-- 如果低于（不含）v4.0.0版本，需要关闭增量式GC(Use Incremental GC) 选项。因为目前不支持增量式GC。WebGL平台忽略此选项。 **com.code-philosophy.hybridclr会自动关闭此选项，可以不用手动执行此操作**。
+- 如果低于（不含）v4.0.0版本，会检查并自动关闭增量式GC(Use Incremental GC) 选项
 - `Scripting Backend` 切换为 `il2cpp`, WebGL平台不用设置此选项。**自`v2.4.0`起，会自动设置此选项，可以不用手动执行此操作**。
-- `Api Compatability Level` 切换为 `.NetFramework 4`(Unity 2019、2020) 或 `.Net Framework`（Unity 2021+）。**自`v2.4.0`起，会自动设置此选项，可以不用手动执行此操作**。
+- `Api Compatability Level` 切换为 `.NetFramework 4`(Unity 2019、2020) 或 `.Net Framework`（Unity 2021+）
 - 如果HybridCLRSettings里未设置任何热更新assembly，提示错误。
 
 ### 打包时自动排除热更新assembly

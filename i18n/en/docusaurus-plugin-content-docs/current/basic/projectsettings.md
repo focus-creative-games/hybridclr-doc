@@ -1,4 +1,4 @@
-# Configure HybridCLR
+# Settings
 
 After installing the com.code-philosophy.hybridclr package, you need to set the relevant parameters correctly. Detailed configuration related documents can be found in [hybridclr_unity package introduction](../basic/com.code-philosophy.hybridclr.md).
 

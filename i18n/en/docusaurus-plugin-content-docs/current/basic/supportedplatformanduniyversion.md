@@ -20,11 +20,24 @@ If a minor version is not our standard support version, you can also contact us 
 
 ## Supported platforms
 
+Since version v4.0.0, all known platform-incompatible codes have been eliminated, and all platforms on which il2cpp can run are fully supported. But for some uncommon platforms, there may be some small bugs in Editor or Runtime remaining.
+If you encounter any problems, please contact us for business resolution.
+
+The following platforms have been tested for a long time and are very stable and supported platforms:
+
 - Windows x86, x64
-- MacOS x86, x64, arm64 (silicon)
-- Android armv7, armv8(arm64)
+- MacOS arm64(silicon)
+- Android armv7, armv8 (arm64)
 - iOS arm64
-- WebGL Standard WebGL, MiniGame, WeChat Mini Games
+- WebGL standard WebGL, MiniGame, WeChat mini games
+
+The following is a platform with theoretical support, but small bugs may remain in practice:
+
+- MacOS x86, x64
+- PS4, PS5
+- UWP
+- tvOS
+- other platforms
 
 ## Special Instructions
 

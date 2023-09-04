@@ -1,4 +1,4 @@
-# com.code-philosophy.hybridclr
+# Hybridclr Package
 
 `com.code-philosophy.hybridclr` is a Unity package that provides the Editor workflow tool script and Runtime script required by HybridCLR. with the help of
 The workflow tool provided by com.code-philosophy.hybridclr makes it very easy to package an App that supports HybridCLR hot update function. The hybridclr_unity package mainly includes the following contents:

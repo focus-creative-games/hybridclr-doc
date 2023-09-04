@@ -1,4 +1,4 @@
-# 迁移Api Level为netstandard的项目
+# 从netstandard迁移到.Net Framework
 
 Unity在打包过程中，会把对netstandard.dll的引用全部转换最终的mscorlib.dll之类的引用，导致原始代码
 的引用关系跟最终的引用关系有很大不同。这个差异会导致`Generate/All/*`下命令会运行出错。同时由于

@@ -1,4 +1,4 @@
-# HybridCLR source code structure and debugging
+#  Source and Debug
 
 ## HybridCLR module introduction
 

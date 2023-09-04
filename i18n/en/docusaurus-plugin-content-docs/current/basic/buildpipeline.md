@@ -1,4 +1,4 @@
-# HybridCLR building workflow
+# Building pipeline
 
 Due to the requirements of the hot update itself and some limitations of Unity resource management, some special processing is required for the buiding workflow, which is mainly divided into several parts:
 

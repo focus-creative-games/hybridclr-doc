@@ -1,4 +1,4 @@
-# Code clipping problem
+# Code Stripping
 
 Unity uses [Code Stripping](https://docs.unity3d.com/Manual/ManagedCodeStripping.html) technology to help reduce the package size of the il2cpp backend. If anti-cutting processing is not performed, since there are generally not many codes in the AOT main project, a large number of C# types and functions are
 Clipping, resulting in the following exceptions when calling these clipped classes or functions during hot update:
