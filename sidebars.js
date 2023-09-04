@@ -83,9 +83,7 @@ const sidebars = {
         'business/differentialhybridexecution',
         'business/fullgenericsharing',
         'business/basiccodeoptimization',
-        'business/advancedcodeoptimization',
         'business/basicencryption',
-        'business/advancedencryption',
         'business/businesscase',
         {
           type: 'category',

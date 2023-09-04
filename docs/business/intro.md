@@ -28,8 +28,6 @@
 |[标准指令优化](./basiccodeoptimization)||✔|✔|✔|
 |[标准代码加固](./basicencryption)||✔|✔|✔|
 |[**DHE技术**](./differentialhybridexecution)|||✔||
-|[高级指令优化](./advancedcodeoptimization)|||✔||
-|[高级代码加固](./advancedencryption)|||✔||
 |[热重载](./reload/hotreloadassembly)||||✔|
 |技术支持|||✔|✔|
 
