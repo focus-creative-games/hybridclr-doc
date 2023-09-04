@@ -23,6 +23,7 @@ const sidebars = {
       label: '介绍',
       id: 'intro',
     },
+    'other/businesscase',
     {
       type: 'category',
       label: '新手教程',
@@ -152,7 +153,6 @@ const sidebars = {
       },
       collapsed: true,
       items: [
-        'other/businesscase',
         'other/relativepojects',
         'other/roadmap',
         'other/changelog',
