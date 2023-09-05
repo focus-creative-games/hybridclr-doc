@@ -244,11 +244,14 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 
 调用了一个Mono中存在，但在il2cpp未实现的函数。请修改代码，不要使用这些类和函数。
 
-### 遇到Async 调用Editor和打包后执行不一致的问题
+### async 代码（系统自带或者UniTask之类）打包后运行时抛出NullReferenceException或者崩溃
 
-如果代码在async里抛了异常，又没有捕获异常，会导致悄无声息失败，目前万一在async里因为裁剪或者aot泛型原因出错，会出现这种没有任何错误提示的情况。从而导致出现行为不一致。
+有几个原因：
 
-解决方案：捕获async异常，然后解决对应异常。
+- 在异步代码中抛出异常（比如桥接函数异常或者AOT泛型实例化异常），导致异步代码未能正确执行。解决办法为 catch 异步中的异常，定位出具体的原因，再解决
+- 补充元数据及桥接函数与最终的发布包不匹配。 当开启development选项时便会产生这个问题：`Generate/All`或`Generate/AOTDlls`生成的是非development模式
+下的aot dll，与打包时生成的development aot dll不匹配，进一步导致补充元数据和生成桥接函数都是错误的，于是在运行时发生严重的错误或崩溃。解决办法为打包时
+不要关闭development选项，或者修改`Generate/AOTDlls`代码，在BuildOptions中添加`Development`标志。
 
 ### 遇到 Unity: TypeLoadException: Could not load type 'XxxType' from assembly 'yyyAssembly'
 
