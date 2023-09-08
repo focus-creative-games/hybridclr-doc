@@ -126,6 +126,15 @@ void InitDifferentialHybridAssembly(string assemblyName)
 
 由于DHE机制正常工作需要提供dhe程序集，在未发生任何热更新时，DHE程序集等价于打包时生成的AOT 程序集，**此时不需要提供dhao文件**。尽管这些程序集可以通过热更新下载，强烈推荐随包携带。
 
+### 新增DHE相关菜单命令
+
+|菜单项|描述|
+|-|-|
+|HybridCLR/CreateAOTDllSnapshot |备份AOT dlls到快照目录，将来用于与最新热更新dll对比，生成dhao文件|
+|HybridCLR/Generate/DHEAssemblyOptionDatas|对比最新热更新dll和备份的AOT dll，生成dhao文件|
+|HybridCLR/Generate/DHEAssemblyOptionDatas_NoChange|无论热更新dll是否发生变化，强行生成表示没有任何代码变化的dhao文件。由于LoadDifferentialHybridAssembly的dhaoOption参数可以取null表示这是首包，没有任何变化，所以一般不使用这个菜单项|
+
+
 ### 随包携带DHE程序集
 
 如果想随包携带DHE程序集对应的AOT dll，根据你的BuildTarget：
