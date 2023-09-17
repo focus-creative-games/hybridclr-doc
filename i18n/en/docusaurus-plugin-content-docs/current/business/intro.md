@@ -14,7 +14,7 @@ There are currently three commercial versions: Professional, Ultimate, and Hot R
 Their specific characteristics are compared as follows.
 
 - [Pro version](./pro/intro.md). Optimized performance and memory to provide higher code security
-- [**Ultimate** Version](./ultimate/intro.md). Contains all our core technologies, greatly improves performance, and almost (**100% when unchanged**) reaches the same native AOT level
+- [**Ultimate** Version](./ultimate/intro.md). Contains our core [DHE](./differentialhybridexecution) technologies, greatly improves performance, and almost (**100% when unchanged**) reaches the same native AOT level
 - [Hot Reload Version](./reload/intro.md). Contains all the features of the professional version, while supporting unloading and reloading of individual assemblies
 
 |Features|Community Edition|Professional Edition|Ultimate Edition|Hot Reload Edition|
@@ -24,12 +24,9 @@ Their specific characteristics are compared as follows.
 |Supplementary metadata|✔|✔|✔|✔|
 |Incremental GC|✔|✔|✔|✔|
 |[Full Generic Sharing](./fullgenericsharing)||✔|✔|✔|
-|Memory Optimization||✔|✔|✔|
 |[Standard Code Optimization](./basiccodeoptimization)||✔|✔|✔|
 |[Standard Code Encryption](./basicencryption)||✔|✔|✔|
-|[**DHE Technology**](./differentialhybridexecution)|||✔||
-|[Advanced Code Optimization](./advancedcodeoptimization)|||✔||
-|[Advanced Code Encryption](./advancedencryption)|||✔||
+|[**DHE**](./differentialhybridexecution)|||✔||
 |[Hot Reload](./reload/hotreloadassembly)||||✔|
 |Technical Support|||✔|✔|
 
@@ -40,23 +37,21 @@ You can flexibly choose the technical service items required by the enterprise. 
 
 ### Technical support content
 
-- Technical support for Android64 and iOS64 platforms (other services are only for these platforms)
-- Technical support for Android32, **WebGL (including MiniGame, WeChat games)**, Win64, MacOS platforms
-- Transplant support for unsupported platforms such as Linux and Switch
-- Bug standard response and resolution, including one-to-one remote assistance guidance, most reproducible bugs will be fixed within 2-7 days or provide circumvention solutions
-- Bug fix support for expired LTS versions such as 2019.4.x
-- Transplant technical guidance for minor versions within the scope of non-standard support, such as guidance to support version 2022.2.4.
-- **Get the support of Unity2023 series preview version in advance**
-- Obtain the support of the LTS minor version that the community version has not followed up in advance
+- Fix bugs rapidly, including one-on-one remote assistance guidance. Most reproducible bugs will be fixed within 2-7 days or provide avoidance solutions.
+- Solve some special platform compatibility issues
+- Supports some currently unsupported versions (excluding 2018 and earlier versions)
 - Optimization guidance
-- Other special customized services
+- other service
 
 ## Price standard
 
-For annual subscription, please contact the business by email. The hourly billing price is as follows. In order to save business costs, on-time billing ** does not provide ** contracts and invoices, please understand.
+The hourly billing prices are as follows, and unused time can be reserved for next use. In order to save business costs, contracts and invoices are not provided for timely billing. Please understand.
 
-- Standard engineer price is 800/hour
-- The price of expert engineer is 3000/hour
+
+|Service level|Problem resolution scope|Price|
+|-|-|-|
+|Standard|Provide technical Q&A on basic usage issues, excluding solutions to bugs and unimplemented features|300 RMB/hour|
+|Expert|Solve various complex problems in technical support content, including solving bugs and unimplemented features|2000 RMB/hour|
 
 ## contact us
 
