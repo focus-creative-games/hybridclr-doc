@@ -51,7 +51,7 @@ The hourly billing prices are as follows, and unused time can be reserved for ne
 |Service level|Problem resolution scope|Price|
 |-|-|-|
 |Standard|Provide technical Q&A on basic usage issues, excluding solutions to bugs and unimplemented features|300 RMB/hour|
-|Expert|Solve various complex problems in technical support content, including solving bugs and unimplemented features|2000 RMB/hour|
+|Expert|Solve various complex problems in technical support content, including solving bugs and unimplemented features|1500 RMB/hour|
 
 ## contact us
 
