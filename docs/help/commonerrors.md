@@ -396,6 +396,10 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 这是WebCamTexture.devices未在AOT中保留导致。需要手动在AOT中引用 WebCamTexture.devices。
 
+### AVProMovieCapture插件工作不正常
+
+由于AVProMovieCapture自身实现的原因，你需要先初始化插件，再进行HybridCLR的加载之类的操作。
+
 ### 使用 Unity.netcode.runtime 后出现 NotSupportNative2Managed 桥接函数缺失异常
 
 原因是 在Unity.netcode.runtime.dll中 NetworkManager.RpcReceiveHandler 是internal， 定义如下
