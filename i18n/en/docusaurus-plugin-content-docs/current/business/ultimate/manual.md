@@ -65,16 +65,10 @@ When the App is officially released, you must immediately call the `HybridCLR/Cr
 
 ## Mark the function information of the change
 
-At present, the changed function can be automatically calculated by comparing the latest hot update dll with the aot dll generated during packaging, and manual operation is not required in most cases. But in fact there is no perfect code that can judge logical equivalence,
-The tool simply compares IL one by one to judge equivalence. So occasionally it is possible that even though the IL changes, the functions are equivalent. In this case, you can use the UnchangedAttribute attribute to mark the variability of the function, `[Unchanged]` means unchanged,
-`[Unchanged(false)]` means unchanged, if this feature is not included, it will be automatically calculated by the tool.
-
-Mistakenly marking unchanged functions as changed has no impact on correctness, only performance. Even if all hot update functions are marked as changed, it will still work normally. But mistakenly marking the change function as unchanged will not only cause errors in the running logic,
-In severe cases, it will cause a crash!
-
-:::caution
-Do not manually tag unless there are special circumstances and you are an experienced expert. Because the compiler often generates some hidden classes or fields, these class names are not stable. The C# code that looks the same on the surface may not actually generate the same code. Forcibly marking it as `[Unchanged]` will lead to incorrect operation logic and even crash.
-:::
+At present, it is possible to automatically calculate the changed function by comparing the latest hot update dll with the aot dll generated during packaging. In most cases, manual operation is not required. But in fact, there is no perfect code that can judge logical equivalence.
+The tool simply compares IL one by one to determine equivalence. Occasionally, it is possible that the functions are equivalent but the IL changes (for example, the order of two unrelated lines of code is swapped), which will be judged as a function change and the execution will be switched to interpretation.
+If this happens, and there are extremely stringent performance requirements for the function, the developer can manually use the UnchangedAttribute attribute to mark the variability of the function.
+`[Unchanged]` and `[Unchanged(true)]` represent unchanged, `[Unchanged(false)]` represents change, and unmarked features are automatically calculated by the tool.
 
 ## used in the code
 
