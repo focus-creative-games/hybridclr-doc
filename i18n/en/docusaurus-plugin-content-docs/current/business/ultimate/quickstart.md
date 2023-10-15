@@ -20,7 +20,7 @@ The ultimate edition does not support the 2019.4.x series.
 :::
 
 - Install any version of 2020.3.26+, 2021.3.0+, 2022.3.0+. Versions 2020.3.0-2020.3.25 are also supported, but after the installation is completed in the Installer, you need to copy `2020.3.x/Editor/Data/il2cpp/external` from the installation directory of any version 2020.3.26+ to replace
-  `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
+  `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
 - Depending on your operating system, when selecting modules during installation, you must select `Windows Build Support(IL2CPP)` or `Mac Build Support(IL2CPP)`
 
 ![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
@@ -122,7 +122,7 @@ public class ConsoleToScreen : MonoBehaviour
 
 ### Install
 
-- After decompressing hyridclr_unity.zip, put it in the project Packages directory and rename it to com.code-philosophy.hybridclr
+- After decompressing hybridclr_unity.zip, put it in the project Packages directory and rename it to com.code-philosophy.hybridclr
 - Decompress the corresponding `libil2cpp-{version}.7z` according to your unity version
 - Open `HybridCLR/Installer`, enable the `copy libil2cpp from local` option, select the libil2cpp directory you just decompressed, and install
 - Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` with `ModifiedDlls\{verions}\Unity.IL2CPP.dll` according to your Unity version ( Unity 2020) or `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` (Unity 2021+). If your version is not available, contact us to make one

@@ -86,7 +86,7 @@ Compared with other hot update schemes, the efficiency is greatly improved.
 
 HybridCLR can directly call the C++ function translated by the IL function without any intermediate links, while ILRuntime and xlua require various complex judgments and parameter conversions, as well as PInvoke and ReservePInvoke between C# and bring a lot of extra overhead.
 
-The interaction between HyridCLR and il2cpp AOT is extremely lightweight and efficient. No more performance issues.
+The interaction between HybridCLR and il2cpp AOT is extremely lightweight and efficient. No more performance issues.
 
 ### additionally provide a large number of instinct functions
 

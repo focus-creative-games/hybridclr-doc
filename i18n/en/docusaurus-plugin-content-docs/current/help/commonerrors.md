@@ -138,7 +138,7 @@ You incorrectly set Scripting BackEngine to mono. Sometimes even though you have
 
 ### A DirectoryNotFoundException: xxx\HybridCLRData\LocalIl2CppData-{yyy}\il2cpp\il2cpp-deps error occurred when packaging the WebGL platform
 
-WebGL must be installed globally, that is, useGlobal in HybridCLRSettings is true. Remember to re-install `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` after each `Generate/xxx`
+WebGL must be installed globally, that is, useGlobal in HybridCLRSettings is true. Remember to re-install `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` after each `Generate/xxx`
 The directory is copied to the Editor installation directory, and then packaged. Otherwise, errors such as Scripting Missing or missing bridge functions may occur.
 
 ### The GC_set_mark_stck_empty function cannot be found or the signature does not match the error when packaging
@@ -147,9 +147,9 @@ This is a problem caused by modifying the signature of this function since Unity
 
 ### Packaging WebGL platform appears `build.js: undefined symbol: RuntimeApi_LoadMetadataForAOTAssembly (referenced by top-level compiled C/C++ code)`
 
-WebGL uses global installation, you did not replace the original libil2cpp in the Editor installation directory with the local `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`, resulting in missing functions. The solution is:
+WebGL uses global installation, you did not replace the original libil2cpp in the Editor installation directory with the local `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`, resulting in missing functions. The solution is:
 - Run `HybridCLR/Generate/Il2cppDef` to generate the correct version macro
-- Copy `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` to replace the original libil2cpp in the Editor installation directory. Note that it must be a replacement directory, not a merged directory, which may cause compilation errors due to some more files.
+- Copy `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` to replace the original libil2cpp in the Editor installation directory. Note that it must be a replacement directory, not a merged directory, which may cause compilation errors due to some more files.
 You can also use the method of creating soft links. For details, please refer to the documentation on global installation in [Install HybridCLR](../basic/install.md).
 
 ### An error occurred when clicking `Generate/All` on the packaging WebGL platform

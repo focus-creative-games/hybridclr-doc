@@ -4,7 +4,7 @@ Almost the same as the community version [Quickstart](../../beginner/quickstart.
 
 ## Install
 
-- After decompressing hyridclr_unity, put it in the project Packages directory and rename it to com.code-philosophy.hybridclr
+- After decompressing hybridclr_unity, put it in the project Packages directory and rename it to com.code-philosophy.hybridclr
 - Decompress the corresponding `libil2cpp-{version}.7z` according to your unity version,
 - Open `HybridCLR/Installer`, turn on the `Copy libil2cpp from Local` option, select the libil2cpp directory you just decompressed, and install it
 

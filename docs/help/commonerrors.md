@@ -153,7 +153,7 @@ File name: 'Unity.IL2CPP.Bee.BuildLogic.WindowsDesktop, Version=1.0.0.0, Culture
 
 ### 打包WebGL平台时出现 DirectoryNotFoundException: xxx\HybridCLRData\LocalIl2CppData-{yyy}\il2cpp\il2cpp-deps  错误
 
-WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切记每次`Generate/xxx`之后必须重新将`{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`
+WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切记每次`Generate/xxx`之后必须重新将`{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`
 目录复制到Editor安装目录，再打包。否则有可能会出现 Scripting Missing或者桥接函数缺失之类的错误。
 
 ### 打包时出现 GC_set_mark_stck_empty 函数找不到或者签名不匹配的错误
@@ -162,9 +162,9 @@ WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切�
 
 ### 打包WebGL平台出现 `build.js: undefined symbol: RuntimeApi_LoadMetadataForAOTAssembly (referenced by top-level compiled C/C++ code)`
 
-WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`替换Editor安装目录的原始libil2cpp，导致缺失了函数。解决办法是：
+WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`替换Editor安装目录的原始libil2cpp，导致缺失了函数。解决办法是：
 - 运行`HybridCLR/Generate/Il2cppDef`生成正确的版本宏
-- 复制 `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` 替换Editor安装目录的原始libil2cpp。注意必须是替换目录，而不是合并目录，这个可能会导致多了一些文件而编译出错。
+- 复制 `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` 替换Editor安装目录的原始libil2cpp。注意必须是替换目录，而不是合并目录，这个可能会导致多了一些文件而编译出错。
 你也可以使用创建软链接的方式，详细请看[安装HybridCLR](/basic/install.md)中关于全局安装的文档。
 
 ### 打包WebGL平台点击`Generate/All`发生错误
@@ -204,9 +204,9 @@ WebGL使用全局安装，你没有将本地`{project}/HyridCLRData/LocalIl2CppD
 - `HybridCLR/generate/all` 生成所有
 - 打包
 
-### 打包时出现Building.BuilderFailedException:In file included from xxx\HyridCLRData\LocalIl2CppData-{platform}\il2cpp
+### 打包时出现Building.BuilderFailedException:In file included from xxx\HybridCLRData\LocalIl2CppData-{platform}\il2cpp
 
-如果你的版本为 2020.3.0-2020.3.25， 在Installer中完成安装后，从2020.3.26+任一版本的安装目录复制`2020.3.x/Editor/Data/il2cpp/external`替换 `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
+如果你的版本为 2020.3.0-2020.3.25， 在Installer中完成安装后，从2020.3.26+任一版本的安装目录复制`2020.3.x/Editor/Data/il2cpp/external`替换 `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
 
 
 ## 运行时错误

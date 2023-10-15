@@ -47,7 +47,7 @@ public class Print : MonoBehaviour
 **如果将热更新脚本挂载到Resources等随主包的资源上，会发生scripting missing的错误！**
 :::
 
-由于整个过程涉及到打ab包，比较冗长，这儿不详细说明。请直接体验 hyridclr_trial 项目（[github](https://github.com/focus-creative-games/hybridclr_trial) 或 [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)）。
+由于整个过程涉及到打ab包，比较冗长，这儿不详细说明。请直接体验 hybridclr_trial 项目（[github](https://github.com/focus-creative-games/hybridclr_trial) 或 [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)）。
 
 对于新手来说，你只需要记住：挂载热更新脚本的资源（场景或prefab）必须打包成ab，在实例化资源前先加载热更新dll即可（这个要求是显然的！）。
 

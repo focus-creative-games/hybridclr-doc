@@ -9,7 +9,7 @@ Any version of 2019.4.x, 2020.3.x, 2021.3.x, or 2022.3.x is supported. It is rec
 If your version is 2019.4.0-2019.4.39, **Need to switch to 2019.4.40 to complete HybridCLR installation, and then switch back to the current version**.
 
 If your version is 2020.3.0-2020.3.25, after completing the installation in Installer, copy `2020.3.x/Editor/Data/il2cpp/external` from the installation directory of any version 2020.3.26+ to replace
-  `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/external`.
+  `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`.
 :::
 
 :::caution
@@ -261,10 +261,10 @@ As shown in the figure below, merge the `il2cpp_plus/libil2cpp` directory with t
 Unity allows you to use the environment variable `UNITY_IL2CPP_PATH` to customize the location of `il2cpp`, so you can create an il2cpp directory locally in the project, replace the libil2cpp directory under the il2cpp directory with the modified libil2cpp,
 Then point the `UNITY_IL2CPP_PATH` environment variable to this directory. The general process is as follows:
 
-- Copy the il2cpp directory from the Editor installation directory to `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp`
+- Copy the il2cpp directory from the Editor installation directory to `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp`
 - Create the final libil2cpp directory from the clone il2cpp_plus and hybridclr repositories
-- Replace `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` with the final libil2cpp directory
-- Copy the `MonoBleedingEdge` directory from the Editor installation directory to `{project}/HyridCLRData/LocalIl2CppData-{platform}/MonoBleedingEdge`
+- Replace `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` with the final libil2cpp directory
+- Copy the `MonoBleedingEdge` directory from the Editor installation directory to `{project}/HybridCLRData/LocalIl2CppData-{platform}/MonoBleedingEdge`
 - Other processing. For the 2019 version, copy `{package}/Data~/ModifiedUnityAssemblies/2019.4.40/Unity.IL2CPP.dll` to `{project}/HybridCLRData/LocalIl2CppData/il2cpp/build/deploy/net471/Unity.IL2CPP.dll`
 
 
@@ -284,12 +284,12 @@ After completing the installation using `HybridCLR/Installer`, enable the `useGl
 
 If you use the replacement directory for global installation, and your com.code-philosophy.hybridclr version >= 2.1.0, please run `HybridCLR/Generate/Il2cppDef` before overriding libil2cpp **for the first time** (Only this time, it is no longer needed later, unless you switch the project Unity version) to generate the correct version macro, and then overwrite the original libil2cpp directory. **Symbolic link installation method or com.code-philosophy.hybridclr version lower than 2.1.0 does not need to perform this operation, just overwrite the original libil2cpp directory**.
 
-Due to permissions, even if it is installed globally, the `Generate/xxx` command modifies the files under the local `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`. **Please overwrite the local libil2cpp directory with the global installation directory after each generate**.
+Due to permissions, even if it is installed globally, the `Generate/xxx` command modifies the files under the local `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`. **Please overwrite the local libil2cpp directory with the global installation directory after each generate**.
 
 
 It is very troublesome to replace the libil2cpp directory every time. It is recommended to link the libil2cpp directory of the installation directory to the local libil2cpp directory. Methods as below:
-- Windows platform. Open the command line window with administrator privileges, delete or rename the original libil2cpp, and then run `mklink /D "<libil2cpp directory path of Editor installation directory>" "{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" `.
-- Linux or Mac platform. Open the command line window with administrator privileges, delete or rename the original libil2cpp, and then run `ln -s "{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" "<libil2cpp directory path of Editor installation directory>" `.
+- Windows platform. Open the command line window with administrator privileges, delete or rename the original libil2cpp, and then run `mklink /D "<libil2cpp directory path of Editor installation directory>" "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" `.
+- Linux or Mac platform. Open the command line window with administrator privileges, delete or rename the original libil2cpp, and then run `ln -s "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" "<libil2cpp directory path of Editor installation directory>" `.
 
 For the 2019 version replace Unity.IL2CPP.dll, also use a method similar to the above replacement or soft link.
 

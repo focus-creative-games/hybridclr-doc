@@ -2,7 +2,7 @@
 
 ## 安装
 
-- 将hyridclr_unity.zip解压后，放到项目Packages目录下，改名为com.code-philosophy.hybridclr
+- 将hybridclr_unity.zip解压后，放到项目Packages目录下，改名为com.code-philosophy.hybridclr
 - 根据你的unity版本解压对应的`libil2cpp-{version}.7z`
 - 打开 `HybridCLR/Installer`，启用`从本地复制libil2cpp`选项，选中刚才解压的libil2cpp目录，进行安装
 - 根据你的Unity版本将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换 `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll`(Unity 2020)或`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`(Unity 2021+)。如果没有你的版本，联系我们制作一个

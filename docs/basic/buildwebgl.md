@@ -32,14 +32,14 @@
 - 以管理员权限打开命令行窗口，这个操作不同操作系统版本不一样，请酌情处理。在Win11下为`在开始菜单上右键，选中终端管理员菜单项`。
 - 运行 `cd /d {editor_install_dir}/Editor/Data/il2cpp`， 切换目录到安装目录的il2cpp目录
 - 运行`ren libil2cpp libil2cpp-origin` 将原始libil2cpp改名为libil2cpp-origin
-- 运行 `mklink /D  libil2cpp "{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp"` 建立Editor目录的libil2cpp到本地libil2cpp目录的符号引用
+- 运行 `mklink /D  libil2cpp "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp"` 建立Editor目录的libil2cpp到本地libil2cpp目录的符号引用
 
 ### MacOS或者Linux平台
 
 - 打开命令行窗口
 - 运行 `cd /d {editor_install_dir}/Editor/Data/il2cpp` 切换目录到安装目录的il2cpp目录。具体目录可能因为操作系统而有所不同，请酌情处理
 - 运行`mv libil2cpp libil2cpp-origin` 将原始libil2cpp改名为libil2cpp-origin
-- 运行 `ln -s "{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" libil2cpp` 建立Editor目录的libil2cpp到本地libil2cpp目录的符号引用
+- 运行 `ln -s "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" libil2cpp` 建立Editor目录的libil2cpp到本地libil2cpp目录的符号引用
 
 
 ## 打包

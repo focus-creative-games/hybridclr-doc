@@ -171,7 +171,7 @@ hybridclr代码要兼容多个Unity版本，需要当前Unity版本相关宏定�
 
 ### enable
 
-是否开启HyridCLR热更。默认true。如果为false，则打包不再包含HybridCLR功能。
+是否开启HybridCLR热更。默认true。如果为false，则打包不再包含HybridCLR功能。
 
 :::caution
 如果禁用HybridCLR，请同时也移除主工程中对HybridCLR.Runtime程序集的引用，否则打包时会出现`RuntimeApi::LoadMetadataForAOTAssembly`之类符号丢失的错误。
@@ -182,7 +182,7 @@ hybridclr代码要兼容多个Unity版本，需要当前Unity版本相关宏定�
 是否使用全局安装位置，即editor安装位置下的il2cpp目录。默认false。一般只有打包WebGL时才需要`useGlobalIl2cpp=true`。
 
 注意，就算 `useGlobalIl2Cpp=true`，安装时仍然会复制il2cpp到HybridCLRData目录。在复制前需要先运行`HybridCLR/Generate/Il2CppDef`生成版本宏，
-再手动将 `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`目录替换 editor安装目录下的对应目录。
+再手动将 `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`目录替换 editor安装目录下的对应目录。
 另外每次运行`HybridCLR/Generate/*`执行生成操作，输出目录仍然是本地目录，需要自己手动复制替换全局安装位置的libil2cpp目录。
 
 ### hybridclrRepoURL

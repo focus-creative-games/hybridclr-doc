@@ -20,7 +20,7 @@
 :::
 
 - 安装 2020.3.26+、 2021.3.0+、2022.3.0+ 中任一版本。也支持2020.3.0-2020.3.25版本，但在Installer中完成安装后，需要额外从2020.3.26+任一版本的安装目录复制`2020.3.x/Editor/Data/il2cpp/external`替换
- `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
+ `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
 - 根据你所用的操作系统，安装过程中选择模块时，必须选中 `Windows Build Support(IL2CPP)`或`Mac Build Support(IL2CPP)`
 
 ![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
@@ -122,7 +122,7 @@ public class ConsoleToScreen : MonoBehaviour
 
 ### 安装
 
-- 将hyridclr_unity.zip解压后，放到项目Packages目录下，改名为com.code-philosophy.hybridclr
+- 将hybridclr_unity.zip解压后，放到项目Packages目录下，改名为com.code-philosophy.hybridclr
 - 根据你的unity版本解压对应的`libil2cpp-{version}.7z`
 - 打开 `HybridCLR/Installer`，启用`从本地复制libil2cpp`选项，选中刚才解压的libil2cpp目录，进行安装
 - 根据你的Unity版本将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换 `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll`(Unity 2020)或`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`(Unity 2021+)。如果没有你的版本，联系我们制作一个

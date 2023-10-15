@@ -48,6 +48,6 @@ Due to the limitations of the Unity resource management system, the resources (p
 If you mount the hot update script to Resources and other resources that come with the main package, a scripting missing error will occur!
 :::
 
-Since the whole process involves packing the ab package, it is relatively lengthy, so I won't detail it here. Try the hyridclr_trial project ([github](https://focus-creative-games/hybridclr_trial) or [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)) directly.
+Since the whole process involves packing the ab package, it is relatively lengthy, so I won't detail it here. Try the hybridclr_trial project ([github](https://focus-creative-games/hybridclr_trial) or [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)) directly.
 
 For beginners, you just need to remember: the resource (scene or prefab) that mounts the hot update script must be packaged into ab, and the hot update dll can be loaded before instantiating the resource (this requirement is obvious!).

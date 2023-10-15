@@ -4,7 +4,7 @@
 
 ## 安装
 
-- 将hyridclr_unity解压后，放到项目Packages目录下，改名为com.code-philosophy.hybridclr
+- 将hybridclr_unity解压后，放到项目Packages目录下，改名为com.code-philosophy.hybridclr
 - 根据你的unity版本解压对应的`libil2cpp-{version}.7z`，
 - 打开 `HybridCLR/Installer`，开启`从本地复制libil2cpp`选项，选中刚才解压的libil2cpp目录，进行安装
 

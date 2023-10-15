@@ -169,7 +169,7 @@ Click the menu `HybridCLR/Settings` to open the configuration interface. The fie
 
 ### enable
 
-Whether to enable HyridCLR hot update. The default is true. If false, the packaging no longer includes HybridCLR functionality.
+Whether to enable HybridCLR hot update. The default is true. If false, the packaging no longer includes HybridCLR functionality.
 
 :::caution
 If HybridCLR is disabled, please also remove the reference to the HybridCLR.Runtime assembly in the main project, otherwise there will be errors such as missing symbols such as `RuntimeApi::LoadMetadataForAOTAssembly` when packaging.
@@ -180,7 +180,7 @@ If HybridCLR is disabled, please also remove the reference to the HybridCLR.Runt
 Whether to use the global installation location, that is, the il2cpp directory under the editor installation location. The default is false. Generally, `useGlobalIl2cpp=true` is only required when packaging WebGL.
 
 Note that even if `useGlobalIl2Cpp=true`, il2cpp will still be copied to the HybridCLRData directory during installation. Before copying, you need to run `HybridCLR/Generate/Il2CppDef` to generate the version macro,
-Then manually replace the `{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` directory with the corresponding directory under the editor installation directory.
+Then manually replace the `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` directory with the corresponding directory under the editor installation directory.
 In addition, every time you run `HybridCLR/Generate/*` to execute the generation operation, the output directory is still the local directory, and you need to manually copy and replace the libil2cpp directory in the global installation location.
 
 ### hybridclrRepoURL

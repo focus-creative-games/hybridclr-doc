@@ -32,14 +32,14 @@ Developers who are not familiar with the command line should first master the ba
 - Open the command line window with administrator privileges. This operation is different for different operating system versions, please handle it as appropriate. Under Win11, it is `right click on the start menu and select the terminal administrator menu item`.
 - Run `cd /d {editor_install_dir}/Editor/Data/il2cpp`, switch directory to the il2cpp directory of the installation directory
 - Run `ren libil2cpp libil2cpp-origin` to rename the original libil2cpp to libil2cpp-origin
-- Run `mklink /D libil2cpp "{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp"` to create a symbolic reference from libil2cpp in the Editor directory to the local libil2cpp directory
+- Run `mklink /D libil2cpp "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp"` to create a symbolic reference from libil2cpp in the Editor directory to the local libil2cpp directory
 
 ### MacOS or Linux platform
 
 - Open command line window
 - Run `cd /d {editor_install_dir}/Editor/Data/il2cpp` to switch directories to the il2cpp directory of the installation directory. The specific directory may vary depending on the operating system, please handle accordingly
 - Run `mv libil2cpp libil2cpp-origin` to rename the original libil2cpp to libil2cpp-origin
-- Run `ln -s "{project}/HyridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" libil2cpp` to create a symbolic reference from libil2cpp in the Editor directory to the local libil2cpp directory
+- Run `ln -s "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" libil2cpp` to create a symbolic reference from libil2cpp in the Editor directory to the local libil2cpp directory
 
 
 ## Pack

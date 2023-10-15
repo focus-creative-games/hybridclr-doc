@@ -86,7 +86,7 @@ HybridCLR性能优秀主要来自以下几个方面：
 
 HybridCLR可以直接调用 由IL函数翻译后的c++函数，没有任何中间环节，而ILRuntime和xlua需要各种复杂的判定和参数转换以及与C#之间PInvoke和ReservePInvoke带来额外大量开销。
 
-HyridCLR与il2cpp AOT部分交互极其轻量高效。不再有性能问题。
+HybridCLR与il2cpp AOT部分交互极其轻量高效。不再有性能问题。
 
 ### 额外提供大量instinct函数
 
