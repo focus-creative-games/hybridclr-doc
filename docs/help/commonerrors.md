@@ -281,6 +281,10 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 这是因为你没有按照依赖顺序加载热更新dll。例如，如果A依赖于B，那你应该先加载B，再加载A。
 
+### MissingMethodException: HybridCLR.RuntimeApi::LoadMetadataForAOTAssembly(System.Byte[],HybridCLR.HomologousImageMode) 错误
+
+升级hybridclr后未重新install。 从v4.0.8起，RuntimeApi中定义的extern函数由PInvoke改为InternalCall，如果升级hybridclr package后没有重新install就会出现这个错误。
+
 ### MissingMethodException: MethodNotFind xxClass::yyyMethod 错误
 
 这是unity代码裁剪引起的函数丢失，运行菜单命令 `HybridCLR/Genrate/LinkXml` 根据热更新dll生成 link.xml。同时要确保被引用的AOT程序集在主工程代码中被引用过，否则linkxml不会生效。

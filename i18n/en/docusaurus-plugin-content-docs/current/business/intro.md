@@ -28,6 +28,15 @@ There are currently three commercial versions: Professional Edition, Ultimate Ed
 |[Hot reload](./reload/hotreloadassembly)||||✔|
 |Technical Support|||✔|✔|
 
+### Price Standard
+
+|Version|Price (RMB)|Description|
+|-|-|-|
+|Community Edition|0|Free|
+|Professional Edition|30k/project|Buy out the right to use a project, while providing 2 hours of technical support and 1 year of code updates|
+|Hot reload version|E-mail business consultation|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
+|Ultimate version|E-mail consultation business|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
+
 ## Enterprise technical support
 
 You can flexibly choose the technical service items needed by the enterprise. If you subscribe on an annual basis, you will be billed according to the service item, otherwise you will be billed according to the service length.

@@ -2,6 +2,7 @@
 
 此文档只记录关键性事件，更具体的发布日志请看 [RELEASELOG](https://github.com/focus-creative-games/hybridclr_unity/blob/main/RELEASELOG.md)。
 
+- 2023.10.11 支持2022.3.11
 - 2023.10.10 更新到最新的2021.3.31和2022.3.10版本
 - 2023.08.24 重构桥接函数，支持所有il2cpp支持的平台
 - 2023.07.11 支持 2021.3.28和2022.3.4
