@@ -115,6 +115,9 @@ public class ConsoleToScreen : MonoBehaviour
 
 - 创建 `Assets/HotUpdate` 目录
 - 在目录下 右键 `Create/Assembly Definition`，创建一个名为`HotUpdate`的程序集模块
+:::tip
+如果你们项目把Assembly-CSharp作为AOT程序集，强烈建议关闭热更新程序集的`auto reference`选项。因为Assembly-CSharp是最顶层assembly，开启此选项后会自动引用剩余所有assembly，包括热更新程序集，很容易就出现失误引用热更新程序集导致打包失败的情况。
+:::
 
 ## 安装和配置HybridCLR
 

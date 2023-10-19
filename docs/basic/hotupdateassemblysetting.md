@@ -30,6 +30,5 @@
 - Assembly-CSharp作为AOT程序集。剩余代码自己拆分为N个AOT程序集和M个热更新程序集。
 - Assembly-CSharp作为热更新程序集。剩余代码自己拆分为N个AOT程序集和M个热更新程序集。
 
-无论哪种拆分方式，正确设置好程序集之间的引用关系即可。请不要在AOT程序集中引用热更新程序集，否则会导致打包出错。尤其是
-把Assembly-CSharp作为AOT程序集，由于Assembly-CSharp是最顶层assembly，它会自动引用剩余所有assembly，很容易就出现
-失误引用热更新程序集的情况。
+无论哪种拆分方式，正确设置好程序集之间的引用关系即可。请不要在AOT程序集中引用热更新程序集，这会导致打包出错。如果
+你们项目把Assembly-CSharp作为AOT程序集，强烈建议关闭热更新程序集的`auto reference`选项。因为Assembly-CSharp是最顶层assembly，它会自动引用剩余所有assembly，很容易就出现失误引用热更新程序集的情况。
