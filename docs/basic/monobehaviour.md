@@ -26,6 +26,10 @@ Unity资源管理系统在反序列化资源中的热更新脚本时，需要满
 只限制了热更新资源以ab包形式打包，热更新dll打包方式没有限制。你可以按照项目需求**自由选择热更新方式**，可以将dll打包到ab中，或者裸数据
 文件，或者加密压缩等等。只要能保证在加载热更新资源前使用Assembly.Load将其加载即可。
 
+:::warning
+**如果将热更新脚本挂载到Resources等随主包的资源上，会发生scripting missing的错误！**但如果先打成assetbundle包，再放到Resources下，运行时加载该随包assetbundle则没有问题。
+:::
+
 ## assembly列表文件
 
 不同Unity版本下assembly列表文件的名称和格式都不一样。

@@ -44,7 +44,7 @@ public class Print : MonoBehaviour
 由于Unity资源管理系统的限制，热更新脚本所挂载的资源（prefab、scene、ScriptableObject资源）**必须打成assetbundle**，从ab包中实例化资源，才能正确还原脚本。
 
 :::danger
-**如果将热更新脚本挂载到Resources等随主包的资源上，会发生scripting missing的错误！**
+**如果将热更新脚本挂载到Resources等随主包的资源上，会发生scripting missing的错误！**但如果先打成assetbundle包，再放到Resources下，运行时加载该随包assetbundle则没有问题。
 :::
 
 由于整个过程涉及到打ab包，比较冗长，这儿不详细说明。请直接体验 hybridclr_trial 项目（[github](https://github.com/focus-creative-games/hybridclr_trial) 或 [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)）。
