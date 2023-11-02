@@ -195,6 +195,10 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 解决办法：升级hybridclr版本，重新install即可。
 
+### 打包时出现 `BuildFailedException: You must run `HybridCLR/Installer` after upgrading package`
+
+升级package后未执行Install。在`HybridCLR/Installer`中安装即可。
+
 ### 打包时出现编译错误，通用处理办法
 
 很大程度是你的package 和 hybridclr c++代码版本不匹配导致的或者你的Unity版本太新，hybridclr暂未支持。 你需要：
