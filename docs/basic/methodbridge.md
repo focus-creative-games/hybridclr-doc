@@ -53,3 +53,7 @@ com.code-philosophy.hybridclr package中提供工具脚本，推荐使用菜单�
 - `HybridCLR/Generate/AotDlls`
 - `HybridCLR/Generate/MethodBridge`
 
+## 平台相关
+
+桥接函数本身是平台无关的。对于同一个dll，所有平台生成的桥接函数文件完全相同。但由于编译宏开关及各平台的基础库(mscorlib之类)不同，导致不同平台生成的桥接函数也不同。因此**不要复用**桥接函数，
+而是每个平台单独生成。
