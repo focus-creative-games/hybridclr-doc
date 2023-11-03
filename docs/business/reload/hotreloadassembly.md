@@ -5,8 +5,8 @@
 ## 支持的特性
 
 - 支持卸载assembly
-- 支持重新加载assembly，代码基本可以任意变化甚至完全不同（除MonoBehaviour类外）
-- 卸载大部分内存（预计95%以上），但有少量残留（如`[ThreadStatic]`标记的线程静态成员字段占据的内存）
+- 支持重新加载assembly，代码基本可以任意变化甚至完全不同（除MonoBehaviour和Scriptable有一定的限制外）
+- 卸载99.9%以上内存
 
 
 ## 待实现，暂未支持的特性
@@ -15,7 +15,6 @@
 
 ## 不支持特性及特殊要求
 
-- 不能在被卸载程序集的代码中卸载自己。
 - 要求业务代码不会再使用被卸载的Assembly中的对象或者函数，并且退出所有在执行的旧逻辑
 - 要求重载的MonoBehaviour中的事件或消息函数如Awake、OnEable之类不发生增删（但函数体可以变化）
 - 要求重载的MonoBehaviour中自定义的Message函数名符合OnXXX形式

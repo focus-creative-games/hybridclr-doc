@@ -4,7 +4,7 @@ Hot Reload Special Edition provides support for the original `Hot Reload Technol
 
 ## Supported versions
 
-All Unity 2021-2022 LTS versions are supported.
+All Unity 2020-2022 LTS versions are supported.
 
 ## Advantage
 
