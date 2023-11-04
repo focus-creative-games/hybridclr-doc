@@ -25,6 +25,10 @@
 
 ## 建立 Editor目录的libil2cpp到本地libil2cpp目录的软（硬）引用
 
+:::tip
+升级hybridclr等情形需要重新install时，先恢复Editor安装目录的原始libil2cpp目录，再重新按照如下说明建立链接。
+:::
+
 ### Win平台
 
 不熟悉命令行的开发者请先掌握命令行的基础用法。
