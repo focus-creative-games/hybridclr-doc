@@ -13,7 +13,7 @@
 
 - [专业版](./pro/intro.md)。优化了性能、内存，提供更高的代码安全
 - [**旗舰版**](./ultimate/intro.md)。包含专业版的所有功能，另外包含了我们最核心的[DHE技术](./differentialhybridexecution)，极大提升了性能，几乎（**未改动时为100%**）达到同等的原生AOT水平
-- [热重载版](./reload/intro.md)。包含专业版的所有功能，同时支持卸载和重新加载单独的assembly，可以卸载掉程序集**99.9%**以上的内存
+- [热重载版](./reload/intro.md)。包含专业版的所有功能，同时支持卸载和重新加载单独的assembly，当前可以卸载掉程序集**99.4%**以上的内存
 
 |特性|社区版|专业版|旗舰版|热重载版|
 |-|-|-|-|-|
@@ -22,6 +22,7 @@
 |补充元数据|✔|✔|✔|✔|
 |增量式GC|✔|✔|✔|✔|
 |[完全泛型共享](./fullgenericsharing)||✔|✔|✔|
+|[元数据优化](./metadataoptimization.md)||✔|✔|✔|
 |[标准指令优化](./basiccodeoptimization)||✔|✔|✔|
 |[标准代码加固](./basicencryption)||✔|✔|✔|
 |[**DHE技术**](./differentialhybridexecution)|||✔||
