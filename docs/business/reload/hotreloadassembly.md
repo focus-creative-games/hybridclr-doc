@@ -1,13 +1,11 @@
 # 热重载技术
 
-热重载技术用于完全卸载或者重新加载一个assembly，适用于小游戏合集类型的游戏。该方案只提供**商业化版本**，具体请见[热重载版介绍](./intro.md)。
+热重载技术用于完全卸载或者重新加载一个assembly，适用于小游戏合集类型的游戏。该方案只提供**商业化版本**。
 
 ## 支持的特性
 
-- 支持卸载assembly
-- 支持重新加载assembly，代码基本可以任意变化甚至完全不同（除MonoBehaviour和Scriptable有一定的限制外）
-- 卸载99.9%以上内存
-
+- 支持卸载assembly，卸载99.4%以上assembly所占用的内存（后续版本将支持卸载100%内存）
+- 支持重新加载assembly，代码可以任意变化甚至完全不同（MonoBehaviour和Scriptable有一定的限制）
 
 ## 待实现，暂未支持的特性
 
@@ -17,7 +15,6 @@
 
 - 要求业务代码不会再使用被卸载的Assembly中的对象或者函数，并且退出所有在执行的旧逻辑
 - 要求重载的MonoBehaviour中的事件或消息函数如Awake、OnEable之类不发生增删（但函数体可以变化）
-- 要求重载的MonoBehaviour中自定义的Message函数名符合OnXXX形式
 - 要求重载后在旧Assembly中存在同名类的MonoBehaviour类的序列化字段名不发生变化（类型可以变）
 - 不能直接卸载被依赖的Assembly，必须按照逆依赖顺序先卸载依赖者，再卸载被依赖者。例如A依赖B，则需要先卸载B，再卸载A。
 - 由于Unity自身实现的原因，与2022的Jobs不兼容，需要自行小幅修改UnityEngine.CoreModule.dll的代码。 2020-2021仍然可以正常工作。

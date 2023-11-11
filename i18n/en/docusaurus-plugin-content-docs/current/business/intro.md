@@ -9,7 +9,7 @@ All commercial versions support **paid** trial versions. If you ultimately decid
 If you ultimately abandon the purchase due to non-product factors, the trial fee will not be refunded.
 :::
 
-There are currently three commercial versions: Professional Edition, Ultimate Edition, and Hot Reload Edition. Their specific features are compared as follows.
+There are currently three commercial versions. Their specific features are compared as follows.
 
 - [Pro](./pro/intro.md). Optimized performance and memory to provide higher code security
 - [**Ultimate**](./ultimate/intro.md). Contains all the functions of the professional version, and also includes our core [DHE technology] (./differentialhybridexecution), which greatly improves performance and almost (**100% without modification**) reaches the same level as native AOT
@@ -33,7 +33,7 @@ There are currently three commercial versions: Professional Edition, Ultimate Ed
 |Version|Price (RMB)|Description|
 |-|-|-|
 |Community Edition|0|Free|
-|Professional Edition|30k/project|Buy out the right to use a project, while providing 2 hours of technical support and 1 year of code updates|
+|Professional Edition|E-mail business consultation|Buy out the right to use a project, while providing 2 hours of technical support and 1 year of code updates|
 |Hot reload version|E-mail business consultation|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
 |Ultimate version|E-mail consultation business|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
 

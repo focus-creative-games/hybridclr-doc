@@ -10,8 +10,8 @@
 
 - 包含专业版的所有功能
 - 支持卸载单独的assembly，卸载99.4%以上内存
-- 支持重新加载assembly，代码基本可以任意变化甚至完全不同（除MonoBehaviour类外）。MonoBehaviour及ScriptableObject的热重载。
-- 支持**限定热更新assembly中能访问的函数的集合**，适合UGC游戏中创建沙盒环境，避免恶意玩家代码造成破坏。
+- 支持重新加载assembly，支持MonoBehaviour及ScriptableObject的热重载。
+- **TODO**。支持**限定热更新assembly中能访问的函数的集合**，适合UGC游戏中创建沙盒环境，避免恶意玩家代码造成破坏。
 - 更敏捷的维护支持，随时获得最新的代码（社区版本出于维护成本考虑，只会定期发布版本）。
 - 附含两年的技术支持，快速解决使用过程中遇到的各种问题
 
