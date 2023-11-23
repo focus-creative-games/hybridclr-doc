@@ -6,7 +6,7 @@ The hot reloading technology is used to completely unload or reload an assembly,
 
 - Support unloading assembly
 - Support reloading assembly, the code can be changed arbitrarily or even completely different (except MonoBehaviour class)
-- Unload most of the memory (expected to be more than 95%), but a small amount remains (such as the memory occupied by the thread static member field marked by `[ThreadStatic]`)
+- Unload 100% of the metadata memory
 
 
 ## To be implemented, currently unsupported features

@@ -4,7 +4,7 @@
 
 ## 支持的特性
 
-- 支持卸载assembly，卸载99.4%以上assembly所占用的内存（后续版本将支持卸载100%内存）
+- 支持卸载assembly，卸载100%的assembly所占用的内存
 - 支持重新加载assembly，代码可以任意变化甚至完全不同（MonoBehaviour和Scriptable有一定的限制）
 
 ## 待实现，暂未支持的特性
