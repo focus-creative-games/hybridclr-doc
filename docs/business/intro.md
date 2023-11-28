@@ -21,6 +21,8 @@
 |MonoBehaviour|✔|✔|✔|✔|
 |补充元数据|✔|✔|✔|✔|
 |增量式GC|✔|✔|✔|✔|
+|Unity 2020-2022 LTS|✔|✔|✔|✔|
+|Unity 2019 LTS|从3.x版本起不再支持2019|✔|✔|✔|
 |[完全泛型共享](./fullgenericsharing)||✔|✔|✔|
 |[元数据优化](./metadataoptimization.md)||✔|✔|✔|
 |[标准指令优化](./basiccodeoptimization)||✔|✔|✔|
