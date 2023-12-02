@@ -86,6 +86,9 @@ const sidebars = {
         'business/metadataoptimization',
         'business/basiccodeoptimization',
         'business/basicencryption',
+        'business/advancedcodeoptimization',
+        'business/advancedencryption',
+        'business/ilinterpreter',
         'business/businesscase',
         {
           type: 'category',

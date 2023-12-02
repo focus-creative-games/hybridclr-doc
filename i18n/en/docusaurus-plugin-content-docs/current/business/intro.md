@@ -5,15 +5,17 @@ We provide a variety of high-end commercial versions and flexibly customizable t
 ## Commercial version
 
 :::tip
-All commercial versions support **paid** trial versions. If you ultimately decide to purchase, the trial fee can be fully deducted from the final price; if
-If you ultimately abandon the purchase due to non-product factors, the trial fee will not be refunded.
+
+All commercial versions will support the **Unity 2019-2022 LTS** version for a long time, ensuring that the project has long-term and stable technical support.
+
 :::
 
-There are currently three commercial versions. Their specific features are compared as follows.
+There are currently three commercial versions. The specific features are compared as follows:
 
 - [Pro](./pro/intro.md). Optimized performance and memory to provide higher code security
 - [**Ultimate**](./ultimate/intro.md). Contains all the functions of the professional version, and also includes our core [DHE technology] (./differentialhybridexecution), which greatly improves performance and almost (**100% without modification**) reaches the same level as native AOT
-- [Hot reload version](./reload/intro.md). Contains all the features of the Pro version, while supporting unloading and reloading individual assemblies
+- [Hot reload version](./reload/intro.md). Contains all the features of the professional version, and also supports unloading and reloading individual assemblies. Currently, **100%** of the assembly's metadata memory can be unloaded.
+
 
 |Features|Community Edition|Professional Edition|Ultimate Edition|Hot Reload Edition|
 |-|-|-|-|-|
@@ -21,19 +23,30 @@ There are currently three commercial versions. Their specific features are compa
 |MonoBehaviour|✔|✔|✔|✔|
 |Supplemental Metadata|✔|✔|✔|✔|
 |Incremental GC|✔|✔|✔|✔|
+|Unity 2020-2022 LTS|✔|✔|✔|✔|
+|Unity 2019 LTS|No longer supported from version 3.x|✔|✔|✔|
 |[Full Generic Sharing](./fullgenericsharing)||✔|✔|✔|
+|[Metadata Optimization](./metadataoptimization.md)||✔|✔|✔|
 |[Standard command optimization](./basiccodeoptimization)||✔|✔|✔|
 |[Standard code reinforcement](./basicencryption)||✔|✔|✔|
-|[**DHE Technology**](./differentialhybridexecution)|||✔||
+|[IL Interpreter (Experimental)](./ilinterpreter)||✔|✔|✔|
+|[Advanced code hardening](./advancedencryption)||✔|✔|✔|
 |[Hot reload](./reload/hotreloadassembly)||||✔|
-|Technical Support|||✔|✔|
+|[Advanced code optimization (experimental)](./advancedcodeoptimization)|||✔||
+|[**DHE Technology**](./differentialhybridexecution)|||✔||
+|Technical support||1 year|2 years|2 years|
 
 ### Price Standard
+
+:::tip
+All commercial versions support **paid** trial versions. If you ultimately decide to purchase, the trial fee can be fully deducted from the final price; if
+If you ultimately abandon the purchase due to non-product factors, the trial fee will not be refunded.
+:::
 
 |Version|Price (RMB)|Description|
 |-|-|-|
 |Community Edition|0|Free|
-|Professional Edition|E-mail business consultation|Buy out the right to use a project, while providing 2 hours of technical support and 1 year of code updates|
+|Professional Edition|Email Consultation Business|Buy out the right to use a project, including 1 year of technical support and 1 year of code updates|
 |Hot reload version|E-mail business consultation|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
 |Ultimate version|E-mail consultation business|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
 

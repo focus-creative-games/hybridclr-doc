@@ -1,28 +1,30 @@
 # Advanced instruction optimization
 
 :::warning
-Advanced instruction optimization is still under development and is expected to have a preview version in October 2023.
+Advanced instruction optimizations are still under development.
 :::
 
-Advanced instruction optimization techniques are implemented independently of standard instruction optimization techniques. Advanced instruction optimization technology uses richer compilation optimization technology to greatly improve the performance of the interpretation module.
-The overall execution performance of optimized instructions is improved by 100%-1000% (you read that right, more than 10 times) or even higher, especially the overall improvement of numerical instructions by nearly 300%.
+Advanced instruction optimization technology is an implementation independent of standard instruction optimization technology. Advanced instruction optimization technology uses richer compilation optimization technology to greatly improve the performance of the interpretation module.
+After optimization, the overall instruction execution performance is improved by 100%-1000% (yes, more than 10 times) or even higher, especially the overall improvement of numerical instructions by nearly 300%.
 And because it has been converted in advance, the loading and instruction translation process is faster and the lag is smaller.
 
-## Implementation
+## accomplish
 
-Advanced instruction optimization techniques include the following optimization techniques:
+Advanced instruction optimization technology includes the following optimization technologies:
 
 - Complete elimination of useless stack instructions. Eliminate all unnecessary stack operations
 - Peephole optimization
 - Constant copy optimization
 - Optimization of local copy propagation
 - Global copy propagation optimization
-- Function inline, even inline AOT function
-- Provide more intrinsic instructions, greatly improving the performance of common instruction combinations
-- CheckOnce runtime checks dynamically eliminate optimizations. For example, the instruction to access the static member variable no longer checks whether the type has been initialized when it is executed for the second time
+- Explain function inline
+- AOT function inline (patented technology)
+- Provide more instinct instructions to greatly improve the performance of common instruction combinations
+- Conditional check elimination technology. Eliminate unnecessary null pointer checks, type cast checks, and array out-of-bounds checks
+- CheckOnce runtime checks dynamically eliminate optimizations. For example, an instruction that accesses a static member variable will no longer check whether the type has been initialized during the second execution.
 - Other optimizations
 
 
 ## Performance
 
-Will test again after release.
+TODO.
