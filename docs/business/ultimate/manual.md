@@ -5,15 +5,12 @@
 - 将hybridclr_unity.zip解压后，放到项目Packages目录下，改名为com.code-philosophy.hybridclr
 - 根据你的unity版本解压对应的`libil2cpp-{version}.7z`
 - 打开 `HybridCLR/Installer`，启用`从本地复制libil2cpp`选项，选中刚才解压的libil2cpp目录，进行安装
-- 根据你的Unity版本将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换 `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll`(Unity 2020)或`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`(Unity 2021+)。如果没有你的版本，联系我们制作一个
+- 根据你的Unity版本：
+    - 如果版本 >= 2020，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换 `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll`(Unity 2020)或`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`(Unity 2021+)。如果没有你的版本对应的文件，联系我们制作一个
+    - 如果版本 为 2019，不需要任何操作，因为Install过程中已经自动复制
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
-:::caution
-
-Installer中完成安装后，一定要替换Unity.IL2CPP.dll，否则DHE机制无法正常工作。
-
-:::
 
 ## 配置
 
@@ -28,11 +25,6 @@ Installer中完成安装后，一定要替换Unity.IL2CPP.dll，否则DHE机制�
 ### 开启增量式GC
 
 `Player Settings`中启用 `use incremental GC` 选项即可， 不需要对HybridCLR进行任何设置。
-
-:::caution
-
-目前增量式GC处理alpha阶段，建议已经上线或者快上线的项目不要开启这个选项。
-:::
 
 ### 开启完全泛型共享
 
@@ -54,12 +46,13 @@ Installer中完成安装后，一定要替换Unity.IL2CPP.dll，否则DHE机制�
 | 字段 | 说明|
 |-|-|-|
 |differentialHybridAssemblies|DHE程序集列表。将需要差分混合执行的assembly名加入此列表，如HotUpdate。同一个assembly**不能同时加入**differentialHybridAssemblies和hotUpdateAssemlies列表。|
-|strippedAOTDllSnapshotDir| 用于保存打包时生成的AOT dll。与`HybridCLR/CreateAOTDllSnapshot`菜单命令配合使用。|
-|differentialHybridOptionOutputDir|dhao文件的生成目录|
+
 
 ### 在link.xml中预留所有DHE程序集
 
-对于Assembly-CSharp这种用户自己的代码，il2cpp一般不会裁剪。但对于以dll形式直接加到Unity中的第三方程序集，如果不预留所有，会导致打包时这些dll被裁剪，导致生成dhao文件时有巨量的变化。
+对于Assembly-CSharp这种用户自己的代码，il2cpp一般不会裁剪。但对于以dll形式直接加到Unity中的第三方程序集，如果不预留所有会导致打包时这些dll被裁剪，
+进而在生成dhao文件时有巨量的变化，这显然不是我们期望的。
+
 在`Assets/link.xml`（或者其他自定义的link.xml）中为你的所有dhe程序集添加类似配置`<assembly fullname="YourExternDll" preserve="all"/>`。
 
 ## dhao文件
@@ -70,13 +63,15 @@ dhao文件是DHE技术的核心概念。dhao文件中包含了离线计算好的
 通过对比最新的热更新dll与打包时生成的AOT dll，离线计算出变化的类型与函数，保存成dhao文件。因此DHE机制要正常工作，必须依赖于dhao文件的正确性，而dhao文件的正确性
 则依赖精确提供最新的热更新dll和打包时生成的AOT dll。
 
-`HybridCLR/generate/DHEAssemblyOptionDatas`命令生成dhao文件时，默认从`{hotUpdateDllCompileOutputRootDir}/{target}`目录读取最新的热更新dll，
-从`{strippedAOTDllSnapshot}/{target}`目录读取打包时生成的AOT dll。打包时AOT dll会被自动生成并且复制到`{strippedAOTDllOutputRootDir}/{target}`目录，
-但为了避免后续临时打包意外覆盖打包时生成的AOT dll，不会自动复制到`{strippedAOTDllSnapshot}/{target}`目录，需要手动执行`HybridCLR/CreateAOTDllSnapshot`。
 
-:::tip
-正式发布App时，一定要立即调用`HybridCLR/CreateAOTDllSnapshot`命令将AOT dll复制到快照目录，才能保证生成dhao文件的正确性。
-:::
+`HybridCLR.Editor.DHE.BuildUtils`提供了多个生成dhao文件相关的函数。
+
+|函数名|描述|
+|-|-|
+|GenerateUnchangedDHAODatas|生成首包（即没有发生任何改变时）的dhao文件|
+|GenerateDHAODatas|生成热更新包（即有代码发生改变时）的dhao文件|
+|EncryptDllAndGenerateUnchangedDHAODatas|当开启初级代码加固时，生成首包（即没有发生任何改变时）加密后的dll和dhao文件|
+|EncryptDllAndGenerateDHAODatas|当开启初级代码加固时，生成热更新包（即有代码发生改变时）加密后的dll和dhao文件|
 
 
 ## 标记变化的函数信息
@@ -95,13 +90,7 @@ dhao文件是DHE技术的核心概念。dhao文件中包含了离线计算好的
 
 ## 代码中使用
 
-运行时，完成热更新后，对于每个混合执行 assembly，调用 `RuntimeApi::LoadDifferentialHybridAssembly` 加载热更新assembly。一般来说，传递的参数为通过`HybridCLR/CompileDll/xxx`编译的
-热更新dll及通过`HybridCLR/Generate/DHEAssemblyOptionDatas`生成的dhao数据。但对于新发布、还未发生任何热更新的情形，传递的参数为`打包时生成的AOT dll`及`null dhao数据`。
-
-:::caution
-发布新包时，也可以使用通过`HybridCLR/CompileDll/xxx`编译的热更新dll及通过`HybridCLR/Generate/DHEAssemblyOptionDatas`生成的dhao数据。但初始包显然未发生变化，计算并且携带dhao文件是没必要的。
-注意此时不能用 `HybridCLR/CompileDll/xxx`编译的热更新dll替代`打包时生成的AOT dll`，因为编译是不稳定的，它们未必一样，很可能会导致严重崩溃问题。
-:::
+运行时，完成热更新后，对于每个dhe程序集，调用 `RuntimeApi::LoadDifferentialHybridAssembly` 加载热更新assembly。
 
 注意事项：
 
@@ -110,66 +99,45 @@ dhao文件是DHE技术的核心概念。dhao文件中包含了离线计算好的
 - DHE程序集本身已经包含了元数据，即使未开启完全泛型共享时也**不要对DHE程序集进行补充元数据**，补充了也会失败，其他非DHE的AOT程序集可以照常补充元数据。
 
 ```csharp title="加载DHE程序集"
-void InitDifferentialHybridAssembly(string assemblyName)
+void LoadDifferentialHybridAssembly(string assemblyName)
 {
-    // 没有任何热更新时，传递的参数为null。
-    byte[] dhaoBytes = needHotUpdate ? GetAssemblyOptionData(assemblyName) : null;
-    LoadImageErrCode err = RuntimeApi.LoadDifferentialHybridAssembly(GetAssemblyData(assemblyName), dhaoBytes);
+    // 即使时首包，也需要提供dhao文件
+    // 为了避免意外出错，LoadDifferentialHybridAssembly要求强校验，即生成dhao文件所用的originalDll必须为构造主包时生成的裁剪后的aot dll，
+    // currentDll必须为与dllBytes一致的dll。dhao文件中记录生成此文件时使用的originalDllMd5和currentDllMd5，
+    // 通过校验这个md5匹配，确保不会使用错误的currentDll或dhao文件
+    LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssembly(dllBytes, dhaoBytes, manifest.OriginalDllMd5, manifest.CurrentDllMd5);
+    if (err == LoadImageErrorCode.OK)
+    {
+        Debug.Log($"LoadDifferentialHybridAssembly {assName} OK");
+    }
+    else
+    {
+        Debug.LogError($"LoadDifferentialHybridAssembly {assName} failed, err={err}");
+    }
 }
 ```
 
-你可以通过传递 `new DifferentialHybridAssemblyOptions() { ForceAllChanged = true }` 来强迫hybridclr认为所有函数都发生变化，此时等价于社区版本的全解释模式。由于线上项目并不能很完整地测试各种代码变化的情形，这种方式可以较方便地
-检验发生变化后是否各项功能正常。
 
 ## 打包
 
-在打包管线中生成AOT dll后运行`HybridCLR/CreateAOTDllSnapshot`备份AOT文件，并且加入版本管理系统，因为将来热更新生成dhao文件时需要它们。注意！由于裁剪AOT dll生成的不稳定性，千万不要用`HybridCLR/Generate/All`命令生成的AOT dll。
+DHE技术中与构建相关的文件为dhe dll文件和对应的dhao文件。
 
-由于DHE机制正常工作需要提供dhe程序集，在未发生任何热更新时，DHE程序集等价于打包时生成的AOT 程序集，**此时不需要提供dhao文件**。尽管这些程序集可以通过热更新下载，强烈推荐随包携带。
+### 非加密工作流
 
-### 新增DHE相关菜单命令
+#### 构建主包
 
-|菜单项|描述|
-|-|-|
-|HybridCLR/CreateAOTDllSnapshot |备份AOT dlls到快照目录，将来用于与最新热更新dll对比，生成dhao文件|
-|HybridCLR/Generate/DHEAssemblyOptionDatas|对比最新热更新dll和备份的AOT dll，生成dhao文件|
-|HybridCLR/Generate/DHEAssemblyOptionDatas_NoChange|无论热更新dll是否发生变化，强行生成表示没有任何代码变化的dhao文件。由于LoadDifferentialHybridAssembly的dhaoOption参数可以取null表示这是首包，没有任何变化，所以一般不使用这个菜单项|
+- 将构建后生成的裁剪AOT dll作为 首包（没有任何改动）的dhe dll
+- 使用`HybridCLR.Editor.DHE.BuildUtils.GenerateUnchangedDHAODatas`生成首包的dhao文件
+- 将 dhe dll和dhao文件加入热更新资源管理系统
+
+如果想随包携带首包的dhe dll和dhao文件，请先导出工程，再按照上面的步骤生成dhe dll和dhao文件，再将它们加入到导出工程中。
 
 
-### 随包携带DHE程序集
+#### 热更新
 
-如果想随包携带DHE程序集对应的AOT dll，根据你的BuildTarget：
-
-- iOS。新增`IPostprocessBuildWithReport`处理类，在OnPostprocessBuild函数中复制 `{proj}/HybridCLRData/AssembliesPostIl2CppStrip/{buildTarget}`下的DHE dll到StreamingAssets目录（或子目录）。也可以手动在导出工程后复制
-- Android。**如果你是先导出gradle工程再打包，则跟iOS相同**。如果是直接出APK包，则新增 `IPostGenerateGradleAndroidProject`处理类，在OnPostGenerateGradleAndroidProject事件中复制生成的DHE AOT程序集到gradle工程
-
-```csharp title="打包流程中复制DHE程序集"
-
-// iOS或者Android导出工程后，复制文件到工程
-public class CopyDHEAOTDllsToProject : IPostprocessBuildWithReport
-{
-    public int callbackOrder => 0;
-
-    public void OnPostprocessBuild(BuildReport report)
-    {
-        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-        YourCopyDHEAssembliesToStreamingAssetsOrAssetBundle();
-    }
-}
-
-/// 生成Gradle工程后，复制需要的文件
-public class CopyDHEAOTDllsToAndroidProject : IPostGenerateGradleAndroidProject
-{
-    public int callbackOrder => 0;
-
-    public void OnPostGenerateGradleAndroidProject(string path)
-    {
-        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-        YourCopyDHEAssembliesToStreamingAssetsOrAssetBundle();
-    }
-}
-
-```
+- 使用 `HybridCLR/CompileDll/ActivedBuildTarget` 生成热更新dll。
+- 使用`HybridCLR.Editor.DHE.BuildUtils.GenerateDHAODatas`生成最新的热更新dll的dhao文件
+- 将最新的热更新dll和dhao文件加入热更新资源管理系统
 
 :::caution
 
@@ -177,16 +145,22 @@ public class CopyDHEAOTDllsToAndroidProject : IPostGenerateGradleAndroidProject
 
 :::
 
-## 热更新
+### 加密工作流
+
+#### 构建主包
+
+- 将构建后生成的裁剪AOT dll作为 首包（没有任何改动）的dhe dll
+- 使用`HybridCLR.Editor.DHE.BuildUtils.EncryptDllAndGenerateUnchangedDHAODatas`生成首包的dhao文件及加密后的dhe dll文件
+- 将 dhe dll和dhao文件加入热更新资源管理系统
+
+如果想随包携带首包的dhe dll和dhao文件，请先导出工程，再按照上面的步骤生成dhe dll和dhao文件，再将它们加入到导出工程中。
+
+
+#### 热更新
 
 - 使用 `HybridCLR/CompileDll/ActivedBuildTarget` 生成热更新dll。
-- 确保之前已经运行运行`HybridCLR/CreateAOTDllSnapshot`备份AOT文件，确保备份目录下的AOT dll为打包时生成的AOT dll。
-- 使用 `HybridCLR/generate/DHEAssemblyOptionDatas` 生成dhao文件。
-
-:::caution
-由于 DHEAssemblyOptionDatas 的工作原理是对比最新热更新`DHE dll`与原始AOT dll的备份目录的AOT dll，生成变化的函数及类型信息。请一定一定要确保热更新dll和备份
-的AOT dll的正确性！
-:::
+- 使用`HybridCLR.Editor.DHE.BuildUtils.EncryptDllAndGenerateDHAODatas`生成最新的dhe dll的加密后的文件及对应的dhao文件
+- 将加密后的dhe dll和dhao文件加入热更新资源管理系统
 
 ## 注意事项
 
@@ -195,4 +169,4 @@ public class CopyDHEAOTDllsToAndroidProject : IPostGenerateGradleAndroidProject
 如果有外部dll被标记为DHE程序集，由于外部dll打包时会被裁剪，而计算dhao文件时，取的是原始的外部dll，导致产生巨量的差异，这不是所期望的。解决办法有几个：
 
 1. 在link.xml里`<assembly fullname="YourExternDll" preserve="all"/>` 完全保留外部dll
-2. 不用最新的热更新dll去计算差异，而是使用最新代码重新打包时生成的aot dll去计算差异。这个需要你自己修改计算dhao相关的代码，使用`AssembliesPostIl2CppStrip`目录跟`AOTDllSnapshot`目录对比。
+2. 不用最新的热更新dll去计算差异，而是使用最新代码重新打包时生成的aot dll去计算差异

@@ -1,42 +1,37 @@
-# Getting Started 
+# Get started quickly
 
-This tutorial guides you to experience HybridCLR hot update from an empty project. For the sake of simplicity, only the case where the BuildTarget is **Windows** or **MacOS** Standalone platform is demonstrated.
-Please run through the hot update process correctly on the Standalone platform and then try the hot update on the Android and iOS platforms. Their processes are very similar.
+This tutorial guides you to experience HybridCLR hot update from an empty project. For the sake of simplicity, only the case where the BuildTarget is the **Windows** or **MacOS** Standalone platform is demonstrated.
+Please run the hot update process correctly on the Standalone platform before trying the hot update on the Android and iOS platforms. Their processes are very similar.
 
-The difficulty of using the ultimate edition is similar to that of the community version, and most of the principles are the same. It is recommended to familiarize yourself with the community version before trying the ultimate edition.
+The difficulty of using the flagship version is similar to that of the community version, and most of the principles are the same. It is recommended to familiarize yourself with the community version before trying the flagship version.
 
-## Experience Goals
+## Experience goals
 
 - Create hot update assembly
-- Load the hot update assembly and execute the hot update code, print `Hello, HybridCLR`
+- Load the hot update assembly, execute the hot update code in it, and print `Hello, HybridCLR`
 - Modify the hot update code to print `Hello, World`
 
-## Prepare the environment
+## Prepare environment
 
 ### Install Unity
 
-:::caution
-The ultimate edition does not support the 2019.4.x series.
-:::
-
-- Install any version of 2020.3.26+, 2021.3.0+, 2022.3.0+. Versions 2020.3.0-2020.3.25 are also supported, but after the installation is completed in the Installer, you need to copy `2020.3.x/Editor/Data/il2cpp/external` from the installation directory of any version 2020.3.26+ to replace
-  `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
-- Depending on your operating system, when selecting modules during installation, you must select `Windows Build Support(IL2CPP)` or `Mac Build Support(IL2CPP)`
+- Install any version 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x. Some versions have special installation requirements, see [Install hybridclr](../../basic/install.md)
+- Depending on the operating system you are using, when selecting modules during the installation process, you must select `Windows Build Support(IL2CPP)` or `Mac Build Support(IL2CPP)`
 
 ![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
 
 ### Install IDE and related compilation environment
 
--Windows
-   - Under Win, you need to install `visual studio 2019` or later. The installation must include at least the `Game Development with Unity` and `Game Development with C++` components
+- Windows
+   - `visual studio 2019` or higher version needs to be installed under Win. The installation must include at least the `Game development using Unity` and `Game development using C++` components.
    - install git
 -Mac
-   - Requires MacOS version >= 12, xcode version >= 13, e.g. `xcode 13.4.1, macos 12.4`
+   - Requires MacOS version >= 12, xcode version >= 13, for example `xcode 13.4.1, macos 12.4`
    - install git
 
-## Initialize the Unity hot update project
+## Initialize Unity hot update project
 
-The process of constructing a hot update project from scratch is tedious. The project structure, resources and codes can refer to the hybridclr_trial project, and its warehouse address is [github](https://github.com/focus-creative-games/hybridclr_trial) or [ gitee](https://gitee.com/focus-creative-games/hybridclr_trial).
+The process of constructing a hot update project from scratch is lengthy. The code involved in the following steps can refer to the dhe_demo project, whose warehouse address is [github](https://github.com/focus-creative-games/dhe_demo).
 
 ### Create project
 
@@ -44,13 +39,13 @@ Create an empty Unity project.
 
 ### Create `ConsoleToScreen.cs` script
 
-This script has no direct effect on demonstrating hot updates. It can print the log to the screen, which is convenient for locating errors.
+This script has no direct effect on demonstrating hot updates. It can print logs to the screen to facilitate locating errors.
 
-Create `Assets/ConsoleToScreen.cs` script class, the code is as follows:
+Create the `Assets/ConsoleToScreen.cs` script class with the following code:
 
 ```csharp
 using System;
-using System. Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -60,20 +55,20 @@ public class ConsoleToScreen : MonoBehaviour
      const int maxLineLength = 120;
      private string _logStr = "";
 
-     private readonly List<string>_lines = new List<string>();
+     private readonly List<string> _lines = new List<string>();
 
      public int fontSize = 15;
 
-     void OnEnable() { Application. logMessageReceived += Log; }
-     void OnDisable() { Application. logMessageReceived -= Log; }
+     void OnEnable() { Application.logMessageReceived += Log; }
+     void OnDisable() { Application.logMessageReceived -= Log; }
 
      public void Log(string logString, string stackTrace, LogType type)
      {
-         foreach (var line in logString. Split('\n'))
+         foreach (var line in logString.Split('\n'))
          {
-             if (line. Length <= maxLineLength)
+             if (line.Length <= maxLineLength)
              {
-                 _lines. Add(line);
+                 _lines.Add(line);
                  continue;
              }
              var lineCount = line.Length / maxLineLength + 1;
@@ -89,17 +84,17 @@ public class ConsoleToScreen : MonoBehaviour
                  }
              }
          }
-         if (_lines. Count > maxLines)
+         if (_lines.Count > maxLines)
          {
-             _lines. RemoveRange(0, _lines. Count - maxLines);
+             _lines.RemoveRange(0, _lines.Count - maxLines);
          }
-         _logStr = string. Join("\n", _lines);
+         _logStr = string.Join("\n", _lines);
      }
 
-     void OnGUI()
+     voidOnGUI()
      {
          GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity,
-            new Vector3(Screen. width / 1200.0f, Screen. height / 800.0f, 1.0f));
+            new Vector3(Screen.width / 1200.0f, Screen.height / 800.0f, 1.0f));
          GUI.Label(new Rect(10, 10, 800, 370), _logStr, new GUIStyle() { fontSize = Math.Max(10, fontSize) });
      }
 }
@@ -111,75 +106,254 @@ public class ConsoleToScreen : MonoBehaviour
 
 - Create default initial scene main.scene
 - Create an empty GameObject in the scene and hang ConsoleToScreen on it
-- Add the main scene to the list of packaged scenes in `Build Settings`
+- Add the main scene to the packaged scene list in `Build Settings`
 
 ### Create HotUpdate hot update module
 
 - Create `Assets/HotUpdate` directory
-- Right-click `Create/Assembly Definition` in the directory to create an assembly module named `HotUpdate`
+- Right-click `Create/Assembly Definition` in the directory and create an assembly module named `HotUpdate`
 
 ## Install and configure HybridCLR
 
 ### Install
 
-- After decompressing hybridclr_unity.zip, put it in the project Packages directory and rename it to com.code-philosophy.hybridclr
-- Decompress the corresponding `libil2cpp-{version}.7z` according to your unity version
-- Open `HybridCLR/Installer`, enable the `copy libil2cpp from local` option, select the libil2cpp directory you just decompressed, and install
-- Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` with `ModifiedDlls\{verions}\Unity.IL2CPP.dll` according to your Unity version ( Unity 2020) or `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` (Unity 2021+). If your version is not available, contact us to make one
+- Unzip hybridclr_unity.zip, place it in the project Packages directory, and rename it com.code-philosophy.hybridclr
+- Unzip the corresponding `libil2cpp-{version}.7z` according to your unity version
+- Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the libil2cpp directory you just decompressed, and install it.
+- Depending on your Unity version:
+     - If version >= 2020, replace the `ModifiedDlls\{verions}\Unity.IL2CPP.dll` file with `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` (Unity 2020) or `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` (Unity 2021+). If there is no file corresponding to your version, contact us to make one.
+     - If the version is 2019, no operation is required because it has been automatically copied during the Install process
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
 ### Configure HybridCLR
 
-- Open the menu `HybridCLR/Settings`
-- Add `HotUpdate` assembly in `differentialHybridAssemblies` list
+- Open menu `HybridCLR/Settings`
+- Add `HotUpdate` assembly to `differentialHybridAssemblies` list
 
 ![settings](/img/hybridclr/ultimate-hybridclr-settings.jpg)
 
 ### Configure PlayerSettings
 
-- if your package version less than v4.0.0, you have to turn off the incremental GC (Use Incremental GC) option. Because it is not yet stable, it will not be demonstrated in this tutorial
 - `Scripting Backend` switched to `IL2CPP`
 - `Api Compatability Level` switched to `.Net 4.x` (Unity 2019-2020) or `.Net Framework` (Unity 2021+)
 
 ![player settings](/img/hybridclr/ultimate-project-settings.jpg)
 
-## Create hot update script
+## Create Editor script
 
-Create `Assets/HotUpdate/Hello.cs` file, the code content is as follows
+Create the BuildTools.cs file in the `Assets/Editor` directory with the following content:
 
 ```csharp
-using System. Collections;
+
+using HybridCLR.Editor;
+using HybridCLR.Editor.DHE;
+using HybridCLR.Runtime;
+using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using UnityEditor;
+using UnityEngine;
+
+public static class BuildTools
+{
+     public const string BackupAOTDllDir = "HybridCLRData/BackupAOT";
+
+     public const string EncryptedDllDir = "HybridCLRData/EncryptedDll";
+
+     public const string DhaoDir = "HybridCLRData/Dhao";
+
+
+     /// <summary>
+     /// Back up the cropped AOT dll generated when building the main package
+     /// </summary>
+     [MenuItem("BuildTools/BackupAOTDll")]
+     public static void BackupAOTDllFromAssemblyPostStrippedDir()
+     {
+         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+         var backupDir = $"{BackupAOTDllDir}/{target}";
+         System.IO.Directory.CreateDirectory(backupDir);
+         var dlls = System.IO.Directory.GetFiles(SettingsUtil.GetAssembliesPostIl2CppStripDir(target));
+         foreach (var dll in dlls)
+         {
+             var fileName = System.IO.Path.GetFileName(dll);
+             string dstFile = $"{BackupAOTDllDir}/{target}/{fileName}";
+             System.IO.File.Copy(dll, dstFile, true);
+             Debug.Log($"BackupAOTDllFromAssemblyPostStrippedDir: {dll} -> {dstFile}");
+         }
+     }
+
+     /// <summary>
+     /// Generate the dhao data corresponding to the first package without any code changes
+     /// </summary>
+     [MenuItem("BuildTools/GenerateUnchangedDHAODatas")]
+     public static void GenerateUnchangedDHAODatas()
+     {
+         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+         string backupDir = $"{BackupAOTDllDir}/{target}";
+         string dhaoDir = $"{DhaoDir}/{target}";
+         BuildUtils.GenerateUnchangedDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, dhaoDir);
+     }
+
+     /// <summary>
+     /// Generate dhao data of hot update package
+     /// </summary>
+     [MenuItem("BuildTools/GenerateDHAODatas")]
+     public static void GenerateDHAODatas()
+     {
+         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+         string backupDir = $"{BackupAOTDllDir}/{target}";
+         string dhaoDir = $"{DhaoDir}/{target}";
+         string currentDllDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
+         BuildUtils.GenerateDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, currentDllDir, dhaoDir);
+     }
+
+     /// <summary>
+     /// Generate the encrypted dll of the first package and the corresponding dhao data without any code changes
+     /// </summary>
+     [MenuItem("BuildTools/GenerateUnchangedEncryptedDllAndDhaoDatas")]
+     public static void GenerateUnchangedEncryptedDllAndDhaoDatas()
+     {
+         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+         string backupDir = $"{BackupAOTDllDir}/{target}";
+         string dhaoDir = $"{DhaoDir}/{target}";
+         string encryptedDllDir = $"{EncryptedDllDir}/{target}";
+         BuildUtils.EncryptDllAndGenerateUnchangedDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, encryptedDllDir, dhaoDir);
+     }
+
+
+     /// <summary>
+     /// Generate the encrypted dll and dhao data of the hot update package
+     /// </summary>
+     [MenuItem("BuildTools/GenerateEncryptedDllAndDhaoDatas")]
+     public static void GenerateEncryptedDllAndDhaoDatas()
+     {
+         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+         string backupDir = $"{BackupAOTDllDir}/{target}";
+         string dhaoDir = $"{DhaoDir}/{target}";
+         string currentDllDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
+         string encryptedDllDir = $"{EncryptedDllDir}/{target}";
+         BuildUtils.EncryptDllAndGenerateDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, currentDllDir, encryptedDllDir, dhaoDir);
+     }
+
+     /// <summary>
+     /// Create a dhe manifest file, the format is one 'dll name, md5 of the original dll, md5 of the current dll' per line
+     /// </summary>
+     /// <param name="outputDir"></param>
+     [MenuItem("BuildTools/CreateManifestAtStreamingAssets")]
+     public static void CreateManifest()
+     {
+         CreateManifest(Application.streamingAssetsPath);
+     }
+
+     public static void CreateManifest(string outputDir)
+     {
+         Directory.CreateDirectory(outputDir);
+         var lines = new List<string>();
+         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+         string backupDir = $"{BackupAOTDllDir}/{target}";
+         foreach (string dheDll in SettingsUtil.DifferentialHybridAssemblyNames)
+         {
+             string originalDll = $"{backupDir}/{dheDll}.dll";
+             string originalDllMd5 = AssemblyOptionDataGenerator.CreateMD5Hash(File.ReadAllBytes(originalDll));
+             string currentDll = $"{outputDir}/{dheDll}.dll.bytes";
+             string currentDllMd5 = AssemblyOptionDataGenerator.CreateMD5Hash(File.ReadAllBytes(currentDll));
+             lines.Add($"{dheDll},{originalDllMd5},{currentDllMd5}");
+         }
+         string manifestFile = $"{outputDir}/manifest.txt";
+         File.WriteAllBytes(manifestFile, System.Text.Encoding.UTF8.GetBytes(string.Join("\n", lines)));
+         Debug.Log($"CreateManifest: {manifestFile}");
+     }
+
+     /// <summary>
+     /// Copy the unmodified first package dll and dhao files to StreamingAssets
+     /// </summary>
+     [MenuItem("BuildTools/CopyUnchangedDllAndDhaoFileToStreamingAssets")]
+     public static void CopyUnchangedDllAndDhaoFileToStreamingAssets()
+     {
+         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+         string streamingAssetsDir = Application.streamingAssetsPath;
+         Directory.CreateDirectory(streamingAssetsDir);
+         string dllDir = $"{BackupAOTDllDir}/{target}";
+         string dhaoDir = $"{DhaoDir}/{target}";
+         foreach (var dll in SettingsUtil.DifferentialHybridAssemblyNames)
+         {
+             string srcFile = $"{dllDir}/{dll}.dll";
+             string dstFile = $"{streamingAssetsDir}/{dll}.dll.bytes";
+             System.IO.File.Copy(srcFile, dstFile, true);
+             Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {srcFile} -> {dstFile}");
+             string dhaoFile = $"{dhaoDir}/{dll}.dhao.bytes";
+             dstFile = $"{streamingAssetsDir}/{dll}.dhao.bytes";
+             System.IO.File.Copy(dhaoFile, dstFile, true);
+             Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {dhaoFile} -> {dstFile}");
+         }
+     }
+
+     /// <summary>
+     /// Copy hot update dll and dhao files to StreamingAssets
+     /// </summary>
+     [MenuItem("BuildTools/CopyDllAndDhaoFileToStreamingAssets")]
+     public static void CopyDllAndDhaoFileToStreamingAssets()
+     {
+         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+         string streamingAssetsDir = Application.streamingAssetsPath;
+         Directory.CreateDirectory(streamingAssetsDir);
+         string dllDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
+         string dhaoDir = $"{DhaoDir}/{target}";
+         foreach (var dll in SettingsUtil.DifferentialHybridAssemblyNames)
+         {
+             string srcFile = $"{dllDir}/{dll}.dll";
+             string dstFile = $"{streamingAssetsDir}/{dll}.dll.bytes";
+             System.IO.File.Copy(srcFile, dstFile, true);
+             Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {srcFile} -> {dstFile}");
+             string dhaoFile = $"{dhaoDir}/{dll}.dhao.bytes";
+             dstFile = $"{streamingAssetsDir}/{dll}.dhao.bytes";
+             System.IO.File.Copy(dhaoFile, dstFile, true);
+             Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {dhaoFile} -> {dstFile}");
+         }
+     }
+}
+
+
+```
+
+## Create hot update script
+
+Create the `Assets/HotUpdate/Hello.cs` file with the following code content
+
+```csharp
+using System.Collections;
 using UnityEngine;
 
 public class Hello
 {
      public static void Run()
      {
-         Debug. Log("Hello, HybridCLR");
+         Debug.Log("Hello, HybridCLR");
      }
 }
 ```
 
 ## Load hot update assembly
 
-In order to simplify the demonstration, we do not download HotUpdate.dll through the http server, but directly put HotUpdate.dll in the StreamingAssets directory.
+To simplify the demonstration, we do not download HotUpdate.dll through the http server, but directly place HotUpdate.dll in the StreamingAssets directory.
 
-HybridCLR is a native runtime implementation, so call `Assembly Assembly.Load(byte[])` to load the hot update assembly.
+HybridCLR is a native runtime implementation, so calling `Assembly Assembly.Load(byte[])` can load a hot update assembly.
 
-Create the `Assets/LoadDll.cs` script, then **create a GameObject object in the main scene, add the LoadDll script**.
+Create the `Assets/LoadDll.cs` script, then **create a GameObject object in the main scene and mount the LoadDll script**.
 
 ```csharp
 using HybridCLR;
 using System;
-using System. Collections;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using System. Linq;
-using System. Reflection;
-using System. Threading. Tasks;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Threading.Tasks;
 using UnityEngine;
-using UnityEngine. Networking;
+using UnityEngine.Networking;
 
 public class LoadDll : MonoBehaviour
 {
@@ -187,24 +361,65 @@ public class LoadDll : MonoBehaviour
      void Start()
      {
          // In the Editor environment, HotUpdate.dll.bytes has been automatically loaded and does not need to be loaded. Repeated loading will cause problems.
-         #if !UNITY_EDITOR
-         Assembly hotUpdateAss = LoadDifferentialHybridAssembly("HotUpdate");
+#if !UNITY_EDITOR
+         var manifests = LoadManifest($"{Application.streamingAssetsPath}/manifest.txt");
+         Assembly hotUpdateAss = LoadDifferentialHybridAssembly(manifests["HotUpdate"], "HotUpdate");
 #else
          // No need to load under Editor, directly find the HotUpdate assembly
          Assembly hotUpdateAss = System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == "HotUpdate");
 #endif
-         Type helloType = hotUpdateAss. GetType("Hello");
-         MethodInfo runMethod = helloType. GetMethod("Run");
+         Type helloType = hotUpdateAss.GetType("Hello");
+         MethodInfo runMethod = helloType.GetMethod("Run");
          runMethod.Invoke(null, null);
      }
 
-     private Assembly LoadDifferentialHybridAssembly(string assName)
+     class Manifest
+     {
+         public string AssemblyName { get; set; }
+
+         public string OriginalDllMd5 { get; set; }
+
+         public string CurrentDllMd5 { get; set; }
+     }
+
+     private Dictionary<string, Manifest> LoadManifest(string manifestFile)
+     {
+         var manifest = new Dictionary<string, Manifest>();
+         var lines = File.ReadAllLines(manifestFile, Encoding.UTF8);
+         foreach (var line in lines)
+         {
+             string[] args = line.Split(",");
+             if (args.Length != 3)
+             {
+                 Debug.LogError($"manifest file format error, line={line}");
+                 return null;
+             }
+             manifest.Add(args[0], new Manifest()
+             {
+                 AssemblyName = args[0],
+                 OriginalDllMd5 = args[1],
+                 CurrentDllMd5 = args[2],
+             });
+         }
+         return manifest;
+     }
+
+     private Assembly LoadDifferentialHybridAssembly(Manifest manifest, string assName)
      {
          byte[] dllBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dll.bytes");
-         string dhaoPath = $"{Application.streamingAssetsPath}/{assName}.dhao.bytes";
-         byte[] dhaoBytes = File.Exists(dhaoPath) ? File.ReadAllBytes(dhaoPath) : null;
-         LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssembly(dllBytes, dhaoBytes, true);
-         if (err == LoadImageErrorCode. OK)
+         byte[] dhaoBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dhao.bytes");
+         // LoadDifferentialHybridAssembly needs to strictly compare oringalDllMd5 and currentDllMd5 to be completely consistent with the dhao file.
+         // originalDllMd5 is recommended to be generated when building the first package, and should not be changed later.
+         // currentDllMd5 can be generated and saved in the manifest file when the update package is installed, or it can be calculated based on dllBytes at runtime.
+         // Calculating md5 during runtime is also a big overhead, and developers decide according to their actual situation.
+        
+
+         // This example shows that for the sake of simplicity, originalDllMd5 and currentDllMd5 are generated simultaneously every time the hot update package is built. It is strongly recommended not to do this in practice.
+         // It is recommended to generate oringalDllMd5 only when building the first package and save it in an unchanged manifest file to avoid using it when building hot update packages.
+         // The wrong dll is used as originalDll, and the wrong originalDllMd5 is generated based on the wrong originalDll, but because of this wrong originalDllMd5
+         // Consistent with the dhao file, this error cannot be checked.
+         LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssembly(dllBytes, dhaoBytes, manifest.OriginalDllMd5, manifest.CurrentDllMd5);
+         if (err == LoadImageErrorCode.OK)
          {
              Debug.Log($"LoadDifferentialHybridAssembly {assName} OK");
              return System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == assName);
@@ -217,34 +432,37 @@ public class LoadDll : MonoBehaviour
      }
 }
 
+
 ```
 
 
-So far, the creation of the entire hot update project has been completed! ! !
+At this point, the creation of the entire hot update project is completed! ! !
 
 ## Trial run in Editor
 
-Run the main scene, 'Hello, HybridCLR' will be displayed on the screen, indicating that the code is working properly.
+Run the main scene and 'Hello,Hybrid' will be displayed on the screen.
+CLR', which means the code is working fine.
 
-## Build and Run
+## Package and run
 
-- Run the menu `HybridCLR/Generate/All` to perform the necessary generation operations. **This step cannot be missed**!!!
-- Open the `Build Settings` dialog box, click `Build`, select the output directory `Release-Win64`, and package the project.
-- Run menu `HybridCLR/CreateAOTDllSnapshot`. **This step cannot be missed**!!!
-- Copy `{proj}/HybridCLRData/AOTDllOutput/StandaloneWindows64/HotUpdate.dll` (StandaloneMacXxx under MacOS) to `XXX_Data/StreamingAssets/HotUpdate.dll.bytes`
-- Run `Release-Win64/Xxx.exe`, the screen will display 'Hello, HybridCLR', indicating that the hot update code has been successfully executed!
+- Run menu `HybridCLR/Generate/All` to perform necessary generation operations. **This step cannot be missed**!!!
+- Open the `Build Settings` dialog box, click `Build`, select the output directory `{build}`, and execute the build
+- Run `BuildTools/BackupAOTDll` to back up the original aot dll. In practice, these aot dlls should be added to version management for later generation of dhao files.
+- Run `BuildTools/GenerateUnchangedDHAODatas` to generate the dhao file of the first package
+- Run `BuildTools/CopyUnchangedDllAndDhaoFileToStreamingAssets` to copy the first package dhe assembly and dhao files to StreamingAssets
+- Run `BuildTools/CreateManifestAtStreamingAssets` to generate the manifest file
+- Copy the `Assets/StreamingAssets` directory to `{build}\dhe_demo2_Data\StreamingAssets`
+- Run `{build}/Xxx.exe`, and the screen will display 'Hello,HybridCLR', indicating that the hot update code has been successfully executed!
 
 ## Test hot update
 
 - Modify the `Debug.Log("Hello, HybridCLR");` code in the Run function of `Assets/HotUpdate/Hello.cs` to `Debug.Log("Hello, World");`.
-- Run the menu command `HybridCLR/CompileDll/ActiveBulidTarget` to recompile the hot update code.
-- Run `HybridCLR/Generate/DHEAssmeblyOptionData` to generate dhao data.
-- Copy `{proj}/HybridCLRData/HotUpdateDlls/StandaloneWindows64/HotUpdate.dll` to replace `XXX_Data/StreamingAssets/HotUpdate.dll.bytes`
-- Copy `{proj}/HybridCLRData/DifferentialHybridOptionDatas/HotUpdate.dhao.bytes` to `XXX_Data/StreamingAssets/HotUpdate.dhao.bytes`
-- Re-run the program, and you will find `Hello, World` displayed on the screen, indicating that the hot update code has taken effect!
+- Run `HybridCLR/CompileDll/ActiveBulidTarget` to generate hot update dll
+- Run `BuildTools/GenerateDHAODatas` to generate dhao files
+- Run `BuildTools/CopyDllAndDhaoFileToStreamingAssets` to copy the hot update dll and dhao files to the StreamingAssets directory
+- Run `BuildTools/CreateManifestAtStreamingAssets` to create the manifest file
+- Copy the `Assets/StreamingAssets` directory to `{build}\dhe_demo2_Data\StreamingAssets`
+- Rerun the program and you will find `Hello, World` displayed on the screen, indicating that the hot update code has taken effect!
 
-:::caution
-When no hot update happens, use original AOT dll, from `{proj}/HybridCLRData/AOTDllOutput/{target}` directory. When a hot update occurs, use the latest hot update dll from `{proj}/HybridCLRData/HotUpdateDlls/{target}` directory.
-:::
 
 This completes the hot update experience! ! !
