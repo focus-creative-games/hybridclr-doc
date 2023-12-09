@@ -163,6 +163,8 @@ public static class BuildTools
 
     public const string DhaoDir = "HybridCLRData/Dhao";
 
+    public const string ManifestFile = "manifest.txt";
+
 
     /// <summary>
     /// 备份构建主包时生成的裁剪AOT dll
@@ -181,6 +183,35 @@ public static class BuildTools
             System.IO.File.Copy(dll, dstFile, true);
             Debug.Log($"BackupAOTDllFromAssemblyPostStrippedDir: {dll} -> {dstFile}");
         }
+    }
+
+    /// <summary>
+    /// 创建dhe manifest文件，格式为每行一个 'dll名，原始dll的md5'
+    /// </summary>
+    /// <param name="outputDir"></param>
+    [MenuItem("BuildTools/CreateManifestAtBackupDir")]
+    public static void CreateManifest()
+    {
+        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+        string backupDir = $"{BackupAOTDllDir}/{target}";
+        CreateManifest(backupDir);
+    }
+
+    public static void CreateManifest(string outputDir)
+    {
+        Directory.CreateDirectory(outputDir);
+        var lines = new List<string>();
+        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+        string backupDir = $"{BackupAOTDllDir}/{target}";
+        foreach (string dheDll in SettingsUtil.DifferentialHybridAssemblyNames)
+        {
+            string originalDll = $"{backupDir}/{dheDll}.dll";
+            string originalDllMd5 = AssemblyOptionDataGenerator.CreateMD5Hash(File.ReadAllBytes(originalDll));
+            lines.Add($"{dheDll},{originalDllMd5}");
+        }
+        string manifestFile = $"{outputDir}/{ManifestFile}";
+        File.WriteAllBytes(manifestFile, System.Text.Encoding.UTF8.GetBytes(string.Join("\n", lines)));
+        Debug.Log($"CreateManifest: {manifestFile}");
     }
 
     /// <summary>
@@ -237,43 +268,20 @@ public static class BuildTools
     }
 
     /// <summary>
-    /// 创建dhe manifest文件，格式为每行一个 'dll名，原始dll的md5，当前dll的md5'
-    /// </summary>
-    /// <param name="outputDir"></param>
-    [MenuItem("BuildTools/CreateManifestAtStreamingAssets")]
-    public static void CreateManifest()
-    {
-        CreateManifest(Application.streamingAssetsPath);
-    }
-
-    public static void CreateManifest(string outputDir)
-    {
-        Directory.CreateDirectory(outputDir);
-        var lines = new List<string>();
-        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-        string backupDir = $"{BackupAOTDllDir}/{target}";
-        foreach (string dheDll in SettingsUtil.DifferentialHybridAssemblyNames)
-        {
-            string originalDll = $"{backupDir}/{dheDll}.dll";
-            string originalDllMd5 = AssemblyOptionDataGenerator.CreateMD5Hash(File.ReadAllBytes(originalDll));
-            string currentDll = $"{outputDir}/{dheDll}.dll.bytes";
-            string currentDllMd5 = AssemblyOptionDataGenerator.CreateMD5Hash(File.ReadAllBytes(currentDll));
-            lines.Add($"{dheDll},{originalDllMd5},{currentDllMd5}");
-        }
-        string manifestFile = $"{outputDir}/manifest.txt";
-        File.WriteAllBytes(manifestFile, System.Text.Encoding.UTF8.GetBytes(string.Join("\n", lines)));
-        Debug.Log($"CreateManifest: {manifestFile}");
-    }
-
-    /// <summary>
     /// 复制没有改动的首包dll和dhao文件到StreamingAssets
     /// </summary>
-    [MenuItem("BuildTools/CopyUnchangedDllAndDhaoFileToStreamingAssets")]
+    [MenuItem("BuildTools/CopyUnchangedDllAndDhaoFileAndManifestToStreamingAssets")]
     public static void CopyUnchangedDllAndDhaoFileToStreamingAssets()
     {
         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
         string streamingAssetsDir = Application.streamingAssetsPath;
         Directory.CreateDirectory(streamingAssetsDir);
+
+        string manifestFile = $"{BackupAOTDllDir}/{target}/{ManifestFile}";
+        string dstManifestFile = $"{streamingAssetsDir}/{ManifestFile}";
+        System.IO.File.Copy(manifestFile, dstManifestFile, true);
+        Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {manifestFile} -> {dstManifestFile}");
+
         string dllDir = $"{BackupAOTDllDir}/{target}";
         string dhaoDir = $"{DhaoDir}/{target}";
         foreach (var dll in SettingsUtil.DifferentialHybridAssemblyNames)
@@ -298,6 +306,7 @@ public static class BuildTools
         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
         string streamingAssetsDir = Application.streamingAssetsPath;
         Directory.CreateDirectory(streamingAssetsDir);
+
         string dllDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
         string dhaoDir = $"{DhaoDir}/{target}";
         foreach (var dll in SettingsUtil.DifferentialHybridAssemblyNames)
@@ -350,6 +359,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -378,8 +388,6 @@ public class LoadDll : MonoBehaviour
         public string AssemblyName { get; set; }
 
         public string OriginalDllMd5 { get; set; }
-
-        public string CurrentDllMd5 { get; set; }
     }
 
     private Dictionary<string, Manifest> LoadManifest(string manifestFile)
@@ -389,7 +397,7 @@ public class LoadDll : MonoBehaviour
         foreach (var line in lines)
         {
             string[] args = line.Split(",");
-            if (args.Length != 3)
+            if (args.Length != 2)
             {
                 Debug.LogError($"manifest file format error, line={line}");
                 return null;
@@ -398,27 +406,23 @@ public class LoadDll : MonoBehaviour
             {
                 AssemblyName = args[0],
                 OriginalDllMd5 = args[1],
-                CurrentDllMd5 = args[2],
             });
         }
         return manifest;
+    }
+
+
+    public static string CreateMD5Hash(byte[] bytes)
+    {
+        return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(bytes)).Replace("-", "").ToUpperInvariant();
     }
 
     private Assembly LoadDifferentialHybridAssembly(Manifest manifest, string assName)
     {
         byte[] dllBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dll.bytes");
         byte[] dhaoBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dhao.bytes");
-        // LoadDifferentialHybridAssembly 需要严格对比 oringalDllMd5及currentDllMd5与dhao文件完全一致。
-        // originalDllMd5推荐在构建首包时生成，后面不要再改。
-        // currentDllMd5既可以在打热更新包时生成保存到清单文件中，也可以在运行时根据dllBytes计算。
-        // 运行时计算md5也是个不小的开销，开发者根据自己实际情况决定。
-        
-
-        // 此示例了为简单起见，每次构建热更新包时同时生成 originalDllMd5和currentDllMd5，强烈建议在实践中不要这么做。
-        // 推荐只在构建首包时生成 oringalDllMd5，保存到一个不变化的清单文件中，避免构建热更新包时使用了
-        // 错误的dll作为originalDll，而根据错误的originalDll生成了错误的originaDllMd5，却因为这个错误的originalDllMd5
-        // 与dhao文件中一致，而无法检查出这种错误。
-        LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssembly(dllBytes, dhaoBytes, manifest.OriginalDllMd5, manifest.CurrentDllMd5);
+        string currentDllMd5 = CreateMD5Hash(dllBytes);
+        LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssembly(dllBytes, dhaoBytes, manifest.OriginalDllMd5, currentDllMd5);
         if (err == LoadImageErrorCode.OK)
         {
             Debug.Log($"LoadDifferentialHybridAssembly {assName} OK");
@@ -431,7 +435,6 @@ public class LoadDll : MonoBehaviour
         }
     }
 }
-
 
 ```
 
@@ -451,7 +454,7 @@ public class LoadDll : MonoBehaviour
 - 运行 `BuildTools/GenerateUnchangedDHAODatas` 生成首包的dhao文件
 - 运行 `BuildTools/CopyUnchangedDllAndDhaoFileAndManifestToStreamingAssets` 复制首包 dhe程序集、dhao文件、清单文件到 StreamingAssets
 - 将 `Assets/StreamingAssets`目录复制到`{build}\dhe_demo2_Data\StreamingAssets`
-- 运行`{build}/Xxx.exe`，屏幕显示 'Hello,HybridCLR'，表示热更新代码被顺利执行！
+- 运行`{build}/Xxx.exe`，屏幕显示 `Hello,HybridCLR`，表示热更新代码被顺利执行！
 
 ## 测试热更新
 
