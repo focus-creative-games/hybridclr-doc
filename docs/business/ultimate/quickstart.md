@@ -445,11 +445,11 @@ public class LoadDll : MonoBehaviour
 ## 打包运行
 
 - 运行菜单 `HybridCLR/Generate/All` 进行必要的生成操作。**这一步不可遗漏**!!!
-- 打开`Build Settings`对话框，点击`Build`，选择输出目录`{build}`，执行构建
-- 运行 `BuildTools/BackupAOTDll` 备份原始aot dll。 实践中，这些aot dll应该加入版本管理，用于后面生成dhao文件。
+- 打开 `Build Settings` 对话框，点击`Build`，选择输出目录`{build}`，执行构建
+- 运行 `BuildTools/BackupAOTDll` 备份裁剪后的dhe dll。 实践中这些dll应该加入版本管理，用于后面生成dhao文件，这些文件不会再被修改
+- 运行 `BuildTools/CreateManifestAtBackupDir`生成原始dhe dll的清单文件。实践中这个清单文件应该加入版本管理，而且不会再被修改
 - 运行 `BuildTools/GenerateUnchangedDHAODatas` 生成首包的dhao文件
-- 运行 `BuildTools/CopyUnchangedDllAndDhaoFileToStreamingAssets` 复制首包 dhe 程序集和dhao文件到 StreamingAssets
-- 运行 `BuildTools/CreateManifestAtStreamingAssets` 生成清单文件
+- 运行 `BuildTools/CopyUnchangedDllAndDhaoFileAndManifestToStreamingAssets` 复制首包 dhe程序集、dhao文件、清单文件到 StreamingAssets
 - 将 `Assets/StreamingAssets`目录复制到`{build}\dhe_demo2_Data\StreamingAssets`
 - 运行`{build}/Xxx.exe`，屏幕显示 'Hello,HybridCLR'，表示热更新代码被顺利执行！
 
@@ -459,7 +459,6 @@ public class LoadDll : MonoBehaviour
 - 运行`HybridCLR/CompileDll/ActiveBulidTarget`生成热更新dll
 - 运行`BuildTools/GenerateDHAODatas` 生成dhao文件
 - 运行`BuildTools/CopyDllAndDhaoFileToStreamingAssets`复制热更新dll和dhao文件到StreamingAssets目录
-- 运行`BuildTools/CreateManifestAtStreamingAssets` 创建清单文件
 - 将 `Assets/StreamingAssets`目录复制到`{build}\dhe_demo2_Data\StreamingAssets`
 - 重新运行程序，会发现屏幕中显示`Hello, World`，表示热更新代码生效了！ 
 

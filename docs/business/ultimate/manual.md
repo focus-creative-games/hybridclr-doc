@@ -99,13 +99,20 @@ dhao文件是DHE技术的核心概念。dhao文件中包含了离线计算好的
 - DHE程序集本身已经包含了元数据，即使未开启完全泛型共享时也**不要对DHE程序集进行补充元数据**，补充了也会失败，其他非DHE的AOT程序集可以照常补充元数据。
 
 ```csharp title="加载DHE程序集"
-void LoadDifferentialHybridAssembly(string assemblyName)
+
+public static string CreateMD5Hash(byte[] bytes)
 {
-    // 即使时首包，也需要提供dhao文件
-    // 为了避免意外出错，LoadDifferentialHybridAssembly要求强校验，即生成dhao文件所用的originalDll必须为构造主包时生成的裁剪后的aot dll，
-    // currentDll必须为与dllBytes一致的dll。dhao文件中记录生成此文件时使用的originalDllMd5和currentDllMd5，
-    // 通过校验这个md5匹配，确保不会使用错误的currentDll或dhao文件
-    LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssembly(dllBytes, dhaoBytes, manifest.OriginalDllMd5, manifest.CurrentDllMd5);
+    return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(bytes)).Replace("-", "").ToUpperInvariant();
+}
+
+///
+/// originalDllMd5 从构建时生成的`{manifest}`清单文件中获得，此清单文件由开发者自己生成
+///
+void LoadDifferentialHybridAssembly(string assemblyName, string originalDllMd5)
+{
+    // currentDllMd5 既可以运行时生成，也可以发布热更新包时离线提前生成
+    string currentDllMd5 = CreateMD5Hash(dllBytes);
+    LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssembly(dllBytes, dhaoBytes, originalDllMd5, currentDllMd5);
     if (err == LoadImageErrorCode.OK)
     {
         Debug.Log($"LoadDifferentialHybridAssembly {assName} OK");
@@ -128,7 +135,8 @@ DHE技术中与构建相关的文件为dhe dll文件和对应的dhao文件。
 
 - 将构建后生成的裁剪AOT dll作为 首包（没有任何改动）的dhe dll
 - 使用`HybridCLR.Editor.DHE.BuildUtils.GenerateUnchangedDHAODatas`生成首包的dhao文件
-- 将 dhe dll和dhao文件加入热更新资源管理系统
+- 为dhe文件生成一个至少包含 assemblyName,md5的`{manifest}`清单文件（由开发者自由决定怎么实现），因为`RuntimeApi.LoadDifferentialHybridAssembly`需要提供dhe dll的原始md5
+- 将 dhe dll、dhao文件及`{manifest}`文件加入热更新资源管理系统
 
 如果想随包携带首包的dhe dll和dhao文件，请先导出工程，再按照上面的步骤生成dhe dll和dhao文件，再将它们加入到导出工程中。
 
