@@ -29,9 +29,9 @@ There are currently three commercial versions. The specific features are compare
 |[Metadata Optimization](./metadataoptimization.md)||✔|✔|✔|
 |[Standard command optimization](./basiccodeoptimization)||✔|✔|✔|
 |[Standard code reinforcement](./basicencryption)||✔|✔|✔|
-|[IL Interpreter (Experimental)](./ilinterpreter)||✔|✔|✔|
 |[Advanced code hardening](./advancedencryption)||✔|✔|✔|
 |[Hot reload](./reload/hotreloadassembly)||||✔|
+|[访问控制机制](./accesspolicy)||||✔|
 |[Advanced code optimization (experimental)](./advancedcodeoptimization)|||✔||
 |[**DHE Technology**](./differentialhybridexecution)|||✔||
 |Technical support||1 year|2 years|2 years|

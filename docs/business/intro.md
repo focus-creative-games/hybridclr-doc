@@ -29,9 +29,9 @@
 |[元数据优化](./metadataoptimization.md)||✔|✔|✔|
 |[标准指令优化](./basiccodeoptimization)||✔|✔|✔|
 |[标准代码加固](./basicencryption)||✔|✔|✔|
-|[IL解释器（实验性）](./ilinterpreter)||✔|✔|✔|
 |[高级代码加固](./advancedencryption)||✔|✔|✔|
 |[热重载](./reload/hotreloadassembly)||||✔|
+|[访问控制机制](./accesspolicy)||||✔|
 |[高级指令优化（实验性）](./advancedcodeoptimization)|||✔||
 |[**DHE技术**](./differentialhybridexecution)|||✔||
 |技术支持||1年|2年|2年|

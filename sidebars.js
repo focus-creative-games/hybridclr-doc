@@ -89,6 +89,7 @@ const sidebars = {
         'business/advancedcodeoptimization',
         'business/advancedencryption',
         'business/ilinterpreter',
+        'business/accesspolicy',
         'business/businesscase',
         {
           type: 'category',
