@@ -1,4 +1,4 @@
-#Access control policy
+# Access Control Policy
 
 For some platform-based applications, they may load and execute code developed by third parties. If these third-party codes are not restricted, security risks may arise.
 Access control mechanisms are used to control the set of functions that these third-party code can access.
@@ -13,22 +13,22 @@ Then you cannot call any function of that type, including class constructors (fu
 <AccessPolicy>
 
 <Rule id="DisableIO">
-<assembly fullname="mscorlib">
-<type fullname="System.IO.*"/> disable
-<type fullname="System.IO.File" access="1"/> enable
-</assembly>
+    <assembly fullname="mscorlib">
+        <type fullname="System.IO.*"/> disable
+        <type fullname="System.IO.File" access="1"/> enable
+    </assembly>
 </Rule>
 
 <Rule id="DisableReflection">
-<assembly fullname="mscorlib">
-<type fullname="System.Reflection.*"/>
-</assembly>
+    <assembly fullname="mscorlib">
+        <type fullname="System.Reflection.*"/>
+    </assembly>
 </Rule>
 
 <Rule id="DisableHybridCLR">
-<assembly fullname="HybridCLR.Runtime">
-<type fullname="*"/>
-</assembly>
+    <assembly fullname="HybridCLR.Runtime">
+        <type fullname="*"/>
+    </assembly>
 </Rule>
 
 <Target assembly="Tests2" accessAssemblyNotInRules="0" rules="DisableReflection,DisableIO,DisableHybridCLR"/>
@@ -65,8 +65,8 @@ In the same assembly, if there are multiple rules related to a certain type, the
 
 ```xml
 <assembly fullname="mscorlib">
-<type fullname="System.IO.*"/> disable
-<type fullname="System.IO.File" access="1"/> enable
+    <type fullname="System.IO.*"/> disable
+    <type fullname="System.IO.File" access="1"/> enable
 </assembly>
 ```
 
@@ -106,7 +106,7 @@ The sample code is as follows:
          {
              string accessPolicyDir = Application.dataPath + "/AccessPolicy";
              AccessPolicyUtil.ConvertXmlAccessPolicyToBinaryAccessPolicy($"{accessPolicyDir}/AccessPolicy.xml",
-$"{accessPolicyDir}/AccessPolicy.bytes");
+                $"{accessPolicyDir}/AccessPolicy.bytes");
          }
 ```
 
@@ -120,8 +120,8 @@ The sample code is as follows:
 
 void LoadAccessPolicy()
 {
-byte[] accessPolicyData = File.ReadAllBytes($"{Application.streamingAssetsPath}/AccessPolicy.bin");
-RuntimeApi.LoadAccessPolicy(accessPolicyData);
+    byte[] accessPolicyData = File.ReadAllBytes($"{Application.streamingAssetsPath}/AccessPolicy.bin");
+    RuntimeApi.LoadAccessPolicy(accessPolicyData);
 }
 
 ```

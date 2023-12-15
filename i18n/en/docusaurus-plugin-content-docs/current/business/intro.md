@@ -1,4 +1,4 @@
-# introduce
+# Introduce
 
 We provide a variety of high-end commercial versions and flexibly customizable technical services to meet the needs of game projects in various application scenarios.
 
@@ -24,14 +24,14 @@ There are currently three commercial versions. The specific features are compare
 |Supplemental Metadata|✔|✔|✔|✔|
 |Incremental GC|✔|✔|✔|✔|
 |Unity 2020-2022 LTS|✔|✔|✔|✔|
-|Unity 2019 LTS|No longer supported from version 3.x|✔|✔|✔|
+|Unity 2019 LTS|No longer supported since 3.x|✔|✔|✔|
 |[Full Generic Sharing](./fullgenericsharing)||✔|✔|✔|
 |[Metadata Optimization](./metadataoptimization.md)||✔|✔|✔|
 |[Standard command optimization](./basiccodeoptimization)||✔|✔|✔|
 |[Standard code reinforcement](./basicencryption)||✔|✔|✔|
 |[Advanced code hardening](./advancedencryption)||✔|✔|✔|
 |[Hot reload](./reload/hotreloadassembly)||||✔|
-|[访问控制机制](./accesspolicy)||||✔|
+|[Access Control Policy](./accesspolicy)||||✔|
 |[Advanced code optimization (experimental)](./advancedcodeoptimization)|||✔||
 |[**DHE Technology**](./differentialhybridexecution)|||✔||
 |Technical support||1 year|2 years|2 years|
@@ -46,7 +46,7 @@ If you ultimately abandon the purchase due to non-product factors, the trial fee
 |Version|Price (RMB)|Description|
 |-|-|-|
 |Community Edition|0|Free|
-|Professional Edition|Email Consultation Business|Buy out the right to use a project, including 1 year of technical support and 1 year of code updates|
+|Professional Edition|E-mail business consultation|Buy out the right to use a project, including 1 year of technical support and 1 year of code updates|
 |Hot reload version|E-mail business consultation|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
 |Ultimate version|E-mail consultation business|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
 
