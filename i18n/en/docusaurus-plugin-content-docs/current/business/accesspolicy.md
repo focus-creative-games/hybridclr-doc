@@ -12,37 +12,37 @@ Then you cannot call any function of that type, including class constructors (fu
 ```xml
 <AccessPolicy>
 
-<Rule id="DisableIO">
-    <assembly fullname="mscorlib">
-        <type fullname="System.IO.*"/> disable
-        <type fullname="System.IO.File" access="1"/> enable
-    </assembly>
-</Rule>
+    <Rule id="DisableIO">
+        <assembly fullname="mscorlib">
+            <type fullname="System.IO.*"/> disable
+            <type fullname="System.IO.File" access="1"/> enable
+        </assembly>
+    </Rule>
 
-<Rule id="DisableReflection">
-    <assembly fullname="mscorlib">
-        <type fullname="System.Reflection.*"/>
-    </assembly>
-</Rule>
+    <Rule id="DisableReflection">
+        <assembly fullname="mscorlib">
+            <type fullname="System.Reflection.*"/>
+        </assembly>
+    </Rule>
 
-<Rule id="DisableHybridCLR">
-    <assembly fullname="HybridCLR.Runtime">
-        <type fullname="*"/>
-    </assembly>
-</Rule>
+    <Rule id="DisableHybridCLR">
+        <assembly fullname="HybridCLR.Runtime">
+            <type fullname="*"/>
+        </assembly>
+    </Rule>
 
-<Target assembly="Tests2" accessAssemblyNotInRules="0" rules="DisableReflection,DisableIO,DisableHybridCLR"/>
+    <Target assembly="Tests2" accessAssemblyNotInRules="0" rules="DisableReflection,DisableIO,DisableHybridCLR"/>
 
 </AccessPolicy>
 
 ```
 
 
-### Configuration rules
+## Configuration rules
 
 The top-level tag is AccessPolicy, which contains 0-N Rule and Target configuration items.
 
-#### Rule
+### Rule
 
 Each Rule contains access control rules for multiple assemblies. Each Rule will calculate a set of types that restrict access. The final set of restricted access is the union of all Rules. That is, as long as a Rule restricts access to a certain type,
 Then access to this type is ultimately not allowed.
@@ -52,7 +52,7 @@ Then access to this type is ultimately not allowed.
 |id|Attribute|No|The id of the Rule. String type, cannot be empty, must be globally unique |
 |assembly|Sub-element|| For the restricted set of a single assembly, a Rule can contain 0-N assemblies. There cannot be an assembly with the same name under the same Rule, but there can be an assembly with the same name between different Rules|
 
-#### assembly
+### assembly
 
 A set of restriction rules for a single assembly configures which types of access to that assembly are prohibited.
 
@@ -65,15 +65,15 @@ In the same assembly, if there are multiple rules related to a certain type, the
 
 ```xml
 <assembly fullname="mscorlib">
-    <type fullname="System.IO.*"/> disable
-    <type fullname="System.IO.File" access="1"/> enable
+<type fullname="System.IO.*"/> disable
+<type fullname="System.IO.File" access="1"/> enable
 </assembly>
 ```
 
 In the above example, although `<type fullname="System.IO.*"/>` prohibits access to all types under the `System.IO` namespace, including `System.IO.File`, the following
 `<type fullname="System.IO.File" access="1"/>` has separately canceled the access restrictions on `System.IO.File`.
 
-#### type
+### type
 
 Restrictive rules for one or a group of types.
 
@@ -83,7 +83,7 @@ Restrictive rules for one or a group of types.
 |access|Attribute|Yes|Whether it is accessible, the default is false. It is true when `true, yes, 1` is taken and false when `false, no, 0` is taken|
 
 
-#### Target
+### Target
 
 Target configures access restriction rules that are imposed on the code in the assembly.
 
@@ -106,8 +106,55 @@ The sample code is as follows:
          {
              string accessPolicyDir = Application.dataPath + "/AccessPolicy";
              AccessPolicyUtil.ConvertXmlAccessPolicyToBinaryAccessPolicy($"{accessPolicyDir}/AccessPolicy.xml",
-                $"{accessPolicyDir}/AccessPolicy.bytes");
+$"{accessPolicyDir}/AccessPolicy.bytes");
          }
+```
+
+## Verify the legality of AccessPolicy configuration
+
+In practice, it is easy to incorrectly fill in names such as `assembly.fullname` and `type.fullname`, resulting in the expected access control policy not being correctly implemented.
+`HybridCLR.Editor.Security.AccessPolicyConfigValidator` is used to check the validity of AccessPolicy to avoid this error.
+
+|Function|Description|
+|-|-|
+|ValidateRules|Check the legality of Rule rules|
+|ValidateTargets|Check the legality of Target rules|
+
+The sample code is as follows:
+
+```csharp
+public static void ValidateAccessPolicy()
+{
+var reader = new XmlAccessPolicyReader();
+reader.LoadXmlFile("Assets/AccessPolicy/AccessPolicy.xml");
+List<string> hotUpdateDllNames = SettingsUtil.HotUpdateAssemblyNamesExcludePreserved;
+var assemblyCache = new AssemblyCache(MetaUtil.CreateHotUpdateAndAOTAssemblyResolver(EditorUserBuildSettings.activeBuildTarget, hotUpdateDllNames));
+var validator = new AccessPolicyConfigValidator(assemblyCache);
+
+var accessPolicy = reader.GetAccessPolicy();
+validator.ValidateRules(accessPolicy);
+validator.ValidateTargets(accessPolicy, new List<string> { "Tests2" });
+}
+```
+
+## Pre-verify whether the assembly meets AccessPolicy
+
+`Assembly.Load` does not check whether there are illegal calls in the assembly when loading the assembly. During the running process, it only checks whether the calling function complies with the AccessPolicy when a function is called for the first time, which causes inconvenience.
+`HybridCLR.Editor.Security.AssemblyValidator` is used to offline pre-verify whether all calls in the assembly comply with AccessPolicy.
+
+The sample code is as follows:
+
+```csharp
+         public static void ValidateAssembly()
+         {
+             var reader = new XmlAccessPolicyReader();
+             reader.LoadXmlFile("Assets/AccessPolicy/AccessPolicy.xml");
+             var validator = new AssemblyValidator(reader.GetAccessPolicy());
+             string test2DllPath = $"{SettingsUtil.GetHotUpdateDllsOutputDirByTarget(EditorUserBuildSettings.activeBuildTarget)}/Tests2.dll";
+             var mod = ModuleDefMD.Load(test2DllPath);
+             validator.ValidateAssembly(mod);
+         }
+
 ```
 
 ## Set access policy at runtime
@@ -120,8 +167,8 @@ The sample code is as follows:
 
 void LoadAccessPolicy()
 {
-    byte[] accessPolicyData = File.ReadAllBytes($"{Application.streamingAssetsPath}/AccessPolicy.bin");
-    RuntimeApi.LoadAccessPolicy(accessPolicyData);
+byte[] accessPolicyData = File.ReadAllBytes($"{Application.streamingAssetsPath}/AccessPolicy.bin");
+RuntimeApi.LoadAccessPolicy(accessPolicyData);
 }
 
 ```

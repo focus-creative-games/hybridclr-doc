@@ -38,11 +38,11 @@
 ```
 
 
-### 配置规则
+## 配置规则
 
 顶级tag为 AccessPolicy，包含0-N个Rule和Target两类配置项。
 
-#### Rule
+### Rule
 
 每个Rule包含多个程序集的访问控制规则。每个Rule会计算出一个限制访问的类型集合，最终的限制访问的集合为所有Rule的并集，即只要某个Rule限制访问某个类型，
 则最终不允许访问这个类型。
@@ -52,7 +52,7 @@
 |id|属性|否|Rule的id。字符串类型，不可为空，必须全局唯一|
 |assembly|子元素||针对单个程序集的限制集合，Rule下可以包含0-N个assembly，同一个Rule下不可有同名assembly,但不同Rule间可以有同名程序集|
 
-#### assembly
+### assembly
 
 针对单个程序集的限制规则集合，配置了禁止访问该程序集的哪些类型。
 
@@ -73,7 +73,7 @@
 上面的例子中，尽管`<type fullname="System.IO.*"/>`禁止访问`System.IO`命名空间下的所有类型，包括`System.IO.File`，但接下的
 `<type fullname="System.IO.File" access="1"/>`又单独取消了对`System.IO.File`的访问限制。
 
-#### type
+### type
 
 针对一个或者一组类型的限制规则。
 
@@ -83,7 +83,7 @@
 |access|属性|是|是否可访问，默认为false。当取 `true, yes, 1` 时为true，取`false, no, 0`时为false|
 
 
-#### Target
+### Target
 
 Target配置了程序集中代码被施加的访问限制规则。
 
@@ -108,6 +108,53 @@ Target配置了程序集中代码被施加的访问限制规则。
             AccessPolicyUtil.ConvertXmlAccessPolicyToBinaryAccessPolicy($"{accessPolicyDir}/AccessPolicy.xml",
 				$"{accessPolicyDir}/AccessPolicy.bytes");
         }
+```
+
+## 校验AccessPolicy配置合法性
+
+实践中很容易错误地填写了`assembly.fullname`、`type.fullname`之类的名字，导致没有正确执行期望的访问控制策略。
+`HybridCLR.Editor.Security.AccessPolicyConfigValidator` 用于检查 AccessPolicy的合法性，避免这种错误。
+
+|函数|说明|
+|-|-|
+|ValidateRules|检查Rule规则的合法性|
+|ValidateTargets|检查Target规则的合法性|
+
+示例代码如下：
+
+```csharp
+	public static void ValidateAccessPolicy()
+	{
+		var reader = new XmlAccessPolicyReader();
+		reader.LoadXmlFile("Assets/AccessPolicy/AccessPolicy.xml");
+		List<string> hotUpdateDllNames = SettingsUtil.HotUpdateAssemblyNamesExcludePreserved;
+		var assemblyCache = new AssemblyCache(MetaUtil.CreateHotUpdateAndAOTAssemblyResolver(EditorUserBuildSettings.activeBuildTarget, hotUpdateDllNames));
+		var validator = new AccessPolicyConfigValidator(assemblyCache);
+
+		var accessPolicy = reader.GetAccessPolicy();
+		validator.ValidateRules(accessPolicy);
+		validator.ValidateTargets(accessPolicy, new List<string> { "Tests2" });
+	}
+```
+
+## 预校验程序集是否满足AccessPolicy
+
+`Assembly.Load`加载程序集时不检查程序集中是否存在非法调用，运行过程中第一次调用某函数时才检查调用该函数是否符合AccessPolicy，这带来不便。
+`HybridCLR.Editor.Security.AssemblyValidator`用于离线预校验assembly中所有调用是否符合AccessPolicy。
+
+示例代码如下：
+
+```csharp
+        public static void ValidateAssembly()
+        {
+            var reader = new XmlAccessPolicyReader();
+            reader.LoadXmlFile("Assets/AccessPolicy/AccessPolicy.xml");
+            var validator = new AssemblyValidator(reader.GetAccessPolicy());
+            string test2DllPath = $"{SettingsUtil.GetHotUpdateDllsOutputDirByTarget(EditorUserBuildSettings.activeBuildTarget)}/Tests2.dll";
+            var mod = ModuleDefMD.Load(test2DllPath);
+            validator.ValidateAssembly(mod);
+        }
+
 ```
 
 ## 运行时设置访问策略
