@@ -65,8 +65,8 @@ In the same assembly, if there are multiple rules related to a certain type, the
 
 ```xml
 <assembly fullname="mscorlib">
-<type fullname="System.IO.*"/> disable
-<type fullname="System.IO.File" access="1"/> enable
+    <type fullname="System.IO.*"/> disable
+    <type fullname="System.IO.File" access="1"/> enable
 </assembly>
 ```
 
@@ -101,13 +101,13 @@ The `HybridCLR.Editor.Security.AccessPolicyUtil` class implements the ConvertXml
 The sample code is as follows:
 
 ```csharp
-         [MenuItem("Test/ConvertXmlAccessPolicyToBinary")]
-         public static void ConvertXmlAccessPolicyToBinary()
-         {
-             string accessPolicyDir = Application.dataPath + "/AccessPolicy";
-             AccessPolicyUtil.ConvertXmlAccessPolicyToBinaryAccessPolicy($"{accessPolicyDir}/AccessPolicy.xml",
-$"{accessPolicyDir}/AccessPolicy.bytes");
-         }
+[MenuItem("Test/ConvertXmlAccessPolicyToBinary")]
+public static void ConvertXmlAccessPolicyToBinary()
+{
+    string accessPolicyDir = Application.dataPath + "/AccessPolicy";
+    AccessPolicyUtil.ConvertXmlAccessPolicyToBinaryAccessPolicy($"{accessPolicyDir}/AccessPolicy.xml",
+        $"{accessPolicyDir}/AccessPolicy.bytes");
+}
 ```
 
 ## Verify the legality of AccessPolicy configuration
@@ -125,15 +125,15 @@ The sample code is as follows:
 ```csharp
 public static void ValidateAccessPolicy()
 {
-var reader = new XmlAccessPolicyReader();
-reader.LoadXmlFile("Assets/AccessPolicy/AccessPolicy.xml");
-List<string> hotUpdateDllNames = SettingsUtil.HotUpdateAssemblyNamesExcludePreserved;
-var assemblyCache = new AssemblyCache(MetaUtil.CreateHotUpdateAndAOTAssemblyResolver(EditorUserBuildSettings.activeBuildTarget, hotUpdateDllNames));
-var validator = new AccessPolicyConfigValidator(assemblyCache);
+    var reader = new XmlAccessPolicyReader();
+    reader.LoadXmlFile("Assets/AccessPolicy/AccessPolicy.xml");
+    List<string> hotUpdateDllNames = SettingsUtil.HotUpdateAssemblyNamesExcludePreserved;
+    var assemblyCache = new AssemblyCache(MetaUtil.CreateHotUpdateAndAOTAssemblyResolver(EditorUserBuildSettings.activeBuildTarget, hotUpdateDllNames));
+    var validator = new AccessPolicyConfigValidator(assemblyCache);
 
-var accessPolicy = reader.GetAccessPolicy();
-validator.ValidateRules(accessPolicy);
-validator.ValidateTargets(accessPolicy, new List<string> { "Tests2" });
+    var accessPolicy = reader.GetAccessPolicy();
+    validator.ValidateRules(accessPolicy);
+    validator.ValidateTargets(accessPolicy, new List<string> { "Tests2" });
 }
 ```
 
@@ -145,15 +145,15 @@ validator.ValidateTargets(accessPolicy, new List<string> { "Tests2" });
 The sample code is as follows:
 
 ```csharp
-         public static void ValidateAssembly()
-         {
-             var reader = new XmlAccessPolicyReader();
-             reader.LoadXmlFile("Assets/AccessPolicy/AccessPolicy.xml");
-             var validator = new AssemblyValidator(reader.GetAccessPolicy());
-             string test2DllPath = $"{SettingsUtil.GetHotUpdateDllsOutputDirByTarget(EditorUserBuildSettings.activeBuildTarget)}/Tests2.dll";
-             var mod = ModuleDefMD.Load(test2DllPath);
-             validator.ValidateAssembly(mod);
-         }
+public static void ValidateAssembly()
+{
+    var reader = new XmlAccessPolicyReader();
+    reader.LoadXmlFile("Assets/AccessPolicy/AccessPolicy.xml");
+    var validator = new AssemblyValidator(reader.GetAccessPolicy());
+    string test2DllPath = $"{SettingsUtil.GetHotUpdateDllsOutputDirByTarget(EditorUserBuildSettings.activeBuildTarget)}/Tests2.dll";
+    var mod = ModuleDefMD.Load(test2DllPath);
+    validator.ValidateAssembly(mod);
+}
 
 ```
 
@@ -167,8 +167,8 @@ The sample code is as follows:
 
 void LoadAccessPolicy()
 {
-byte[] accessPolicyData = File.ReadAllBytes($"{Application.streamingAssetsPath}/AccessPolicy.bin");
-RuntimeApi.LoadAccessPolicy(accessPolicyData);
+    byte[] accessPolicyData = File.ReadAllBytes($"{Application.streamingAssetsPath}/AccessPolicy.bin");
+    RuntimeApi.LoadAccessPolicy(accessPolicyData);
 }
 
 ```
