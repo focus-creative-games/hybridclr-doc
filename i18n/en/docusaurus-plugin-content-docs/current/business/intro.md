@@ -26,6 +26,8 @@ There are currently three commercial versions. The specific features are compare
 |Unity 2020-2022 LTS|✔|✔|✔|✔|
 |Unity 2019 LTS|No longer supported since 3.x|✔|✔|✔|
 |[Full Generic Sharing](./fullgenericsharing)||✔|✔|✔|
+|[Unity DOTS Technology](./supportdots)||✔|✔|✔|
+|Tuanjie(Unity China) Engine and HarmonyOS Platform (in progress)||✔|✔|✔|
 |[Metadata Optimization](./metadataoptimization.md)||✔|✔|✔|
 |[Standard command optimization](./basiccodeoptimization)||✔|✔|✔|
 |[Standard code reinforcement](./basicencryption)||✔|✔|✔|
