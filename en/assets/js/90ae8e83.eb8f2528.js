@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[4916],{4370:e=>{e.exports=JSON.parse('{"title":"Hotreload Edition","slug":"/reload","permalink":"/en/docs/reload","navigation":{"previous":{"title":"Getting Started","permalink":"/en/docs/business/pro/quickstart"},"next":{"title":"Introduction","permalink":"/en/docs/business/reload/intro"}}}')}}]);
