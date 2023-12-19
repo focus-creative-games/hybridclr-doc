@@ -104,6 +104,7 @@ const sidebars = {
             'business/ultimate/intro',
             'business/ultimate/quickstart',
             'business/ultimate/manual',
+            'business/ultimate/commonerrors',
           ],
         },
         {
@@ -117,6 +118,7 @@ const sidebars = {
           items: [
             'business/pro/intro',
             'business/pro/quickstart',
+            'business/pro/commonerrors',
           ],
         },
         {
@@ -132,6 +134,7 @@ const sidebars = {
             'business/reload/quickstart',
             'business/reload/hotreloadassembly',
             'business/reload/modifydll',
+            'business/reload/commonerrors',
           ],
         },
       ],

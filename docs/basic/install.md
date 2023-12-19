@@ -152,7 +152,7 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 
 如果你想安装其他版本的hybridclr或il2cpp_plus，修改该配置文件中的branch和hash即可。直接点击`安装`完成安装。安装成功后，控制台会打印`安装成功`日志。
 
-### 如果你的package版本 <= 1.1.19
+### 如果你的package版本 &ge; 1.1.19
 
 填写你要安装的hybridclr和il2cpp_plus仓库的 commit id或branch或tag。如果hybridclr的版本号留空，则安装hybridclr仓库main分支的最新版本。
 如果il2cpp_plus的版本号留空，则安装相应年度版本主分支（如2020-main）的最新版本。
