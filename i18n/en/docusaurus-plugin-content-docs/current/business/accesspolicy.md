@@ -90,7 +90,7 @@ Target configures access restriction rules that are imposed on the code in the a
 |Attribute or element|Type|Nullable|Description|
 |-|-|-|-|
 |assembly|Attributes|No|The role of access restrictions is the target assembly, that is, the functions accessed by the code in the assembly must meet the access restriction rules specified in rules|
-The |accessAssemblyNotInRules|property|is|whether assemblies not covered by rules can be accessed. The default is false. When `true, yes, 1` is taken, it is true, and when `false, no, 0` is taken, it is false|
+|accessAssemblyNotInRules|property|is|whether assemblies not covered by rules can be accessed. The default is false. When `true, yes, 1` is taken, it is true, and when `false, no, 0` is taken, it is false|
 |rules|Attribute|No|Rule id list, separated by `,`. The functions accessed by the code in the assembly must not be in any of the restricted sets of Rule |
 
 ## XmlAccessPolicyReader and BinaryAccessPolicyWriter
