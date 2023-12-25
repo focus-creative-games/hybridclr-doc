@@ -39,17 +39,18 @@ There are currently three commercial versions. The specific features are compare
 
 ### Price Standard
 
-:::tip
-All commercial versions support **paid** trial versions. If you ultimately decide to purchase, the trial fee can be fully deducted from the final price; if
-If you ultimately abandon the purchase due to non-product factors, the trial fee will not be refunded.
-:::
+|Version|Price (RMB)|Free Trial|Description|
+|-|-|-|-|
+|Community Edition|0|✔|Use indefinitely|
+|Professional Edition|Email Consultation Business|✔|Buy out the right to use a project, including 1 year of technical support and 1 year of code updates|
+|Hot reload version|E-mail business consultation|✔|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
+|Ultimate Edition|Email Consultation Business||Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
 
-|Version|Price (RMB)|Description|
-|-|-|-|
-|Community Edition|0|Free|
-|Professional Edition|E-mail business consultation|Buy out the right to use a project, including 1 year of technical support and 1 year of code updates|
-|Hot reload version|E-mail business consultation|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
-|Ultimate version|E-mail consultation business|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
+:::tip
+
+The trial version is a Windows Standalone 64 platform executable program built based on the [hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial) project. It does not provide any hybridclr and il2cpp_plus source code.
+
+:::
 
 ## Enterprise technical support
 
