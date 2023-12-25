@@ -42,8 +42,8 @@ There are currently three commercial versions. The specific features are compare
 |Version|Price (RMB)|Free Trial|Description|
 |-|-|-|-|
 |Community Edition|0|✔|Use indefinitely|
-|Professional Edition|Email Consultation Business|✔|Buy out the right to use a project, including 1 year of technical support and 1 year of code updates|
-|Hot reload version|E-mail business consultation|✔|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
+|Professional Edition|Email Consultation Business|[pro-free-trial-version](https://github.com/focus-creative-games/hybridclr_trial/releases/tag/v4.3.6)|Buy out the right to use a project, including 1 year of technical support and 1 year of code updates|
+|Hot reload version|E-mail business consultation|[hotreload-free-trial-version](https://github.com/focus-creative-games/hybridclr_trial/releases/tag/v4.4.11)|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
 |Ultimate Edition|Email Consultation Business||Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
 
 :::tip
