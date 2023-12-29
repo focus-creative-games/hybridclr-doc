@@ -172,6 +172,10 @@ If you want to carry the dhe dll and dhao files of the first package with the pa
 - Use `HybridCLR.Editor.DHE.BuildUtils.EncryptDllAndGenerateDHAODatas` to generate the latest dhe dll encrypted file and the corresponding dhao file
 - Add the encrypted dhe dll and dhao files to the hot update resource management system
 
+## Feature not supported
+
+- Does not support turning on the `script debugging` build option
+
 ## Precautions
 
 ### There are huge differences in the results of calculating dhao caused by external dll

@@ -172,6 +172,10 @@ DHE技术中与构建相关的文件为dhe dll文件和对应的dhao文件。
 - 使用`HybridCLR.Editor.DHE.BuildUtils.EncryptDllAndGenerateDHAODatas`生成最新的dhe dll的加密后的文件及对应的dhao文件
 - 将加密后的dhe dll和dhao文件加入热更新资源管理系统
 
+## 不支持特性
+
+- 不支持开启 `script debugging` 构建选项
+
 ## 注意事项
 
 ### 外部dll引发的计算dhao的结果有巨量差异
