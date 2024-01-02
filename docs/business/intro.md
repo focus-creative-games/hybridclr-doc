@@ -26,7 +26,7 @@
 |Unity 2020-2022 LTS|✔|✔|✔|✔|
 |Unity 2019 LTS|从3.x版本起不再支持|✔|✔|✔|
 |[完全泛型共享](./fullgenericsharing)||✔|✔|✔|
-|团结引擎和鸿蒙平台|仅支持2022.3.2t2|✔|✔|✔|
+|团结引擎和鸿蒙平台|仅支持2022.3.2t3|✔|✔|✔|
 |[元数据优化](./metadataoptimization.md)||✔|✔|✔|
 |[标准指令优化](./basiccodeoptimization)||✔|✔|✔|
 |[标准代码加固](./basicencryption)||✔|✔|✔|
