@@ -126,6 +126,21 @@ void LoadDifferentialHybridAssembly(string assemblyName, string originalDllMd5)
 }
 ```
 
+## 配置函数注入策略
+
+:::tip
+
+在绝大多数项目中，默认的全注入策略对性能影响微乎其微，只要没有性能问题，不需要也不应该关心此项配置。
+
+:::
+
+ 为了避免间接脏函数传染（即A函数调用了B函数，如果B改变了，A也会被标记为改变），默认会在所有函数头部注入一小段检查跳转代码。虽然是
+ 非常简单的`if (method->isInterpterImpl)`语句，但对于`int Age {get; set;}`这样的短函数，这种插入可能会产生可观察的性能下降（甚至能达到10%）。
+
+函数注入策略用于优化这种情况.对于不会变化的短函数，配置为不注入可以提升性能。详细请见[InjectRules](./injectrules)文档。
+
+在 `HybridCLR Settings`中`InjectRuleFiles`字段中填写注入策略文件路径，文件的相对路径为项目根目录（如`Assets/InjectRules/DefaultInjectRules.xml`）。
+
 
 ## 打包
 

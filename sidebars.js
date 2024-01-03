@@ -104,6 +104,7 @@ const sidebars = {
             'business/ultimate/intro',
             'business/ultimate/quickstart',
             'business/ultimate/manual',
+            'business/ultimate/injectrules',
             'business/ultimate/commonerrors',
           ],
         },

@@ -1,4 +1,4 @@
-# manual
+# Manual
 
 ## Install
 
@@ -126,6 +126,20 @@ void LoadDifferentialHybridAssembly(string assemblyName, string originalDllMd5)
 }
 ```
 
+## Configure function injection rules
+
+:::tip
+
+In the vast majority of projects, the default full injection rules has minimal impact on performance. As long as there are no performance issues, you do not need and should not care about this configuration.
+
+:::
+
+  In order to avoid indirect dirty function contagion (that is, function A calls function B, if B changes, A will also be marked as changed), a small piece of check jump code is injected into the header of all functions by default. Although it is
+  Very simple `if (method->isInterpterImpl)` statement, but for short functions like `int Age {get; set;}`, this insertion may produce an observable performance degradation (even up to 10%).
+
+The function injection rules is used to optimize this situation. For short functions that do not change, configuring not to inject can improve performance. See the [InjectRules](./injectrules) document for details.
+
+Fill in the injection policy file path in the `InjectRuleFiles` field in `HybridCLR Settings`. The relative path of the file is the project root directory (such as `Assets/InjectRules/DefaultInjectRules.xml`).
 
 ## Pack
 

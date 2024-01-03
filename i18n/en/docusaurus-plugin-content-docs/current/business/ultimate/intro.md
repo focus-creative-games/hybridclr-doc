@@ -1,4 +1,4 @@
-# introduce
+# Introduce
 
 The Ultimate Edition is mainly for projects with strict performance requirements. Compared with the community version, the performance of the flagship version has been greatly improved, basically reaching the native performance level, and at the same time, it has better optimization in terms of security and memory.
 
