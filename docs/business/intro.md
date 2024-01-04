@@ -41,10 +41,10 @@
 
 |版本|价格（人民币）|试用链接|描述|
 |-|-|-|-|
-|社区版|0|✔|无限期使用|
+|社区版|0|[hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial)|无限期使用|
 |专业版|邮件咨询商务|[pro-free-trial-version](https://github.com/focus-creative-games/hybridclr_trial/releases/tag/v4.3.6)|买断一个项目的使用权，同时包含1年技术支持，提供1年代码更新|
 |热重载版|邮件咨询商务|[hotreload-free-trial-version](https://github.com/focus-creative-games/hybridclr_trial/releases/tag/v4.4.11)|买断一个项目的使用权，同时包含2年技术支持，提供2年代码更新|
-|旗舰版|邮件咨询商务|不支持|买断一个项目的使用权，同时包含2年技术支持，提供2年代码更新|
+|旗舰版|邮件咨询商务|[ultimate-free-trial-version](https://github.com/focus-creative-games/dhe_demo/releases/tag/v4.5.8)|买断一个项目的使用权，同时包含2年技术支持，提供2年代码更新|
 
 :::tip
 
