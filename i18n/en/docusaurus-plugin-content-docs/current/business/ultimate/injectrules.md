@@ -118,6 +118,10 @@ In fact, many short functions will not change. Injecting code is unnecessary. Av
 We optimize the performance degradation and code bloat caused by indirect function optimization by configuring some or all functions (use with caution, not recommended!) not to inject. Function injection rules (InjectRules) file is used to
 achieve this purpose.
 
+:::tip
+Even if a function is marked not to be injected, modifying this function in subsequent hot updates will not cause running errors or execute old logic. It will only cause dirty function infection problems, that is, all functions that directly call this function will be infected. Mark function as dirty.
+:::
+
 ### HybridCLR Settings settings
 
 Fill in the injection policy file path in the `InjectRuleFiles` field in `HybridCLR Settings`. The relative path of the file is the project root directory (e.g `Assets/InjectRules/DefaultInjectRules.xml`).
@@ -225,3 +229,8 @@ Configure event injection rules. Note that the event is treated as two functions
 |name|property|no|function name. Support wildcard characters, such as '*', 'Run*' and so on |
 |signature|property|is|a function signature. Supports wildcard characters, such as '*', 'Action&lt;System.Int32&gt; On\*'|
 |mode|child elements| are |injection types, valid values are 'none' or 'proxy'. If not filled in or empty, take 'none' |
+
+### Building workflow related
+
+The injection strategy file needs to be consistent with the App, that is, each independently released App must back up the injection strategy file used at that time. Just like every time you generate a dhao file, you need to use the AOT dll generated when building the App.
+When generating the dhao file, you must use the injection policy file backed up when building the App. If an error injection strategy file is used, an incorrect dhao file will be generated, which may cause the wrong logic to run or even crash!
