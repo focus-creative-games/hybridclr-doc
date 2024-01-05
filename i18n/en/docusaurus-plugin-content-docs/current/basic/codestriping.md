@@ -26,6 +26,6 @@ Make sure to explicitly reference one of its classes or functions in the main pr
 
 ## AOT type and function reserved
 
-Although the `HybridCLR/Generate/LinkXml` command of com.code-philosophy.hybridclrophy.hybridclr can intelligently scan out the AOT type you are currently referencing, it cannot predict the AOT type you will use in the future
+Although the `HybridCLR/Generate/LinkXml` command of com.code-philosophy.hybridclr can intelligently scan out the AOT type you are currently referencing, it cannot predict the AOT type you will use in the future
 type. Therefore, you still need to plan ahead in `Assets/link.xml` (note! Not the automatically generated link.xml) to reserve your future
 types that may be used. Remember not to miss it, so as to avoid the embarrassing situation that the type used in a certain update is cut after it goes online!

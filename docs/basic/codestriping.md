@@ -27,6 +27,6 @@ Unity使用了[代码裁剪](https://docs.unity3d.com/Manual/ManagedCodeStrippin
 
 ## AOT类型及函数预留
 
-com.code-philosophy.hybridclrophy.hybridclr的`HybridCLR/Generate/LinkXml`命令虽然可以智能地扫描出你当前引用的AOT类型，却不能预知你未来将来使用的
+com.code-philosophy.hybridclr的`HybridCLR/Generate/LinkXml`命令虽然可以智能地扫描出你当前引用的AOT类型，却不能预知你未来将来使用的
 类型。因此你仍然需要有规划地提前在 `Assets/link.xml`(注意！不是自动生成的那个link.xml)预留你将来
 可能用到的类型。切记不要疏漏，免得出现上线后某次更新使用的类型被裁剪的尴尬状况！
