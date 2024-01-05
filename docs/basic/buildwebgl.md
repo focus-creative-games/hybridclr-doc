@@ -2,6 +2,10 @@
 
 由于WebGL平台有较多特殊性，故特地单独文档介绍如何发布WebGL平台。本文档在 hybridclr_trial项目（[github](https://github.com/focus-creative-games/hybridclr_trial) [gitee](https://gitee.com/focus-creative-games/hybridclr_trial) ）上演示发布过程。
 
+:::tip
+从Unity 2021.3.5+、2022.3.0+版本起，不再需要全局安装，也就是webgl平台的构建过程与其他平台完全相同。
+:::
+
 ## 使用的版本
 
 不同Unity版本及hybridclr package的发布流程都是相似的，不再赘述。
@@ -18,12 +22,16 @@
 
 - 确保Unity Editor 安装了WebGL模块，如下图
 - 根据 [install](install.md) 文档完成HybridCLR安装及设置
-- 在HybridCLRSettings中，开启`Use Global Il2cpp` 选项。因为webgl平台只支持全局安装。
+- 在HybridCLRSettings中，开启`Use Global Il2cpp` 选项，因为webgl平台只支持全局安装。从2021.3.5+、2022.3.0+起，**不再需要**开启此选项
 
 
 ![select_il2cpp_module_webgl](/img/hybridclr/select_il2cpp_modules_webgl.jpg)
 
 ## 建立 Editor目录的libil2cpp到本地libil2cpp目录的软（硬）引用
+
+:::warning
+注意：从Unity 2021.3.5+、2022.3.0+版本起，由于支持本地安装，不再需要建立此引用。
+:::
 
 :::tip
 升级hybridclr等情形需要重新install时，先恢复Editor安装目录的原始libil2cpp目录，再重新按照如下说明建立链接。

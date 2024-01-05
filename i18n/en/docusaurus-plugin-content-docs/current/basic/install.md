@@ -195,8 +195,11 @@ If the automated installation cannot be completed due to various special reasons
 
 ### WebGL Platform
 
-Due to Unity's own reasons, the WebGL platform must be installed globally. See the `Global Installation` documentation in the following sections.
+:::tip
+Local installation has been supported since Unity 2021.3.5+ and 2022.3.0+ versions, and the WebGL platform construction process is exactly the same as other platforms.
+:::
 
+Due to Unity's own reasons, if the Unity version used is lower than 2021.3.5, the WebGL platform must be installed globally. Please consult the `Global Installation` documentation in the following section.
 
 ###Unity 2021
 
