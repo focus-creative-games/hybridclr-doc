@@ -3,7 +3,7 @@
 Due to the particularity of the WebGL platform, a separate document introduces how to release the WebGL platform. This document is published on the hybridclr_trial project ([github](https://focus-creative-games/hybridclr_trial) [gitee](https://gitee.com/focus-creative-games/hybridclr_trial) ) process.
 
 :::tip
-Starting from Unity 2021.3.5+ and 2022.3.0+ versions, global installation is no longer required, that is, the construction process of the webgl platform is exactly the same as other platforms.
+Starting from Unity 2021.3.4+ and 2022.3.0+ versions, global installation is no longer required, that is, the construction process of the webgl platform is exactly the same as other platforms.
 :::
 
 ## version used
@@ -22,7 +22,7 @@ Beginners, please at least read the [Quick Start](../beginner/quickstart.md) doc
 
 - Make sure that the WebGL module is installed in Unity Editor, as shown below
 - Complete HybridCLR installation and configuration according to [install](install.md) document
-- In HybridCLRSettings, enable the `Use Global Il2cpp` option because the webgl platform only supports global installation. From 2021.3.5+, 2022.3.0+, it is no longer necessary to turn this option on
+- In HybridCLRSettings, enable the `Use Global Il2cpp` option because the webgl platform only supports global installation. From 2021.3.4+, 2022.3.0+, it is no longer necessary to turn this option on
 
 
 ![select_il2cpp_module_webgl](/img/hybridclr/select_il2cpp_modules_webgl.jpg)
@@ -30,7 +30,7 @@ Beginners, please at least read the [Quick Start](../beginner/quickstart.md) doc
 ## Create a soft (hard) reference from libil2cpp in the Editor directory to the local libil2cpp directory
 
 :::warning
-Note: Starting from Unity 2021.3.5+ and 2022.3.0+ versions, since local installation is supported, it is no longer necessary to establish this reference.
+Note: Starting from Unity 2021.3.4+ and 2022.3.0+ versions, since local installation is supported, it is no longer necessary to establish this reference.
 :::
 
 ### Win platform
