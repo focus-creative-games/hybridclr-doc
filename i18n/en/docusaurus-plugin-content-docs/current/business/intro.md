@@ -46,11 +46,10 @@ There are currently three commercial versions. The specific features are compare
 |Hot reload version|E-mail business consultation|[hotreload-free-trial-version](https://github.com/focus-creative-games/hybridclr_trial/releases/tag/v4.4.11)|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
 |Ultimate Edition|Email Consultation Business|[ultimate-free-trial-version](https://github.com/focus-creative-games/dhe_demo/releases/tag/v4.5.8)|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
 
-:::tip
+All commercial versions support two trial methods:
 
-The trial version is a Windows Standalone 64 platform executable program built based on the [hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial) project. It does not provide any hybridclr and il2cpp_plus source code.
-
-:::
+- Free trial projects. The experience project is a Windows Standalone 64 platform executable program built based on the [hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial) project
+- Paid iOS apps built based on project projects provided by customers. It is necessary to support the service fee of 3% of the total price of the commercial version. If you make the final purchase, the service fee can be refunded, otherwise the service fee will not be refunded. You only need to provide the `libil2cpp/hybridclr/generated` directory generated after `Generate/All`, and there is no risk of leaking the project code.
 
 ## Enterprise technical support
 

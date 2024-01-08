@@ -39,18 +39,20 @@
 
 ### 价格标准
 
-|版本|价格（人民币）|试用链接|描述|
+
+|版本|价格（人民币）|体验项目|描述|
 |-|-|-|-|
 |社区版|0|[hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial)|无限期使用|
 |专业版|邮件咨询商务|[pro-free-trial-version](https://github.com/focus-creative-games/hybridclr_trial/releases/tag/v4.3.6)|买断一个项目的使用权，同时包含1年技术支持，提供1年代码更新|
 |热重载版|邮件咨询商务|[hotreload-free-trial-version](https://github.com/focus-creative-games/hybridclr_trial/releases/tag/v4.4.11)|买断一个项目的使用权，同时包含2年技术支持，提供2年代码更新|
 |旗舰版|邮件咨询商务|[ultimate-free-trial-version](https://github.com/focus-creative-games/dhe_demo/releases/tag/v4.5.8)|买断一个项目的使用权，同时包含2年技术支持，提供2年代码更新|
 
-:::tip
 
-试用版本是基于[hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial)项目构建的Windows Standalone 64平台可执行程序，不提供任何hybridclr和il2cpp_plus仓库源码。
+所有商业化版本都支持两种试用方式：
 
-:::
+- 免费的体验项目。体验项目是基于[hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial)项目构建的Windows Standalone 64平台可执行程序
+- 付费的基于客户提供的项目工程构建的iOS app。需要支持3%商业版本总价的服务费用，如果最终购买则可以退还服务费用，否则不退还服务费。只需要提供`Generate/All`后生成的`libil2cpp/hybridclr/generated`目录，没有泄露项目代码风险
+
 
 ## 企业技术支持
 
