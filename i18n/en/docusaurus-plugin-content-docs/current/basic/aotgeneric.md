@@ -215,6 +215,44 @@ See the sample code below for how to load the supplementary metadata dll in the 
      }
 ```
 
+## Optimize supplementary metadata dll size
+
+Loading supplementary metadata dll not only increases the size of the package body or hot update resources, but also consumes considerable memory space during runtime loading. For details, see the [Memory and GC] (./memory) document. Optimize supplementary metadata dll size
+It has positive significance for memory-sensitive situations.
+
+Supplementary metadata technology only uses the metadata information of generic functions in the supplementary metadata dll. The metadata of non-generic functions contained in the supplementary metadata dll is redundant. Eliminating them completely will not
+Affects the normal working of the supplementary metadata mechanism. Therefore `com.code-philosophy.hybridclr` provides a supplementary metadata optimization tool class `HybridCLR.Editor.AOT.AOTAssemblyMetadataStripper` since version v4.0.16
+Implement this elimination optimization work.
+
+This elimination effect varies greatly from assembly to assembly. The following are our test results in the unit test project:
+
+|Assembly name|Original size|Optimized size|Optimization rate|
+|-|-|-|-|
+|mscorlib|2139k|1329k|37.9%|
+|System|186k|63.0k|66.2%|
+|System.Core|96.3k|89.1k|7.4%|
+
+
+The sample code is as follows:
+
+```csharp
+
+         /// remove the non-generic function metadata from the trimmed AOT dlls and output it to the StrippedAOTAssembly2 directory.
+         public static void StripAOTAssembly()
+         {
+             BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+             string srcDir = SettingsUtil.GetAssembliesPostIl2CppStripDir(target);
+             string dstDir = $"{SettingsUtil.HybridCLRDataDir}/StrippedAOTAssembly2/{target}";
+             foreach (var src in Directory.GetFiles(srcDir, "*.dll"))
+             {
+                 string dllName = Path.GetFileName(src);
+                 string dstFile = $"{dstDir}/{dllName}";
+                 AOTAssemblyMetadataStripper.Strip(src, dstFile);
+             }
+         }
+
+```
+
 ## AOT generic problems caused by some C# special mechanisms
 
 The compiler may generate implicit AOT generic references for complex syntactic sugar such as async. Therefore, in order for these mechanisms to work properly, the AOT generic instantiation problems caused by them must also be resolved.

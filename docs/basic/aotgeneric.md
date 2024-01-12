@@ -243,6 +243,44 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
     }
 ```
 
+## 优化补充元数据dll大小
+
+加载补充元数据dll不仅增加了包体或者热更新资源大小，运行时加载也消耗了可观的内存空间，详细见[内存与GC](./memory)文档。优化补充元数据dll大小
+对于内存敏感的场合有积极意义。
+
+补充元数据技术只用到了补充元数据dll中泛型函数的元数据信息，补充元数据dll中包含的非泛型函数的元数据是多余的，将它们完全剔除不会
+影响补充元数据机制的正常工作。因此`com.code-philosophy.hybridclr`自v4.0.16版本起提供了补充元数据优化工具类`HybridCLR.Editor.AOT.AOTAssemblyMetadataStripper`
+实现这个剔除优化工作。
+
+这个剔除效果因assembly而异，效果差别较大，以下是我们在单元测试工程上的测试结果：
+
+|程序集名|原始大小|优化后大小|优化率|
+|-|-|-|-|
+|mscorlib|2139k|1329k|37.9%|
+|System|186k|63.0k|66.2%|
+|System.Core|96.3k|89.1k|7.4%|
+
+
+示例代码如下：
+
+```csharp
+
+        /// 进一步剔除AOT dll中非泛型函数元数据，输出到StrippedAOTAssembly2目录下
+        public static void StripAOTAssembly()
+        {
+            BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+            string srcDir = SettingsUtil.GetAssembliesPostIl2CppStripDir(target);
+            string dstDir = $"{SettingsUtil.HybridCLRDataDir}/StrippedAOTAssembly2/{target}";
+            foreach (var src in Directory.GetFiles(srcDir, "*.dll"))
+            {
+                string dllName = Path.GetFileName(src);
+                string dstFile = $"{dstDir}/{dllName}";
+                AOTAssemblyMetadataStripper.Strip(src, dstFile);
+            }
+        }
+
+```
+
 
 ## full generic sharing 技术
 

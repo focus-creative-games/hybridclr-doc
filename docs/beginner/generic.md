@@ -112,3 +112,6 @@ public class LoadDll : MonoBehaviour
 
 现在你可以在热更新代码随意使用AOT泛型了。
 
+## 优化补充元数据dll大小
+
+默认生成的补充元数据dll中包含了大量补充元数据机制不需要的数据，自v4.0.16版本起支持对补充元数据dll进行剔除优化，详细文档见[AOT泛型](../basic/aotgeneric)。
