@@ -28,9 +28,8 @@ There are currently three commercial versions. The specific features are compare
 |[Full Generic Sharing](./fullgenericsharing)||✔|✔|✔|
 |Tuanjie(Unity China) Engine and HarmonyOS Platform (in progress)||✔|✔|✔|
 |[Metadata Optimization](./metadataoptimization.md)||✔|✔|✔|
-|[Standard command optimization](./basiccodeoptimization)||✔|✔|✔|
-|[Standard code reinforcement](./basicencryption)||✔|✔|✔|
-|[Advanced code hardening](./advancedencryption)||✔|✔|✔|
+|[Offline Instruction Optimization](./basiccodeoptimization)||✔|✔|✔|
+|[Code Protection](./basicencryption)||✔|✔|✔|
 |[Hot reload](./reload/hotreloadassembly)||||✔|
 |[Access Control Policy](./accesspolicy)||||✔|
 |[Advanced code optimization (experimental)](./advancedcodeoptimization)|||✔||

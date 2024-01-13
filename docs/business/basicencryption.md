@@ -1,77 +1,95 @@
-# 标准代码加固
+# 代码加固
 
-社区版本直接加载原始dll，使得开发者不得不携带和下载原始dll，而这些原始dll能够被ILSpy之类的工具反编译
-，进行产生严重的安全问题。即使开发者做了加密也很容易被内存中拦截而获得解密后的dll内容。
+社区版本直接加载原始dll，使得开发者不得不携带和下载原始dll。这些原始dll能够被ILSpy之类的工具反编译
+，产生严重的安全问题。即使开发者做了加密也很容易被内存中拦截而获得解密后的dll内容。
 
-标准代码加固提供了一定程度的混淆和加密功能，保障了代码安全。
+我们提供了业内顶级的托管代码加固技术，有效阻止了代码被恶意第三方破解和篡改。
 
-## 实现
 
-开启标准代码加固后，会重构和打乱hybridclr代码，同时改变了dll的解析方式，只能加载加密后的dll。
-标准代码加固不仅加密了dll本身，也单独对IL进行了随机变换，即使解密了dll本身也无法被ILSpy之类的
-工具解析，可以有效阻止代码被轻松破解。
+|技术|安全指数|
+|-|-|
+|元数据加密|:star::star::star::star:|
+|结构随机化|:star::star::star:|
+|加密随机化|:star::star::star:|
+|延迟解密|:star::star::star:|
+|虚拟化|:star::star::star::star::star:|
+|dll签名|:star::star::star:|
 
-标准代码加固不像高级代码加固那样做了不可逆的指令集转换，因此防护程度不如高级代码加固。
+## 元数据加密
 
-## 配置
+|技术|结构随机化|加密随机化|延迟解密|安全指数|
+|-|-|-|-|-|
+|自定义dll文件结构|✔|||:star:|
+|~string流加密||✔||:star::star:|
+|~blob流加密||✔||:star::star:|
+|~US流加密||✔|✔|:star::star::star:|
+|~table流加密|✔|✔|✔|:star::star::star::star:|
+|method body数据加密||✔|✔|:star::star::star:|
 
-在HybridCLRSettings中启用`enableEncryption`选项，即开启了标准代码加固。开启指令加固后，需要同时配置`encryptionSeed`字段。
-该字段是一个int类型值，提供了一个默认值，强烈建议开发者修改此值。
 
-每个不同的`encryptionSeed`会导致`HybridCLR/Genrate/EncryptXXX`指令生成完全不同的hybridclr代码。
+### 自定义dll文件结构
 
-## 打包流程
+原始dll文件为PE格式，我们改为自定义文件结构，无法使用ILSpy等反编译工具打开。
 
-- `HybridCLR/Generate/All`
-- 使用`HybridCLR.Editor.Encryption.DllEncrypter`类对 补充元数据dll及热更新dll加密（即使补充元数据dll也需要加密！）
-- 将加密后的dll加入你项目的资源管理系统
-- 其他与社区版本操作完全相同
+支持结构随机化技术，也就是每个版本的dll结构都可以完全不一样，显著增加了破解成本。
 
-## 加密dll
+### ~string流加密
 
-使用`HybridCLR.Editor.Encryption.DllEncrypter`类对 补充元数据dll及热更新dll加密。 下面代码中EncryptDll演示了
-如何加密一个dll，EncryptDllsInDirectory演示了如何加密多个dll。
+~string流保存了元数据内部使用的字符串，如类型名、字段名之类。对~string流数据加密使得无法从dll文件中直接获得元数据字符串。
 
-```csharp
+支持加密随机化技术，显著增加了离线破解难度。
 
-    public static class EncryptDllCommand
-    {
-        public static void EncryptDll(string originalDllFile, string encryptedDllFile)
-        {
-            int seed = SettingsUtil.EncryptionSeedOrZeroWhileDisable;
-            if (seed == 0)
-            {
-                Debug.LogWarning($"enableEncryption is false or encryptionSeed == 0, encryption is skipped");
-                return;
-            }
-            var encryptor = new DllEncryptor(seed);
-            byte[] originBytes = File.ReadAllBytes(originalDllFile);
-            byte[] encryptedBytes = encryptor.EncryptDll(originBytes);
-            File.WriteAllBytes(encryptedDllFile, encryptedBytes);
-        }
+### ~blob流加密
 
-        public static void EncryptDllsInDirectory(string dllDir)
-        {
-            int seed = SettingsUtil.EncryptionSeedOrZeroWhileDisable;
-            if (seed == 0)
-            {
-                Debug.LogWarning($"enableEncryption is false or encryptionSeed == 0, encryption is skipped");
-                return;
-            }
-            var encryptor = new DllEncryptor(seed);
-            foreach (var dllFile in Directory.GetFiles(dllDir, "*.dll.bytes"))
-            {
-                byte[] originBytes = File.ReadAllBytes(dllFile);
-                byte[] encryptedBytes = encryptor.EncryptDll(originBytes);
-                File.WriteAllBytes(dllFile, encryptedBytes);
-                Debug.Log($"EncryptDllsInDirectory {dllFile} length:{encryptedBytes.Length}");
-            }
-        }
-    }
-```
+~blob流保存了一些复杂元数据（如类型签名）。对~blob流加密使得无法从dll文件中直接获得原始lob数据。
 
-## 运行时加载
+支持加密随机化技术，显著增加了离线破解成本。
 
-与社区版本完全相同，直接调用Assembly.Load或RuntimeApi.LoadMetadataForAOTAssembly加载加密后的dll文件内容。
-hybridclr会在内部解密，不需要开发者执行额外的解密操作。
+### ~US流加密
 
+~US流中保存了用户字符串（即代码中使用的字符串）元数据。
+
+支持加密随机化技术，阻止了破解者从dll文件中直接获得原始~US元数据。
+
+支持延迟解密，阻止破解者使用内存dump技术直接还原出所有数据。
+
+### ~table流加密
+
+~table流保存了大多数结构化的元数据。
+
+支持结构随机化技术，每个版本都使用不同的元数据数据结构，大幅增加了破解成本，即使被破解也无法通过简单的数据移动或者复制还原为原始的~table流结构。
+
+支持加密随机化，显著提升了破解成本。
+
+支持延迟解密，阻止破解者使用内存dump技术直接还原出所有数据。
+
+
+### method body数据加密
+
+method body中保存了函数体元数据信息。
+
+支持加密随机化，显著提升了破解成本。
+
+支持延迟解密，阻止破解者使用内存dump技术直接还原出所有数据。
+
+## 结构随机化技术
+
+结构随机化技术指每次使用完全不同的文件或者元数据的结构，使得破解者需要每个版本都重新破解，极大提升了破解者的成本。
+
+## 加密随机化技术
+
+加密随机化技术指每次使用完全不同的加密技术，使得破解者需要每个版本都重新破解，极大提升了破解者的成本。
+
+## 延迟解密技术
+
+延迟解密技术指第一次才解密数据，有效防止破解者hook关键路径，直接内存dump出完整的原始数据。
+
+## 虚拟化技术
+
+虚拟化技术指将原始IL指令转换为自定义的寄存器虚拟机指令，有效阻止破解者使用现成的反编译工具分析出原始代码。
+
+虚拟化技术支持指令随机化技术，每个版本指令的指令号和长度都不一样，极大增加了破解者的成本。
+
+## dll签名技术
+
+加载dll时检查dll签名，确保来自官方。恶意第三方即使破解了代码，也无法执行篡改后的代码，极大提升了代码安全性。

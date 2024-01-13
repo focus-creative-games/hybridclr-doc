@@ -28,12 +28,10 @@
 |[完全泛型共享](./fullgenericsharing)||✔|✔|✔|
 |团结引擎和鸿蒙平台|仅支持2022.3.2t3|✔|✔|✔|
 |[元数据优化](./metadataoptimization.md)||✔|✔|✔|
-|[标准指令优化](./basiccodeoptimization)||✔|✔|✔|
-|[标准代码加固](./basicencryption)||✔|✔|✔|
-|[高级代码加固](./advancedencryption)||✔|✔|✔|
+|[离线指令优化](./basiccodeoptimization)||✔|✔|✔|
+|[代码加固](./basicencryption)||✔|✔|✔|
 |[热重载](./reload/hotreloadassembly)||||✔|
 |[访问控制机制](./accesspolicy)||||✔|
-|[高级指令优化（实验性）](./advancedcodeoptimization)|||✔||
 |[**DHE技术**](./differentialhybridexecution)|||✔||
 |技术支持||1年|2年|2年|
 

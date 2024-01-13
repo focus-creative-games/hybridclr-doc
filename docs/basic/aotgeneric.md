@@ -245,6 +245,12 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 ## 优化补充元数据dll大小
 
+:::tip
+
+是否优化补充元数据不影响补充元数据机制的正常工作，推荐有包体或内存优化压力的项目执行这个操作。
+
+:::
+
 加载补充元数据dll不仅增加了包体或者热更新资源大小，运行时加载也消耗了可观的内存空间，详细见[内存与GC](./memory)文档。优化补充元数据dll大小
 对于内存敏感的场合有积极意义。
 
