@@ -8,12 +8,22 @@ We provide the industry's top managed code hardening technology, which effective
 
 |Technology|Safety Level|
 |-|-|
+|Metadata Obfuscation|:star:|
 |Metadata Encryption|:star::star::star::star:|
 |Structural randomization|:star::star::star:|
 |Crypto-randomization|:star::star::star:|
 |Delayed decryption|:star::star::star:|
 |Virtualization|:star::star::star::star::star:|
 |dll signature|:star::star::star:|
+
+
+## Metadata Obfuscation
+
+Due to clr's own mechanism, no matter how complex the encryption is, valid metadata information such as types, fields, function names, etc. can be obtained through reflection in the memory.
+This information must be added to the security by obfuscating the metadata itself, i.e. completely losing the original plaintext information from the original level.
+
+Because instruction obfuscation will significantly harm performance, only pure information types such as types, fields, and functions are obfuscated. We mainly protect through virtualization technology
+Code security.
 
 ## Metadata encryption
 
