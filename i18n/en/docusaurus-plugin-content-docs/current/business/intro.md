@@ -23,8 +23,7 @@ There are currently three commercial versions. The specific features are compare
 |MonoBehaviour|✔|✔|✔|✔|
 |Supplemental Metadata|✔|✔|✔|✔|
 |Incremental GC|✔|✔|✔|✔|
-|Unity 2020-2022 LTS|✔|✔|✔|✔|
-|Unity 2019 LTS|No longer supported since 3.x|✔|✔|✔|
+|Unity 2019-2022 LTS|✔|✔|✔|✔|
 |[Full Generic Sharing](./fullgenericsharing)||✔|✔|✔|
 |Tuanjie(Unity China) Engine and HarmonyOS Platform (in progress)||✔|✔|✔|
 |[Metadata Optimization](./metadataoptimization.md)||✔|✔|✔|
