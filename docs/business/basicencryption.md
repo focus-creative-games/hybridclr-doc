@@ -8,9 +8,9 @@
 
 |技术|安全指数|已经实现|
 |-|-|-|
-|元数据混淆|:star:|✔|
+|元数据混淆|:star::star:|✔|
 |元数据加密|:star::star::star::star:|✔|
-|结构虚拟化|:star::star::star:||
+|结构虚拟化|:star::star::star:|✔|
 |加密虚拟化|:star::star::star:|✔|
 |延迟解密|:star::star::star:|✔|
 |指令虚拟化|:star::star::star::star::star:||
@@ -26,7 +26,7 @@
 
 |技术|结构虚拟化|加密虚拟化|延迟解密|安全指数|
 |-|-|-|-|-|
-|自定义dll文件结构|✔|||:star:|
+|自定义dll文件结构||||:star:|
 |~string流加密||✔||:star::star:|
 |~blob流加密||✔||:star::star:|
 |~US流加密||✔|✔|:star::star::star:|

@@ -8,12 +8,12 @@ We provide the industry's top managed code hardening technology, which effective
 
 |Technology|Safety Index|Achieved|
 |-|-|-|
-|Metadata obfuscation|:star:|✔|
+|Metadata obfuscation|:star::star:|✔|
 |Metadata encryption|:star::star::star::star:|✔|
-|Fabric Virtualization|:star::star::star:||
+|Structure Virtualization|:star::star::star:|✔|
 |Encrypted Virtualization|:star::star::star:|✔|
 |Delayed decryption|:star::star::star:|✔|
-|Instruction virtualization|:star::star::star::star::star:||
+|Instruction virtualization|:star::star::star::star::star:|✔|
 
 ## Metadata obfuscation
 
@@ -24,9 +24,9 @@ Because instruction obfuscation will significantly harm performance, only pure i
 
 ## Metadata encryption
 
-|Technology|Fabric Virtualization|Encryption Virtualization|Lazy Decryption|Security Index|
+|Technology|Structure Virtualization|Encryption Virtualization|Lazy Decryption|Security Index|
 |-|-|-|-|-|
-|Customized dll file structure|✔|||:star:|
+|Customized dll file structure||||:star:|
 |~string stream encryption||✔||:star::star:|
 |~blob stream encryption||✔||:star::star:|
 |~US stream encryption||✔|✔|:star::star::star:|
@@ -81,7 +81,7 @@ Supports delayed decryption to prevent crackers from using memory dump technolog
 
 ## Structure virtualization technology
 
-Structural virtualization technology refers to the use of a dedicated structural virtual machine to parse the structure of metadata, and it can be dynamically adjusted without rebuilding the App. This requires the cracker to re-crack each version, which greatly increases the cost of the cracker.
+Structure virtualization technology refers to the use of a dedicated structural virtual machine to parse the structure of metadata, and it can be dynamically adjusted without rebuilding the App. This requires the cracker to re-crack each version, which greatly increases the cost of the cracker.
 
 ## Encrypted virtualization technology
 
