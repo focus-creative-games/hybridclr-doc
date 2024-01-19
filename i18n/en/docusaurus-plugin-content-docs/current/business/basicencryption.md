@@ -14,7 +14,6 @@ We provide the industry's top managed code hardening technology, which effective
 |Encrypted Virtualization|:star::star::star:|✔|
 |Delayed decryption|:star::star::star:|✔|
 |Instruction virtualization|:star::star::star::star::star:||
-|dll signature|:star::star::star:||
 
 ## Metadata obfuscation
 
@@ -97,7 +96,3 @@ Delayed decryption technology refers to decrypting data only for the first time,
 Instruction virtualization technology refers to converting original IL instructions into customized register virtual machine instructions, effectively preventing crackers from using ready-made decompilation tools to analyze the original code.
 
 Instruction virtualization technology supports randomized instruction structures. Every time the App is rebuilt, a new instruction set is used (the instruction number and instruction length are completely different), which greatly increases the cost of crackers.
-
-## dll signature technology
-
-Check the dll signature when loading the dll to make sure it is from an official source. Even if a malicious third party cracks the code, it will not be able to execute the tampered code, which greatly improves code security.
