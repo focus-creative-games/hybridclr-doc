@@ -30,3 +30,37 @@ Unity使用了[代码裁剪](https://docs.unity3d.com/Manual/ManagedCodeStrippin
 com.code-philosophy.hybridclr的`HybridCLR/Generate/LinkXml`命令虽然可以智能地扫描出你当前引用的AOT类型，却不能预知你未来将来使用的
 类型。因此你仍然需要有规划地提前在 `Assets/link.xml`(注意！不是自动生成的那个link.xml)预留你将来
 可能用到的类型。切记不要疏漏，免得出现上线后某次更新使用的类型被裁剪的尴尬状况！
+
+
+## 检查热更新代码中是否引用了被裁剪的类型或函数
+
+只要构建游戏时正确执行了`HybridCLR/Generate/All`，运行当时的热更新代码，不会出现类型或函数缺失的问题。但随着后面热更新代码不断迭代，
+有可能访问了被裁剪的类型或函数。如果能提前在发布热更新代码时检查出来，可以及早发现和解决问题。
+
+自v5.0.0版本起，提供`HybridCLR.Editor.HotUpdate.MissingMetadataChecker`类用于检查是否访问了被裁剪的类型和函数。示例代码如下：
+
+```csharp
+        public static void CheckAccessMissingMetadata()
+        {
+            BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+            // aotDir指向 构建主包时生成的裁剪aot dll目录，而不是最新的SettingsUtil.GetAssembliesPostIl2CppStripDir(target)目录。
+            // 一般来说，发布热更新包时，由于中间可能调用过generate/all，SettingsUtil.GetAssembliesPostIl2CppStripDir(target)目录中包含了最新的aot dll，
+            // 肯定无法检查出类型或者函数裁剪的问题。
+            // 需要在构建完主包后，将当时的aot dll保存下来，供后面补充元数据或者裁剪检查。
+            string aotDir = "xxxx"; 
+            
+            // 第2个参数excludeDllNames为要排除的aot dll。一般取空列表即可。对于旗舰版本用户，
+            // excludeDllNames需要为dhe程序集列表，因为dhe 程序集会进行热更新，热更新代码中
+            // 引用的dhe程序集中的类型或函数肯定存在。
+            var checker = new MissingMetadataChecker(aotDir, new List<string>());
+
+            string hotUpdateDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
+            foreach (var dll in SettingsUtil.HotUpdateAssemblyFilesExcludePreserved)
+            {
+                string dllPath = $"{hotUpdateDir}/{dll}";
+                checker.Check(dllPath);
+            }
+        }
+
+```
+
