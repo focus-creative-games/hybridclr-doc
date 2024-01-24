@@ -87,7 +87,6 @@ const sidebars = {
         'business/metadataoptimization',
         'business/basiccodeoptimization',
         'business/basicencryption',
-        'business/ilinterpreter',
         'business/accesspolicy',
         'business/businesscase',
         {
