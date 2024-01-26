@@ -412,6 +412,13 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 由于AVProMovieCapture自身实现的原因，你需要先初始化插件，再进行HybridCLR的加载之类的操作。
 
+### EncodeImageAndMetadataIndex函数出现IL2CPP_ASSERT断言失败的错误
+
+由于你们项目的热更新dll过大导致。有两个解决办法：
+
+- 修改 `hybridclr\metadata\MetadataUtil.h` 文件中 kMetadataIndexBits定义，逐步递增1，直至不再出现此问题为止。kMetadataIndexBits的值强烈建议不要超过29，因为此时最大能加载的热更新dll个数为7，很容易超出此限制
+- 将热更新dll拆分成多个更小的dll
+
 ### 使用 Unity.netcode.runtime 后出现 NotSupportNative2Managed 桥接函数缺失异常
 
 原因是 在Unity.netcode.runtime.dll中 NetworkManager.RpcReceiveHandler 是internal， 定义如下
