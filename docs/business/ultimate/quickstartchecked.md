@@ -1,47 +1,58 @@
-# Get started quickly
+# 快速上手（带校验的工作流）
 
-This tutorial guides you to experience HybridCLR hot update from an empty project. For the sake of simplicity, only the case where the BuildTarget is the **Windows** or **MacOS** Standalone platform is demonstrated.
-Please run the hot update process correctly on the Standalone platform before trying the hot update on the Android and iOS platforms. Their processes are very similar.
+本教程引导从空项目开始体验HybridCLR热更新。出于简化起见，只演示BuildTarget为**Windows**或**MacOS** Standalone平台的情况。
+请在Standalone平台上正确跑通热更新流程后再自行尝试Android、iOS平台的热更新，它们的流程非常相似。
 
-The difficulty of using the flagship version is similar to that of the community version, and most of the principles are the same. It is recommended to familiarize yourself with the community version before trying the flagship version.
+旗舰版本使用难度跟社区版本相似，大多数原理相同，建议先熟悉社区版本后再尝试旗舰版本。
 
-## Experience goals
+自v5.0.0版本起，同时支持带校验的`RuntimeApi.LoadDifferentialHybridAssembly`工作流和不带校验的`RuntimeApi.LoadDifferentialHybridAssemblyUnchecked`工作流。
+本文档介绍带校验的工作流。
 
-- Create hot update assembly
-- Load the hot update assembly, execute the hot update code in it, and print `Hello, HybridCLR`
-- Modify the hot update code to print `Hello, World`
+:::tip
 
-## Prepare environment
+实践中不带校验的工作流会简单很多，不必传递originalDllMd5和currentDllMd5参数，所以省去了工作流中保存或者计算dll md5的过程。
+但要求开发者确保aot dll、hot update dll、dhao文件的一致性。
+推荐初学者在demo项目中使用带校验的工作流，熟悉工作流后在正式项目中使用不带校验的工作流。
 
-### Install Unity
+:::
 
-- Install any version 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x. Some versions have special installation requirements, see [Install hybridclr](../../basic/install.md)
-- Depending on the operating system you are using, when selecting modules during the installation process, you must select `Windows Build Support(IL2CPP)` or `Mac Build Support(IL2CPP)`
+## 体验目标
+
+- 创建热更新程序集
+- 加载热更新程序集，并执行其中热更新代码，打印 `Hello, HybridCLR`
+- 修改热更新代码，打印 `Hello, World`
+
+## 准备环境
+
+### 安装Unity
+
+- 安装 2019.4.x、2020.3.x、2021.3.x、2022.3.x 中任一版本。某些版本有特殊的安装要求，参见[安装hybridclr](../../basic/install.md)
+- 根据你所用的操作系统，安装过程中选择模块时，必须选中 `Windows Build Support(IL2CPP)`或`Mac Build Support(IL2CPP)`
 
 ![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
 
-### Install IDE and related compilation environment
+### 安装IDE及相关编译环境
 
 - Windows
-   - `visual studio 2019` or higher version needs to be installed under Win. The installation must include at least the `Game development using Unity` and `Game development using C++` components.
-   - install git
--Mac
-   - Requires MacOS version >= 12, xcode version >= 13, for example `xcode 13.4.1, macos 12.4`
-   - install git
+  - Win下需要安装`visual studio 2019`或更高版本。安装时至少要包含 `使用Unity的游戏开发` 和 `使用c++的游戏开发` 组件
+  - 安装git
+- Mac
+  - 要求MacOS版本 >= 12，xcode版本 >= 13，例如`xcode 13.4.1， macos 12.4`
+  - 安装 git
 
-## Initialize Unity hot update project
+## 初始化Unity热更新项目
 
-The process of constructing a hot update project from scratch is lengthy. The code involved in the following steps can refer to the dhe_demo project, whose warehouse address is [github](https://github.com/focus-creative-games/dhe_demo).
+从零开始构造热更新项目的过程较冗长，以下步骤中涉及的代码可参考dhe_demo项目，其仓库地址为 [github](https://github.com/focus-creative-games/dhe_demo) 。
 
-### Create project
+### 创建项目
 
-Create an empty Unity project.
+创建空的Unity项目。
 
-### Create `ConsoleToScreen.cs` script
+### 创建`ConsoleToScreen.cs`脚本
 
-This script has no direct effect on demonstrating hot updates. It can print logs to the screen to facilitate locating errors.
+这个脚本对于演示热更新没有直接作用。它可以打印日志到屏幕上，方便定位错误。
 
-Create the `Assets/ConsoleToScreen.cs` script class with the following code:
+创建 `Assets/ConsoleToScreen.cs` 脚本类，代码如下：
 
 ```csharp
 using System;
@@ -51,98 +62,98 @@ using UnityEngine;
 
 public class ConsoleToScreen : MonoBehaviour
 {
-     const int maxLines = 50;
-     const int maxLineLength = 120;
-     private string _logStr = "";
+    const int maxLines = 50;
+    const int maxLineLength = 120;
+    private string _logStr = "";
 
-     private readonly List<string> _lines = new List<string>();
+    private readonly List<string> _lines = new List<string>();
 
-     public int fontSize = 15;
+    public int fontSize = 15;
 
-     void OnEnable() { Application.logMessageReceived += Log; }
-     void OnDisable() { Application.logMessageReceived -= Log; }
+    void OnEnable() { Application.logMessageReceived += Log; }
+    void OnDisable() { Application.logMessageReceived -= Log; }
 
-     public void Log(string logString, string stackTrace, LogType type)
-     {
-         foreach (var line in logString.Split('\n'))
-         {
-             if (line.Length <= maxLineLength)
-             {
-                 _lines.Add(line);
-                 continue;
-             }
-             var lineCount = line.Length / maxLineLength + 1;
-             for (int i = 0; i < lineCount; i++)
-             {
-                 if ((i + 1) * maxLineLength <= line.Length)
-                 {
-                     _lines.Add(line.Substring(i * maxLineLength, maxLineLength));
-                 }
-                 else
-                 {
-                     _lines.Add(line.Substring(i * maxLineLength, line.Length - i * maxLineLength));
-                 }
-             }
-         }
-         if (_lines.Count > maxLines)
-         {
-             _lines.RemoveRange(0, _lines.Count - maxLines);
-         }
-         _logStr = string.Join("\n", _lines);
-     }
+    public void Log(string logString, string stackTrace, LogType type)
+    {
+        foreach (var line in logString.Split('\n'))
+        {
+            if (line.Length <= maxLineLength)
+            {
+                _lines.Add(line);
+                continue;
+            }
+            var lineCount = line.Length / maxLineLength + 1;
+            for (int i = 0; i < lineCount; i++)
+            {
+                if ((i + 1) * maxLineLength <= line.Length)
+                {
+                    _lines.Add(line.Substring(i * maxLineLength, maxLineLength));
+                }
+                else
+                {
+                    _lines.Add(line.Substring(i * maxLineLength, line.Length - i * maxLineLength));
+                }
+            }
+        }
+        if (_lines.Count > maxLines)
+        {
+            _lines.RemoveRange(0, _lines.Count - maxLines);
+        }
+        _logStr = string.Join("\n", _lines);
+    }
 
-     voidOnGUI()
-     {
-         GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity,
-            new Vector3(Screen.width / 1200.0f, Screen.height / 800.0f, 1.0f));
-         GUI.Label(new Rect(10, 10, 800, 370), _logStr, new GUIStyle() { fontSize = Math.Max(10, fontSize) });
-     }
+    void OnGUI()
+    {
+        GUI.matrix = Matrix4x4.TRS(Vector3.zero, Quaternion.identity,
+           new Vector3(Screen.width / 1200.0f, Screen.height / 800.0f, 1.0f));
+        GUI.Label(new Rect(10, 10, 800, 370), _logStr, new GUIStyle() { fontSize = Math.Max(10, fontSize) });
+    }
 }
 
 
 ```
 
-### Create the main scene
+### 创建主场景
 
-- Create default initial scene main.scene
-- Create an empty GameObject in the scene and hang ConsoleToScreen on it
-- Add the main scene to the packaged scene list in `Build Settings`
+- 创建默认初始场景 main.scene
+- 场景中创建一个空GameObject，将ConsoleToScreen挂到上面
+- 在`Build Settings`中添加main场景到打包场景列表
 
-### Create HotUpdate hot update module
+### 创建 HotUpdate 热更新模块
 
-- Create `Assets/HotUpdate` directory
-- Right-click `Create/Assembly Definition` in the directory and create an assembly module named `HotUpdate`
+- 创建 `Assets/HotUpdate` 目录
+- 在目录下 右键 `Create/Assembly Definition`，创建一个名为`HotUpdate`的程序集模块
 
-## Install and configure HybridCLR
+## 安装和配置HybridCLR
 
-### Install
+### 安装
 
-- Unzip hybridclr_unity.zip, place it in the project Packages directory, and rename it com.code-philosophy.hybridclr
-- Unzip the corresponding `libil2cpp-{version}.7z` according to your unity version
-- Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the libil2cpp directory you just decompressed, and install it.
-- Depending on your Unity version:
-     - If version >= 2020, replace the `ModifiedDlls\{verions}\Unity.IL2CPP.dll` file with `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` (Unity 2020) or `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` (Unity 2021+). If there is no file corresponding to your version, contact us to make one.
-     - If the version is 2019, no operation is required because it has been automatically copied during the Install process
+- 将hybridclr_unity.zip解压后，放到项目Packages目录下，改名为com.code-philosophy.hybridclr
+- 根据你的unity版本解压对应的`libil2cpp-{version}.7z`
+- 打开 `HybridCLR/Installer`，启用`从本地复制libil2cpp`选项，选中刚才解压的libil2cpp目录，进行安装
+- 根据你的Unity版本：
+    - 如果版本 >= 2020，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换 `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll`(Unity 2020)或`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`(Unity 2021+)。如果没有你的版本对应的文件，联系我们制作一个
+    - 如果版本 为 2019，不需要任何操作，因为Install过程中已经自动复制
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
-### Configure HybridCLR
+### 配置HybridCLR
 
-- Open menu `HybridCLR/Settings`
-- Add `HotUpdate` assembly to `differentialHybridAssemblies` list
+- 打开菜单 `HybridCLR/Settings`
+- 在`differentialHybridAssemblies`列表中添加`HotUpdate`程序集
 
 ![settings](/img/hybridclr/ultimate-hybridclr-settings.jpg)
 
-### Configure PlayerSettings
+### 配置PlayerSettings
 
-- `Scripting Backend` switched to `IL2CPP`
-- `Api Compatability Level` switched to `.Net 4.x` (Unity 2019-2020) or `.Net Framework` (Unity 2021+)
+- `Scripting Backend` 切换为 `IL2CPP`
+- `Api Compatability Level` 切换为 `.Net 4.x`(Unity 2019-2020) 或 `.Net Framework`（Unity 2021+）
 
 ![player settings](/img/hybridclr/ultimate-project-settings.jpg)
 
-## Create Editor script
+## 创建Editor脚本
 
-Create the BuildTools.cs file in the `Assets/Editor` directory with the following content:
+在`Assets/Editor`目录下创建 BuildTools.cs 文件，内容如下：
 
 ```csharp
 
@@ -157,26 +168,26 @@ using UnityEngine;
 
 public static class BuildTools
 {
-     public const string BackupAOTDllDir = "HybridCLRData/BackupAOT";
+    public const string BackupAOTDllDir = "HybridCLRData/BackupAOT";
 
-     public const string EncryptedDllDir = "HybridCLRData/EncryptedDll";
+    public const string EncrypedDllDir = "HybridCLRData/EncryptedDll";
 
-     public const string DhaoDir = "HybridCLRData/Dhao";
+    public const string DhaoDir = "HybridCLRData/Dhao";
 
-     public const string ManifestFile = "manifest.txt";
+    public const string ManifestFile = "manifest.txt";
 
 
-     /// <summary>
-     /// Back up the cropped AOT dll generated when building the main package
-     /// </summary>
-     [MenuItem("BuildTools/BackupAOTDll")]
-     public static void BackupAOTDllFromAssemblyPostStrippedDir()
-     {
-         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-         var backupDir = $"{BackupAOTDllDir}/{target}";
-         System.IO.Directory.CreateDirectory(backupDir);
-         var dlls = System.IO.Directory.GetFiles(SettingsUtil.GetAssembliesPostIl2CppStripDir(target));
-         foreach (var dll in dlls)
+    /// <summary>
+    /// 备份构建主包时生成的裁剪AOT dll
+    /// </summary>
+    [MenuItem("BuildTools/BackupAOTDll")]
+    public static void BackupAOTDllFromAssemblyPostStrippedDir()
+    {
+        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+        var backupDir = $"{BackupAOTDllDir}/{target}";
+        System.IO.Directory.CreateDirectory(backupDir);
+        var dlls = System.IO.Directory.GetFiles(SettingsUtil.GetAssembliesPostIl2CppStripDir(target));
+        foreach (var dll in dlls)
         {
             var fileName = System.IO.Path.GetFileName(dll);
             string dstFile = $"{BackupAOTDllDir}/{target}/{fileName}";
@@ -288,7 +299,8 @@ public static class BuildTools
         {
             string srcFile = $"{dllDir}/{dll}.dll";
             string dstFile = $"{streamingAssetsDir}/{dll}.dll.bytes";
-            System.IO.File.Copy(srcFile, dstFile, true);Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {srcFile} -> {dstFile}");
+            System.IO.File.Copy(srcFile, dstFile, true);
+            Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {srcFile} -> {dstFile}");
             string dhaoFile = $"{dhaoDir}/{dll}.dhao.bytes";
             dstFile = $"{streamingAssetsDir}/{dll}.dhao.bytes";
             System.IO.File.Copy(dhaoFile, dstFile, true);
@@ -346,9 +358,8 @@ public class Hello
 
 为了简化演示，我们不通过http服务器下载HotUpdate.dll，而是直接将HotUpdate.dll放到StreamingAssets目录下。
 
-HybridCLR是原生运行时实现，因此调用`Assembly Assembly.Load(byte[])`即可加载热更新程序集。
-
 创建`Assets/LoadDll.cs`脚本，然后**在main场景中创建一个GameObject对象，挂载LoadDll脚本**。
+
 
 ```csharp
 using HybridCLR;
@@ -446,23 +457,23 @@ public class LoadDll : MonoBehaviour
 
 ## 打包运行
 
-- 运行菜单 `HybridCLR/Generate/All` performs necessary build operations. **This step cannot be missed**!!!
-- Open the `Build Settings` dialog box, click `Build`, select the output directory `{build}`, and execute the build
-- Run `BuildTools/BackupAOTDll` to back up the trimmed dhe dll. In practice, these dlls should be added to version management for later generation of dhao files. These files will not be modified again.
-- Run `BuildTools/CreateManifestAtBackupDir` to generate the manifest file of the original dhe dll. In practice, this manifest file should be added to version management and will not be modified again.
-- Run `BuildTools/GenerateUnchangedDHAODatas` to generate the dhao file of the first package
-- Run `BuildTools/CopyUnchangedDllAndDhaoFileAndManifestToStreamingAssets` to copy the first package dhe assembly, dhao file, and manifest file to StreamingAssets
-- Copy the `Assets/StreamingAssets` directory to `{build}\dhe_demo2_Data\StreamingAssets`
-- Run `{build}/Xxx.exe`, and the screen will display `Hello,HybridCLR`, indicating that the hot update code has been successfully executed!
+- 运行菜单 `HybridCLR/Generate/All` 进行必要的生成操作。**这一步不可遗漏**!!!
+- 打开 `Build Settings` 对话框，点击`Build`，选择输出目录`{build}`，执行构建
+- 运行 `BuildTools/BackupAOTDll` 备份裁剪后的dhe dll。 实践中这些dll应该加入版本管理，用于后面生成dhao文件，这些文件不会再被修改
+- 运行 `BuildTools/CreateManifestAtBackupDir`生成原始dhe dll的清单文件。实践中这个清单文件应该加入版本管理，而且不会再被修改
+- 运行 `BuildTools/GenerateUnchangedDHAODatas` 生成首包的dhao文件
+- 运行 `BuildTools/CopyUnchangedDllAndDhaoFileAndManifestToStreamingAssets` 复制首包 dhe程序集、dhao文件、清单文件到 StreamingAssets
+- 将 `Assets/StreamingAssets`目录复制到`{build}\dhe_demo2_Data\StreamingAssets`
+- 运行`{build}/Xxx.exe`，屏幕显示 `Hello,HybridCLR`，表示热更新代码被顺利执行！
 
-## Test hot update
+## 测试热更新
 
-- Modify the `Debug.Log("Hello, HybridCLR");` code in the Run function of `Assets/HotUpdate/Hello.cs` to `Debug.Log("Hello, World");`.
-- Run `HybridCLR/CompileDll/ActiveBulidTarget` to generate hot update dll
-- Run `BuildTools/GenerateDHAODatas` to generate dhao files
-- Run `BuildTools/CopyDllAndDhaoFileToStreamingAssets` to copy the hot update dll and dhao files to the StreamingAssets directory
-- Copy the `Assets/StreamingAssets` directory to `{build}\dhe_demo2_Data\StreamingAssets`
-- Rerun the program and you will find `Hello, World` displayed on the screen, indicating that the hot update code has taken effect!
+- 修改`Assets/HotUpdate/Hello.cs`的Run函数中`Debug.Log("Hello, HybridCLR");`代码，改成`Debug.Log("Hello, World");`。
+- 运行`HybridCLR/CompileDll/ActiveBulidTarget`生成热更新dll
+- 运行`BuildTools/GenerateDHAODatas` 生成dhao文件
+- 运行`BuildTools/CopyDllAndDhaoFileToStreamingAssets`复制热更新dll和dhao文件到StreamingAssets目录
+- 将 `Assets/StreamingAssets`目录复制到`{build}\dhe_demo2_Data\StreamingAssets`
+- 重新运行程序，会发现屏幕中显示`Hello, World`，表示热更新代码生效了！ 
 
 
-This completes the hot update experience! ! !
+至此完成热更新体验！！！

@@ -92,13 +92,24 @@ dhao文件是DHE技术的核心概念。dhao文件中包含了离线计算好的
 
 ## 代码中使用
 
-运行时，完成热更新后，对于每个dhe程序集，调用 `RuntimeApi::LoadDifferentialHybridAssembly` 加载热更新assembly。
+运行时，完成热更新后，对于每个dhe程序集，调用 `RuntimeApi::LoadDifferentialHybridAssembly`或`RuntimeApi::LoadDifferentialHybridAssemblyUnchecked` 加载热更新assembly。
 
 注意事项：
 
 - 要按照assembly的依赖顺序加载 差分混合执行 assembly。
 - 如果某个程序集未发生改变，dhao字段可以传null，但此时一定要使用打包时生成的AOT dll，而不能使用通过`HybridCLR/CompileDll/xxx`命令生成的热更新dll。
 - DHE程序集本身已经包含了元数据，即使未开启完全泛型共享时也**不要对DHE程序集进行补充元数据**，补充了也会失败，其他非DHE的AOT程序集可以照常补充元数据。
+
+
+`RuntimeApi::LoadDifferentialHybridAssembly`为带校验的工作流，需要传入原始dhe dll的md5及当前dhe dll的md5，与dhao文件中保存的md5进行对比。
+为了originalDllMd5和currentDllMd5参数，极大增加了工作流的复杂度。
+
+:::tip
+
+推荐初学者在demo项目中使用带校验的工作流，熟悉工作流后在正式项目中使用不带校验的工作流。
+:::
+
+### 带校验的 `RuntimeApi::LoadDifferentialHybridAssembly`
 
 ```csharp title="加载DHE程序集"
 
@@ -126,12 +137,33 @@ void LoadDifferentialHybridAssembly(string assemblyName, string originalDllMd5)
 }
 ```
 
+### 不带校验的 `RuntimeApi::LoadDifferentialHybridAssemblyUnchecked`
+
 :::warning
 
-`RuntimeApi::LoadDifferentialHybridAssemblyUnchecked` 函数不需要提供originalDllMd5和currentDllMd5参数，使用较为便利，但强烈不建议使用。
-实践中经常由于操作失误，使用了错误的原始dll或者热更新dll，导致生成了错误的dhao文件。使用了错误的dhao文件，轻则运行出错，重则进程崩溃。
+使用不带校验的工作流，请务必保证原始dhe dll、当前dhe dll和dhao文件的一致性。如果不一致，轻则运行出错，重则进程崩溃。
 
 :::
+
+```csharp title="加载DHE程序集"
+
+///
+/// originalDllMd5 从构建时生成的`{manifest}`清单文件中获得，此清单文件由开发者自己生成
+///
+void LoadDifferentialHybridAssembly(string assemblyName)
+{
+    LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssemblyUnchecked(dllBytes, dhaoBytes);
+    if (err == LoadImageErrorCode.OK)
+    {
+        Debug.Log($"LoadDifferentialHybridAssembly {assName} OK");
+    }
+    else
+    {
+        Debug.LogError($"LoadDifferentialHybridAssembly {assName} failed, err={err}");
+    }
+}
+```
+
 
 ## 配置函数注入策略
 
@@ -159,8 +191,15 @@ DHE技术中与构建相关的文件为dhe dll文件和对应的dhao文件。
 
 - 将构建后生成的裁剪AOT dll作为 首包（没有任何改动）的dhe dll
 - 使用`HybridCLR.Editor.DHE.BuildUtils.GenerateUnchangedDHAODatas`生成首包的dhao文件
-- 为dhe文件生成一个至少包含 assemblyName,md5的`{manifest}`清单文件（由开发者自由决定怎么实现），因为`RuntimeApi.LoadDifferentialHybridAssembly`需要提供dhe dll的原始md5
+
+如果使用带校验的工作流，则执行以下操作：
+
+- 为dhe dll生成一个至少包含 assemblyName,md5的`{manifest}`清单文件（由开发者自由决定怎么实现），因为`RuntimeApi.LoadDifferentialHybridAssembly`需要提供dhe dll的原始md5
 - 将 dhe dll、dhao文件及`{manifest}`文件加入热更新资源管理系统
+
+如果使用不带校验的工作流，则执行以下操作：
+
+- 将 dhe dll、dhao文件加入热更新资源管理系统
 
 如果想随包携带首包的dhe dll和dhao文件，请先导出工程，再按照上面的步骤生成dhe dll和dhao文件，再将它们加入到导出工程中。
 
@@ -181,11 +220,17 @@ DHE技术中与构建相关的文件为dhe dll文件和对应的dhao文件。
 
 #### 构建主包
 
-- 将构建后生成的裁剪AOT dll作为 首包（没有任何改动）的dhe dll
+- 将构建后生成的裁剪AOT dll作为 原始dhe dll
 - 使用`HybridCLR.Editor.DHE.BuildUtils.EncryptDllAndGenerateUnchangedDHAODatas`生成首包的dhao文件及加密后的dhe dll文件
-- 将 dhe dll和dhao文件加入热更新资源管理系统
 
-如果想随包携带首包的dhe dll和dhao文件，请先导出工程，再按照上面的步骤生成dhe dll和dhao文件，再将它们加入到导出工程中。
+如果使用带校验的工作流，则执行以下操作：
+
+- 为dhe dll生成一个至少包含 assemblyName,md5的`{manifest}`清单文件（由开发者自由决定怎么实现），因为`RuntimeApi.LoadDifferentialHybridAssembly`需要提供dhe dll的原始md5
+- 将 加密后的dhe dll、dhao文件及`{manifest}`文件加入热更新资源管理系统
+
+如果使用不带校验的工作流，则执行以下操作：
+
+- 将 加密后的dhe dll、dhao文件加入热更新资源管理系统
 
 
 #### 热更新

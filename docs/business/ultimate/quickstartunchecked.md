@@ -1,9 +1,20 @@
-# 快速上手
+# 快速上手（不带校验的工作流）
 
 本教程引导从空项目开始体验HybridCLR热更新。出于简化起见，只演示BuildTarget为**Windows**或**MacOS** Standalone平台的情况。
 请在Standalone平台上正确跑通热更新流程后再自行尝试Android、iOS平台的热更新，它们的流程非常相似。
 
 旗舰版本使用难度跟社区版本相似，大多数原理相同，建议先熟悉社区版本后再尝试旗舰版本。
+
+自v5.0.0版本起，同时支持带校验的`RuntimeApi.LoadDifferentialHybridAssembly`工作流和不带校验的`RuntimeApi.LoadDifferentialHybridAssemblyUnchecked`工作流。
+本文档介绍不带校验的工作流。
+
+:::tip
+
+实践中不带校验的工作流会简单很多，不必传递originalDllMd5和currentDllMd5参数，所以省去了工作流中保存或者计算dll md5的过程。
+但要求开发者确保aot dll、hot update dll、dhao文件的一致性。
+推荐初学者在demo项目中使用带校验的工作流，熟悉工作流后在正式项目中使用不带校验的工作流。
+
+:::
 
 ## 体验目标
 
@@ -159,11 +170,7 @@ public static class BuildTools
 {
     public const string BackupAOTDllDir = "HybridCLRData/BackupAOT";
 
-    public const string EncrypedDllDir = "HybridCLRData/EncryptedDll";
-
     public const string DhaoDir = "HybridCLRData/Dhao";
-
-    public const string ManifestFile = "manifest.txt";
 
 
     /// <summary>
@@ -183,35 +190,6 @@ public static class BuildTools
             System.IO.File.Copy(dll, dstFile, true);
             Debug.Log($"BackupAOTDllFromAssemblyPostStrippedDir: {dll} -> {dstFile}");
         }
-    }
-
-    /// <summary>
-    /// 创建dhe manifest文件，格式为每行一个 'dll名，原始dll的md5'
-    /// </summary>
-    /// <param name="outputDir"></param>
-    [MenuItem("BuildTools/CreateManifestAtBackupDir")]
-    public static void CreateManifest()
-    {
-        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-        string backupDir = $"{BackupAOTDllDir}/{target}";
-        CreateManifest(backupDir);
-    }
-
-    public static void CreateManifest(string outputDir)
-    {
-        Directory.CreateDirectory(outputDir);
-        var lines = new List<string>();
-        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-        string backupDir = $"{BackupAOTDllDir}/{target}";
-        foreach (string dheDll in SettingsUtil.DifferentialHybridAssemblyNames)
-        {
-            string originalDll = $"{backupDir}/{dheDll}.dll";
-            string originalDllMd5 = AssemblyOptionDataGenerator.CreateMD5Hash(File.ReadAllBytes(originalDll));
-            lines.Add($"{dheDll},{originalDllMd5}");
-        }
-        string manifestFile = $"{outputDir}/{ManifestFile}";
-        File.WriteAllBytes(manifestFile, System.Text.Encoding.UTF8.GetBytes(string.Join("\n", lines)));
-        Debug.Log($"CreateManifest: {manifestFile}");
     }
 
     /// <summary>
@@ -240,47 +218,14 @@ public static class BuildTools
     }
 
     /// <summary>
-    /// 生成首包的加密dll和没有任何代码改动对应的dhao数据
-    /// </summary>
-    [MenuItem("BuildTools/GenerateUnchangedEncryptedDllAndDhaoDatas")]
-    public static void GenerateUnchangedEncryptedDllAndDhaoDatas()
-    {
-        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-        string backupDir = $"{BackupAOTDllDir}/{target}";
-        string dhaoDir = $"{DhaoDir}/{target}";
-        string encryptedDllDir = $"{EncrypedDllDir}/{target}";
-        BuildUtils.EncryptDllAndGenerateUnchangedDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, encryptedDllDir, dhaoDir);
-    }
-
-
-    /// <summary>
-    /// 生成热更包的加密dll和dhao数据
-    /// </summary>
-    [MenuItem("BuildTools/GenerateEncryptedDllAndDhaoDatas")]
-    public static void GenerateEncryptedDllAndDhaoDatas()
-    {
-        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-        string backupDir = $"{BackupAOTDllDir}/{target}";
-        string dhaoDir = $"{DhaoDir}/{target}";
-        string currentDllDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
-        string encryptedDllDir = $"{EncrypedDllDir}/{target}";
-        BuildUtils.EncryptDllAndGenerateDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, currentDllDir, encryptedDllDir, dhaoDir);
-    }
-
-    /// <summary>
     /// 复制没有改动的首包dll和dhao文件到StreamingAssets
     /// </summary>
-    [MenuItem("BuildTools/CopyUnchangedDllAndDhaoFileAndManifestToStreamingAssets")]
+    [MenuItem("BuildTools/CopyUnchangedDllAndDhaoFileToStreamingAssets")]
     public static void CopyUnchangedDllAndDhaoFileToStreamingAssets()
     {
         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
         string streamingAssetsDir = Application.streamingAssetsPath;
         Directory.CreateDirectory(streamingAssetsDir);
-
-        string manifestFile = $"{BackupAOTDllDir}/{target}/{ManifestFile}";
-        string dstManifestFile = $"{streamingAssetsDir}/{ManifestFile}";
-        System.IO.File.Copy(manifestFile, dstManifestFile, true);
-        Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {manifestFile} -> {dstManifestFile}");
 
         string dllDir = $"{BackupAOTDllDir}/{target}";
         string dhaoDir = $"{DhaoDir}/{target}";
@@ -347,9 +292,8 @@ public class Hello
 
 为了简化演示，我们不通过http服务器下载HotUpdate.dll，而是直接将HotUpdate.dll放到StreamingAssets目录下。
 
-HybridCLR是原生运行时实现，因此调用`Assembly Assembly.Load(byte[])`即可加载热更新程序集。
-
 创建`Assets/LoadDll.cs`脚本，然后**在main场景中创建一个GameObject对象，挂载LoadDll脚本**。
+
 
 ```csharp
 using HybridCLR;
@@ -372,8 +316,7 @@ public class LoadDll : MonoBehaviour
     {
         // Editor环境下，HotUpdate.dll.bytes已经被自动加载，不需要加载，重复加载反而会出问题。
 #if !UNITY_EDITOR
-        var manifests = LoadManifest($"{Application.streamingAssetsPath}/manifest.txt");
-        Assembly hotUpdateAss = LoadDifferentialHybridAssembly(manifests["HotUpdate"], "HotUpdate");
+        Assembly hotUpdateAss = LoadDifferentialHybridAssembly("HotUpdate");
 #else
         // Editor下无需加载，直接查找获得HotUpdate程序集
         Assembly hotUpdateAss = System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == "HotUpdate");
@@ -383,46 +326,11 @@ public class LoadDll : MonoBehaviour
         runMethod.Invoke(null, null);
     }
 
-    class Manifest
-    {
-        public string AssemblyName { get; set; }
-
-        public string OriginalDllMd5 { get; set; }
-    }
-
-    private Dictionary<string, Manifest> LoadManifest(string manifestFile)
-    {
-        var manifest = new Dictionary<string, Manifest>();
-        var lines = File.ReadAllLines(manifestFile, Encoding.UTF8);
-        foreach (var line in lines)
-        {
-            string[] args = line.Split(",");
-            if (args.Length != 2)
-            {
-                Debug.LogError($"manifest file format error, line={line}");
-                return null;
-            }
-            manifest.Add(args[0], new Manifest()
-            {
-                AssemblyName = args[0],
-                OriginalDllMd5 = args[1],
-            });
-        }
-        return manifest;
-    }
-
-
-    public static string CreateMD5Hash(byte[] bytes)
-    {
-        return BitConverter.ToString(new MD5CryptoServiceProvider().ComputeHash(bytes)).Replace("-", "").ToUpperInvariant();
-    }
-
-    private Assembly LoadDifferentialHybridAssembly(Manifest manifest, string assName)
+    private Assembly LoadDifferentialHybridAssembly(string assName)
     {
         byte[] dllBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dll.bytes");
         byte[] dhaoBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dhao.bytes");
-        string currentDllMd5 = CreateMD5Hash(dllBytes);
-        LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssembly(dllBytes, dhaoBytes, manifest.OriginalDllMd5, currentDllMd5);
+        LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssembly(dllBytes, dhaoBytes);
         if (err == LoadImageErrorCode.OK)
         {
             Debug.Log($"LoadDifferentialHybridAssembly {assName} OK");
@@ -450,9 +358,8 @@ public class LoadDll : MonoBehaviour
 - 运行菜单 `HybridCLR/Generate/All` 进行必要的生成操作。**这一步不可遗漏**!!!
 - 打开 `Build Settings` 对话框，点击`Build`，选择输出目录`{build}`，执行构建
 - 运行 `BuildTools/BackupAOTDll` 备份裁剪后的dhe dll。 实践中这些dll应该加入版本管理，用于后面生成dhao文件，这些文件不会再被修改
-- 运行 `BuildTools/CreateManifestAtBackupDir`生成原始dhe dll的清单文件。实践中这个清单文件应该加入版本管理，而且不会再被修改
 - 运行 `BuildTools/GenerateUnchangedDHAODatas` 生成首包的dhao文件
-- 运行 `BuildTools/CopyUnchangedDllAndDhaoFileAndManifestToStreamingAssets` 复制首包 dhe程序集、dhao文件、清单文件到 StreamingAssets
+- 运行 `BuildTools/CopyUnchangedDllAndDhaoFileToStreamingAssets` 复制首包 dhe程序集、dhao文件到 StreamingAssets
 - 将 `Assets/StreamingAssets`目录复制到`{build}\dhe_demo2_Data\StreamingAssets`
 - 运行`{build}/Xxx.exe`，屏幕显示 `Hello,HybridCLR`，表示热更新代码被顺利执行！
 
