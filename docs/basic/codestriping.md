@@ -58,7 +58,11 @@ com.code-philosophy.hybridclr的`HybridCLR/Generate/LinkXml`命令虽然可以�
             foreach (var dll in SettingsUtil.HotUpdateAssemblyFilesExcludePreserved)
             {
                 string dllPath = $"{hotUpdateDir}/{dll}";
-                checker.Check(dllPath);
+                bool notAnyMissing = checker.Check(dllPath);
+                if (!notAnyMissing)
+                {
+                    // DO SOMETHING
+                }
             }
         }
 

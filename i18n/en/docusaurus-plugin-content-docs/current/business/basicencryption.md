@@ -96,3 +96,49 @@ Delayed decryption technology refers to decrypting data only for the first time,
 Instruction virtualization technology refers to converting original IL instructions into customized register virtual machine instructions, effectively preventing crackers from using ready-made decompilation tools to analyze the original code.
 
 Instruction virtualization technology supports randomized instruction structures. Every time the App is rebuilt, a new instruction set is used (the instruction number and instruction length are completely different), which greatly increases the cost of crackers.
+
+## Configuration
+
+The encryption field in `HybridCLR Settings` configures hardening related parameters.
+
+|Parameter name|When encrypting dll, it needs to be consistent with the main package|Description|
+|-|-|-|
+|vmSeed| is the |randomized seed for encrypted virtual machines|
+|metadataSeed|No|Randomized encryption seed for metadata|
+|key|No|Encryption parameters used for encryption and decryption|
+|stringEncCodeLength|No|~The encryption instruction length of the string stream|
+|blobEncCodeLength|No|~The encryption instruction length of the blob stream|
+|userStringEncCodeLength|No|~US stream encryption command length|
+|tableEncCodeLength|No|~Encryption instruction length of table stream|
+|lazyUserStringEncCodeLength|No|~Lazy Encryption Instruction Length for US Stream|
+|methdBodyEncCodeLength|No|~Delayed encryption instruction length of the function body|
+
+
+vmSeed is the randomization seed for encrypted virtual machines. This random seed affects the code of the generated encrypted virtual machine and is compiled into the native code of the main package. Therefore, when generating an encrypted dll, make sure that vmSeed is consistent with the vmSeed used when packaging the main package.
+It is recommended to modify this parameter every time a new main package is released.
+
+MetadtaSeed and key are both dynamic parameters and do not need to be consistent with the main package. This value can be modified every time the encryption hot update dll is updated. It is recommended to modify these values every time or after several versions.
+
+xxEncCodeLength is the length of the encryption instruction. The larger the value, the more complex the encryption. The decryption time is proportional to the length of the encryption instruction. Since the decryption process will bring some overhead, it is recommended to use the default value. if
+It takes too long to load encrypted hot update assemblies. You can reduce these values appropriately.
+
+## Encrypted hot update dll
+
+The `HybridCLR.Editor.Encryption.EncryptUtil` class is provided to encrypt the dll. The sample code is as follows:
+
+```csharp
+     public static void EncryptDll(string originalDll, string encryptedDll)
+     {
+         HybridCLR.Editor.Encryption.EncryptionUtil.EncryptDll(originalDll, encryptedDll, SettingsUtil.EncryptionSettings);
+     }
+
+```
+
+For flagship version users, since the default dhao file records the MD5 value of currentDll before encryption, if the dll is encrypted, the dhao file needs to be updated synchronously, otherwise Runtime.LoadDifferentialHybridAssembly will fail to run.
+For ease of use, we provide the `HybridCLR.Editor.DHE.BuildUtil.EncryptDllAndGenerateDHAODatas` function separately to complete the encryption and generation of dhao files in one go.
+
+## Load hot update dll at runtime
+
+There is no difference from ordinary hot update dll, just use `Assembly.Load`.
+
+Supplementary metadata dlls can also be encrypted and loaded in the same way as when unencrypted.

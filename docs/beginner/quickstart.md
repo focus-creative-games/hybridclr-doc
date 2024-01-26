@@ -15,10 +15,10 @@
 ### 安装Unity
 
 :::caution
-HybridCLR也支持2019.4.x，但新手请先按照下面要求跑通流程后，再根据[安装HybridCLR](/basic/install.md)文档尝试2019.4.x。
+HybridCLR支持Unity 2019-2022的所有LTS版本，如果当前使用的版本不在以下推荐版本中，请参考[安装HybridCLR](/basic/install.md)文档。
 :::
 
-- 安装 2020.3.26+、 2021.3.0+、2022.3.0+ 中任一版本。如果你不是经验丰富的Unity开发者，推荐使用2021.3.1版本。
+- 安装 2019.4.40、2020.3.26+、 2021.3.0+、2022.3.0+ 中任一版本
 - 根据你所用的操作系统，安装过程中选择模块时，必须选中 `Windows Build Support(IL2CPP)`或`Mac Build Support(IL2CPP)`。
 
 ![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)

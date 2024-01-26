@@ -126,6 +126,13 @@ void LoadDifferentialHybridAssembly(string assemblyName, string originalDllMd5)
 }
 ```
 
+:::warning
+
+`RuntimeApi::LoadDifferentialHybridAssemblyUnchecked` 函数不需要提供originalDllMd5和currentDllMd5参数，使用较为便利，但强烈不建议使用。
+实践中经常由于操作失误，使用了错误的原始dll或者热更新dll，导致生成了错误的dhao文件。使用了错误的dhao文件，轻则运行出错，重则进程崩溃。
+
+:::
+
 ## 配置函数注入策略
 
 :::tip

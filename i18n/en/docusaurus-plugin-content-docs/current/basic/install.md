@@ -33,20 +33,17 @@ According to the target platform you packaged, select the necessary modules duri
 
 ### Select `com.code-philosophy.hybridclr` version
 
-:::caution
-Before v3.0.0 the package name was `com.focus-creative-games.hybridclr_unity`.
-:::
-
-These versions currently exist: `1.0` branch, `v2.x.y`, `v3.x.y`, `v.4.x.y` (also current main branch) .
-
-- The `1.0` branch is too old, although the work is stable, but the Package-related workflow is relatively old, not as convenient as subsequent versions, and maintenance has been stopped, it is strongly recommended not to use it again
-- The workflow of `v2.x.y` versions is well optimized and verified by a large number of projects. It is recommended to use the Unity 2019 version or the projects that will be launched soon
-- `v3.x.y` versions **removed support for Unity 2019**, added support for Unity 2022 version. It is recommended to use Unity 2020+ version or projects that will be launched soon
-- The `v4.x.y` versions supports incremental GC and fully supports all platforms. Since it has just been released, it will take a few weeks to stabilize. It is recommended for projects in the early or middle stages of the project.
-
 :::tip
-The versions of these three series are very stable, so there is no need to worry about which one is better. Generally speaking, the newer the version, the more optimizations and the better the user experience.
+The package name before v3.0.0 is `com.focus-creative-games.hybridclr_unity`.
 :::
+
+The `v3.x.y` and `v4.x.y` series versions have removed support for Unity 2019, but starting from the `v5.0.0` version, support for Unity 2019 has been restored, and support for source code Form packaging for iOS.
+Developers using the 2019 version are strongly recommended to choose the `v5.x.y` version.
+
+These versions currently exist: `1.0` branch, `v2.x.y`, `v3.x.y`, `v.4.x.y`, `v5.x.y` (also the current main branch) series.
+The `1.0` branch, `v2.x.y`, and `v3.x.y` series versions are no longer maintained and are not recommended for use. It is recommended to use `v4.x.y` and `v5.x.y` series versions.
+
+These versions have been verified by a large number of online projects and are already very stable. There is no need to worry about which one is better. Generally speaking, the newer version has more bugs fixed, more optimizations, and a better user experience.
 
 ## Install the `com.code-philosophy.hybridclr` package
 

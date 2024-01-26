@@ -56,7 +56,11 @@ Since version v5.0.0, the `HybridCLR.Editor.HotUpdate.MissingMetadataChecker` cl
              foreach (var dll in SettingsUtil.HotUpdateAssemblyFilesExcludePreserved)
              {
                  string dllPath = $"{hotUpdateDir}/{dll}";
-                 checker.Check(dllPath);
+                bool notAnyMissing = checker.Check(dllPath);
+                if (!notAnyMissing)
+                {
+                    // DO SOMETHING
+                }
              }
          }
 

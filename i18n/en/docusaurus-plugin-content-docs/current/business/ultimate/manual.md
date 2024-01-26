@@ -126,6 +126,13 @@ void LoadDifferentialHybridAssembly(string assemblyName, string originalDllMd5)
 }
 ```
 
+:::warning
+
+The `RuntimeApi::LoadDifferentialHybridAssemblyUnchecked` function does not need to provide originalDllMd5 and currentDllMd5 parameters, which is more convenient to use, but its use is strongly not recommended.
+In practice, incorrect dhao files are often generated due to operational errors and the use of the wrong original dll or hot update dll. If the wrong dhao file is used, it may cause an operation error or a process crash.
+
+:::
+
 ## Configure function injection rules
 
 :::tip

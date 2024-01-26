@@ -97,3 +97,49 @@ method body中保存了函数体元数据信息。
 
 指令虚拟化技术支持随机化指令结构，每次重新构建App（为了提升解码指令的性能，不像结构虚拟化和加密虚拟化那样支持动态调整）时都使用全新的指令集（指令号和指令长度都完全不同），极大增加了破解者的成本。
 
+
+## 配置
+
+`HybridCLR Settings`中Encryption字段配置了加固相关参数。
+
+|参数名|加密dll时需要与主包一致|描述|
+|-|-|-|
+|vmSeed|是|加密虚拟机的随机化种子|
+|metadataSeed|否|元数据的随机化加密种子|
+|key|否|加解密时所用的加密参数|
+|stringEncCodeLength|否|~string流的加密指令长度|
+|blobEncCodeLength|否|~blob流的加密指令长度|
+|userStringEncCodeLength|否|~US流的加密指令长度|
+|tableEncCodeLength|否|~table流的加密指令长度|
+|lazyUserStringEncCodeLength|否|~US流的延迟加密指令长度|
+|methdBodyEncCodeLength|否|~函数体的延迟加密指令长度|
+
+
+vmSeed是加密虚拟机的随机化种子。这个随机会种子会影响生成的加密虚拟机的代码，并且编译到主包的原生代码中。因此生成加密dll时，要确保vmSeed与主包打包时所用的vmSeed一致。
+推荐每次发布新主包时修改此参数。
+
+metadtaSeed和key为均为动态参数，不需要与主包一致。每次加密热更新dll都可以修改此值。推荐每经过一段时间或者经过几个版本后修改这些值。
+
+xxEncCodeLength为加密指令的长度，值越大则加密越复杂，解密耗时与加密指令长度成正比关系。由于解密过程会带来一定的开销，建议取默认值即可。如果
+加载加密的热更新程序集的时间过长，可以适当减少这些值。
+
+## 加密热更新dll
+
+提供了 `HybridCLR.Editor.Encryption.EncryptUtil`类对dll进行加密。示例代码如下：
+
+```csharp
+    public static void EncryptDll(string originalDll, string encryptedDll)
+    {
+        HybridCLR.Editor.Encryption.EncryptionUtil.EncryptDll(originalDll, encryptedDll, SettingsUtil.EncryptionSettings);
+    }
+
+```
+
+对于旗舰版本用户，由于默认的dhao文件记录了加密前的currentDll的MD5值，因此如果对dll进行加密，需要同步更新dhao文件，否则Runtime.LoadDifferentialHybridAssembly会运行失败。
+为了方便使用，我们单独提供`HybridCLR.Editor.DHE.BuildUtil.EncryptDllAndGenerateDHAODatas`函数用于一次性完成加密和生成dhao文件的工作。
+
+## 运行时加载热更新dll
+
+与普通热更新dll没有任何区别，使用`Assembly.Load`即可。
+
+补充元数据dll也可以加密，加载方式与未加密时相同。
