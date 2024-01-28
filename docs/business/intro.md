@@ -44,11 +44,16 @@
 |热重载版|邮件咨询商务|[hotreload-free-trial-version](https://github.com/focus-creative-games/hybridclr_trial/releases/tag/v4.4.11)|买断一个项目的使用权，同时包含2年技术支持，提供2年代码更新|
 |旗舰版|邮件咨询商务|[ultimate-free-trial-version](https://github.com/focus-creative-games/dhe_demo/releases/tag/v4.5.8)|买断一个项目的使用权，同时包含2年技术支持，提供2年代码更新|
 
+### 试用
 
-所有商业化版本都支持两种试用方式：
+所有商业化版本都支持几种试用方式：
 
-- 免费的体验项目。体验项目是基于[hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial)项目构建的Windows Standalone 64平台可执行程序
-- 付费的基于客户提供的项目工程构建的iOS app。需要支持3%商业版本总价的服务费用，如果最终购买则可以退还服务费用，否则不退还服务费。只需要提供`Generate/All`后生成的`libil2cpp/hybridclr/generated`目录，没有泄露项目代码风险
+
+|试用方式|价格|描述|
+|-|-|-|
+|试用体验项目|免费|体验项目是基于[hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial)项目构建的Windows Standalone 64平台可执行程序|
+|构建试用iOS app|商业化版本总价1%|基于开发者的游戏项目构建试用版本iOS app。只需要提供`Generate/All`后生成的`libil2cpp/hybridclr/generated`目录，不需要提供任何源码。如果最终购买正式版本则可以抵扣服务费用，否则不退还服务费|
+|提供试用商业版本源码|商业化版本总价10%|提供商业化版本的试用版本的源码及相关工具，由开发者自行构建及测试。如果最终购买正式版本则可以抵扣服务费用，否则除非有虚假宣传或者重大缺陷，不退还试用费用|
 
 
 ## 企业技术支持
