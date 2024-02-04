@@ -59,6 +59,6 @@ We can roughly conclude that among the latest and best-performing Unity game app
 |NetEase|[Yaotai](https://yaotai.163.com/)|
 |Baidu|[Xirang](https://vr.baidu.com/product/xirang)|
 |funplus|[Bingo Aloha](https://play.google.com/store/apps/details?id=com.gm11.bingocraze&hl=en_US)|
-|Gibbit|[Wonderful Combatant](https://apps.apple.com/cn/app/%E5%A5%87%E8%91%A9%E6%88%98%E6%96%97%E5 %AE%B6/id1434798394)|
+|Gibbit|[Wonderful Combatant](https://www.qimai.cn/app/rank/appid/1434798394/country/cn)|
 |Sunborn|[Girls’ Frontline 2](https://gf2.sunborngame.com/index)|
 |Explosion|[Wandering Earth](https://www.taptap.cn/app/275896/topic)|
