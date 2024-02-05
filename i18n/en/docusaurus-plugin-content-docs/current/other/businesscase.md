@@ -1,4 +1,4 @@
-# Business project case
+#Business project case
 
 There are currently more than a thousand domestic and foreign commercial games using HybridCLR, among which hundreds of commercial projects have been launched online (AppStore or Google Play).
 We only count the commercial projects using the HybridCLR solution among the top 200 best-sellers and the top 500 free in China.
@@ -6,32 +6,34 @@ We only count the commercial projects using the HybridCLR solution among the top
 
 ## Proportion of HybridCLR used in recently launched commercial projects
 
-We have collected data on 129 game apps in the top 200 best-selling lists on February 2, 2024. There are 65 models developed using Unity and 64 models developed using non-Unity.
+We have collected data on 129 game apps in the top 200 best-selling lists of App Store on February 2, 2024. There are 65 models developed using Unity and 64 models developed using non-Unity.
 Among the games using the Unity engine, 6 use HybridCLR technology, 40 use Lua, and 19 do not use hot updates.
 
 Considering that the vast majority of the best-selling list is old games, we roughly estimate that new games account for 1/3, or about 60 games. Among them, Unity games accounted for nearly half, with 30 games.
 Calculated at 25% for apps that do not use hot update technology, among Unity games that use hot update technology, the proportion of using HybridCLR is approximately 26.7%.
 
-Similarly, we counted the data of 326 game apps in the top 500 free list on February 2, 2024, except for the 326 game apps that are not on the best-selling list. Among them, there are 140 Unity games and 186 non-Unity games.
+Similarly, we counted the data of 326 game apps in the top 500 free list of App Store on February 2, 2024, except for the 326 game apps that are not on the best-selling list. Among them, there are 140 Unity games and 186 non-Unity games.
 Among Unity games, 13 use HybridCLR hot update, 27 use Lua hot update, and 100 do not use hot update.
 Among Unity games using hot update technology, the proportion of using HybridCLR is approximately 32.5%.
 
 We can roughly conclude that among the latest and best-performing Unity game apps that use hot update technology, the proportion of using HybridCLR is between 25% and 35%.
 
 
-## Projects using HybridCLR in top-200 gross
+## Top 200 best-selling projects using HybridCLR
 
 
 |appID|bundleID|game name|ranking|
 |-|-|-|-|
 |891616303|com.zengame.xzdd|[Fingertip Sichuan Mahjong-Anchor’s Favorite Mahjong](https://www.qimai.cn/app/rank/appid/891616303/country/cn)|25|
 |1562260653|com.zy.wqmt.cn|[Lost in Time](https://www.qimai.cn/app/rank/appid/1562260653/country/cn)|49|
+|996509117|com.juzi.balls|[Battle of Balls](https://www.qimai.cn/app/rank/appid/996509117/country/cn)|64|
 |6444853360|com.xxzyios.xh|[Five Thousand Years of Heroes and Righteousness-Guo Mowing Mobile Game](https://www.qimai.cn/app/rank/appid/6444853360/country/cn)|71|
 |1508509620|com.minigame.skyforce.os|[Lonely Fighter](https://www.qimai.cn/app/rank/appid/1508509620/country/cn)|112|
 |1561085506|com.chillyroom.soulknightprequel|[Prequel to Soul Knight](https://www.qimai.cn/app/rank/appid/1561085506/country/cn)|144|
 |6448353442|com.ddsw.zombiewaves.zw|[Mobile anti-terrorism special operations](https://www.qimai.cn/app/rank/appid/6448353442/country/cn)|171|
+|1278845241|com.yomob.yyzy|[Full Moon Night](https://www.qimai.cn/app/rank/appid/1278845241/country/cn)|196|
 
-## Projects using HybridCLR in the top-500 free list
+## top 500 free projects using HybridCLR
 
 
 |appID|bundleID|game name|ranking|
@@ -56,9 +58,10 @@ We can roughly conclude that among the latest and best-performing Unity game app
 
 |Company|Online Project|
 |-|-|
-|NetEase|[Yaotai](https://yaotai.163.com/)|
-|Baidu|[Xirang](https://vr.baidu.com/product/xirang)|
 |funplus|[Bingo Aloha](https://play.google.com/store/apps/details?id=com.gm11.bingocraze&hl=en_US)|
-|Gibbit|[Wonderful Combatant](https://www.qimai.cn/app/rank/appid/1434798394/country/cn)|
+|Gibbit|[Strange Combatant](https://www.qimai.cn/app/rank/appid/1434798394/country/cn)|
 |Sunborn|[Girls’ Frontline 2](https://gf2.sunborngame.com/index)|
 |Explosion|[Wandering Earth](https://www.taptap.cn/app/275896/topic)|
+||[square inch showdown]()
+|NetEase|[Yaotai](https://yaotai.163.com/)|
+|Baidu|[Xirang](https://vr.baidu.com/product/xirang)|
