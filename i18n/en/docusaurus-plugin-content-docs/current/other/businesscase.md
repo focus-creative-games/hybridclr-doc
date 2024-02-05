@@ -62,6 +62,6 @@ We can roughly conclude that among the latest and best-performing Unity game app
 |Gibbit|[Strange Combatant](https://www.qimai.cn/app/rank/appid/1434798394/country/cn)|
 |Sunborn|[Girls’ Frontline 2](https://gf2.sunborngame.com/index)|
 |Explosion|[Wandering Earth](https://www.taptap.cn/app/275896/topic)|
-||[square inch showdown]()
+|Xinghuo Studio|[Fangcun Showdown](https://www.qimai.cn/app/rank/appid/6447148068/country/cn)
 |NetEase|[Yaotai](https://yaotai.163.com/)|
 |Baidu|[Xirang](https://vr.baidu.com/product/xirang)|

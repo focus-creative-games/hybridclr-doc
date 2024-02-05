@@ -62,7 +62,7 @@ Unity游戏中使用HybridCLR热更新的13款，使用lua热更新的有27款�
 |吉比特|[奇葩战斗家](https://www.qimai.cn/app/rank/appid/1434798394/country/cn)|
 |散爆|[少女前线2](https://gf2.sunborngame.com/index)|
 |散爆|[流浪地球](https://www.taptap.cn/app/275896/topic)|
-||[方寸对决]()
+|星火工作室|[方寸对决](https://www.qimai.cn/app/rank/appid/6447148068/country/cn)
 |网易|[瑶台](https://yaotai.163.com/)|
 |百度|[希壤](https://vr.baidu.com/product/xirang)|
 
