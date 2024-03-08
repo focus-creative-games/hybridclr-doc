@@ -6,21 +6,24 @@
 
 - 支持卸载assembly，卸载100%的assembly所占用的内存
 - 支持重新加载assembly，代码可以任意变化甚至完全不同（MonoBehaviour和Scriptable有一定的限制）
-
-## 待实现，暂未支持的特性
-
 - 支持**限定热更新assembly中能访问的函数的集合**，适合UGC游戏中创建沙盒环境，避免恶意玩家代码造成破坏。
 
 ## 不支持特性及特殊要求
 
 - 要求业务代码不会再使用被卸载的Assembly中的对象或者函数，并且退出所有在执行的旧逻辑
-- 要求重载的MonoBehaviour中的事件或消息函数如Awake、OnEable之类不发生增删（但函数体可以变化）
-- 要求重载后在旧Assembly中存在同名类的MonoBehaviour类的序列化字段名不发生变化（类型可以变）
 - 不能直接卸载被依赖的Assembly，必须按照逆依赖顺序先卸载依赖者，再卸载被依赖者。例如A.dll依赖B.dll，则需要先卸载A.dll，再卸载B.dll
-- 由于Unity自身实现的原因，与2022的Jobs不兼容，需要自行小幅修改UnityEngine.CoreModule.dll的代码。 2020-2021仍然可以正常工作
+- MonoBehaviour和ScriptableObject相关
+  - 要求重载的MonoBehaviour中的事件或消息函数如Awake、OnEable之类不发生增删（但函数体可以变化）
+  - 要求重载后在旧Assembly中存在同名脚本类的序列化字段名不发生变化（类型可以变）
+  - 不能继承泛型类型，例如`class MyScript : CommonScript<int>`
+- 一些会缓存反射信息的库（这种行为在序列化相关的库中最为普遍，如LitJson），在热重载后需要清理掉缓存的反射信息
 - 不支持析构函数，~XXX()。也不允许实例化泛型参数带本程序集类型的带析构函数的泛型类
+- 与dots不兼容。由于dots大量缓存的类型信息，实现复杂，很难单独清理掉缓存信息。
 
 
+## 一些不兼容的库
 
+- 2022的Jobs会缓存类型相关信息，需要自行小幅[修改UnityEngine.CoreModule.dll](./modifydll.md)的代码。 低于2022的版本不需要修改
+- LitJson之类的反序列化库会缓存反射信息，需要在热重载后清理掉库中缓存的反射信息，具体操作跟库的实现相关
 
 
