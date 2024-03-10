@@ -1,10 +1,10 @@
 # 商业项目案例
 
-目前使用HybridCLR的国内外商业游戏超过千款，其中并已经上线（AppStore或GooglePlay）的商业项目有数百之多。
+目前使用HybridCLR的国内外商业游戏数千款，其中并已经上线（AppStore或GooglePlay）的商业项目有上千款之多。
 我们只统计了中国区畅销榜top 200和免费榜top 500中使用HybridCLR方案的商业项目。
 
 
-## 最近上线的商业项目中使用HybridCLR的比例
+## 25-35%的头部Unity热更新游戏使用了HybridCLR
 
 我们统计了2024.2.2 App Store畅销榜top200中129款游戏app数据。使用Unity开发的有65款，使用非Unity开发的有64款。
 使用Unity引擎的游戏中使用HybridCLR技术的有6款，使用lua的有40款，未使用热更新的有19款。
@@ -16,7 +16,7 @@
 Unity游戏中使用HybridCLR热更新的13款，使用lua热更新的有27款，没有使用热更新的有100款。
 在使用热更新技术的Unity游戏中，使用HybridCLR的比例大约为32.5%。
 
-我们大致可以得出结论，最新上线的表现最优秀的采用了热更新技术的Unity游戏App中，使用HybridCLR的比例在25%-35%之间。
+我们大致可以得出结论，最新上线的表现最优秀的采用了热更新技术的Unity游戏App中，**使用HybridCLR的比例在25%-35%之间**。
 
 
 ## 畅销榜前200名中使用HybridCLR的项目
