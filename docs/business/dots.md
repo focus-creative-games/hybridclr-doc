@@ -33,6 +33,9 @@
 
 ## 支持的Unity及DOTS版本
 
-由于DOTS代码处于不断变动中，目前仅支持 Unity 2022.3.0+ 及 com.unity.entities 1.0.16+版本。我们正尝试支持更多的Unity及DOTS版本。
+由于DOTS代码处于不断变动中，目前仅支持以下版本组合：
 
-由于维护多个DOTS版本成本较高，有特殊版本需求的开发者，请联系我们单独付费订制。
+- Unity 2021.3.0+ 及 com.unity.entities 0.51.1-preview.21
+- Unity 2022.3.0+ 及 com.unity.entities 1.0.16
+
+所有商业化版本都可以使用以上版本。有特殊版本需求的开发者，由于维护单独的DOTS版本成本较高，需要单独付费订制。
