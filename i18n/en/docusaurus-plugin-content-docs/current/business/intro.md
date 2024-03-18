@@ -52,7 +52,6 @@ All commercial versions support several trial methods:
 |Trial method|Price|Description|
 |-|-|-|
 |Trial experience project|Free|The experience project is a Windows Standalone 64 platform executable program built based on the [hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial) project|
-|Build a trial iOS app|1% of the total price of the commercial version|Build a trial version of the iOS app based on the developer's game project. You only need to provide the `libil2cpp/hybridclr/generated` directory generated after `Generate/All`, and there is no need to provide any source code. If you finally purchase the official version, the service fee can be deducted, otherwise the service fee will not be refunded |
 | Provide trial commercial version source code | 10% of the total price of commercial version | Provide commercial version trial version source code and related tools, which are built and tested by developers themselves. If you finally purchase the official version, the service fee can be deducted. Otherwise, the trial fee will not be refunded unless there is false advertising or major defects |
 
 ## Enterprise technical support
