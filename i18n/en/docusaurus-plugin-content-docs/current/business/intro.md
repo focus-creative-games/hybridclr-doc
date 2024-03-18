@@ -25,7 +25,7 @@ There are currently three commercial versions. The specific features are compare
 |Incremental GC|✔|✔|✔|✔|
 |Unity 2019-2022 LTS|✔|✔|✔|✔|
 |[Full Generic Sharing](./fullgenericsharing)||✔|✔|✔|
-|Tuanjie(Unity China) Engine and HarmonyOS Platform (in progress)||✔|✔|✔|
+|[DOTS](./dots)||✔|✔|✔|
 |[Metadata Optimization](./metadataoptimization.md)||✔|✔|✔|
 |[Offline Instruction Optimization](./basiccodeoptimization)||✔|✔|✔|
 |[Code Protection](./basicencryption)||✔|✔|✔|

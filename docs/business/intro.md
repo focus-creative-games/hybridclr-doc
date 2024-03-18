@@ -25,7 +25,7 @@
 |增量式GC|✔|✔|✔|✔|
 |Unity 2019-2022 LTS|✔|✔|✔|✔|
 |[完全泛型共享](./fullgenericsharing)||✔|✔|✔|
-|团结引擎和鸿蒙平台|仅支持2022.3.2t3|✔|✔|✔|
+|[DOTS](./dots)||✔|✔|✔|
 |[元数据优化](./metadataoptimization.md)||✔|✔|✔|
 |[离线指令优化](./basiccodeoptimization)||✔|✔|✔|
 |[代码加固](./basicencryption)||✔|✔|✔|
