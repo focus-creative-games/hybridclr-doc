@@ -129,7 +129,9 @@ public class ConsoleToScreen : MonoBehaviour
 ### Install
 
 - Unzip hybridclr_unity.zip, place it in the project Packages directory, and rename it com.code-philosophy.hybridclr
-- Unzip the corresponding `libil2cpp-{version}.7z` according to your unity version
+- Unzip the corresponding `il2cpp_plus-{version}.zip` according to your unity version
+- Unzip `hybridclr.zip`
+- Place the hybridclr directory after decompression of `hybridclr.zip` into the libil2cpp directory after decompression of `il2cpp-{version}.zip`
 - Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the libil2cpp directory you just decompressed, and install it.
 - Depending on your Unity version:
      - If version >= 2020, replace the `ModifiedDlls\{verions}\Unity.IL2CPP.dll` file with `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` (Unity 2020) or `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` (Unity 2021+). If there is no file corresponding to your version, contact us to make one.
