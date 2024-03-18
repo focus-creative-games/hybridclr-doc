@@ -37,10 +37,13 @@ HybridCLR本身只会增加很少包体(1-2M)。包体增大很多是因为你�
 
 完整支持。 支持Thread, Task, volatile, ThreadStatic, async。
 
-## 支持多Assembly吗？
+## 支持多个Assembly吗？
 
-支持,最大支持255个。但是不会自动加载依赖dll。需要你手动按依赖顺序加载热更dll。
+支持。但是不会自动加载依赖dll。需要你手动按依赖顺序加载热更dll。
 
+## 支持最多同时加载多少个dll?
+
+最多可以同时加载3个最大64M的dll、16个最大16M的dll、64个最大4M的dll、255个最大1M的dll。也就是最多可以同时加载338个dll。
 
 ## 支持 .net standard 2.0 吗？
 
