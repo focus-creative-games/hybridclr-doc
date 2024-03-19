@@ -338,7 +338,14 @@ package中 `Editor/Data~/iOSBuild` 包含了编译iOS版本libil2cpp.a所需的�
 
 ### 元数据模式 HomologousImageMode
 
-目前支持两种元数据模式：
+
+:::tip
+
+推荐新手使用Super模式。在需要节约内存的场合，可以改用Consistent模式。
+
+:::
+
+目前支持两种元数据模式。
 
 #### `HomologousImageMode::Consistent` 模式
 
@@ -346,20 +353,9 @@ package中 `Editor/Data~/iOSBuild` 包含了编译iOS版本libil2cpp.a所需的�
 
 #### `HomologousImageMode::SuperSet` 模式
 
-即补充的dll是打包时裁剪后的dll的超集，包含了裁剪dll的所有元数据。一个最简单易得的超集dll为原始aot dll，这也是推荐使用的超集dll。
+Consistent要求与裁剪后的dll精确一致，而`generate/all`中生成的裁剪aot dll与实际打包时生成的经常有微小差别，导致加载错误。SuperSet模式相比Consistent模式，对dll的一致性要求更低，只要补充元数据需要的类型和函数存在即可。
 
-- 原始UnityEngine相关AOT dll在Unity安装目录的PlayBackEngines子目录下
-- 原始的.net核心AOT dll如mscorlib.dll在Unity安装目录的 `unityaot{xxx}` 目录下。2019-2020统一为unityaot目录，2021起拆分成多个目录，如果打包android取unityaot-linux、如果打包iOS取unityaot-macos。
-- 插件的AOT dll为工程目录中的相应平台的原始dll。如果是源码形式，则为编译好的dll，取`HybridCLR/HotUpdateDlls/{platform}`目录下的相应dll即可
-
-以Unity 2020.3.33版本Win下的Win64目标为例：
-
-- mscorlib.dll在 `{editor}/Editor/Data/MonoBleedingEdge/lib/mono/unityaot`
-- UnityEngine.CoreModule.dll 在 `{editor}/Editor/Data/Playbackengines/windowsstandalonesupport/Variations/il2cpp/Managed`
-- protobuf-net.dll 为你的工程中的原始`protobuf-net.dll`
-- 你的AOT模块Main对应的AOT dll为 `HybridCLR/HotUpdateDlls/{platform}/Main.dll`
-
-`SuerSet`模式也可以使用`Consistent`模式的裁减后的dll，因为自己显然包含自身的所有元数据。
+由于SuperSet模式使用放松的一致性，导致计算匹配更加复杂，需要维护更多相关元数据，占用更多内存。
 
 ### RuntimeApi
 
