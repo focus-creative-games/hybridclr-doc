@@ -244,9 +244,13 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 有两种原因
 
-1. 如果非ios平台，则因为未安装HybridCLR。请参照[安装HybridCLR](/basic/install.md)文档操作。
-2. 如果ios平台，因为ios平台并不从源码编译libil2cpp，而是使预先编译好的libil2cpp.a，你需要替换xcode工程中的libil2cpp.a为HybridCLR的编译版本。编译方式请看[build libil2cpp.a for iOS](/basic/buildpipeline.md)
+1. 如果ios平台，因为ios平台并不从源码编译libil2cpp，而是使预先编译好的libil2cpp.a，你需要替换xcode工程中的libil2cpp.a为HybridCLR的编译版本。编译方式请看[build libil2cpp.a for iOS](/basic/buildpipeline.md)
+2. 如果是webgl平台，则因为使用全局安装后没有替换安装目录的libil2cpp或者没有建立安装目录libil2cpp到项目本地libil2cpp的软链接。详细见[发布WebGL平台](../basic/buildwebgl)
+3. 如果其他平台，则因为未安装HybridCLR。请参照[安装HybridCLR](/basic/install.md)文档操作。
 
+### 热更新中物理碰撞 Collision未生效
+
+一般是因为Collision脚本及相关功能被裁剪导致的。请确保相关脚本及dll不要被裁剪。
 
 ### unsupported internal call for il2cpp. xxxx 
 
@@ -425,6 +429,14 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 - 修改 `hybridclr\metadata\MetadataUtil.h` 文件中 kMetadataIndexBits定义，逐步递增1，直至不再出现此问题为止。kMetadataIndexBits的值强烈建议不要超过29，因为此时最大能加载的热更新dll个数为7，很容易超出此限制
 - 将热更新dll拆分成多个更小的dll
+
+## 启动时执行AutomaticWorldBootstrap::Initialize过程中调用ResourceCatalogData::GetGUIDFromPath崩溃
+
+你当前使用的entities版本不能直接使用Player Building中打包，必须安装`com.unity.platforms`，使用它单独的提供的打包方式，[详细文档](https://docs.unity3d.com/Packages/com.unity.entities@0.51/manual/ecs_building_projects.html)。
+
+## Job.ScheduleBatch 崩溃
+
+hybridclr与dots不兼容导致，商业化版本可以解决这个问题。
 
 ### 使用 Unity.netcode.runtime 后出现 NotSupportNative2Managed 桥接函数缺失异常
 
