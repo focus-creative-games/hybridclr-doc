@@ -379,6 +379,13 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 这是已知bug，跟unity的代码实现有关，只有挂载在热更新资源上热更新脚本才会有这个问题，通过代码中AddComponent添加的热更新脚本是可以用这个方法查找到。请改用 `GameObject.GetComponent<T>()` 或 `GameObject.GetComponent(typeof(T))`
 
+### GameObject.GetComponent&lt;T&gt;()或者GameObject.GetComponent(Type type)返回null
+
+都是因为你把某个程序集加载了两次导致，你传入的T或者Type与GameObject上挂载的脚本只是同名，却属于不同程序集实例，导致返回时强转后变成null。一般有如下几种情形导致：
+
+- Editor中使用Assembly.Load加载了热更新程序集。由于Editor下已经默认加载了所有程序集，你再次加载就会出现重复加载。解决办法为使用#if !UNITY_EDITOR 宏注释掉加载代码
+- 程序集未加到hotUpdateAssemblies列表，导致热更新程序集也被打包到了AOT中。在热更新中再次加载则会出现重复加载。解决办法为将热更新程序集加入到hotUpdateAssemblies列表，重新打包
+
 ### 使用MemoryProfile抓取内存快照会崩溃
 
 如果你使用Unity 2021或更高的版本，升级 hybridclr package到`v3.0.2`或更高版本即可。如果使用Unity 2019或2020，将提交记录
