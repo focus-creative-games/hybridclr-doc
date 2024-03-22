@@ -1,4 +1,4 @@
-# Getting started 
+# Getting Started 
 
 This tutorial guides you to experience HybridCLR hot update from an empty project. For the sake of simplicity, only the case where the BuildTarget is **Windows** or **MacOS** Standalone platform is demonstrated.
 

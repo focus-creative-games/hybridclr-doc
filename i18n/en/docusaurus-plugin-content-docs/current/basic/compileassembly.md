@@ -1,4 +1,4 @@
-# Compile hot update assembly
+# Compile Hot Update Assembly
 
 The hot update code may contain macro switches such as `#if UNITY_EDITOR` and `#if UNITY_STANDALONE_WIN`, so each platform needs to be
 Compile hot update assembly.

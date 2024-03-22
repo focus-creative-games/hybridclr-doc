@@ -1,4 +1,4 @@
-# AOT generic problem
+# AOT Generic
 
 There are two types of generic features in the CLR: generic types and generic functions. Generics are an extremely widely used feature in C#. Even a usage that does not explicitly contain generics may imply generic-related definitions or operations.
 

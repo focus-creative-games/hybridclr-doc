@@ -1,4 +1,4 @@
-# Hot reload technology
+# Hot Reload Technology
 
 Hot reload technology is used to completely uninstall or reload an assembly, which is suitable for small game collection type games. This program only provides **commercial version**.
 

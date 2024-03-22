@@ -1,4 +1,4 @@
-# il2cpp bug log
+# il2cpp Bugs
 
 ## Contravariant covariant generic interface call error
 

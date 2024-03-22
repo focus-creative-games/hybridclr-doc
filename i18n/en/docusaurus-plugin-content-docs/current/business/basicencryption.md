@@ -1,4 +1,4 @@
-# Code Protection
+# Code Encryption
 
 The community version loads the original dll directly, forcing developers to carry and download the original dll. These original dlls can be decompiled by tools like ILSpy
 , causing serious safety problems. Even if the developer encrypts it, it can easily be intercepted in the memory and obtain the decrypted dll content.

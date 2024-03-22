@@ -1,4 +1,4 @@
-# performance data
+# Performance
 
 
 A rough introduction to the performance gap between these optimization techniques. Taking numerical calculation as an example, if the performance benchmark of the community version is 1, then the primary instruction optimization is 2-4, the deep instruction optimization is 3-4, DHE is 50, and native is 50.

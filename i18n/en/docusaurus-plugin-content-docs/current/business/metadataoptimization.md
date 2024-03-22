@@ -1,4 +1,4 @@
-# Metadata optimization
+# Metadata Optimization
 
 HybridCLR does not occupy additional memory when executing code, but loading assembly metadata occupies a large amount of memory. This may be a problem for some situations where there is a lot of memory pressure (such as WeChat mini-games).
 For this situation, all commercial editions have significantly optimized metadata memory.

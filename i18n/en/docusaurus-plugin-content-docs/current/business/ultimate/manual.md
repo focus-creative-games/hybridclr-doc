@@ -1,4 +1,4 @@
-# manual
+# Manual
 
 ## Install
 

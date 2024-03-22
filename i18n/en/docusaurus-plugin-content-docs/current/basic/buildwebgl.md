@@ -1,4 +1,4 @@
-# Publish the WebGL platform
+# Publish WebGL Platform
 
 Due to the particularity of the WebGL platform, a separate document introduces how to release the WebGL platform. This document is published on the hybridclr_trial project ([github](https://focus-creative-games/hybridclr_trial) [gitee](https://gitee.com/focus-creative-games/hybridclr_trial) ) process.
 

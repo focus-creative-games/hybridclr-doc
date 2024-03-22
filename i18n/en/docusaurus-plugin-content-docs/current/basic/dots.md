@@ -1,4 +1,4 @@
-# DOTS support
+# DOTS Support
 
 DOTS does not support dynamic registration of core types such as Component, System, and Aspect. As a result, DOTS-related types in hot updates cannot be recognized by the DOTS runtime and cannot operate normally.
 

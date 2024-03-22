@@ -1,4 +1,4 @@
-# Fully generic sharing
+# Fully Generic Sharing
 
 Although supplementary metadata completely solves the AOT generic problem, supplementary metadata will cause the need to download the supplementary metadata dll with the package or hot update, resulting in an increase in package size or hot update time.
 Loading supplementary metadata not only resulted in a noticeable increase in memory footprint, but also increased startup time. For occasions such as WeChat mini-games that have strict requirements on package size and memory, this is a problem that has a greater impact.
