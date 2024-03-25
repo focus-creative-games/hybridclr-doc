@@ -64,8 +64,6 @@ com.code-philosophy.hybridclr 与 hybridclr及il2cpp_plus版本不匹配导致�
 
 - 如果是以dll形式放到工程内的热更新dll未找到，则你需要在HybridCLRSettings的外部dll搜索路径中添加它所在的目录
 - 你从未在主工程中使用过跟该dll相关代码，导致就算link.xml中保留了，仍然整个被裁剪。解决办法是在主工程中随便写段代码引用该dll中的某个类或函数。
-- Unity2021版本，打包iOS平台，使用低于2.0.1版本com.code-philosophy.hybridclr，同时未修改 UnityEditor.CoreModule.dll文件，导致未获得裁剪后的dll。解决办法是升级hybridclr_unity到2.0.1及更高版本或者按照文档[修改Unity编辑器相关dll](../basic/modifyunitydll.md)修改UnityEditor.CoreModule.dll。
-- 其他原因。万能的解决办法是手动build一次项目生成aot dll。
 
 ### 运行 `HybridCLR/generate/xxx` 时发生 `NullReferenceException. HybridCLR.Editor.ABI.TypeCreatorBase.CreateTypeInfo ...`
 

@@ -183,21 +183,6 @@ hybridclr仓库推荐填写`1.0`，即每次安装1.0分支的最新版本；il2
 
 由于Unity自身原因，如果使用的于Unity版本低于2021.3.4，构建WebGL平台必须全局安装。 请查阅下面章节的`全局安装`文档。
 
-
-### Unity 2021
-
-:::caution
-**如果你的com.code-philosophy.hybridclr版本 >= v2.0.1**，由于已经使用MonoHook技术在不修改UnityEditor.CoreModule.dll的情况下也能复制出裁剪后的AOT dll，**不需要**执行以下操作。
-:::
-
-补充元数据及`HybridCLR/Generate/*`下的部分命令依赖裁减后的AOT dll。但Unity 2021版本（2019、2020不需要）打包`iOS平台`(其他平台不需要)时，由于Unity Editor未提供公开接口可以复制出target为iOS时的裁剪后的AOT dll，故必须使用修改后的UnityEditor.CoreModule.dll覆盖Unity自带的相应文件。
-
-具体操作为将 `{package目录}/Data~/ModifiedUnityAssemblies/2021.3.x/UnityEditor.CoreModule-{Win,Mac}.dll` 覆盖 `{Editor安装目录}/Editor/Data/Managed/UnityEngine/UnityEditor.CoreModule.dll`，具体相关目录有可能因为操作系统或者Unity版本而有不同。
-
-**由于权限问题，该操作无法自动完成，需要你手动执行复制操作。**
-
-`UnityEditor.CoreModule.dll` 每个Unity小版本都不相同，我们目前暂时只提供了2021.3.1版本，如需其他版本请自己手动制作，详情请见 [修改Unity编辑器相关dll](./modifyunitydll.md)。
-
 ### Unity 2019
 
 为了支持2019，需要修改il2cpp生成的源码，因此我们修改了2019版本的il2cpp工具。故Installer的安装过程多了一个额外步骤：将 `{package}/Data~/ModifiedUnityAssemblies/2019.4.40/Unity.IL2CPP.dll` 复制到 `{project}/HybridCLRData/LocalIl2CppData/il2cpp/build/deploy/net471/Unity.IL2CPP.dll`

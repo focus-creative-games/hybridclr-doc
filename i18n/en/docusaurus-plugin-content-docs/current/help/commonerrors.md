@@ -47,7 +47,6 @@ If yyyAssembly is `netstandard`, you need to switch the Api Compatible Level in 
 Otherwise, it is because this generation depends on the trimmed aot dll, and the aot dll has not been generated at this time. There are several reasons for this result:
 
 - You have never used the code related to the dll in the main project, so even if it is retained in the link.xml, it is still completely clipped. The solution is to randomly write a piece of code in the main project to reference a certain class or function in the dll.
-- Unity2021 version, packaging iOS platform, using com.code-philosophy.hybridclr version lower than 2.0.1, and not modifying the UnityEditor.CoreModule.dll file, resulting in not getting the trimmed dll. The solution is to upgrade hybridclr_unity to version 2.0.1 or higher or modify UnityEditor.CoreModule.dll according to the document [Modify Unity Editor-related dll](../basic/modifyunitydll.md).
 - other reasons. The universal solution is to manually build a project to generate aot dll.
 
 ### A `NullReferenceException.HybridCLR.Editor.ABI.TypeCreatorBase.CreateTypeInfo...` occurred while running `HybridCLR/generate/xxx`
