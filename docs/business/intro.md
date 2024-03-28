@@ -12,7 +12,7 @@
 
 目前有三个商业化版本，具体特性对比如下：
 
-- [专业版](./pro/intro.md)。优化了性能、内存，提供更高的代码安全
+- [专业版](./pro/intro.md)。显著提升了[解释执行性能](./basicoptimization)（数值指令性能是社区版本的**280%-735%**）、优化了元数据内存，支持代码加密，有效保障了代码安全
 - [**旗舰版**](./ultimate/intro.md)。包含专业版的所有功能，另外包含了我们最核心的[DHE技术](./differentialhybridexecution)，极大提升了性能，几乎（**未改动时为100%**）达到同等的原生AOT水平
 - [热重载版](./reload/intro.md)。包含专业版的所有功能，同时支持卸载和重新加载单独的assembly，当前可以卸载掉程序集**100%**的元数据内存
 
@@ -27,7 +27,7 @@
 |[完全泛型共享](./fullgenericsharing)||✔|✔|✔|
 |[DOTS](./dots)||✔|✔|✔|
 |[元数据优化](./metadataoptimization.md)||✔|✔|✔|
-|[离线指令优化](./basiccodeoptimization)||✔|✔|✔|
+|[解释性能优化](./basicoptimization)||✔|✔|✔|
 |[代码加固](./basicencryption)||✔|✔|✔|
 |[热重载](./reload/hotreloadassembly)||||✔|
 |[访问控制机制](./accesspolicy)||||✔|

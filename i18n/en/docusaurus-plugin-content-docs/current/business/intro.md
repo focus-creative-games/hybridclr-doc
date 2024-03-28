@@ -27,11 +27,11 @@ There are currently three commercial versions. The specific features are compare
 |[Full Generic Sharing](./fullgenericsharing)||✔|✔|✔|
 |[DOTS](./dots)||✔|✔|✔|
 |[Metadata Optimization](./metadataoptimization.md)||✔|✔|✔|
-|[Offline Instruction Optimization](./basiccodeoptimization)||✔|✔|✔|
+|[Offline Instruction Optimization](./basicoptimization)||✔|✔|✔|
 |[Code Protection](./basicencryption)||✔|✔|✔|
 |[Hot reload](./reload/hotreloadassembly)||||✔|
 |[Access Control Policy](./accesspolicy)||||✔|
-|[Advanced code optimization (experimental)](./advancedcodeoptimization)|||✔||
+|[Advanced code optimization (experimental)](./advancedoptimization)|||✔||
 |[**DHE Technology**](./differentialhybridexecution)|||✔||
 |Technical support||1 year|2 years|2 years|
 

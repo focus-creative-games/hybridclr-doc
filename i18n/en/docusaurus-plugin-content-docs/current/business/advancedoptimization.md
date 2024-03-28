@@ -1,16 +1,21 @@
-# Advanced instruction optimization
+# Offline Instruction Optimization
 
 :::warning
-Advanced instruction optimizations are still under development.
+
+Offline instruction optimization technology is under development, and currently only standard instruction optimization technology can be used.
 :::
 
-Advanced instruction optimization technology is an implementation independent of standard instruction optimization technology. Advanced instruction optimization technology uses richer compilation optimization technology to greatly improve the performance of the interpretation module.
+Offline Instruction Optimization (OIO) converts original IL instructions into customized register instructions offline.
+Since there is no compilation performance limit offline, richer compilation optimization technologies can be used, which greatly improves the performance of the interpretation module.
+
 After optimization, the overall instruction execution performance is improved by 100%-1000% (yes, more than 10 times) or even higher, especially the overall improvement of numerical instructions by nearly 300%.
 And because it has been converted in advance, the loading and instruction translation process is faster and the lag is smaller.
 
-## accomplish
+Offline instruction optimization technology supports virtualization technology in code reinforcement solutions, greatly improving code security.
 
-Advanced instruction optimization technology includes the following optimization technologies:
+## Techonology Detail
+
+Offline instruction optimization technology includes the following optimization technologies:
 
 - Complete elimination of useless stack instructions. Eliminate all unnecessary stack operations
 - Peephole optimization

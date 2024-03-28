@@ -4,30 +4,35 @@
 
 ## 测试报告
 
-社区版本的HybridCLR除了数值计算跟lua持平之外，其他方面数据均大幅（数倍到数十倍）优于lua方案。
+社区版本的HybridCLR除了**数值计算**跟AOT有较明显差距外，其他方面差距不大。因此对于大多数项目来说，游戏综合性能跟全原生版本差距不大。
 
-**商业版本**的HybridCLR大幅优化了数值计算性能，有近300%的性能提升，其他大多数普通指令也有50%-200%的性能提升，对性能有严苛要求的开发者可以联系我们[商业化服务](../business/intro.md)。
+**商业版本**的HybridCLR大幅优化了数值计算性能，性能是社区版本的280%-735%，对性能有严苛要求的开发者可以联系我们[商业化服务](../business/intro.md)。
 
-以下是社区版本的HybridCLR在iphone 11及小米5C手机下的实机测试报告,测试代码附录最后。
+以下是OnePlus 9R ArmV8 实机测试报告，测试代码附录最后。
 
-:::caution
-注意，test2、test8、test9的测试用例极不合理，AOT情况下会被编译器完全优化掉，导致时间为0。真实差距
-应该在10-30倍之间。
-:::
+### AOT耗时 vs 商业化版本耗时 vs 社区版本耗时 （越小越好）
 
-AOT 行是原生il2cpp的数据。HotFix 行是HybridCLR的数据。Lua 行是xlua的数据。
+![data](/img/benchmark/numeric_datas.jpg)
 
-![iphone11](/img/hybridclr/benchmark_iphone11.png)
+### 商业化版本耗时/AOT耗时 vs 社区版本耗时/AOT耗时  （越小越好）
 
-![xiaomi5c](/img/hybridclr/benchmark_xiaomi.png)
+AOT版本性能是社区版本的`4.1 - 90`倍，是商业化版本的`1.30 - 12.9`倍。
 
-以下是部分测试用例下的商业化版本相比于社区版本的性能提升数据。
+![data](/img/benchmark/numeric_business_vs_aot_div_aot.jpg)
 
-![interpreter_optimization](/img/hybridclr/interpreter_optimization.jpg)
 
-以下是数值计算方面AOT与HybridCLR在优化后的性能对比，加法大约是7-16倍左右，乘法是4倍，除法是2倍。
+### 商业化版本性能/社区版本性能 （越大越好）
 
-![benchmark_numeric](/img/hybridclr/benchmark_numeric.jpg)
+商业化版本性能是社区版本的`2.87-7.35`倍。
+
+![data](/img/benchmark/numeric_dialog_business_div_community.jpg)
+
+### 商业化版本性能/AOT版本性能 （越小越好）
+
+AOT版本性能是是商业化版本的`1.30 - 12.9`倍。
+
+![data](/img/benchmark/numeric_dialog_business_div_community.jpg)
+
 
 ## 原理
 
@@ -104,225 +109,779 @@ HybridCLR与il2cpp AOT部分交互极其轻量高效。不再有性能问题。
 
 ## 附录：测试用例代码
 
-下面这些测试用例来自第三方提供，用例并不合理，但我们不想有刻意构造之嫌，直接引用它的用例。
+
 
 ```csharp
-private static void Test0()
+public class LongArithmetics
 {
-  var go = new GameObject("t");
-  var transform = go.transform;
+    [Benchmark]
+    [Params(1000000)]
+    public long add_1(long n)
+    {
+        long a = 1;
+        long b = n;
+        long c = 2;
+        long d = n;
+        
+        for(long i = 0; i < n; i++)
+        {
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+        }
+        return a + b + c + d;
+    }
 
-  var cnt = PerformanceSetting.Count * 1000;
-  for (var i = 0; i < cnt; i++)
-  {
-    transform.position = transform.position;
-  }
 
-  Object.Destroy(go);
+    [Benchmark]
+    [Params(1000000)]
+    public long add_2(long n)
+    {
+        long a = 1;
+        long b = n;
+        long c = 2;
+        long d = n;
+        long e = 3;
+
+        for (long i = 0; i < n; i++)
+        {
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public long mul_1(long n)
+    {
+        long a = 1;
+        long b = n;
+        long c = 2;
+        long d = n;
+
+        for (long i = 0; i < n; i++)
+        {
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public long mul_2(long n)
+    {
+        long a = 1;
+        long b = n;
+        long c = 2;
+        long d = n;
+        long e = 3;
+
+        for (long i = 0; i < n; i++)
+        {
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public long div_1(long n)
+    {
+        long a = 1;
+        long b = n;
+        long c = 2;
+        long d = n;
+
+        for (long i = 0; i < n; i++)
+        {
+            b = c / a;
+            c = d / a;
+            d = b / a;
+
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            a = a / n + 1;
+        }
+        return a + b + c + d;
+    }
+
+
+    public class IntArithmetics
+{
+    [Benchmark]
+    [Params(1000000)]
+    public int add_1(int n)
+    {
+        int a = 1;
+        int b = n;
+        int c = 2;
+        int d = n;
+        
+        for(int i = 0; i < n; i++)
+        {
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public int add_2(int n)
+    {
+        int a = 1;
+        int b = n;
+        int c = 2;
+        int d = n;
+        int e = 3;
+
+        for (int i = 0; i < n; i++)
+        {
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public int mul_1(int n)
+    {
+        int a = 1;
+        int b = n;
+        int c = 2;
+        int d = n;
+
+        for (int i = 0; i < n; i++)
+        {
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public int mul_2(int n)
+    {
+        int a = 1;
+        int b = n;
+        int c = 2;
+        int d = n;
+        int e = 3;
+
+        for (int i = 0; i < n; i++)
+        {
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public int div_1(int n)
+    {
+        int a = 1;
+        int b = n;
+        int c = 2;
+        int d = n;
+
+        for (int i = 0; i < n; i++)
+        {
+            b = c / a;
+            c = d / a;
+            d = b / a;
+
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            a = a / n + 1;
+        }
+        return a + b + c + d;
+    }
 }
 
-private static void Test1()
+public class FloatArithmetics
 {
-  var go = new GameObject("t");
-  var transform = go.transform;
+    [Benchmark]
+    [Params(1000000)]
+    public float add_1(int n)
+    {
+        float a = 1;
+        float b = n;
+        float c = 2;
+        float d = n;
+        
+        for(int i = 0; i < n; i++)
+        {
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+        }
+        return a + b + c + d;
+    }
 
-  var cnt = PerformanceSetting.Count * 100;
-  for (var i = 0; i < cnt; i++)
-  {
-    transform.Rotate(Vector3.up, 1);
-  }
 
-  Object.Destroy(go);
+    [Benchmark]
+    [Params(1000000)]
+    public float add_2(int n)
+    {
+        float a = 1;
+        float b = n;
+        float c = 2;
+        float d = n;
+        float e = 3;
+
+        for (int i = 0; i < n; i++)
+        {
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public float mul_1(int n)
+    {
+        float a = 1;
+        float b = n;
+        float c = 2;
+        float d = n;
+
+        for (int i = 0; i < n; i++)
+        {
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public float mul_2(int n)
+    {
+        float a = 1;
+        float b = n;
+        float c = 2;
+        float d = n;
+        float e = 3;
+
+        for (int i = 0; i < n; i++)
+        {
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public float div_1(int n)
+    {
+        float a = 1;
+        float b = n;
+        float c = 2;
+        float d = n;
+
+        for (int i = 0; i < n; i++)
+        {
+            b = c / a;
+            c = d / a;
+            d = b / a;
+
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            a = a / n + 1;
+        }
+        return a + b + c + d;
+    }
 }
 
-private static void Test2()
+public class DoubleArithmetics
 {
-  var cnt = PerformanceSetting.Count * 1000;
-  for (var i = 0; i < cnt; i++)
-  {
-    var v = new Vector3(i, i, i);
-    var x = v.x;
-    var y = v.y;
-    var z = v.z;
-    var r = x + y * z;
-  }
+    [Benchmark]
+    [Params(1000000)]
+    public double add_1(int n)
+    {
+        double a = 1;
+        double b = n;
+        double c = 2;
+        double d = n;
+
+        for (int i = 0; i < n; i++)
+        {
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+            a = b + c;
+            b = c + d;
+            c = d + a;
+            d = a + b;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public double add_2(int n)
+    {
+        double a = 1;
+        double b = n;
+        double c = 2;
+        double d = n;
+        double e = 3;
+
+        for (int i = 0; i < n; i++)
+        {
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+            a = b + c + d + e;
+            b = c + d + e + a;
+            c = d + e + a + b;
+            d = e + a + b + c;
+            e = a + b + c + d;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public double mul_1(int n)
+    {
+        double a = 1;
+        double b = n;
+        double c = 2;
+        double d = n;
+
+        for (int i = 0; i < n; i++)
+        {
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+            a = b * c;
+            b = c * d;
+            c = d * a;
+            d = a * b;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public double mul_2(int n)
+    {
+        double a = 1;
+        double b = n;
+        double c = 2;
+        double d = n;
+        double e = 3;
+
+        for (int i = 0; i < n; i++)
+        {
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+            a = b * c * d * e;
+            b = c * d * e * a;
+            c = d * e * a * b;
+            d = e * a * b * c;
+            e = a * b * c * d;
+        }
+        return a + b + c + d;
+    }
+
+
+    [Benchmark]
+    [Params(1000000)]
+    public double div_1(int n)
+    {
+        double a = 1;
+        double b = n;
+        double c = 2;
+        double d = n;
+
+        for (int i = 0; i < n; i++)
+        {
+            b = c / a;
+            c = d / a;
+            d = b / a;
+
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            b = c / a;
+            c = d / a;
+            d = b / a;
+            a = a / n + 1;
+        }
+        return a + b + c + d;
+    }
 }
-
-private static void Test3()
-{
-  var cnt = PerformanceSetting.Count * 10;
-  for (var i = 0; i < cnt; i++)
-  {
-    var go = new GameObject("t");
-    Object.Destroy(go);
-  }
-}
-
-private static void Test4()
-{
-  var cnt = PerformanceSetting.Count * 10;
-  for (var i = 0; i < cnt; i++)
-  {
-    var go = new GameObject();
-    go.AddComponent<SkinnedMeshRenderer>();
-    var c = go.GetComponent<SkinnedMeshRenderer>();
-    c.receiveShadows = false;
-    Object.Destroy(go);
-  }
-}
-
-private static void Test5()
-{
-  var cnt = PerformanceSetting.Count * 1000;
-  for (var i = 0; i < cnt; i++)
-  {
-    var p = Input.mousePosition;
-  }
-}
-
-private static void Test6()
-{
-  var cnt = PerformanceSetting.Count * 1000;
-  for (var i = 0; i < cnt; i++)
-  {
-    var v = new Vector3(i, i, i);
-    Vector3.Normalize(v);
-  }
-}
-
-private static void Test7()
-{
-  var cnt = PerformanceSetting.Count * 100;
-  for (var i = 0; i < cnt; i++)
-  {
-    var q1 = Quaternion.Euler(i, i, i);
-    var q2 = Quaternion.Euler(i * 2, i * 2, i * 2);
-    Quaternion.Slerp(Quaternion.identity, q1, 0.5f);
-  }
-}
-
-private static void Test8()
-{
-  double total = 0;
-  var cnt = PerformanceSetting.Count * 10000;
-  for (var i = 0; i < cnt; i++)
-  {
-    total = total + i - (i / 2) * (i + 3) / (i + 5);
-  }
-}
-
-private static void Test9()
-{
-  var cnt = PerformanceSetting.Count * 1000;
-  for (var i = 0; i < cnt; i++)
-  {
-    var a = new Vector3(1, 2, 3);
-    var b = new Vector3(4, 5, 6);
-    var c = a + b;
-  }
-}
-```
-
-```lua
-local function test0()
-    local cnt = CS.GameMain.Scripts.Performance.PerformanceSetting.Count * 1000
-
-    local go = CS.UnityEngine.GameObject("_")
-    local transform = go.transform
-
-    for i = 1, cnt do
-        transform.position = transform.position
-    end
-
-    CS.UnityEngine.GameObject.Destroy(go)
-end
-
-local function test1()
-    local cnt = CS.GameMain.Scripts.Performance.PerformanceSetting.Count * 100
-
-    local go = CS.UnityEngine.GameObject("_")
-    local transform = go.transform
-
-    for i = 1, cnt do
-        transform:Rotate(CS.UnityEngine.Vector3.up, 1)
-    end
-
-    CS.UnityEngine.GameObject.Destroy(go)
-end
-
-local function test2()
-    local cnt = CS.GameMain.Scripts.Performance.PerformanceSetting.Count * 1000
-
-    local go = CS.UnityEngine.GameObject("_")
-    local transform = go.transform
-
-    for i = 1, cnt do
-        local tmp = CS.UnityEngine.Vector3(i, i, i)
-        local x = tmp.x
-        local y = tmp.y
-        local z = tmp.z
-        local r = x + y * z
-    end
-end
-
-local function test3()
-    local cnt = CS.GameMain.Scripts.Performance.PerformanceSetting.Count * 10
-    for i = 1, cnt do
-        local tmp = CS.UnityEngine.GameObject("___")
-        CS.UnityEngine.GameObject.Destroy(tmp)
-    end
-end
-
-local function test4()
-    local cnt = CS.GameMain.Scripts.Performance.PerformanceSetting.Count * 10
-    for i = 1, cnt do
-        local tmp = CS.UnityEngine.GameObject("___")
-        tmp:AddComponent(typeof(CS.UnityEngine.SkinnedMeshRenderer))
-        local c = tmp:GetComponent(typeof(CS.UnityEngine.SkinnedMeshRenderer))
-        c.receiveShadows = false
-        CS.UnityEngine.GameObject.Destroy(tmp)
-    end
-end
-
-local function test5()
-    local cnt = CS.GameMain.Scripts.Performance.PerformanceSetting.Count * 1000
-    for i = 1, cnt do
-        local tmp = CS.UnityEngine.Input.mousePosition;
-    end
-end
-
-local function test6()
-    local cnt = CS.GameMain.Scripts.Performance.PerformanceSetting.Count * 1000
-    for i = 1, cnt do
-        local tmp = CS.UnityEngine.Vector3(i, i, i)
-        CS.UnityEngine.Vector3.Normalize(tmp)
-    end
-end
-
-local function test7()
-    local cnt = CS.GameMain.Scripts.Performance.PerformanceSetting.Count * 100
-    for i = 1, cnt do
-        local t1 = CS.UnityEngine.Quaternion.Euler(i, i, i)
-        local t2 = CS.UnityEngine.Quaternion.Euler(i * 2, i * 2, i * 2)
-        CS.UnityEngine.Quaternion.Slerp(t1, t2, CS.UnityEngine.Random.Range(0.1, 0.9))
-    end
-end
-
-local function test8()
-    local cnt = CS.GameMain.Scripts.Performance.PerformanceSetting.Count * 10000
-    local total = 0
-    for i = 1, cnt do
-        total = total + i - (i / 2) * (i + 3) / (i + 5)
-    end
-end
-
-local function test9()
-    local cnt = CS.GameMain.Scripts.Performance.PerformanceSetting.Count * 1000
-    for i = 1, cnt do
-        local tmp0 = CS.UnityEngine.Vector3(1, 2, 3)
-        local tmp1 = CS.UnityEngine.Vector3(4, 5, 6)
-        local tmp2 = tmp0 + tmp1
-    end
-end
 
 ```
