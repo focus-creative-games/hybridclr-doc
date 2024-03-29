@@ -31,4 +31,4 @@ AOT版本性能是社区版本的`4.1 - 90`倍，是商业化版本的`1.30 - 12
 
 AOT版本性能是是商业化版本的`1.30 - 12.9`倍。
 
-![data](/img/benchmark/numeric_dialog_business_div_community.jpg)
+![data](/img/benchmark/numeric_dialog_business_div_aot.jpg)

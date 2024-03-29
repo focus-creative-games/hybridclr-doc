@@ -31,7 +31,7 @@ The performance of the commercial version is `2.87-7.35` times that of the commu
 
 The performance of the AOT version is `1.30 - 12.9` times that of the commercial version.
 
-![data](/img/benchmark/numeric_dialog_business_div_community.jpg)
+![data](/img/benchmark/numeric_dialog_business_div_aot.jpg)
 
 
 ## Principle

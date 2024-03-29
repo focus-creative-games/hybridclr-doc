@@ -31,4 +31,4 @@ The performance of the Business Edition is `2.87-7.35` times that of the Communi
 
 The performance of the AOT version is `1.30 - 12.9` times that of the Business Edition.
 
-![data](/img/benchmark/numeric_dialog_business_div_community.jpg)
+![data](/img/benchmark/numeric_dialog_business_div_aot.jpg)
