@@ -436,6 +436,15 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 hybridclr与dots不兼容导致，商业化版本可以解决这个问题。
 
+## WebGL 运行时出现 function signature mismatch错误
+
+WebGL平台打包时默认使用 `faster (smaller) build`选项，该选项会开启完全泛型共享，而社区版本必须补充元数据后才能与完全泛型共享机制配合工作。解决办法：
+
+1. 先尝试补充元数据，补充`函数栈最顶部的c#代码所在的`程序集
+1. 如果补充元数据后仍然有问题，将 `Player Settings`中 `IL2CPP Code Generation` 切换到 `Faster Runtime`
+1. 如果仍然有问题，升级到最新的hybridclr版本
+1. 如果还有问题，请联系我们技术支持
+
 ### 使用 Unity.netcode.runtime 后出现 NotSupportNative2Managed 桥接函数缺失异常
 
 原因是 在Unity.netcode.runtime.dll中 NetworkManager.RpcReceiveHandler 是internal， 定义如下
@@ -447,80 +456,6 @@ internal delegate void RpcReceiveHandler(NetworkBehaviour behaviour, FastBufferR
 导致生成工具没有为它生成桥接函数。但Unity又非常trick地在打包时为 标记了 `[ClientRpc]` 和 `[ServerRpc]` 的函数生成 RpcReceiveHandler 
 处理函数，并且引用了 internal 的RpcReceiveHandler类！居然没报错。 导致出现桥接函数缺失的问题。
 
-
-原始代码如下。
-
-```csharp
-
-public class NetworkPlayer : NetworkBehaviour
-{
-
-    public static string msgFromHost;
-    public static string msgFromClient;
-
-
-    [ClientRpc]
-    public void SendMsgClientRpc(string msgFromHost)
-    {
-        NetworkPlayer.msgFromHost = msgFromHost;
-    }
-
-
-    [ServerRpc]
-    public void SendMsgServerRpc(string msgFromClient)
-    {
-        NetworkPlayer.msgFromClient = msgFromClient;
-    }
-}
-
-```
-
-
-打包时生成的代码添加了几个函数，如下。
-
-```csharp
-public class NetworkPlayer : NetworkBehaviour
-{
-    public static string msgFromHost;
-
-    public static string msgFromClient;
-
-    [ClientRpc]
-    public void SendMsgClientRpc(string msgFromHost)
-    {
-        // ...
-    }
-
-    [ServerRpc]
-    public void SendMsgServerRpc(string msgFromClient)
-    {
-        // ...
-    }
-
-    static NetworkPlayer()
-    {
-      // NetworkManager.__rpc_func_table 在自己的代码里是无法访问的！因为它是internal
-      NetworkManager.__rpc_func_table.Add(3066788814u, __rpc_handler_3066788814);
-      NetworkManager.__rpc_func_table.Add(901396020u, __rpc_handler_901396020);
-    }
-
-    private static void __rpc_handler_3066788814(NetworkBehaviour target, FastBufferReader reader, __RpcParams rpcParams)
-    {
-        // ...
-    }
-
-    private static void __rpc_handler_901396020(NetworkBehaviour target, FastBufferReader reader, __RpcParams rpcParams)
-    {
-        // ...
-    }
-
-    internal override string __getTypeName()
-    {
-        return "NetworkPlayer";
-    }
-}
-
-```
 
 解决办法为你在AOT工程里也定义一个相同签名的delegate。
 

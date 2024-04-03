@@ -1,120 +1,134 @@
-# Common Errors
+# Common mistakes
 
-The currently submitted version has been tested, and it is basically impossible to have compilation errors, crashes or basic running errors. If you haven't solved the problem after viewing the common errors, please update com.code-philosophy.hybridclr, hybridclr, il2cpp_plus to the latest version and try again.
-If you still can't solve the problem, you can join the following groups:
+The versions submitted so far have been tested, and it is basically impossible to have compilation errors, crashes or basic running errors. If you have checked common errors and still cannot solve the problem, please update com.code-philosophy.hybridclr, hybridclr, and il2cpp_plus to the latest versions and try again.
+If the problem is still not solved, you can join the following groups:
 
 - Novice group 1: 428404198 (full)
-- Novice group 2: **680274677 (recommended)**
+- Newbie Group 2: **680274677 (recommended)**
 
-## Errors under Unity Editor
+## Error under Unity Editor
 
-### Click `HybridCLR/Setting`, failed to find the HybridCLR setting interface
+### When installing com.code-philosophy.hybridclr in Package Manager, an error occurs that the package name does not match com.focus-creative-games.hybridclr_unity
 
-Just delete the `ProjectSettings/HybridCLRSettings.asset` file. If it still doesn't show up, restart the Unity Editor.
+Starting from version 3.0.0, com.focus-creative-games.hybridclr_unity has been renamed com.code-philosophy.hybridclr, so this error will occur when directly upgrading and installing.
 
-### Installer clicks to install and appears: git is not recognized as an internal or external command, nor is it a runnable program
+Solution: Remove the old version of com.focus-creative-games.hybridclr_unity first, and then reinstall the latest version.
 
-The most common reason is that git is not installed ([GitForWindows](https://gitforwindows.org/) is installed under Windows. For other platforms, please install it yourself), or UnityEditor and UnityHub have not been restarted after installing git. If you are sure that git is installed and git can indeed be run in cmd, try restarting the computer.
+### Click `HybridCLR/Setting`, unable to find the HybridCLR setting interface
 
-### DirectoryNotFoundException: Counld not find a part of the path 'xxx' when installing using Installer
+Just delete the `ProjectSettings/HybridCLRSettings.asset` file. If it is still not displayed, restart the Unity Editor.
+
+### `Win32Exception:ApplicationName='git', xxxx, Native erro=The system cannot find the specified file when installing in Installer. ` Error
+
+Because git is not installed (install [GitForWindows](https://gitforwindows.org/) under Windows. Please install it at your own discretion for other platforms), or UnityEditor and UnityHub are not restarted after installing git. If you are sure that git is installed and git can indeed be run in cmd, try restarting the computer.
+
+### Installer clicks to install and appears: git is not an internal or external command, nor is it an operable program.
+
+Same as above.
+
+### DirectoryNotFoundException: Counld not find a part of the path 'xxx' occurred when installing using Installer
 
 There are several reasons:
 
-- If the error directory does not exist, the git clone hybridclr or il2cpp_plus warehouse failed due to network or various reasons. At this point you can retry several times.
-- If the error directory exists, it is caused by the path length exceeding 256 characters. Please avoid very deep directories.
+- If the error directory does not exist, git clone hybridclr or il2cpp_plus warehouse failed due to network or various reasons. At this point you can try again several times.
+- If the error directory exists, it is caused by the path length exceeding 256 characters. Please avoid directories that are too deep.
 
-### Exception. region:UNITY_CONFIG start not found
+### When installing using Installer, it prompts Mono.CompilerServices.SymbolWriter.dll path is too long. copy ignore!
 
-hybridclr_unity version is too low. Please upgrade to the latest version.
+MonoBleedingEdge will be copied to HybridCLrData in the installer, but the lib\mono directory in this directory is not actually used, so it has no impact.
 
+### Exception. region:UNITY_CONFIG start not find
 
-### Exception. region: PLACE_HOLDER start not found
+The hybridclr_unity version is too low. Please upgrade to the latest version.
+
+### Exception. region:PLACE_HOLDER start not find
 
 com.code-philosophy.hybridclr is a newer version, but the hybridclr code is too old.
 
-It is required that your hybridclr and il2cpp_plus must be the main branch and be updated to the latest.
+It is required that your hybridclr and il2cpp_plus must be the main branch and updated to the latest.
 
-### Exception. region: XXXXXX start not find
+### Exception. region:XXXXXX start not find
 
-Com.code-philosophy.hybridclr and hybridclr and il2cpp_plus versions do not match.
+Caused by mismatch between com.code-philosophy.hybridclr and hybridclr and il2cpp_plus versions.
 
-Requires the same version branch, and updated to the latest version at the same time (or matching version, but most people have a hard time knowing which is the matching version).
+It is required that the same version branch be updated to the latest version at the same time (or a matching version, but it is difficult for most people to know which is the matching version).
 
-### `Exception: resolve assembly: yyyAssembly fail` when running `HybridCLR/generate/xxx`
+### `Exception: resolve assembly: yyyAssembly fail` occurred when running `HybridCLR/generate/xxx`
 
-If yyyAssembly is `netstandard`, you need to switch the Api Compatible Level in Build Settings to .Net 4.x or .Net Framework.
+If yyyAssembly is `netstandard`, because there is an assembly in the project that references .net standard, there are several ways to cause this error:
 
-Otherwise, it is because this generation depends on the trimmed aot dll, and the aot dll has not been generated at this time. There are several reasons for this result:
+-Api Compatible Level is .net standard. The solution is to cut it into .Net 4.x or .Net Framework
+- You use a precompiled dll in your project, which references the .net standard. The solution is to replace this dll with a version that references .net framework
 
-- You have never used the code related to the dll in the main project, so even if it is retained in the link.xml, it is still completely clipped. The solution is to randomly write a piece of code in the main project to reference a certain class or function in the dll.
-- other reasons. The universal solution is to manually build a project to generate aot dll.
+Otherwise, it is because the dependent AOT or hot update dll was not found. There are several reasons for this:
 
-### A `NullReferenceException.HybridCLR.Editor.ABI.TypeCreatorBase.CreateTypeInfo...` occurred while running `HybridCLR/generate/xxx`
+- If the hot update dll placed in the project in the form of dll is not found, you need to add the directory where it is located in the external dll search path of HybridCLRSettings.
+- You have never used the code related to this dll in the main project, so even if it is retained in link.xml, it is still completely cropped. The solution is to write a piece of code in the main project to reference a certain class or function in the dll.
 
-If your com.code-philosophy.hybridclr package version is lower than 1.1.6, it is because there are mscorlib.dll, System.Memory.dll, UnityEngine.dll and other conflicting dlls with the same name as the system dll in your project, resulting in parsing dlls were read incorrectly and errors occurred.
+### `NullReferenceException. HybridCLR.Editor.ABI.TypeCreatorBase.CreateTypeInfo ...` occurred when running `HybridCLR/generate/xxx`
 
-If the version >= 1.1.6, because the generated bridge function needs to rely on the cut AOT dll, and your AOT dll is old, the types that the hot update code depends on are missing in the AOT dll due to unloading. So you need to `generate/linkxml` first, then build or export the project to generate the trimmed aot dll, and then run your current `generate/xxx` command.
+If your com.code-philosophy.hybridclr package version is lower than 1.1.6, there are mscorlib.dll, System.Memory.dll, UnityEngine.dll and other conflicting dlls with the same name as the system dll in your project, resulting in resolution dll, these dlls were read incorrectly, and an error occurred.
 
-### `DHE start not found` occurs when running `HybridCLR/generate/xxx`
-
-The main branch has removed the DHE-related code, and the corresponding package version 1.1.6 has also removed the DHE-related generation. This error is caused by the fact that your package version is lower than 1.1.6, but you have installed the latest `hybridclr+il2cpp_plus` code.
-
-The solution is to upgrade the package to version 1.1.6 and above. Or roll back the package to the version of the 1.0 branch, and install the `hybridclr+il2cpp_plus` code related to the 1.0 branch.
+If the version is >= 1.1.6, since the generated bridge function needs to rely on the reduced AOT dll, and your AOT dll is old, the dependent types in the hot update code will be missing in the AOT dll due to uninstallation. Therefore, you need to `generate/linkxml` first, then build or export the project to generate the trimmed aot dll, and then run your current `generate/xxx` command.
 
 ### The AssembliesPostIl2CppStrip directory was not generated when packaging the iOS version
 
-Upgrade com.code-philosophy.hybridclr version to v2.0.0 or above.
+Upgrade the com.code-philosophy.hybridclr version to v2.0.0 or above.
 
-### BuildFailedException: Build path contains a project previously built without the "Create Visual Studio Solution"
+### BuildFailedExceptoin: Build path contains a project previously built without the "Create Visual Studio Solution"
 
-When running `generate/all` or `generate/AOTDlls`, it will try to export the project to get the trimmed aot dll. If the `Create Visual Studio Solution` option was turned off when your project was packaged before, this error will occur with a certain probability due to the Unity Editor itself.
+When running `generate/all` or `generate/AOTDlls`, an attempt will be made to export the project to obtain the trimmed aot dll. If the `Create Visual Studio Solution` option was turned off when packaging your project before, this error may occur with a certain probability due to the Unity Editor itself.
 
 The solution is to clear the il2cpp related cache directories under Library and Temp, or simply delete these two directories.
 
-If you still encounter this problem, you can manually build a project to generate aot dll, and then skip the `generate/AOTDlls` step.
+If you still encounter this problem, you can manually build the project to generate aot dll, and then skip the `generate/AOTDlls` step.
 
 
 ## An error occurred while packaging
 
 ### Currently selected scripting backend (IL2CPP) is not installed
 
-Please install the il2cpp module in Unity Hub. The mode of operation is:
+Please install the il2cpp module in Unity Hub. The operation method is:
 
 - Switch to the Installers tab on the left side of UnityHub
-- On the version of Unity you are currently using `Right-click -> Add Modules`, select the IL2CPP component of the current platform, for example, select `Windows Build Support(Il2CPP)` for the Win platform
+- On the Unity version you are currently using, `right-click -> Add Modules` and select the IL2CPP component of the current platform. For example, on the Win platform, select `Windows Build Support(Il2CPP)`
 - Install
-- Reopen the Unity Editor
+- Reopen Unity Editor
 
-### `Exception: C++ code builder is unable to build C+ code. In order to build C++ code for Windows Destop, You must have one of these installed. xxxxx
+### `Exception: C++ code bulider is unable to build C+ code. Inorder to build C++ code for Windows Destop, You must have one of these installed. xxxxx
 
-You don't have vs and win 10 sdk installed. Please install vs, and install the `game development using c++` component in the Visual Studio Installer. Just choose the latest win 10 sdk.
+You have not installed vs and win 10 sdk. Please install vs and install the `Game development using c++` component in the Visual Studio Installer. Just choose the latest win 10 sdk.
 
 
-### encountered Undefined symbols for architecture arm64: "_objc_msgSend$initWithName:", referenced from: il2cpp::os::TimeZoneInfo::GetTimeZoneDataForID
+### Encountered Undefined symbols for architecture arm64: "_objc_msgSend$initWithName:", referenced from: il2cpp::os::TimeZoneInfo::GetTimeZoneDataForID
 
-The xcode version is too old. Update to a newer version.
+The xcode version is too old. Update to newer version.
 
-### Undefined symbols appear when packaging iOS: RuntimeApi_LoadMetadataForAOTAssembly or hybridclrApi_LoadMetadataForAOTAssembly
+### Undefined symbols appear in packaging: RuntimeApi_LoadMetadataForAOTAssembly or hybridclrApi_LoadMetadataForAOTAssembly
 
-Because you are using original libil2cpp.a. Please compile the latest one according to [build iOS libil2cpp.a](../basic/buildpipeline.md) document. Then replace the libil2cpp.a file in the xcode project
+The fundamental reason is that you are using the original libil2cpp code. There are several situations that can lead to this result:
+
+- Scripting Backend incorrectly selected Mono
+- The `global installation` option is turned on, but the libil2cpp in the Editor installation directory is not correctly replaced.
+- The version of com.code-philosophy.hybridclr is lower than v3.1.0, and the libil2cpp.a file of the xcode project has not been replaced. Please compile the latest one according to [build iOS libil2cpp.a](/basic/buildpipeline.md) document. Then replace the libil2cpp.a file in the xcode project
 
 ### Building Library/Bee/artifacts/xxxx failed with output: Fatalerror in Unitiy CIL Linker Mono.Cecil.AssemblyResolutionException: Failed to resolve assembly:'xxx'
 
-You mistakenly referenced the 'xxx' hot update dll in the main project. If you can't find where it is referenced, you can try to delete the hot update module 'xxx' first, and locate it according to the compilation error.
+You mistakenly referenced the hot update dll 'xxx' in the main project. If you can't find where it is referenced, you can try to delete the 'xxx' hot update module first and locate it based on the compilation error.
 
-### Errors such as undefine symbol: send file encountered when packaging the WebGL platform
+### When packaging the WebGL platform, errors such as undefine symbol: send file are encountered.
 
-This error has nothing to do with HybridCLR. This is because WebGL has restrictions on many functions. For example, the send file symbol is lost because IO-related functions cannot be called. If you encounter problems, please eliminate those functions that the WebGL platform does not support. Specifically read the Unity documentation yourself.
+This error has nothing to do with HybridCLR. This is because WebGL has restrictions on many functions. For example, the send file symbol is lost because IO related functions cannot be called. If you encounter problems, please eliminate those functions that are not supported by the WebGL platform. Read the Unity documentation yourself for details.
 
-### Encountered `xxxx\\il2cpp\\libil2cpp\\utils\\Il2CppHashMap.h(71): error C2039: 'hash_compare': is not a member of 'stdext' when packaging under Win`
+### When packaging under Win, `xxxx\\il2cpp\\libil2cpp\\utils\\Il2CppHashMap.h(71): error C2039: 'hash_compare': is not a member of 'stdext'`
 
-This is caused by the latest version vs changes breaking some backward compatibility after the release of .net 7. The com.code-philosophy.hybridclr `v2.4.0` version has completely solved this problem. You can upgrade to this version or fall back to an older version of visual studio 2022 or use something like 2019.
+This is caused by the latest version vs changes after the release of .net 7 which breaks some backward compatibility. The com.code-philosophy.hybridclr `v2.4.0` version has completely solved this problem. You can upgrade to this version or roll back to an older version of visual studio 2022 or use a version like 2019.
 
-A solution that does not need to roll back the vs version is to modify `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h` and add `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS`. Refer to the figure below for modification.
+A solution that does not require rolling back the VS version is to modify `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h` and add `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS`. Can refer toModified image below.
 
 ![stdext_error](/img/hybridclr/stdext_error.jpg)
 
-For other solutions, see [Link](https://forum.unity.com/threads/workaround-for-building-with-il2cpp-with-visual-studio-2022-17-4.1355570/)
+For other solutions, see [link](https://forum.unity.com/threads/workaround-for-building-with-il2cpp-with-visual-studio-2022-17-4.1355570/)
 
 ### fatal error: 'icalls/mscorlib/System/MonoType.h' file not found #include "icalls/mscorlib/System/MonoType.h"
 
@@ -129,194 +143,219 @@ System.IO.FileNotFoundException: Could not load file or assembly 'Unity.IL2CPP.B
 File name: 'Unity.IL2CPP.Bee.BuildLogic.WindowsDesktop, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null'
 ```
 
-This is because you switched the version of the Unity project after installation in the Installer, resulting in a mismatch in the Build Tool. The solution is to reinstall once in `HybridCLR/Installer...`.
+This is because you switched the version of the Unity project after installation in the Installer, resulting in a mismatch in the Build Tool. The solution is to reinstall it in `HybridCLR/Installer...`.
 
-### A DirectoryNotFoundException: xxxx\Library\Bee\artifacts\yyyy\ManagedStripted error occurred when packaging
+### DirectoryNotFoundException: xxxx\Library\Bee\artifacts\yyyy\ManagedStripted error occurred during packaging
 
-You incorrectly set Scripting BackEngine to mono. Sometimes even though you have switched to il2cpp before, you may still be reset to mono by the Editor when you switch platforms. The solution is to switch to il2cpp.
+This is caused by you mistakenly setting the Scripting BackEngine to mono. Sometimes, even though you have switched to il2cpp before, the Editor may still be reset to mono when switching platforms. The solution is to switch to il2cpp.
 
-### A DirectoryNotFoundException: xxx\HybridCLRData\LocalIl2CppData-{yyy}\il2cpp\il2cpp-deps error occurred when packaging the WebGL platform
+### DirectoryNotFoundException: xxx\HybridCLRData\LocalIl2CppData-{yyy}\il2cpp\il2cpp-deps error occurs when packaging WebGL platform
 
-WebGL must be installed globally, that is, useGlobal in HybridCLRSettings is true. Remember to re-install `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` after each `Generate/xxx`
-The directory is copied to the Editor installation directory, and then packaged. Otherwise, errors such as Scripting Missing or missing bridge functions may occur.
+WebGL must be installed globally, that is, useGlobal is true in HybridCLRSettings. Remember that you must re-generate `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` after each `Generate/xxx`
+Copy the directory to the Editor installation directory and then package it. Otherwise, errors such as Scripting Missing or missing bridge functions may occur.
 
-### The GC_set_mark_stck_empty function cannot be found or the signature does not match the error when packaging
+### When packaging, an error occurs that the GC_set_mark_stck_empty function cannot be found or the signature does not match.
 
-This is a problem caused by modifying the signature of this function since Unity2021.3.20. Update to com.code-philosophy.hybridclr version 2.0.10+, and reinstall to solve the problem.
+This is a problem caused by the modification of this function signature since Unity2021.3.20. Update to com.code-philosophy.hybridclr 2.0.10+ version and reinstall to solve the problem.
 
-### Packaging WebGL platform appears `build.js: undefined symbol: RuntimeApi_LoadMetadataForAOTAssembly (referenced by top-level compiled C/C++ code)`
+### `build.js: undefined symbol: RuntimeApi_LoadMetadataForAOTAssembly (referenced by top-level compiled C/C++ code)` appears when packaging WebGL platform
 
-WebGL uses global installation, you did not replace the original libil2cpp in the Editor installation directory with the local `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`, resulting in missing functions. The solution is:
+WebGL uses global installation. You did not replace the local `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` with the original libil2cpp in the Editor installation directory, resulting in missing functions. The solution is:
 - Run `HybridCLR/Generate/Il2cppDef` to generate the correct version macro
-- Copy `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` to replace the original libil2cpp in the Editor installation directory. Note that it must be a replacement directory, not a merged directory, which may cause compilation errors due to some more files.
-You can also use the method of creating soft links. For details, please refer to the documentation on global installation in [Install HybridCLR](../basic/install.md).
+- Copy `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` to replace the original libil2cpp in the Editor installation directory. Note that the directory must be replaced instead of merging directories. This may cause compilation errors due to more files.
+You can also use the method of creating soft links. For details, please see the documentation on global installation in [Install HybridCLR] (/basic/install.md).
 
-### An error occurred when clicking `Generate/All` on the packaging WebGL platform
+### An error occurred when clicking `Generate/All` when packaging the WebGL platform
 
 There are two reasons:
-- did not replace libil2cpp in the global installation location or create its soft link
-- You have used com.code-philosophy.hybridclr 2.1.0 or higher, and did not run `HybridCLR/Generate/Il2cppDef` before replacing the global libil2cpp, resulting in incorrectly generated version macros, which in turn caused compilation errors.
+- Did not replace libil2cpp in the global installation location or create its soft link
+- You used com.code-philosophy.hybridclr 2.1.0 or higher and did not run `HybridCLR/Generate/Il2cppDef` before replacing the global libil2cpp. As a result, the version macro was not generated correctly, which caused a compilation error.
 
-### Packaging appears `#error: "not support unity version"`
+### `#error: "not support unity version"` appears during packaging
 
 There are several reasons:
-- You are using a version lower than 2019 or higher than 2021, which are currently not supported
-- You did not run `HybridCLR/Generate/All` or `HybridCLR/Generate/Il2CppDef` before packaging, resulting in Unity version macros not being generated
+- You are using a version lower than 2019 or higher than 2021. These versions are currently not supported.
+- You did not run `HybridCLR/Generate/All` or `HybridCLR/Generate/Il2CppDef` before packaging, resulting in the Unity version macro not being generated.
 
-### When packaging, 'could not find a part of path "xxxx/hybridclr/generated/UnityVersion.h"
+### 'could not find a part of path "xxxx/hybridclr/generated/UnityVersion.h" appears when packaging
 
-You did not re-install after updating the com.code-philosophy.hybridclr package, resulting in the local lil2cpp directory code being too old.
+You updated the com.code-philosophy.hybridclr package without reinstalling it, causing the local lil2cpp directory code to be out of date.
 
-### "Undefined symbols for architecture arm64: "il2cpp::utils::Debugger::xxxxx" found in the package
+### Found "Undefined symbols for architecture arm64: "il2cpp::utils::Debugger::xxxxx" in the package
 
-The reason is that the libil2cpp.a packaged by build_libil2cpp.sh is in release mode, and compilation errors will occur when compiling with projects in development mode.
+The reason is that libil2cpp.a packaged by build_libil2cpp.sh is in release mode, and compilation errors will occur when compiled together with development mode projects.
 
-The solution is to remove the development build option, or modify build_libil2cpp.sh by yourself, and package libil2cpp.a in debug mode
+The solution is to remove the development build option, or modify build_libil2cpp.sh yourself and package libil2cpp.a in debug mode
 
-### A compilation error occurs during packaging, and the general solution
+### `error: undefined reference to 'SystemNative-ConvertErrorPalToPlatform'` appears when packaging
 
-To a large extent, it is caused by the mismatch between your package and hybridclr c++ code version or your Unity version is too new, and hybridclr does not support it yet. you need to:
+The Unity version you are using is relatively high, and libil2cpp has added some new functions. The version of hybridclr you are using is too low and does not contain these high-version functions.
+
+Solution: Upgrade the hybridclr version and reinstall it.
+
+### `BuildFailedException: You must run `HybridCLR/Installer` after upgrading package` occurs during packaging
+
+Install was not executed after upgrading the package. Just install it in `HybridCLR/Installer`.
+
+### Compilation errors related to IL2CPP_POP_ACTIVE_EXCEPTION occur
+
+Since versions 2021.3.31 and 2022.3.11, the macro definition has been modified, resulting in compilation errors on older versions of hybridclr. The solution is to upgrade to the latest hybridclr version.
+
+### Compilation errors occur during packaging, general solutions
+
+To a large extent, it is caused by the mismatch between your package and hybridclr c++ code versions or your Unity version is too new and hybridclr is not supported yet. you need to:
 
 - Update com.code-philosophy.hybridclr to the latest version
 - Install the latest version in `HybridCLR/installer...`
 - `HybridCLR/generate/all` generates all
 - Pack
 
+### Building.BuilderFailedException:In file included from xxx\HybridCLRData\LocalIl2CppData-{platform}\il2cpp when packaging
+
+If your version is 2020.3.0-2020.3.25, after completing the installation in the Installer, copy `2020.3.x/Editor/Data/il2cpp/external` from the installation directory of any version 2020.3.26+ and replace `{project} /HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
+
 
 ## Runtime errors
 
-### EntryPointNotFoundException. Unable to find entry point named 'RuntimeApi_LoadMetadataForAOTAAssembly' in 'GameAssembly`
+### EntryPointNotFoundException. Unable to find entry point named 'RuntimeApi_LoadMetadataForAOTAssembly' in 'GameAssembly`
 
-Your current scripting backend is mono, please switch to il2cpp.
+There are several reasons:
+
+- Your current scripting backend is mono, please switch to il2cpp. Sometimes due to caching reasons, errors may still occur even after switching. Please clear the Libraries directory and try again.
+- Global installation is enabled in HybridCLRSettings.
 
 ### A scripted object (probably XXX?) has a different serialization layout when loading. Did you #ifdef UNITY_EDITOR a section of your serialized properties in any of your scripts?
 
-The hot update script is referenced in the AOT resource of the main project, which will cause this error. For example, resources under Resources refer to hot update scripts.
+This error will occur if the hot update script is referenced in the AOT resource of the main project. For example, the resources under Resources refer to the hot update script.
 
-### The script mounted on the resource has a Script Missing error
+### A Script Missing error occurs in the script mounted on the resource.
 
 There are several reasons:
 
-- If it is an iOS platform, it may be because you did not `Generate/all` and recompile and replace the libil2cpp.a file after the hot update dll list changes.
-- If you use Unity 2021 and above, and WebGL platform, com.code-philosophy.hybridclr version >= 2.0.9 is required
-- For other versions and platforms, due to the implementation mechanism of Unity's resource management, resources must be packaged as AssetBundles to restore the hot update script normally, and it is not possible to put them under Resource. See [MonoBehaviour workflow](../basic/monobehaviour.md) for details.
-- If you installed the latest main branch of hybridclr, it requires com.code-philosophy.hybridclr package version >= 1.1.17
-- The corresponding hot update assembly has not been loaded when loading resources
+- If it is an iOS platform, it may be because you did not `Generate/all` and recompile and replace the libil2cpp.a file after the hot update dll list changed.
+- If you use Unity 2021 and above, and the WebGL platform, you need com.code-philosophy.hybridclr version >= 2.0.9
+- If it is other versions and platforms, due to the implementation mechanism of Unity's resource management, the resources must be packaged as AssetBundle to restore the hot update script normally. Putting it under Resource will not work. Please see [MonoBehaviour workflow](/basic/monobehaviour.md) for details.
+- If you install the latest main branch of hybridclr, the com.code-philosophy.hybridclr package version is required >= 1.1.17
+- The corresponding hot update assembly has not been loaded when loading resources.
 
 ### Encountered "This icall is not supported by il2cpp at System.AppDomain.Load"
 
-there are two reasons
+There are two reasons
 
-1. If the platform is not ios, it is because HybridCLR is not installed. Please refer to [Install HybridCLR](../basic/install.md) document.
-2. If the ios platform, because the ios platform does not compile libil2cpp from the source code, but uses the pre-compiled libil2cpp.a, you need to replace the libil2cpp.a in the xcode project with the compiled version of HybridCLR. See [build libil2cpp.a for iOS](../basic/buildpipeline.md) for compilation method
+1. If the ios platform, because the ios platform does not compile libil2cpp from the source code, but uses the pre-compiled libil2cpp.a, you need to replace libil2cpp.a in the xcode project with the compiled version of HybridCLR. For the compilation method, please see [build libil2cpp.a for iOS](/basic/buildpipeline.md)
+2. If it is the webgl platform, it is because the libil2cpp in the installation directory is not replaced after global installation or the soft link from the installation directory libil2cpp to the local libil2cpp of the project is not established. For details, see [Release WebGL Platform](../basic/buildwebgl)
+3. For other platforms, it is because HybridCLR is not installed. Please refer to the [Install HybridCLR](/basic/install.md) document for operation.
 
+### Physical collision Collision does not take effect in hot update
 
-### unsupported internal call for il2cpp.xxxx
+This is generally caused by the fact that the Collision script and related functions have been cut. Please ensure that related scripts and dlls are not cut.
+
+### unsupported internal call for il2cpp. xxxx
 
 A function that exists in Mono but is not implemented in il2cpp is called. Please modify the code and do not use these classes and functions.
 
-### Encountered the problem of inconsistency between Async calling Editor and packaging
-
-If the code throws an exception in async and does not catch the exception, it will cause a silent failure. At present, in case of an error in async due to clipping or aot generics, there will be no error prompt. This results in inconsistent behavior.
-
-Solution: catch async exceptions, and then resolve the corresponding exceptions.
-
-### Encountered Unity: TypeLoadException: Could not load type 'XxxType' from assembly 'yyyAssembly'
-
-How many cases:
-
-#### Case 1: yyyAssembly is netstandard
-
-This is because `api compatible level` in your Player Settings is set to .net standard.
-
-Currently supports .net standard 2.0 and .net 4.x, but even if the main project is packaged with .net standard, hot update dll must be packaged with .net 4.x**. The reason is that when Unity uses .net standard to package, it will automatically strip the dependencies of .net standard and directly depend on the final dll, resulting in the fact that the dll of net standard does not exist in the dll list of the main project, which in turn causes the hot update dll to load. Object from netstandard could not be found.
-
-The solution is to use .net 4.x for packaging and compiling hot updates, or use .net standard 2.0 for packaging, but switch the api compatible level to .net 4.x when compiling the hot update part (renamed to .net framework from 2021).
-
-#### Case 2: yyyAssembly is other AOT assembly
-
-This is the function loss caused by unity code clipping, you can use the conventional way to avoid unity code clipping.
-
-According to the Unity anti-clipping principle, you can add a reference to the missing code class in link.xml, but this kind of thing is time-consuming and laborious.
-
-HybridCLR provides a quick automatic generation tool, run the menu command `HybridCLR/Genrate/LinkXml` to generate link.xml according to the hot update dll.
-
-:::tip
-If you find that this class is indeed preserved in the link.xml, but this type of missing error still occurs, it is caused by Unity itself. Unity requires that any class in the dll must be referenced in the code before the dll will be retained, and the configurations in the link will take effect. Therefore, you need to manually reference any class in the dll where the missing class is located in the code.
-:::
-
-#### Case 3: yyyAssembly is hot update assembly
-
-This is becauseYou are not loading hot update dlls in dependency order. For example, if A depends on B, then you should load B first, then A.
-
-### Encountered MissingMethodException xxx error
-
-Two cases are distinguished:
-
-#### Case 1: MissingMethodException: AOT generic method isn't instantiated in aot module xxx
+### Async code (built-in with the system or UniTask, etc.) throws NullReferenceException or crashes when running after packaging.
 
 There are several reasons:
 
-- This is caused by the lack of instantiation of AOT generic functions
-- Using Unity 2021 and the `Il2Cpp Code Generation` option is `faster runtime`, resulting in the generated code being fully generic mode, and all generic function signatures are changed. If there is no supplementary metadata, this error will still occur when calling a generic function that has been instantiated in AOT.
-- WeChat mini game conversion tool, by default, IL2CPP Code Generation will be set to Faster(Smaller) builds mode, if metadata is not supplemented, AOT generic functions will not be accessible.
+- Exceptions are thrown in asynchronous code (such as bridge function exceptions or AOT generic instantiation exceptions), causing the asynchronous code to fail to execute correctly. The solution is to catch exceptions in asynchrony, locate the specific cause, and then solve it
+- Supplementary metadata and bridging functions do not match the final release package. This problem occurs when the development option is turned on: `Generate/All` or `Generate/AOTDlls` generates non-development mode
+The aot dll under the package does not match the development aot dll generated during packaging, which further leads to errors in supplementary metadata and generated bridging functions, resulting in serious errors or crashes at runtime. The solution is when packaging
+Do not turn off the development option, or modify the `Generate/AOTDlls` code to add the `Development` flag to BuildOptions.
 
-The solution to cause 1 is:
+### Encountered Unity: TypeLoadException: Could not load type 'XxxType' from assembly 'yyyAssembly'
 
-- The error log tells you which AOT function instantiation is missing, and you add a call to this function in the main project, so that il2cpp can generate the code of this generic function when packaging. You can add this generic AOT function call anywhere in the main project. Currently, it is generally added to the RefTypes.cs file.
-- Use of complementary metadata techniques
+Several situations:
+
+#### Case 1: yyyAssembly is netstandard
+
+This is because the `api compatible level` in your Player Settings is set to .net standard.
+
+Currently, .net standard 2.0 and .net 4.x are supported, but even if the main project is packaged with .net standard, the hot update dll must be packaged with .net 4.x**. The reason is that when Unity uses .net standard for packaging, it will automatically strip off the dependency on .net standard and directly rely on the final dll. As a result, the dll net standard does not actually exist in the dll list of the main project, which in turn causes the hot update dll to load. Object not found from netstandard.
+
+The solution is to use .net 4.x for both packaging and compilation for hot update, or use .net standard 2.0 for packaging but switch the api compatible level to .net 4.x when compiling the hot update part (renamed .net framework from 2021).
+
+#### Case 2: yyyAssembly is other AOT assembly
+
+This is a function loss caused by unity code clipping. You can use the normal method to avoid unity code clipping.
+
+According to Unity's anti-cropping principle, you can just add a reference to the missing code class in link.xml, but this is time-consuming and labor-intensive.
+
+HybridCLR provides a quick automatic generation tool. Run the menu command `HybridCLR/Genrate/LinkXml` to generate link.xml based on the hot update dll.
+
+:::caution
+If you find that this class is indeed preserved in link.xml, but this type of missing error still occurs, this is caused by Unity itself. Unity requires that any class in the dll must be referenced in the code before the dll will be retained and the configurations in the link will take effect. Therefore, you need to manually reference any class in the dll where the missing class is located in the code.
+:::
+
+#### Case 3: yyyAssembly is a hot update assembly
+
+This is because you did not load the hot update dll in dependency order. For example, if A depends on B, you should load B first, then A.
+
+### MissingMethodException: HybridCLR.RuntimeApi::LoadMetadataForAOTAssembly(System.Byte[],HybridCLR.HomologousImageMode) error
+
+After upgrading hybridclr, it was not reinstalled. Starting from v4.0.8, the extern function defined in RuntimeApi has been changed from PInvoke to InternalCall. If you upgrade the hybridclr package without reinstalling it, this error will occur.
+
+### MissingMethodException: MethodNotFind xxClass::yyyMethod error
+
+This is a function loss caused by unity code cutting. Run the menu command `HybridCLR/Genrate/LinkXml` to generate link.xml based on the hot update dll. At the same time, make sure that the referenced AOT assembly has been referenced in the main project code, otherwise linkxml will not take effect.
+
+
+### MissingMethodException: AOT generic method isn't instantiated in aot module xxx
+
+There are several reasons:
+
+1. This is caused by the lack of instantiation of the AOT generic function
+2. Unity 2021 is used and the `Il2Cpp Code Generation` option is `faster runtime`, causing the generated code to be fully generic mode, and all generic function signatures have changed. Without supplementary metadata, this error will still occur when calling a generic function that has been instantiated in AOT.
+3. The WeChat mini game conversion tool will set IL2CPP Code Generation to Faster (Smaller) builds mode by default. If metadata is not supplemented, AOT generic functions will not be accessible.
+
+The solution to reason 1 is:
+
+- The error log tells you which AOT function instantiation is missing. You can add the call to this function in the main project so that il2cpp can generate the code for this generic function when packaging. You can add this generic AOT function call anywhere in the main project. Currently, it is generally added to the RefTypes.cs file.
+- Use supplementary metadata technology
 
 The solution to reason 2 is:
 
-- Use of complementary metadata techniques
+- Use supplementary metadata technology
 
-Solution for reason 3:
+Solution to reason 3:
 
-- Use of complementary metadata techniques
-- Modify the source code of WeChat tools by yourself, and set `IL2CPP Code Generation` in BuildSettings to `Faster`.
-
-
-For specific operations, please refer to [AOT Generic Principles Introduction](../basic/aotgeneric.md) document.
+- Use supplementary metadata technology
+- Change the WeChat tool source code yourself and set `IL2CPP Code Generation` in BuildSettings to `Faster`.
 
 
-#### Situation 2: The word AOT generic method does not appear in the error log
+For specific operations, please see the [Introduction to AOT Generic Principles](/basic/aotgeneric.md) document.
 
-This is the function loss caused by unity code clipping. Run the menu command `HybridCLR/Genrate/LinkXml` to generate link.xml according to the hot update dll. At the same time, make sure that the referenced AOT assembly is referenced in the main project code, otherwise linkxml will not take effect.
-
-### encountered 'ExecutionEngineException: Image::ReadTypeFromResolutionScope ReadTypeFromResolutionScope.TYPEREF fail'
-
-Caused by clipping, which clips the inner class of the class. The processing method is the same as above.
 
 ### Encountered ExecutionEngineException: metadata type not match
 
-Supplementary metadata uses a mismatched cropped AOT version, which should be generated using this package, or loaded using the `HomologousImageMode::SuperSet` mode.
+The supplementary metadata uses a mismatched cropped AOT version and should be generated using this package or loaded using the `HomologousImageMode::SuperSet` mode.
 
-### encountered ExecutionEngineException: not support extern method: xxxx
+### Encountered ExecutionEngineException: not support extern method: xxxx
 
 There are two reasons:
 
-- The extern function is defined in the hot update, which is not supported for now. The solution is to move the extern function to the AOT section.
-- The SuperSet metadata format is used, but the supplementary metadata aot dll is too old, so the generics in AOT cannot be found in the supplementary metadata dll. The solution is to update the latest AOT dll.
+- The extern function is defined in hot update, which is not supported for the time being. The solution is to move the extern function to the AOT part.
+- The SuperSet metadata format is used, but the supplementary metadata aot dll is too old, causing the generics in AOT to not be found in the supplementary metadata dll. The solution is to update the latest AOT dll.
 
-### encountered ExecutionEngineException: method body is null. xxx::yyyy
+### Encountered ExecutionEngineException: method body is null. xxx::yyyy
 
-The reason is the same as above.
+Same reason as above.
 
 ### Encountered ExecutionEngineException: GetManaged2NativeMethodPointer not support. xxxx function name
 
-Missing bridge function for interpreter -> aot direction. Please make sure your hybridclr is the latest code, com.code-philosophy.hybridclr package is also the latest version,
-And the latest bridge function has been generated. Please refer to [bridge function](../basic/methodbridge.md) for the principle.
+The bridge function in the interpreter -> aot direction is missing. Please first confirm that your hybridclr is the latest code, and the com.code-philosophy.hybridclr package is also the latest version.
+And the latest bridge function has been generated. Please refer to [Bridge Function](/basic/methodbridge.md) for the principle.
 
-If it is an iOS platform, it is likely that you have not generated the latest libil2cpp.a.
+If it works fine on Android but has problems on iOS, it is because you did not recompile libil2cpp.a.
 
-If there are still problems, please feedback to the administrator technical support in the group.
+If you still have problems, please give feedback to the administrator technical support in the group.
 
-### encountered 'ExecutionEngineException: NotSupportNative2Managed'
+### Encountered 'ExecutionEngineException: NotSupportNative2Managed'
 
-Missing bridge function for aot -> interpreter direction. Please make sure your hybridclr is the latest code, com.code-philosophy.hybridclr package is also the latest version,
-And the latest bridge function has been generated. Please refer to [bridge function](../basic/methodbridge.md) for the principle.
+The bridge function in the aot -> interpreter direction is missing. Please make sure you have generated the latest bridge function first. Please refer to [Bridge Function](/basic/methodbridge.md) for the principle.
+If it works fine on Android but has problems on iOS, it is because you did not recompile libil2cpp.a.
 
-If there are still problems, please feedback to the administrator technical support in the group.
+If you still have problems, please give feedback to the administrator technical support in the group.
 
 ### ExecutionEngineException: Attempting to call method 'xxxx' for which no ahead of time (AOT) code was generated.
 
@@ -325,135 +364,103 @@ Just add metadata to the dll where the error function is located.
 
 ### GetReversePInvokeWrapper fail. exceed max wrapper num of method
 
-Wrapper functions are insufficient. You need to reserve a Wrapper function for the function that adds the MonoPInvokeCallback feature in the hot update. For details, see [MonoPInvokeCallback Support](../basic/workwithscriptlanguage.md)
+Wrapper function is insufficient. You need to reserve Wrapper functions for functions that add the MonoPInvokeCallback feature in hot updates. For details, see [MonoPInvokeCallback Support](../basic/workwithscriptlanguage.md)
 
 ### When using addressable for hot update, UnityEngine.AddressableAssets.InvlidKeyException: Exception of type 'UnityEngine.AddressableAssets.InvalidKeyException' was thrown. No Asset found with for key 'xxxx' exception occurred when loading resources
 
-The reason is that when addressable is loaded by default, all types in the resource will be initialized, but at this time the hot update dll has not been loaded, and the corresponding hot update type cannot be found.
+The solution comes from [Resource loading error caused by the combined use of addressables and HybridCLR](https://github.com/Bian-Sh/Assemblies-Hotfix-Toolkit-Unity/issues/2). You can also see the video [Practical combat: Import HybridCLR into your own project and implement hot updates] (https://www.bilibili.com/video/BV1aP4y1o7xi/) starting from 1:02:30.
 
-There are several solutions:
-- Use the `LoadAsset<System.Object>` interface to load and then force forward
-- It is to turn off automatic loading, then manually load the hot update dll, and then automatically load resources. See the content from 1:02:30 onwards in the video [Treading the Pit: Importing HybridCLR into your own project and implementing hot updates] (https://www.bilibili.com/video/BV1aP4y1o7xi/).
+> When using addressables to update hot-updated dlls. Since the LoadAssetAsync function of Addressables is used first, Addressables needs to be initialized first. During initialization at this time, if the resource type is a hot update type, then Addressables will think that the resource type is System.Object. Therefore, you need to load the dll first before you can use Addressables to load resources, otherwise UnityEngine.AddressableAssets.InvalidKeyException will be reported: Exception of type 'UnityEngine.AddressableAssets.InvalidKeyException' was thrown. No Asset found with for Key=xxx. Key exists as Type=System.Object, which is not assignable from the requested Type=YourHotUpdateAssetType.
 
-### GameObject.GetComponent(string name) interface cannot get component
 
-This is a known bug, which is related to the code implementation of unity. This problem occurs only when the hot update script is mounted on the hot update resource. The hot update script added through AddComponent in the code can be found by this method. Please use `GameObject.GetComponent<T>()` or `GameObject.GetComponent(typeof(T))` instead
+The solutions are as follows:
+- Use the `LoadAsset<System.Object>` interface to load and then force transfer
+- Reload the catalog after loaddll ends `Addressables.LoadContentCatalogAsync($"{Addressables.RuntimePath}/catalog.json");`
 
-### Using MemoryProfile to grab memory snapshots will crash
+### GameObject.GetComponent(string name) interface cannot obtain the component
 
-If you use Unity 2021 or higher, just upgrade the hybridclr package to `v3.0.2` or higher. If using Unity 2019 or 2020, the record will be submitted
-[Fix the crash bug when using Momery Profiler to create a snapshot](https://github.com/focus-creative-games/hybridclr/commit/062bfa99c71a53a6cb35fc89a52d67bbff2bb2d0) The changes can be merged into your current version.
+This is a known bug, related to the code implementation of Unity. Only hot update scripts mounted on hot update resources will have this problem. Hot update scripts added through AddComponent in the code can be found using this method. Please use `GameObject.GetComponent<T>()` or `GameObject.GetComponent(typeof(T))` instead
+
+### GameObject.GetComponent&lt;T&gt;() or GameObject.GetComponent(Type type) returns null
+
+This is all because you loaded an assembly twice. The T or Type you passed in has the same name as the script mounted on the GameObject, but they belong to different assembly instances, causing the return to become null after being forced. Generally, it is caused by the following situations:
+
+- The hot update assembly is loaded using Assembly.Load in the Editor. Since all assemblies have been loaded by default under the Editor, repeated loading will occur if you load them again. The solution is to use the #if !UNITY_EDITOR macro to comment out the loading code
+- The assembly was not added to the hotUpdateAssemblies list, causing the hot update assembly to be packaged in AOT. Loading again during a hot update will result in repeated loading. The solution is to add the hot update assembly to the hotUpdateAssemblies list and repackage it.
+
+### Using MemoryProfile to grab a memory snapshot will crash
+
+If you use Unity 2021 or higher, just upgrade the hybridclr package to `v3.0.2` or higher. If using Unity 2019 or 2020, records will be committed
+[Fix the crash bug when using Momery Profiler to create a snapshot](https://github.com/focus-creative-games/hybridclr/commit/062bfa99c71a53a6cb35fc89a52d67bbff2bb2d0). Just merge the changes into your current version.
 
 ### Profiler's BeginSample and EndSample cannot take effect
 
-Because functions such as BeginSample have [Condition] compilation annotations, when compiling the dll in Release mode, these codes will be automatically removed, causing the Profile to become invalid. The solution is to compile the hot update dll in the Developemnt mode, the code is as follows.
-If you use `v3.0.2` and above, the `HybridCLR/CompileDll/ActivedBuildTarget_Development` menu command has been shipped with it.
+Because functions such as BeginSample have [Condition] compilation annotations, when compiling the dll in Release mode, these codes will be automatically removed, causing the Profile to become invalid. The solution is to compile the hot update dll in Developemnt mode, the code is as follows.
+If you are using `v3.0.2` and higher, the `HybridCLR/CompileDll/ActivedBuildTarget_Development` menu command is already included.
 
 ```csharp
-     var group = BuildPipeline. GetBuildTargetGroup(target);
+     var group = BuildPipeline.GetBuildTargetGroup(target);
 
      ScriptCompilationSettings scriptCompilationSettings = new ScriptCompilationSettings();
      scriptCompilationSettings.group = group;
-     scriptCompilationSettings. target = target;
-     if (developmentBuild)
+     scriptCompilationSettings.target = target;
+     if(developmentBuild)
      {
-         // The core is this line, so that the dll is compiled in Debug mode, and function calls such as Profiler.BeginSample are reserved.
+         // The core is this line, which causes the dll to be compiled in Debug mode and retains function calls such as Profiler.BeginSample.
          scriptCompilationSettings.options |= ScriptCompilationOptions.DevelopmentBuild;
      }
      Directory.CreateDirectory(buildDir);
-     ScriptCompilationResult scriptCompilationResult = PlayerBuildInterface. CompilePlayerScripts(scriptCompilationSettings, buildDir);
+     ScriptCompilationResult scriptCompilationResult = PlayerBuildInterface.CompilePlayerScripts(scriptCompilationSettings, buildDir);
 ```
 
-### The NotSupportNative2Managed bridge function is missing exception after using Unity.netcode.runtime
+### There is no response when using the camera on iOS, but no error is reported.
 
-The reason is that NetworkManager.RpcReceiveHandler is internal in Unity.netcode.runtime.dll, defined as follows
+This is caused by WebCamTexture.devices not being retained in AOT. WebCamTexture.devices needs to be referenced manually in AOT.
+
+### AVProMovieCapture plugin is not working properly
+
+Due to the implementation of AVProMovieCapture itself, you need to initialize the plug-in first, and then perform operations such as loading HybridCLR.
+
+### The EncodeImageAndMetadataIndex function has an IL2CPP_ASSERT assertion failure error.
+
+This is because the hot update dll of your project is too large. There are two solutions:
+
+- Modify the definition of kMetadataIndexBits in the `hybridclr\metadata\MetadataUtil.h` file and gradually increase it by 1 until this problem no longer occurs. It is strongly recommended that the value of kMetadataIndexBits not exceed 29, because the maximum number of hot update dlls that can be loaded at this time is 7, and this limit can easily be exceeded.
+- Split the hot update dll into multiple smaller dlls
+
+## Crash when calling ResourceCatalogData::GetGUIDFromPath during the execution of AutomaticWorldBootstrap::Initialize at startup
+
+The entities version you are currently using cannot be directly packaged in Player Building. You must install `com.unity.platforms` and use its separate packaging method, [detailed documentation](https://docs.unity3d.com/Packages/ com.unity.entities@0.51/manual/ecs_building_projects.html).
+
+## Job.ScheduleBatch crashes
+
+Hybridclr is incompatible with dots. The commercial version can solve this problem.
+
+## Function signature mismatch error occurs when WebGL is running
+
+The WebGL platform uses the `faster (smaller) build` option by default when packaging, which will enable full generic sharing, and the community version must add metadata before it can work with the full generic sharing mechanism. Solution:
+
+1. First try to add metadata and add the assembly where the C# code at the top of the function stack is located.
+1. If you still have problems after adding metadata, switch `IL2CPP Code Generation` in `Player Settings` to `Faster Runtime`
+1. If you still have problems, upgrade to the latest hybridclr version
+1. If you still have problems, please contact our technical support
+
+### NotSupportNative2Managed bridge function missing exception occurs after using Unity.netcode.runtime
+
+The reason is that NetworkManager.RpcReceiveHandler is internal in Unity.netcode.runtime.dll and is defined as follows
 
 ```csharp
-internal delegate void RpcReceiveHandler(NetworkBehaviour behavior, FastBufferReader reader, __RpcParams parameters);
+internal delegate void RpcReceiveHandler(NetworkBehaviour behaviour, FastBufferReader reader, __RpcParams parameters);
 ```
 
-Causes the build tool to not generate a bridge function for it. But Unity is very tricky to generate RpcReceiveHandler for functions marked `[ClientRpc]` and `[ServerRpc]` when packaging
-Handling function, and referenced the internal RpcReceiveHandler class! No error was reported. This leads to the problem that the bridge function is missing.
+As a result, the generation tool did not generate a bridge function for it. But Unity is very tricky to generate RpcReceiveHandler for functions marked `[ClientRpc]` and `[ServerRpc]` when packaging.
+Handler function, and references the internal RpcReceiveHandler class! No error was reported. This leads to the problem of missing bridge functions.
 
 
-The original code is as follows.
-
-```csharp
-
-public class NetworkPlayer : NetworkBehaviour
-{
-
-     public static string msgFromHost;
-     public static string msgFromClient;
-
-
-     [ClientRpc]
-     public void SendMsgClientRpc(string msgFromHost)
-     {
-         NetworkPlayer.msgFromHost = msgFromHost;
-     }
-
-
-     [ServerRpc]
-     public void SendMsgServerRpc(string msgFromClient)
-     {
-         NetworkPlayer.msgFromClient = msgFromClient;
-     }
-}
-
-```
-
-
-Several functions are added to the code generated during packaging, as follows.
+The solution is for you to also define a delegate with the same signature in the AOT project.
 
 ```csharp
-public class NetworkPlayer : NetworkBehaviour
-{
-     public static string msgFromHost;
-
-     public static string msgFromClient;
-
-     [ClientRpc]
-     public void SendMsgClientRpc(string msgFromHost)
-     {
-         //...
-     }
-
-     [ServerRpc]
-     public void SendMsgServerRpc(string msgFromClient)
-     {
-         //...
-     }
-
-     static NetworkPlayer()
-     {
-       // NetworkManager.__rpc_func_table is not accessible in your own code! because it is internal
-       NetworkManager.__rpc_func_table.Add(3066788814u, __rpc_handler_3066788814);
-       NetworkManager.__rpc_func_table.Add(901396020u, __rpc_handler_901396020);
-     }
-
-     private static void __rpc_handler_3066788814(NetworkBehaviour target, FastBufferReader reader, __RpcParams rpcParams)
-     {
-         //...
-     }
-
-     private static void __rpc_handler_901396020(NetworkBehaviour target, FastBufferReader reader, __RpcParams rpcParams)
-     {
-         //...
-     }
-
-     internal override string __getTypeName()
-     {
-         return "NetworkPlayer";
-     }
-}
-
-```
-
-The solution is that you also define a delegate with the same signature in the AOT project.
-
-```csharp
-     // Since __RpcParams is also internal, we redefine the same type here
+     // Since __RpcParams is also internal, we have redefined the same type here.
      public struct __RpcParams
 #pragma warning restore IDE1006 // restore naming rule violation check
      {
@@ -461,6 +468,6 @@ The solution is that you also define a delegate with the same signature in the A
          public ClientRpcParams Client;
      }
 
-     public delegate void MyRpcReceiveHandler(NetworkBehaviour behavior, FastBufferReader reader, __RpcParams parameters);
+     public delegate void MyRpcReceiveHandler(NetworkBehaviour behaviour, FastBufferReader reader, __RpcParams parameters);
 
 ```

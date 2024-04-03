@@ -37,9 +37,6 @@ The following platforms have been tested for a long time and are very stable and
 - WebGL standard WebGL, MiniGame, WeChat mini games
 - PS4, PS5
 - UWP
-
-The following is a platform with theoretical support, but small bugs may remain in practice:
-
 - tvOS
 - other platforms
 
