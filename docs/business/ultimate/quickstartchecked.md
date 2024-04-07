@@ -249,7 +249,7 @@ public static class BuildTools
         string backupDir = $"{BackupAOTDllDir}/{target}";
         string dhaoDir = $"{DhaoDir}/{target}";
         string currentDllDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
-        BuildUtils.GenerateDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, currentDllDir, dhaoDir);
+        BuildUtils.GenerateDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, currentDllDir, null, null, dhaoDir);
     }
 
     /// <summary>
@@ -277,7 +277,7 @@ public static class BuildTools
         string dhaoDir = $"{DhaoDir}/{target}";
         string currentDllDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
         string encryptedDllDir = $"{EncrypedDllDir}/{target}";
-        BuildUtils.EncryptDllAndGenerateDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, currentDllDir, encryptedDllDir, dhaoDir);
+        BuildUtils.EncryptDllAndGenerateDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, currentDllDir, null, null, encryptedDllDir, dhaoDir);
     }
 
     /// <summary>
@@ -334,6 +334,7 @@ public static class BuildTools
             Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {dhaoFile} -> {dstFile}");
         }
     }
+
 }
 
 

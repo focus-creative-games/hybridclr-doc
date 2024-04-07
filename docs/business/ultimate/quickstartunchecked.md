@@ -216,7 +216,7 @@ public static class BuildTools
         string backupDir = $"{BackupAOTDllDir}/{target}";
         string dhaoDir = $"{DhaoDir}/{target}";
         string currentDllDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
-        BuildUtils.GenerateDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, currentDllDir, dhaoDir);
+        BuildUtils.GenerateDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, currentDllDir, null, null, dhaoDir);
     }
 
     /// <summary>
