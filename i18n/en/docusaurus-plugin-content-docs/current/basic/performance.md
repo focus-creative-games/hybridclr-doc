@@ -4,6 +4,14 @@ Although HybridCLR is also interpreted and executed, both theoretical principles
 
 ## Benchmark
 
+:::tip
+
+HybridCLR is currently the highest-performing CLR interpreter implementation and the best-performing among all current hot update solutions. Its comprehensive performance exceeds other solutions by more than an order of magnitude.
+
+:::
+
+The overall performance of HybridCLR's commercial version is significantly better than Mono's mint implementation, and the numerical calculation instruction performance is between 140% and 330% of Mono's.
+
 The performance of the commercial version of HybridCLR completely crushes the xlua solution. The numerical calculation instruction performance is 651%-720% of xlua. In other aspects, it is dozens or even a hundred times faster than the xlua solution.
 
 Except for the obvious difference between **numerical calculation** and AOT, the community version of HybridCLR has little difference in other aspects. Therefore, for most projects, the overall performance of the game is not much different from that of the fully native version.
@@ -12,6 +20,15 @@ The **commercial version** of HybridCLR has greatly optimized numerical computin
 
 The following is the OnePlus 9R ArmV8 actual test report, with the test code appendix at the end.
 
+### HybridCLR commercial version is time consuming vs Mono is time consuming
+
+
+![data](/img/benchmark/hybridclr_vs_mono.png)
+
+
+### HybridCLR commercial version/Mono performance multiplier
+
+![data](/img/benchmark/hybridclr_div_mono.png)
 
 ### HybridCLR commercial version takes time vs xlua takes time
 
