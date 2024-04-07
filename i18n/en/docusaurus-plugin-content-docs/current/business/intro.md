@@ -35,24 +35,42 @@ There are currently three commercial versions. The specific features are compare
 |[**DHE Technology**](./differentialhybridexecution)|||✔||
 |Technical support||1 year|2 years|2 years|
 
-### Price Standard
-
-|Version|Price (RMB)|Free Trial|Description|
-|-|-|-|-|
-|Community Edition|0|[hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial)|Use indefinitely|
-|Professional Edition|Email Consultation Business|[pro-free-trial-version](https://github.com/focus-creative-games/hybridclr_trial/releases/tag/v4.3.6)|Buy out the right to use a project, including 1 year of technical support and 1 year of code updates|
-|Hot reload version|E-mail business consultation|[hotreload-free-trial-version](https://github.com/focus-creative-games/hybridclr_trial/releases/tag/v4.4.11)|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
-|Ultimate Edition|Email Consultation Business|[ultimate-free-trial-version](https://github.com/focus-creative-games/dhe_demo/releases/tag/v4.5.8)|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
-
-### trial methods
-
-All commercial versions support several trial methods:
+### Price
 
 
-|Trial method|Price|Description|
+|Version|Price (RMB)|Description|
 |-|-|-|
-|Trial experience project|Free|The experience project is a Windows Standalone 64 platform executable program built based on the [hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial) project|
-| Provide trial commercial version source code | 10% of the total price of commercial version | Provide commercial version trial version source code and related tools, which are built and tested by developers themselves. If you finally purchase the official version, the service fee can be deducted. Otherwise, the trial fee will not be refunded unless there is false advertising or major defects |
+|Community Edition|0|Use indefinitely|
+|Professional Edition|Email Consultation Business|Buy out the right to use a project, including 1 year of technical support and 1 year of code updates|
+|Hot reload version|E-mail business consultation|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
+|Ultimate version|E-mail consultation business|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
+
+### try out
+
+:::tip
+
+Both free and paid trials are only available to business users. Please use **business email** to contact `business@code-philosophy.com` to obtain trial-related support.
+
+:::
+
+All commercial versions support the following trial methods:
+
+
+|Trial method|Price|Service|Description|
+|-|-|-|-|
+|Free trial without complete source code|Free|Provide limited access technical support|Only supports building iOS platform targets based on precompiled libil2cpp.a, does not provide C++ source code, and does not provide tool source code. There is no trial period limit, but the runtime of the trial version will crash randomly half an hour after startup or after three months of use. Please do not use it for the officially released version |
+|Paid trial with complete source code|10% of the total price of the commercial version|Technical support services equivalent to those of formal paid users|Provide the source code and related tools of the commercial version of the trial version, which are built and tested by the developers themselves. If you finally purchase the official version, the service fee can be deducted. Otherwise, the trial fee will not be refunded unless there is false advertising or major defects |
+
+Note that the following features are not supported in the free trial version:
+
+- dots support
+- Incremental GC
+
+Free trial version related documents:
+
+- [Professional version](./pro/freetrial)
+- [Ultimate Edition](./ultimate/freetrial)
+- [Hot reload version](./reload/freetrial)
 
 ## Enterprise technical support
 
@@ -79,4 +97,4 @@ The unused time in a single service can be reserved for next use. In order to sa
 
 ## contact us
 
-Please use your company's **company email** to initiate consultations to business@code-philosophy.com. Emails initiated by individuals such as QQ or 126 email addresses will be ignored, please understand.
+Please use your company's **company email** to initiate consultations to `business@code-philosophy.com`. Emails initiated by individuals such as QQ or 126 email addresses will be ignored, please understand.

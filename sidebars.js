@@ -93,6 +93,21 @@ const sidebars = {
         'business/businesscase',
         {
           type: 'category',
+          label: '专业版',
+          link: {
+            type: 'generated-index',
+            slug: '/pro',
+          },
+          collapsed: true,
+          items: [
+            'business/pro/intro',
+            'business/pro/quickstart',
+            'business/pro/freetrial',
+            'business/pro/commonerrors',
+          ],
+        },
+        {
+          type: 'category',
           label: '旗舰版',
           link: {
             type: 'generated-index',
@@ -104,22 +119,9 @@ const sidebars = {
             'business/ultimate/quickstartchecked',
             'business/ultimate/quickstartunchecked',
             'business/ultimate/manual',
+            'business/ultimate/freetrial',
             'business/ultimate/injectrules',
             'business/ultimate/commonerrors',
-          ],
-        },
-        {
-          type: 'category',
-          label: '专业版',
-          link: {
-            type: 'generated-index',
-            slug: '/pro',
-          },
-          collapsed: true,
-          items: [
-            'business/pro/intro',
-            'business/pro/quickstart',
-            'business/pro/commonerrors',
           ],
         },
         {
@@ -134,7 +136,7 @@ const sidebars = {
             'business/reload/intro',
             'business/reload/quickstart',
             'business/reload/hotreloadassembly',
-            'business/reload/modifydll',
+            'business/reload/freetrial',
             'business/reload/commonerrors',
           ],
         },

@@ -4,11 +4,24 @@ Although HybridCLR is also interpreted and executed, both theoretical principles
 
 ## Benchmark
 
+The performance of the commercial version of HybridCLR completely crushes the xlua solution. The numerical calculation instruction performance is 651%-720% of xlua. In other aspects, it is dozens or even a hundred times faster than the xlua solution.
+
 Except for the obvious difference between **numerical calculation** and AOT, the community version of HybridCLR has little difference in other aspects. Therefore, for most projects, the overall performance of the game is not much different from that of the fully native version.
 
-**Commercial version** of HybridCLR has greatly optimized numerical calculation performance, which is 170%-740% of the community version. Developers with strict performance requirements can contact us [Commercial Service](../business/intro.md ).
+The **commercial version** of HybridCLR has greatly optimized numerical computing performance. The performance is 280%-735% of the community version. Developers with strict performance requirements can contact us [commercial service](../business/intro .md).
 
 The following is the OnePlus 9R ArmV8 actual test report, with the test code appendix at the end.
+
+
+### HybridCLR commercial version takes time vs xlua takes time
+
+
+![data](/img/benchmark/full_hybridclr_vs_xlua.jpg)
+
+
+### HybridCLR commercial version/xlua performance multiplier
+
+![data](/img/benchmark/full_hybridclr_div_xlua.jpg)
 
 ### AOT time-consuming vs. commercial version time-consuming vs. community version time-consuming (the smaller the better)
 

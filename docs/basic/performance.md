@@ -4,11 +4,24 @@
 
 ## 测试报告
 
+HybridCLR商业化版本的性能**全面碾压**了xlua方案，数值计算指令性能是xlua的651%-720%，其他方面数十倍甚至百倍以上快于xlua方案。
+
 社区版本的HybridCLR除了**数值计算**跟AOT有较明显差距外，其他方面差距不大。因此对于大多数项目来说，游戏综合性能跟全原生版本差距不大。
 
 **商业版本**的HybridCLR大幅优化了数值计算性能，性能是社区版本的280%-735%，对性能有严苛要求的开发者可以联系我们[商业化服务](../business/intro.md)。
 
 以下是OnePlus 9R ArmV8 实机测试报告，测试代码附录最后。
+
+
+### HybridCLR商业化版本耗时 vs xlua耗时
+
+
+![data](/img/benchmark/full_hybridclr_vs_xlua.jpg)
+
+
+### HybridCLR商业化版本/xlua 性能倍率
+
+![data](/img/benchmark/full_hybridclr_div_xlua.jpg)
 
 ### AOT耗时 vs 商业化版本耗时 vs 社区版本耗时 （越小越好）
 
