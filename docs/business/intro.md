@@ -27,7 +27,8 @@
 |[完全泛型共享](./fullgenericsharing)||✔|✔|✔|
 |[DOTS](./dots)||✔|✔|✔|
 |[元数据优化](./metadataoptimization.md)||✔|✔|✔|
-|[解释性能优化](./basicoptimization)||✔|✔|✔|
+|[标准解释性能优化](./basicoptimization)||✔|✔|✔|
+|[离线指令优化](./advancedoptimization)||✔|✔|✔|
 |[代码加固](./basicencryption)||✔|✔|✔|
 |[热重载](./reload/hotreloadassembly)||||✔|
 |[访问控制机制](./accesspolicy)||||✔|

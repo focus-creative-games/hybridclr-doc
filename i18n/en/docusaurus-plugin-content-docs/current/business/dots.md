@@ -1,38 +1,46 @@
 # DOTS Support
 
-
-The commercial version has modified the DOTS runtime code and hybridclr runtime code to support most DOTS features.
-
-
-## Feature support status
-
 :::tip
 
-Note that we do not list features such as Shared Component separately, they are collectively classified into Component features.
+**Commercial customers need to contact us to obtain the com.unity.entities package code** and replace the corresponding package in their projects.
 
 :::
 
-|Features|Community Edition|Professional Edition|Ultimate Edition|Hot Reload Edition|
-|-|-|-|-|-|
-|Jobs|✔|✔|✔|✔|
-|Managed Component||✔|✔|✔|
-|Unmanaged Component||✔|✔|✔|
-|Managed System||✔|✔|✔|
-|Unmanaged System||✔|✔|✔|
-|Aspect||✔|✔|✔|
-|IJobEntity||✔|✔|✔|
-|BurstCompile|||✔||
-|SubScene|||||
+The commercial version has modified the DOTS runtime code and HybridCLR runtime code to support most DOTS features.
 
-## Precautions
 
-1. The DOTS code of the hot update module of the professional version and hot reload version is executed in interpreted mode
-2. The hot reload version cannot uninstall an assembly containing DOTS code.
-3. The flagship version has marked the `[BurstCompile]` function. The original burst code will be executed before it is changed. After the change, it will be executed in interpreted mode. **The changed burst function needs to delete the [BurstCompile] attribute, otherwise an error will occur during runtime**
-4. Since the serialization mechanism of Unity’s dots resources does not support the new hot update type, the SubScene of the resource containing the hot update component cannot correctly restore the Component.
+## Support Status of Features
 
-## Supported Unity and DOTS versions
+:::tip
 
-Since the DOTS code is constantly changing, currently only Unity 2022.3.0+ and com.unity.entities 1.0.16+ versions are supported. We are trying to support more Unity and DOTS versions.
+Note that we do not separately list features like Shared Component; they are all classified under the Component feature.
 
-Due to the high cost of maintaining multiple DOTS versions, developers who have special version requirements should contact us to pay for a separate order.
+:::
+
+| Feature          | Community Edition | Professional Edition | Ultimate Edition | Hot Reload Edition |
+|------------------|-------------------|----------------------|------------------|--------------------|
+| Jobs             | ✔                 | ✔                    | ✔                | ✔                  |
+| Managed Component|                   | ✔                    | ✔                | ✔                  |
+| Unmanaged Component|                 | ✔                    | ✔                | ✔                  |
+| Managed System   |                   | ✔                    | ✔                | ✔                  |
+| Unmanaged System|                    | ✔                    | ✔                | ✔                  |
+| Aspect           |                   | ✔                    | ✔                | ✔                  |
+| IJobEntity       |                   | ✔                    | ✔                | ✔                  |
+| BurstCompile     |                   |                      | ✔                |                    |
+| SubScene         |                   |                      |                  |                    |
+
+## Considerations
+
+1. DOTS code in Professional Edition and Hot Reload Edition is executed in interpreted mode.
+2. The Hot Reload Edition cannot unload assemblies containing DOTS code.
+3. In the Ultimate Edition, functions marked with `[BurstCompile]` will be executed with the original Burst code if unchanged, otherwise, they will be executed in interpreted mode. **Changed Burst functions need to have the `[BurstCompile]` attribute removed, otherwise, errors will occur at runtime.**
+4. Due to Unity's DOTS resource serialization mechanism not supporting the addition of new hot-updated types, SubScenes containing hot-updated components cannot be correctly restored.
+
+## Supported Unity and DOTS Versions
+
+Since DOTS code is constantly changing, it is currently only supported with the following version combinations:
+
+- Unity 2021.3.0+ with com.unity.entities 0.51.1-preview.21
+- Unity 2022.3.0+ with com.unity.entities 1.0.16
+
+All commercial versions can use the above versions. For developers with special version requirements, due to the high cost of maintaining separate DOTS versions, customization will require an additional fee.

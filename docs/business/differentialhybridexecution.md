@@ -23,10 +23,10 @@ DHE只包含在**旗舰版**中，具体请见[旗舰版介绍](../business/ulti
 
 ## 未支持特性
 
-- 加载DHE热更新代码前不能执行DHE对应的AOT assembly中的任何代码。意味着DHE不支持像mscorlib这种基础库的差分混合，但支持传统热更新assembly的差分热更新。
-- 由于第一条的限制，不支持在DHE程序集中使用`[InitializeOnLoadMethod]`、`Script Execution Order settings`。
-- 不支持DHE脚本挂载在随包资源中，包括Resources。（这条限制将来会放松或者去掉）
-- 不能在DHE程序集中通过热更新新增extern函数。
+- 加载DHE热更新代码前不能执行DHE对应的AOT assembly中的任何代码。意味着DHE不支持像mscorlib这种基础库的差分混合，但支持传统热更新assembly的差分热更新
+- 由于第一条的限制，不支持在DHE程序集中使用`[InitializeOnLoadMethod]`、`Script Execution Order settings`
+- 不支持DHE脚本挂载在随包资源中，包括Resources
+- 不能在DHE程序集中通过热更新新增extern函数
 
 ## dhao文件
 

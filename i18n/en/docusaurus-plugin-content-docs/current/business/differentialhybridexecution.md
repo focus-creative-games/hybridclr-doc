@@ -1,38 +1,34 @@
-# Differential Hybrid Execution
+# Differential Hybrid Execution (DHE)
 
-HybridCLR pioneered the implementation of Differential Hybrid Execution (DHE) differential hybrid execution technology. That is, you can add, delete, or modify the AOT dll at will, and intelligently make the changed or newly added classes and functions run in interpreter mode, but the unchanged classes and functions run in AOT mode, so that the running performance of the hot-updated game logic basically reaches the original AOT level.
+HybridCLR introduces the groundbreaking Differential Hybrid Execution (DHE) technology. It allows for arbitrary modifications to AOT DLLs, intelligently running changed or newly added classes and functions in interpreter mode while unchanged classes and functions run in AOT mode, enabling the performance of hot-updated game logic to reach nearly the level of native AOT.
 
 :::tip
 
-DHE is only included in **Ultimate Edition**, please refer to [Ultimate Edition Introduction](../business/ultimate/intro) for details.
+DHE is only available in the **Ultimate Edition**. Please refer to the [Ultimate Edition introduction](../business/ultimate/intro) for details.
 
 :::
 
-## principle
+## Principle
 
-Put the assembly marked as DHE into the main package, and then load the latest hot update dll after running. During the execution process, when calling a function of a DHE assembly, if the function has not changed, the native AOT implementation will be called directly, otherwise the latest code will be executed in an interpreted manner.
-Since the two versions often do not modify too much code in practice, DHE can basically approach the native performance level.
+The assemblies marked as DHE are also packaged into the main bundle. After running, the latest hotfix DLL is loaded. During execution, when calling a function from a DHE assembly, if the function has not changed, the native AOT implementation is directly invoked; otherwise, the latest code is executed in interpreter mode. Since in practice, the two versions often do not modify too much code, DHE can basically achieve performance close to native levels.
 
-## Features and Benefits
+## Features and Advantages
 
-- The performance of the unchanged part of the code is exactly the same as that of the native version, which is an astonishing **3-30** times or even higher than the purely interpreted version, and the overall performance almost reaches the native performance level.
-- The code can be changed arbitrarily, there is basically no intrusion to the code, there are almost no special precautions, and the usage method is similar to the community version.
-- The workflow is simple, you don’t need to mark which functions have changed like xxxfix and other solutions, and the tools will automatically handle them
-- Retrofits to items cost less than pure hot update versions. For example, extern functions can be defined directly in DHE without moving to the AOT module.
-- includes **interpretation instruction optimization, and the performance of most numerical calculation instructions in the changed part is improved by 100-300% or more**, further greatly improving the performance level.
-- The native code is all in the package body, the risk of being rejected by iOS is greatly reduced
+- Unchanged code performs exactly like native AOT, with performance gains ranging from **3-30** times or higher compared to pure interpretation versions, nearly reaching native performance levels.
+- Arbitrary changes can be made to the code, with almost no intrusions to the codebase and minimal special considerations, similar to the community version.
+- Simple workflow, no need to manually mark which functions have changed like other solutions such as xxxfix; everything is handled automatically by the tool.
+- Lower project transformation costs compared to pure hotfix versions. For example, extern functions can be directly defined in DHE without the need to move to the AOT module.
+- All native code is included in the package, significantly reducing the risk of iOS rejection.
 
-## Unsupported feature
+## Unsupported Features
 
-- Any code in the AOT assembly corresponding to DHE cannot be executed before the DHE hot update code is loaded. It means that DHE does not support differential mixing of basic libraries like mscorlib, but supports differential hot update of traditional hot update assembly.
-- Due to the first restriction, `[InitializeOnLoadMethod]` and `Script Execution Order settings` are not supported in DHE assemblies.
-- DHE scripts are not supported to be mounted in package resources, including Resources. (This restriction will be relaxed or removed in the future)
-- Cannot add extern function in DHE assembly through hot update.
+- No code from the corresponding AOT assembly can be executed before loading DHE hotfix code. This means that DHE does not support differential mixing like mscorlib, but supports traditional hotfix assembly differential updates.
+- Due to the first limitation, features such as `[InitializeOnLoadMethod]` and `Script Execution Order settings` are not supported in DHE assemblies.
+- DHE scripts cannot be mounted on resources included in the package, including Resources.
+- Extern functions cannot be added through hotfix updates in DHE assemblies.
 
-## dhao file
+## dhao Files
 
-The dhao file is the core concept of DHE technology. The dhao file contains information about the types and functions changed in the latest hot update dll that has been calculated offline. When running a hot update function directly based on the information in the dhao file, whether to use the latest interpreted version or directly call the original The AOT function.
-The dhao file calculated offline is extremely critical for DHE technology. If there is no dhao file, the original AOT dll needs to be carried additionally, and the cost of calculating function changes is extremely high.
+The dhao file is a core concept of the DHE technology. It contains pre-calculated information about the types and functions that have changed in the latest hotfix DLL, allowing the runtime to determine whether to use the latest interpreted version or directly call the original AOT function when executing a hotfix function. Pre-calculated dhao files are crucial for DHE technology to function properly. Without a dhao file, the original AOT DLL must be carried along, and the cost of calculating function changes is extremely high.
 
-By comparing the latest hot update dll with the AOT dll generated during packaging, the changed type and function are calculated offline and saved as a dhao file. Therefore, in order for the DHE mechanism to work normally, it must depend on the correctness of the dhao file, and the correctness of the dhao file
-It relies on providing the latest hot update dll and AOT dll generated during packaging.
+By comparing the latest hotfix DLL with the AOT DLL generated during packaging, the changed types and functions are calculated offline and saved as dhao files. Therefore, for the DHE mechanism to work properly, it depends on the correctness of the dhao file, which in turn depends on accurately providing the latest hotfix DLL and the AOT DLL generated during packaging.

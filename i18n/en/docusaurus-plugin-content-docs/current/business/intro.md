@@ -1,100 +1,96 @@
-# Introduce
+# Introduction
 
-We provide a variety of high-end commercial versions and flexibly customizable technical services to meet the needs of game projects in various application scenarios.
+We offer various high-end commercial versions and customizable technical services to meet the needs of game projects in various scenarios.
 
-## Commercial version
-
-:::tip
-
-All commercial versions will support the **Unity 2019-2022 LTS** version for a long time, ensuring that the project has long-term and stable technical support.
-
-:::
-
-There are currently three commercial versions. The specific features are compared as follows:
-
-- [Pro](./pro/intro.md). Optimized performance and memory to provide higher code security
-- [**Ultimate**](./ultimate/intro.md). Contains all the functions of the professional version, and also includes our core [DHE technology] (./differentialhybridexecution), which greatly improves performance and almost (**100% without modification**) reaches the same level as native AOT
-- [Hot reload version](./reload/intro.md). Contains all the features of the professional version, and also supports unloading and reloading individual assemblies. Currently, **100%** of the assembly's metadata memory can be unloaded.
-
-
-|Features|Community Edition|Professional Edition|Ultimate Edition|Hot Reload Edition|
-|-|-|-|-|-|
-|Explanation and Execution|✔|✔|✔|✔|
-|MonoBehaviour|✔|✔|✔|✔|
-|Supplemental Metadata|✔|✔|✔|✔|
-|Incremental GC|✔|✔|✔|✔|
-|Unity 2019-2022 LTS|✔|✔|✔|✔|
-|[Full Generic Sharing](./fullgenericsharing)||✔|✔|✔|
-|[DOTS](./dots)||✔|✔|✔|
-|[Metadata Optimization](./metadataoptimization.md)||✔|✔|✔|
-|[Offline Instruction Optimization](./basicoptimization)||✔|✔|✔|
-|[Code Protection](./basicencryption)||✔|✔|✔|
-|[Hot reload](./reload/hotreloadassembly)||||✔|
-|[Access Control Policy](./accesspolicy)||||✔|
-|[Advanced code optimization (experimental)](./advancedoptimization)|||✔||
-|[**DHE Technology**](./differentialhybridexecution)|||✔||
-|Technical support||1 year|2 years|2 years|
-
-### Price
-
-
-|Version|Price (RMB)|Description|
-|-|-|-|
-|Community Edition|0|Use indefinitely|
-|Professional Edition|Email Consultation Business|Buy out the right to use a project, including 1 year of technical support and 1 year of code updates|
-|Hot reload version|E-mail business consultation|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
-|Ultimate version|E-mail consultation business|Buy out the right to use a project, including 2 years of technical support and 2 years of code updates|
-
-### try out
+## Commercial Versions
 
 :::tip
 
-Both free and paid trials are only available to business users. Please use **business email** to contact `business@code-philosophy.com` to obtain trial-related support.
+All commercial versions will be long-term supported for **Unity 2019-2022 LTS** versions, ensuring long-term stable technical support for projects.
 
 :::
 
-All commercial versions support the following trial methods:
+Currently, there are three commercial versions, with specific feature comparisons as follows:
 
+- [Professional Edition](./pro/intro.md). Significant improvements in [interpreted execution performance](./basicoptimization) (numeric instruction performance is **280%-735%** of the community version), optimized metadata memory, support for code encryption, effectively ensuring code security.
+- [**Ultimate Edition**](./ultimate/intro.md). Includes all features of the Professional Edition, additionally featuring our core [DHE technology](./differentialhybridexecution), greatly improving performance, almost (**100% when unchanged**) reaching the same level as native AOT.
+- [Hot Reload Edition](./reload/intro.md). Includes all features of the Professional Edition, and supports unloading and reloading individual assemblies. Currently, it can unload **100%** of the metadata memory of the assembly.
 
-|Trial method|Price|Service|Description|
-|-|-|-|-|
-|Free trial without complete source code|Free|Provide limited access technical support|Only supports building iOS platform targets based on precompiled libil2cpp.a, does not provide C++ source code, and does not provide tool source code. There is no trial period limit, but the runtime of the trial version will crash randomly half an hour after startup or after three months of use. Please do not use it for the officially released version |
-|Paid trial with complete source code|10% of the total price of the commercial version|Technical support services equivalent to those of formal paid users|Provide the source code and related tools of the commercial version of the trial version, which are built and tested by the developers themselves. If you finally purchase the official version, the service fee can be deducted. Otherwise, the trial fee will not be refunded unless there is false advertising or major defects |
+| Feature                  | Community Edition | Professional Edition | Ultimate Edition | Hot Reload Edition |
+|--------------------------|-------------------|----------------------|------------------|--------------------|
+| Interpreted Execution    | ✔                 | ✔                    | ✔                | ✔                  |
+| MonoBehaviour            | ✔                 | ✔                    | ✔                | ✔                  |
+| Supplementary Metadata   | ✔                 | ✔                    | ✔                | ✔                  |
+| Incremental GC           | ✔                 | ✔                    | ✔                | ✔                  |
+| Unity 2019-2022 LTS      | ✔                 | ✔                    | ✔                | ✔                  |
+| [Full Generic Sharing](./fullgenericsharing)          |                   | ✔                    | ✔                | ✔                  |
+| [DOTS](./dots)                    |                   | ✔                    | ✔                | ✔                  |
+| [Metadata Optimization](./metadataoptimization.md) |                   | ✔                    | ✔                | ✔                  |
+| [Standard Interpretation Performance Optimization](./basicoptimization)    |                   | ✔                    | ✔                | ✔                  |
+| [Offline Instruction Optimization](./advancedoptimization)    |                   | ✔                    | ✔                | ✔                  |
+| [Code Encryption](./basicencryption)         |                   | ✔                    | ✔                | ✔                  |
+| [Hot Reload](./reload/hotreloadassembly)          |                   |                      |                  | ✔                  |
+| [Access Control Mechanism](./accesspolicy)  |                   |                      |                  | ✔                  |
+| [**DHE Technology**](./differentialhybridexecution)            |                   |                      | ✔                |                    |
+| Technical Support        |                   | 1 year               | 2 years          | 2 years            |
 
-Note that the following features are not supported in the free trial version:
+### Pricing
 
-- dots support
+| Version            | Price (RMB)            | Description                                                                      |
+|--------------------|------------------------|----------------------------------------------------------------------------------|
+| Community Edition  | 0                      | Unlimited usage period                                                          |
+| Professional Edition | Contact us via email for business inquiry | Buy the right to use for one project permanently, includes 1 year of technical support and 1 year of code updates |
+| Hot Reload Edition  | Contact us via email for business inquiry | Buy the right to use for one project permanently, includes 2 years of technical support and 2 years of code updates |
+| Ultimate Edition   | Contact us via email for business inquiry | Buy the right to use for one project permanently, includes 2 years of technical support and 2 years of code updates |
+
+### Trials
+
+:::tip
+
+Both free and paid trials are only available to enterprise users. Please contact `business@code-philosophy.com` with your **corporate email** to get trial support.
+
+:::
+
+All commercial versions support the following trial options:
+
+| Trial Type                        | Price    | Service                                                              | Description                                                                                                                                                               |
+|----------------------------------|----------|----------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Free Trial without Full Source   | Free     | Technical support is available at a rate of 400 RMB/hour            | Only supports building iOS platform targets based on pre-compiled libil2cpp.a, does not provide C++ source code, does not provide tool source code. No trial period limit, but the runtime of the trial version will crash randomly after **30 minutes of startup or after three months of use**, please do not use it for formal releases. |
+| Paid Trial with Full Source      | 10% of the total price of the commercial version | Equivalent technical support services to formal paid users | Provides source code and related tools for the trial version of the commercial version, which developers can build and test on their own. If you eventually purchase the formal version, the service fee can be deducted; otherwise, unless there is false advertising or major defects, the trial fee will not be refunded. |
+
+Note that free trial versions do not support the following features:
+
+- DOTS support
 - Incremental GC
 
-Free trial version related documents:
+Documentation for free trial versions:
 
-- [Professional version](./pro/freetrial)
+- [Professional Edition](./pro/freetrial)
 - [Ultimate Edition](./ultimate/freetrial)
-- [Hot reload version](./reload/freetrial)
+- [Hot Reload Edition](./reload/freetrial)
 
-## Enterprise technical support
+## Enterprise Technical Support
 
-You can flexibly choose the technical service items needed by the enterprise. If you subscribe on an annual basis, you will be billed according to the service item, otherwise you will be billed according to the service length.
+You can flexibly choose the technical service items needed by the enterprise. If subscribed annually, billing will be based on the service items, otherwise, it will be based on the service duration.
 
-### Technical support content
+### Technical Support Contents
 
-- Standard bug response and resolution, including one-on-one remote assistance guidance. Most reproducible bugs will be fixed within 2-7 days or provide avoidance solutions.
-- Solve some special platform compatibility issues
-- Supports some currently unsupported versions (excluding 2018 and earlier versions)
-- Optimization guidance
-- other service
+- Standard response and resolution of bugs, including one-on-one remote assistance and guidance. Most reproducible bugs will be fixed or provided with workarounds within 2-7 days.
+- Solve some special platform compatibility issues.
+- Support for some currently unsupported versions (excluding versions before 2018).
+- Optimization guidance.
+- Other services.
 
-### Price Standard
+### Pricing
 
-Since hybridclr is easy to use and stable in operation, most companies do not require long-term technical support, so they only provide timing technical support services.
-The unused time in a single service can be reserved for next use. In order to save business costs, we do not provide contracts and invoices for timely billing with a total price of less than 2,000. Please understand.
+Since HybridCLR is easy to use and stable, most companies do not need long-term technical support. Therefore, only timed technical support services are provided.
+Unused time in a single service can be retained for subsequent use. To save business costs, time-based billing under 2000 RMB **does not provide** contracts and invoices, please understand.
 
-|Service level|Problem resolution scope|Price|
-|-|-|-|
-|Standard|Provide technical Q&A on basic usage issues, excluding solutions to bugs and unimplemented features|400 RMB/hour|
-|Expert|Solve various complex problems in technical support content, including solving bugs and unimplemented features|2000 RMB/hour|
+| Service Level | Scope of Problem Solving | Price     |
+|---------------|---------------------------|-----------|
+| Standard      | Technical Q&A for basic usage issues, does not include bug fixes or feature implementations in the scope of support | 400 RMB/hour |
+| Expert        | Solve various complex problems within the scope of [Technical Support Contents], including bug fixes and feature implementations | 2000 RMB/hour |
 
+## Contact Us
 
-## contact us
-
-Please use your company's **company email** to initiate consultations to `business@code-philosophy.com`. Emails initiated by individuals such as QQ or 126 email addresses will be ignored, please understand.
+Please use your company's **corporate email** to email `business@code-philosophy.com` for inquiries. Emails initiated by personal email accounts such as QQ or 126 will be ignored, please understand.

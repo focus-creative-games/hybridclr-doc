@@ -1,5 +1,10 @@
 # DOTS支持
 
+:::tip
+
+**商业化客户需要联系我们获取com.unity.entities package代码**，替换项目中对应的package。
+
+:::
 
 商业化版本修改了DOTS运行时代码及hybridclr运行时代码，支持绝大多数DOTS特性。
 

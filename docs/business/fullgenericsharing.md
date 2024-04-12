@@ -4,7 +4,7 @@
 加载补充元数据不仅导致内存占用明显增加，还增加了启动时间。对于微信小游戏这些对包体和内存要求严苛的场合，这是一个影响较大的问题。
 另外，被补充的泛型函数以解释方式执行，还降低了运行性能。
 
-HybridCLR支持`full genric sharing`后，不再需要补充元数据，简化了工作流，以原生方式运行AOT泛型，性能大幅提升，彻底解决了补充元数据的以上缺点。
+HybridCLR支持`full genric sharing`后，不再需要补充元数据，简化了工作流，较好地解决了补充元数据的以上缺点。
 
 ## 支持的版本
 
@@ -18,8 +18,14 @@ HybridCLR支持`full genric sharing`后，不再需要补充元数据，简化�
 
 ## 设置
 
-- 2021.3.x LTS版本。当Build Settings中`Il2Cpp Code Generation`选项为为 `faster(smaller) build` 时开启
-`full generic sharing` 机制。启用此选项后，泛型函数的所有泛型实例（无论泛型参数是值类型还是class类型）完全共享一份代码。
-- 2022.3.x LTS版本。强制支持`full generic sharing`，即使Build Settings中使用`faster runtime`选项也会开启此机制。与`faster(smaller) build`区别
-在于：`faster runtime`对于AOT中已经实例化的泛型函数，会使用单独的泛型函数实现，不走完全泛型共享的版本，提升了泛型函数的执行性能；
-`faster(smaller) build`选项则迫使同个函数的所有泛型函数都使用一份代码，此时与2021版本的含义相同。
+:::warning
+
+ `faster (smaller build)`会对泛型函数性能有较大影响（15%甚至更高），因此建议不要开启这个选项。
+
+ 如果是2021版本并且没有内存压力的情况下，建议仍然使用补充元技术来解决泛型问题。
+
+:::
+
+- 2020版本不支持完全泛型共享
+- 2021版本需要设置 IL2CPP Code Generation选项为`faster(smaller build)`
+- 2022版本默认开启完全泛型共享，无法关闭。如果设置 IL2CPP Code Generation选项为`faster(smaller build)`则能进一步减少包体。

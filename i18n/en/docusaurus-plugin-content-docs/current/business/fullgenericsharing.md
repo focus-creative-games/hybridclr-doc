@@ -1,25 +1,29 @@
-# Fully Generic Sharing
+# Full Generic Sharing
 
-Although supplementary metadata completely solves the AOT generic problem, supplementary metadata will cause the need to download the supplementary metadata dll with the package or hot update, resulting in an increase in package size or hot update time.
-Loading supplementary metadata not only resulted in a noticeable increase in memory footprint, but also increased startup time. For occasions such as WeChat mini-games that have strict requirements on package size and memory, this is a problem that has a greater impact.
-In addition, the supplemented generic functions are executed in an interpreted manner, which also reduces the running performance.
+Although supplementary metadata has completely solved the AOT generic problem, it leads to the need to carry supplementary metadata DLLs with the package or download them during hot updates, thus increasing the size of the package or the time required for hot updates.
+Loading supplementary metadata not only significantly increases memory usage but also increases startup time. This is a major issue for scenarios with strict requirements on package size and memory, such as WeChat mini-games.
+Furthermore, generic functions that have been supplemented are executed in interpreted mode, which also reduces runtime performance.
 
-After HybridCLR supports `full generic sharing`, it no longer needs to supplement metadata, simplifies the workflow, runs AOT generics natively, greatly improves performance, and completely solves the above shortcomings of supplementing metadata.
+With the introduction of Full Generic Sharing in HybridCLR, there is no longer a need for supplementary metadata, simplifying the workflow and effectively addressing the aforementioned shortcomings of supplementary metadata.
 
-## Supported versions
+## Supported Versions
 
-Supports Unity 2021 and later LTS versions.
+Supported Unity LTS versions include Unity 2021 and higher.
 
 ## Principle
 
-The old generic sharing technology can only perform generic sharing on class types. Since the 2021.3.x LTS version, il2cpp has supported `full generic sharing` technology,
-That is, generic parameters can be shared regardless of their type (including value types). HybridCLR uses this mechanism to realize that it does not need to supplement metadata, and it can perfectly support AOT generics.
+The old generic sharing technology could only share generics for class types. Starting from Unity 2021.3.x LTS versions, il2cpp has supported the `Full Generic Sharing` technology, which means that generic parameters of any type (including value types) can be shared. HybridCLR leverages this mechanism to achieve perfect support for AOT generics without the need for supplementary metadata.
 
+## Configuration
 
-## set up
+:::warning
 
-- 2021.3.x LTS version. Enabled when `Il2Cpp Code Generation` option in Build Settings is `faster(smaller) build`
-`full generic sharing` mechanism. When this option is enabled, all generic instances of a generic function (regardless of whether the generic parameter is a value type or a class type) completely share a single code.
-- 2022.3.x LTS version. Mandatory support for `full generic sharing`, even if the `faster runtime` option is used in Build Settings, this mechanism will be enabled. Difference from `faster(smaller) build`
-The reason is: `faster runtime` will use a separate generic function to implement the generic function that has been instantiated in AOT, instead of using a fully generic shared version, which improves the execution performance of the generic function;
-The `faster(smaller) build` option forces all generic functions of the same function to use one code, which has the same meaning as the 2021 version.
+Enabling `faster (smaller build)` will significantly affect the performance of generic functions (15% or even higher), so it is recommended not to enable this option.
+
+If you are using Unity 2021 and there is no memory pressure, it is still recommended to use the supplementary metadata technology to solve the generic problem.
+
+:::
+
+- The 2020 version does not support Full Generic Sharing.
+- For the 2021 version, the IL2CPP Code Generation option should be set to `faster (smaller build)`.
+- The 2022 version has Full Generic Sharing enabled by default and cannot be disabled. If the IL2CPP Code Generation option is set to `faster (smaller build)`, it can further reduce the package size.

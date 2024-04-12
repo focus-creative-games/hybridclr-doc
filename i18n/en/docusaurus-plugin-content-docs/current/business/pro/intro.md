@@ -1,13 +1,16 @@
 # Introduction
 
-The professional version provides some advanced features that are not supported by the community version. It is **highly cost-effective** and is suitable for occasions that require high memory and package size, such as WebGL games.
+The Professional Edition offers advanced features not supported in the Community Edition, suitable for scenarios with high memory and package requirements or **certain performance pressures**, such as WebGL games.
 
-## Supported versions
+## Advantages
 
-All Unity 2020-2022 LTS versions are supported.
+- Supports [Full Generic Sharing](../fullgenericsharing) technology, eliminating the need for additional metadata.
+- Includes [Metadata Optimization](../metadataoptimization) technology, significantly optimizing metadata memory.
+- Includes **[Standard Interpretation Optimization](../basicencryption)**, greatly enhancing interpretation performance. For instance, in numerical computation instructions, performance has undergone a qualitative leap with the use of standard interpretation optimization technology, ranging from **280% to 735%** of the original performance! For some special codes like the typeof instruction, performance has improved by over 1000%.
+- Supports code encryption for enhanced security.
+- Supports [DOTS](../dots) technology.
+- Includes one year of technical support.
 
-## Advantage
+## Supported Versions
 
-- Supports the `full generic sharing` technology of il2cpp starting from Unity 2021. Value types can also be shared generically. AOT generic functions are executed natively, which greatly improves the execution performance of generic functions. It is no longer necessary to add metadata to AOT, which simplifies the workflow, effectively reduces the package size, and significantly reduces memory usage. Especially useful for packages and memory-critical platforms such as WebGL.
-- Optimize metadata allocation during loading and running, with smaller memory footprint
-- More agile maintenance support, get the latest code at any time (the community version will only be released regularly due to maintenance cost considerations).
+Compatible with all Unity 2019-2022 LTS versions.

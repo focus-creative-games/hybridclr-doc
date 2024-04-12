@@ -12,14 +12,11 @@
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
-## 开启完全泛型共享
+## 使用
 
-- 2020版本不支持完全泛型共享
-- 2021版本需要设置 IL2CPP Code Generation选项为`faster(smaller)`
-- 2022版本默认开启完全泛型共享，无法关闭。如果设置 IL2CPP Code Generation选项为`faster(smaller)`则能进一步减少包体。
-
-## 开启和关闭标准指令优化
-
-默认已经开启标准优化。可以通过 `RuntimeApi.EnableTransformOptimization`函数主动控制开启或者关闭这个特性。
-
+- 开启完全泛型共享参见 [完全泛型共享](../fullgenericsharing)
+- 代码加密参见 [代码加固](../basicencryption)
+- 元数据优化参见 [元数据优化](../metadataoptimization)
+- DOTS使用参见 [DOTS](../dots)
+- 其他用法与社区版本完全相同
 

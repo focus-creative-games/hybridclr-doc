@@ -1,27 +1,41 @@
 # Hot Reload Technology
 
-Hot reload technology is used to completely uninstall or reload an assembly, which is suitable for small game collection type games. This program only provides **commercial version**.
+Hot reload technology is used to completely unload or reload an assembly, suitable for small game collections. This solution is only available in the **commercial version**.
 
-## Supported features
+## Supported Features
 
-- Supports uninstalling assembly and uninstalling 100% of the memory occupied by assembly
-- Supports reloading the assembly, the code can be changed arbitrarily or even completely different (MonoBehaviour and Scriptable have certain restrictions)
-- Supports **limited set of functions that can be accessed in the hot update assembly**, which is suitable for creating a sandbox environment in UGC games to avoid damage caused by malicious player code.
+- Supports unloading assemblies, freeing up 100% of the memory occupied by the assembly.
+- Supports reloading assemblies, allowing code to change arbitrarily or even be completely different (with certain limitations on MonoBehaviour and Scriptable).
+- Supports **restricting the set of functions that can be accessed in hot-updated assemblies**, suitable for creating sandbox environments in UGC games to prevent malicious player code from causing damage.
 
-## Does not support features and special requirements
+## Unsupported Features and Special Requirements
 
-- Require business code to no longer use objects or functions in the uninstalled Assembly, and exit all old logic being executed
-- The dependent Assembly cannot be uninstalled directly. The dependent Assembly must be uninstalled first, and then the dependent Assembly must be uninstalled in reverse dependency order. For example, if A.dll depends on B.dll, you need to uninstall A.dll first, and then uninstall B.dll.
-- MonoBehaviour is related to ScriptableObject
-   - It is required that the event or message functions in the overloaded MonoBehaviour, such as Awake and OnEable, are not added or deleted (but the function body can be changed)
-   - It is required that the serialized field name of the script class with the same name in the old Assembly does not change after overloading (the type can be changed)
-   - Cannot inherit from generic types, such as `class MyScript : CommonScript<int>`
-- Some libraries that cache reflection information (this behavior is most common in serialization-related libraries, such as LitJson) need to clear the cached reflection information after hot reloading.
-- Destructor, ~XXX() is not supported. It is also not allowed to instantiate a generic class with a destructor that takes a generic parameter of this assembly type.
-- Not compatible with dots. Due to the large amount of type information cached by dots, the implementation is complex and it is difficult to clear the cache information alone.
+- Business code must stop using objects or functions from the unloaded assembly and exit all old logic being executed.
+- Cannot directly unload dependent assemblies; dependencies must be unloaded first in reverse dependency order before unloading the dependent assemblies. For example, if A.dll depends on B.dll, then A.dll must be unloaded first before unloading B.dll.
+- MonoBehaviour and ScriptableObject related:
+  - Events or message functions in reloaded MonoBehaviours such as Awake, OnEnable, etc., should not be added or removed (but the function body can change).
+  - After reloading, the serialized field names of the same-named script classes in the old assembly must not change (but the types can change).
+  - Cannot inherit generic types, such as `class MyScript: CommonScript<int>`.
+- Some libraries that cache reflection information (this behavior is most common in serialization-related libraries like LitJson) need to clear the cached reflection information after hot reload.
+- Does not support destructors, ~XXX(). Also, does not allow instantiating generic classes with destructor functions that belong to the generic parameters of this assembly.
+- Not compatible with DOTS. Due to DOTS caching a large amount of type information and its complex implementation, it is difficult to clean up cached information separately.
 
+## Incompatible Libraries
 
-## Some incompatible libraries
+- Jobs in 2022 cache type-related information and require minor [modifications to UnityEngine.CoreModule.dll](./modifydll.md) code. Versions earlier than 2022 do not require modifications.
+- Deserialization libraries like LitJson cache reflection information and need to clear the cached reflection information in the library after hot reload. The specific operation depends on the implementation of the library.
 
-- Jobs in 2022 will cache type-related information, and you need to slightly [modify UnityEngine.CoreModule.dll](./modifydll.md) code yourself. Versions lower than 2022 do not need to be modified
-- Deserialization libraries such as LitJson will cache reflection information. It is necessary to clean up the reflection information cached in the library after hot reloading. The specific operation is related to the implementation of the library.
+## Resolving References to Unloaded Objects
+
+Hot reload technology requires that metadata of unloaded assembly U cannot be held in the assembly or global memory that has not been unloaded. This includes, but is not limited to:
+
+- Instances of types in the unloaded assembly
+- Generic parameters of generic classes or functions that include types from the unloaded assembly
+- Reflection information related to the unloaded assembly, such as Assembly, Type, MethodInfo, PropertyInfo, etc.
+- Delegates pointing to functions in the unloaded assembly
+- Tasks defined in the unloaded assembly
+- Others
+
+Real-world projects can be complex, and it is difficult and impractical for developers to find all illegal references. We have implemented illegal reference checks, and when calling `RuntimeApi.UnloadAssembly`, logs of all illegal references will be printed. Developers can clear all illegal references based on the printed logs.
+
+Since illegal reference checks traverse all live objects, they are time-consuming. Therefore, this check is only enabled when the Il2Cpp compilation option is Debug, and it is disabled in Release mode. You can use `RuntimeApi.EnableLiveObjectValidation(true)` to forcibly enable this check in Release compilation mode.
