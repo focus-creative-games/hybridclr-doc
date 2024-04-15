@@ -366,6 +366,10 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特性的函数预留Wrapper函数，详见[MonoPInvokeCallback支持](../basic/workwithscriptlanguage.md)
 
+### NotSupportedException: To marshal a managed method, please add an attribute named 'MonoPInvokeCallback' to the method definition. The method we're attempting to marshal is:xxxx
+
+原理同上
+
 ### 使用addressable进行热更新时，加载资源出现 UnityEngine.AddressableAssets.InvlidKeyException: Exception of type 'UnityEngine.AddressableAssets.InvalidKeyException' was thrown. No Asset found with for key 'xxxx' 异常
 
 解决方案来自[addressables和HybridCLR结合使用导致的资源加载错误](https://github.com/Bian-Sh/Assemblies-Hotfix-Toolkit-Unity/issues/2)。也可以参见视频[踩坑实战:将HybridCLR导入自己的项目并实现热更新](https://www.bilibili.com/video/BV1aP4y1o7xi/) 1:02:30起的内容。
