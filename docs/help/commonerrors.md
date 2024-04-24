@@ -427,9 +427,9 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 ### EncodeImageAndMetadataIndex函数出现IL2CPP_ASSERT断言失败的错误
 
-由于你们项目的热更新dll过大导致。有两个解决办法：
+由于你们项目的热更新dll过大导致。解决办法：
 
-- 修改 `hybridclr\metadata\MetadataUtil.h` 文件中 kMetadataIndexBits定义，逐步递增1，直至不再出现此问题为止。kMetadataIndexBits的值强烈建议不要超过29，因为此时最大能加载的热更新dll个数为7，很容易超出此限制
+- 升级到v5.2.0+版本，支持最大64M的dll
 - 将热更新dll拆分成多个更小的dll
 
 ## 启动时执行AutomaticWorldBootstrap::Initialize过程中调用ResourceCatalogData::GetGUIDFromPath崩溃
@@ -442,12 +442,14 @@ hybridclr与dots不兼容导致，商业化版本可以解决这个问题。
 
 ## WebGL 运行时出现 function signature mismatch错误
 
-WebGL平台打包时默认使用 `faster (smaller) build`选项，该选项会开启完全泛型共享，而社区版本必须补充元数据后才能与完全泛型共享机制配合工作。解决办法：
+WebGL平台打包时默认使用 `faster (smaller) build`选项，该选项会开启完全泛型共享，而社区版本必须补充元数据后才能与完全泛型共享机制配合工作。请依次尝试以下办法：
 
-1. 先尝试补充元数据，补充`函数栈最顶部的c#代码所在的`程序集
-1. 如果补充元数据后仍然有问题，将 `Player Settings`中 `IL2CPP Code Generation` 切换到 `Faster Runtime`
-1. 如果仍然有问题，升级到最新的hybridclr版本
-1. 如果还有问题，请联系我们技术支持
+1. 确保hybridclr为v4.0.0+版本，如果低于此版本请升级
+1. 尝试补充元数据，补充`函数栈最顶部的c#代码所在的`程序集
+1. 如果仍有问题，则可能是桥接函数与最终构建的包不匹配导致，比如说'Generate/all'时开启了'development'但构建时却未开启'development'。解决办法为使用构建时的参数，运行`generate/all`，清除build缓存后重新构造
+1. 如果仍有问题，将 `Player Settings`中 `IL2CPP Code Generation` 切换到 `Faster Runtime`
+1. 如果仍有问题，升级到最新的hybridclr版本
+1. 如果极有问题，请联系我们技术支持
 
 ### 使用 Unity.netcode.runtime 后出现 NotSupportNative2Managed 桥接函数缺失异常
 
