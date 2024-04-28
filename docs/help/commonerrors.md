@@ -214,6 +214,10 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 如果你的版本为 2020.3.0-2020.3.25， 在Installer中完成安装后，从2020.3.26+任一版本的安装目录复制`2020.3.x/Editor/Data/il2cpp/external`替换 `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
 
+### 打包时出现 "HybridCLRDatal/Locall2CppData-WindowsEditor/il2cpp/llibil2cpp/hybridclr/generated/ReversePInvokeMethodStub.cpp: error: unknown type name'struct_xxx'"
+
+热更新中'[MonoPInvokeCallback]'函数不支持结构体作为函数参数或者返回值。解决办法为删除这些函数。如果你一定要解决这个问题，请联系付费技术支持。
+
 
 ## 运行时错误
 
