@@ -182,6 +182,14 @@ LoadMetadataForAOTAssembly函数可以在任何时机调用，另外既可以在
 
 `HybridCLR/generate/AOTGenericReference` 命令生成的`AOTGenericReferences.cs`文件中包含了应该补充元数据的assembly列表，示例如下。你不需要运行游戏也能快速知道应该补充哪些元数据。
 
+:::tip
+
+PatchedAOTAssemblyList列表的计算结果是保守的，实践中很可能不需要补充这么多。如果没有明显的内存压力，直接按列表全补充比较省事。如果需要优化则可以只补充最常见的几个dll（如mscorlib之类），后面遇到AOT泛型错误再加上相应的dll。
+
+补充元数据dll是可以热更的，不用担心发布后在某个版本突然遇到泛型错误的问题。
+
+:::
+
 ```csharp
 using System.Collections.Generic;
 public class AOTGenericReferences : UnityEngine.MonoBehaviour
