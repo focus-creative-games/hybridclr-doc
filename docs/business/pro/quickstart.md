@@ -17,6 +17,5 @@
 - 开启完全泛型共享参见 [完全泛型共享](../fullgenericsharing)
 - 代码加密参见 [代码加固](../basicencryption)
 - 元数据优化参见 [元数据优化](../metadataoptimization)
-- DOTS使用参见 [DOTS](../dots)
 - 其他用法与社区版本完全相同
 

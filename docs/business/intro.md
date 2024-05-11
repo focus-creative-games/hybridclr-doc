@@ -24,7 +24,7 @@
 |补充元数据|✔|✔|✔|✔|
 |增量式GC|✔|✔|✔|✔|
 |Unity 2019-2022 LTS|✔|✔|✔|✔|
-|[DOTS](./dots)|✔|✔|✔|✔|
+|[DOTS](../basic/dots)|✔|✔|✔|✔|
 |[完全泛型共享](./fullgenericsharing)||✔|✔|✔|
 |[元数据优化](./metadataoptimization.md)||✔|✔|✔|
 |[标准解释性能优化](./basicoptimization)||✔|✔|✔|

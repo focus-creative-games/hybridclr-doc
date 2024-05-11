@@ -17,5 +17,4 @@ Similar to the [Quick Start](../../beginner/quickstart.md) of the Community Edit
 - For enabling Full Generic Sharing, see [Full Generic Sharing](../fullgenericsharing).
 - For code encryption, refer to [Code Encryption](../basicencryption).
 - For metadata optimization, see [Metadata Optimization](../metadataoptimization).
-- For using DOTS, refer to [DOTS](../dots).
 - Other usage remains identical to the Community Edition.
