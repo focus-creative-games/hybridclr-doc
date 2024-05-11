@@ -23,8 +23,8 @@ Currently, there are three commercial versions, with specific feature comparison
 | Supplementary Metadata   | ✔                 | ✔                    | ✔                | ✔                  |
 | Incremental GC           | ✔                 | ✔                    | ✔                | ✔                  |
 | Unity 2019-2022 LTS      | ✔                 | ✔                    | ✔                | ✔                  |
+| [DOTS](./dots)                    | ✔                  | ✔                    | ✔                | ✔                  |
 | [Full Generic Sharing](./fullgenericsharing)          |                   | ✔                    | ✔                | ✔                  |
-| [DOTS](./dots)                    |                   | ✔                    | ✔                | ✔                  |
 | [Metadata Optimization](./metadataoptimization.md) |                   | ✔                    | ✔                | ✔                  |
 | [Standard Interpretation Performance Optimization](./basicoptimization)    |                   | ✔                    | ✔                | ✔                  |
 | [Offline Instruction Optimization](./advancedoptimization)    |                   | ✔                    | ✔                | ✔                  |
