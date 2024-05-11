@@ -230,6 +230,41 @@
 |signature|属性|是|函数签名。支持通配符，如'*'、'Action&lt;System.Int32&gt; On\*'|
 |mode|子元素|是|注入类型，有效值为'none'或'proxy'。如果不填或者为空则取'none'|
 
+## 代码生成注入规则
+
+手动添加注入规则有可能是一件比较繁琐的事情，当按名字通配不能满足需求时，例如当你想对指令数小于10的短函数不注入时，代码生成相应的注入规则可以极大简化
+构造注入规则的工作量。
+
+代码实现生成注入规则不复杂，大致就是遍历每个DHE程序集，如果函数满足某个规则，则添加相应的注入规则。示例代码如下：
+
+```csharp
+
+public static void GenerateInjectRule(List<string> dheAssemblyNames, string outputInjectRuleFile)
+{
+	int minInjectMethodInstructions = 10;
+
+	foreach (string dheDllPath in dheAssemblyNames)
+	{
+		using (var dheMod = ModuleDefMD.Load(dheDllPath))
+		{
+			// 添加注入规则  <assembly fullname="{dheMod.Assembly.Name}" />
+			for (uint i = 1, n = dheMod.Metadata.TablesStream.MethodTable.Rows; i <= n; i++)
+			{
+				MethodDef methodDef = dheMod.ResolveMethod(i);
+				if (methodDef.HasBody && methodDef.Body.Instructions.Count < minInjectMethodInstructions)
+				{
+					// 添加注入规则
+					// <type name="{methodDef.DeclaringType.Name}">
+					// <method name="{methodDef.Name}" />
+					// </type>
+				}
+			}
+		}
+	}
+}
+
+```
+
 ### 构建工作流相关
 
 注入策略文件需要与构建的主包一致，既每个独立发布的主包都必须备份当时所用的注入策略文件。就如每次生成dhao文件时需要使用构建主包时生成的AOT dll,
