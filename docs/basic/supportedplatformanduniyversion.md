@@ -36,7 +36,7 @@ HybridCLR已经稳定支持了2019.4.x、2020.3.x、2021.3.x、2022.3.x 系列LT
 - Android armv7、armv8(arm64)
 - iOS arm64
 - tvOS
-- WebGL 标准WebGL、MiniGame、微信小游戏
+- WebGL 包括WebGL、MiniGame、微信小游戏
 - PS4、PS5
 - UWP
 - 华为Harmony（鸿蒙）平台（当前只有团结引擎支持鸿蒙）

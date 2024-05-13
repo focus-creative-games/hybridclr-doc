@@ -104,6 +104,7 @@ Unity游戏中使用HybridCLR热更新的13款，使用lua热更新的有27款�
 |畅游|[JUMP:群星集结 ](https://www.jumpmoba.com/en)
 |网易|[瑶台](https://yaotai.163.com/)|
 |百度|[希壤](https://vr.baidu.com/product/xirang)|
+|紫龙|[钢岚](https://www.qimai.cn/app/rank/appid/1658241152/country/cn)|
 
 
 
