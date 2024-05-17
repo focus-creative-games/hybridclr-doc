@@ -86,10 +86,10 @@ You can flexibly choose the technical service items needed by the enterprise. If
 Since HybridCLR is easy to use and stable, most companies do not need long-term technical support. Therefore, only timed technical support services are provided.
 Unused time in a single service can be retained for subsequent use. To save business costs, time-based billing under 2000 RMB **does not provide** contracts and invoices, please understand.
 
-| Service Level | Scope of Problem Solving | Price     |
-|---------------|---------------------------|-----------|
-| Standard      | Technical Q&A for basic usage issues, does not include bug fixes or feature implementations in the scope of support | 400 RMB/hour |
-| Expert        | Solve various complex problems within the scope of [Technical Support Contents], including bug fixes and feature implementations | 2000 RMB/hour |
+| Service Level | Scope of Problem Solving                                      | Price                      |
+|---------------|--------------------------------------------------------------|----------------------------|
+| Standard     | Provides technical support for basic usage questions, excluding bug fixes and implementation of unreleased features | 100 RMB per hour, billed in 15-minute increments (e.g., 15 minutes, 2 hours) |
+| Expert       | Solves complex problems, including bug fixes                 | 1500 RMB per hour, billed in 30-minute increments (e.g., 30 minutes, 2 hours) |
 
 ## Contact Us
 
