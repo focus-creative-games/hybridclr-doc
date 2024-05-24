@@ -218,6 +218,10 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 热更新中'[MonoPInvokeCallback]'函数不支持结构体作为函数参数或者返回值。解决办法为删除这些函数。如果你一定要解决这个问题，请联系付费技术支持。
 
+### 打包时出现 [CheckSettings] MethodBridge.cpp DEVELOPMENT flag:x is inconsistent with EditorUserBuildSettings.development:y. Please run 'HybridCLR/Generate/All' before building.
+
+你`Generate/All`生成桥接函数时和打包时使用的development选项不一致，这会导致桥接函数与实际的AOT部分的对象大小不一致，将引发严重的错误。解决办法是重新`Generate/All`生成一次。
+
 
 ## 运行时错误
 
