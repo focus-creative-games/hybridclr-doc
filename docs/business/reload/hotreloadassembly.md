@@ -40,6 +40,5 @@
 实际工程可能很复杂，开发者找出所有非法引用是很困难和不切实际的。我们已经实现了非法引用检查，在调用`RuntimeApi.UnloadAssembly`时
 会打印出所有非法引用的日志。开发者根据打印的日志清除所有非法引用即可。
 
-由于非法引用检查会遍历所有存活对象，比较耗时，因此只在Il2Cpp编译选项为Debug时开启了此检查，而Release模式下关闭了检查。可以使用
-`RuntimeApi.EnableLiveObjectValidation(true)`强行在Release编译模式下开启这个检查。
+由于非法引用检查会遍历所有存活对象，比较耗时，正式版本可以可以使用`RuntimeApi.EnableLiveObjectValidation(false)`禁用这个检查。
 

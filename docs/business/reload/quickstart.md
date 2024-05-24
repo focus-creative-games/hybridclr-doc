@@ -18,6 +18,13 @@
 调用 `RuntimeApi.UnloadAssembly` 卸载程序集，使用`Assembly.Load`重新加载程序集。当前不支持在未卸载该程序集的情况下再次加载该程序集，示例代码如下：
 
 ```csharp
+
+    // 卸载程序集时默认会扫描整个运行时，检查有没有持有对被卸载程序集中对象的引用。
+    // 对于正式发布的版本，可以使用以下语句禁用检查，缩短卸载时间。
+    // 开发期间强烈推荐不要禁用它
+
+    // RuntimeApi.EnableLiveObjectValidation(false);
+
     // 第一次加载
     Assembly ass = Assembly.Load(yyy);
 
@@ -45,3 +52,4 @@
 - UI的OnClick或者各种回调事件很容易导致保持了对卸载程序集的引用，一定要清理干净
 - 注册到全局的事件或者其他加高，容易意外保持了对卸载程序集的引用，一定要清理干净
 - 根据`RuntimeApi.UnloadAssembly`中打印的非法引用的日志，清理掉代码中的非法引用
+- 正式发布的项目可以使用`RuntimeApi.EnableLiveObjectValidation(false)`禁用非法引用检查以缩短卸载耗时

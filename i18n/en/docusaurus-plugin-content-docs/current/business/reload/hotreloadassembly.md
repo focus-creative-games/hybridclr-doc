@@ -38,4 +38,4 @@ Hot reload technology requires that metadata of unloaded assembly U cannot be he
 
 Real-world projects can be complex, and it is difficult and impractical for developers to find all illegal references. We have implemented illegal reference checks, and when calling `RuntimeApi.UnloadAssembly`, logs of all illegal references will be printed. Developers can clear all illegal references based on the printed logs.
 
-Since illegal reference checks traverse all live objects, they are time-consuming. Therefore, this check is only enabled when the Il2Cpp compilation option is Debug, and it is disabled in Release mode. You can use `RuntimeApi.EnableLiveObjectValidation(true)` to forcibly enable this check in Release compilation mode.
+Since illegal reference checks traverse all live objects, they are time-consuming. Therefore, You can use `RuntimeApi.EnableLiveObjectValidation(false)` to forcibly disable this check in Release mode.
