@@ -4,13 +4,14 @@ HybridCLR has stably supported the 2019.4.x, 2020.3.x, 2021.3.x, and 2022.3.x se
 
 ## Compatible Unity versions
 
-Due to maintenance cost considerations, HybridCLR only supports the LTS series version. And versions before 2019 are no longer supported.
+Due to maintenance cost considerations, HybridCLR only supports the LTS series version and some beta versions. And versions before 2019 are no longer supported.
 
 - 2019.4.x
 - 2020.3.x
 - 2021.3.x
 - 2022.3.x
-- 2023.2.0ax (already supported, **not yet released**)
+- 2023.2.x
+- 6000.0.x
 
 :::tip
 
