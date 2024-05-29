@@ -313,7 +313,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 有几个原因：
 
 1. 这是因为AOT泛型函数实例化缺失引起的
-2. 使用了Unity 2021并且 `Il2Cpp Code Generation` 选项为 `faster runtime`，导致生成的代码为完全泛型模式，所有泛型函数签名均发生变化。如果没有补充元数据，调用即使已经在AOT中实例化的泛型函数，仍然会出现这个错误。
+2. 使用了Unity 2021并且 `Il2Cpp Code Generation` 选项为 `faster (smaller) build`，导致生成的代码为完全泛型模式，所有泛型函数签名均发生变化。如果没有补充元数据，调用即使已经在AOT中实例化的泛型函数，仍然会出现这个错误。
 3. 微信小游戏转换工具，默认会将IL2CPP Code Generation设置为Faster(Smaller) builds模式，如果未补充元数据，会导致无法访问AOT泛型函数。
 
 原因1的解决办法为：
@@ -323,7 +323,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 原因2的解决办法为：
 
-- 使用补充元数据技术
+- 将BuildSettings中 `IL2CPP Code Generation` 设置为 `Faster runtime`同时使用补充元数据
 
 原因3的解决办法：
 

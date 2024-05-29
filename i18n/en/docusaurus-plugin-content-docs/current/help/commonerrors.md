@@ -305,7 +305,7 @@ This is a function loss caused by unity code cutting. Run the menu command `Hybr
 There are several reasons:
 
 1. This is caused by the lack of instantiation of the AOT generic function
-2. Unity 2021 is used and the `Il2Cpp Code Generation` option is `faster runtime`, causing the generated code to be fully generic mode, and all generic function signatures have changed. Without supplementary metadata, this error will still occur when calling a generic function that has been instantiated in AOT.
+2. Unity 2021 is used and the `Il2Cpp Code Generation` option is `faster (smaller build)`, causing the generated code to be fully generic mode, and all generic function signatures have changed. Without supplementary metadata, this error will still occur when calling a generic function that has been instantiated in AOT.
 3. The WeChat mini game conversion tool will set IL2CPP Code Generation to Faster (Smaller) builds mode by default. If metadata is not supplemented, AOT generic functions will not be accessible.
 
 The solution to reason 1 is:
@@ -315,12 +315,12 @@ The solution to reason 1 is:
 
 The solution to reason 2 is:
 
-- Use supplementary metadata technology
+- set `IL2CPP Code Generation` in BuildSettings to `Faster` and Use supplementary metadata technology
 
 Solution to reason 3:
 
 - Use supplementary metadata technology
-- Change the WeChat tool source code yourself and set `IL2CPP Code Generation` in BuildSettings to `Faster`.
+- Change the WeChat tool source code yourself and set `IL2CPP Code Generation` in BuildSettings to `Faster runtime`.
 
 
 For specific operations, please see the [Introduction to AOT Generic Principles](/basic/aotgeneric.md) document.
