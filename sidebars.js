@@ -118,6 +118,7 @@ const sidebars = {
             'business/ultimate/quickstartchecked',
             'business/ultimate/quickstartunchecked',
             'business/ultimate/manual',
+            'business/ultimate/workflow',
             'business/ultimate/freetrial',
             'business/ultimate/injectrules',
             'business/ultimate/commonerrors',
