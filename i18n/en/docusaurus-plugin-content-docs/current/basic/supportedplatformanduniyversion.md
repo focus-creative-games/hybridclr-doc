@@ -39,6 +39,7 @@ The following platforms have been tested for a long time and are very stable and
 - PS4, PS5
 - UWP
 - tvOS
+- visionOS
 - other platforms
 
 ## Special Instructions
