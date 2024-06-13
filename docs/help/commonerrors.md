@@ -222,6 +222,18 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 你`Generate/All`生成桥接函数时和打包时使用的development选项不一致，这会导致桥接函数与实际的AOT部分的对象大小不一致，将引发严重的错误。解决办法是重新`Generate/All`生成一次。
 
+### 在Unity 6000及2023版本上构建iOS、visionOS等平台xcode工程时出现`Undefined symbols for architecture arm64: "CheckApplicationIntegrity(IntegrityCheckLevel)"` 链接错误
+
+原理：
+
+当使使用了UnityEngine.Debug类中某些函数时，由于这些函数是extern函数，但在libIphone.a中没有实现，导致出现此链接错误。正常情况下由于不会使用到那些函数，因此可以正常打包，但`HybridCLR/Generate/LinkXml`
+时会对`UnityEngine.Debug`类preserve all，导致触发了这个错误。
+
+该问题本质上是由Unity自身bug引起。hybridclr 6.1.0版本通过在生成的link.xml文件中忽略UnityEngine.Debug类来临时规避这个问题。
+
+解决办法：
+
+升级到com.code-philosohpy.hybridclr到6.1.0+版本。
 
 ## 运行时错误
 
