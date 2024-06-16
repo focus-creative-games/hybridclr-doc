@@ -36,6 +36,5 @@ Hot reload technology requires that metadata of unloaded assembly U cannot be he
 - Tasks defined in the unloaded assembly
 - Others
 
-Real-world projects can be complex, and it is difficult and impractical for developers to find all illegal references. We have implemented illegal reference checks, and when calling `RuntimeApi.UnloadAssembly`, logs of all illegal references will be printed. Developers can clear all illegal references based on the printed logs.
+Real-world projects can be complex, and it is difficult and impractical for developers to find all illegal references. We have implemented illegal reference checks, and when unloading, logs of all illegal references will be printed. Developers can clear all illegal references based on the printed logs.
 
-Since illegal reference checks traverse all live objects, they are time-consuming. Therefore, You can use `RuntimeApi.EnableLiveObjectValidation(false)` to forcibly disable this check in Release mode.
