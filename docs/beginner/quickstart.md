@@ -32,6 +32,22 @@ HybridCLR支持Unity 2019-2022的所有LTS版本，如果当前使用的版本�
   - 要求MacOS版本 >= 12，xcode版本 >= 13，例如`xcode 13.4.1， macos 12.4`。
   - 安装 git
 
+## 安装HybridCLR
+
+### 安装 `com.code-philosophy.hybridclr` 包
+
+主菜单中点击`Windows/Package Manager`打开包管理器。如下图所示点击`Add package from git URL...`，填入`https://gitee.com/focus-creative-games/hybridclr_unity.git`或`https://github.com/focus-creative-games/hybridclr_unity.git`。
+
+![add package](/img/hybridclr/install_hybridclrunity_package.jpg)
+
+不熟悉从url安装package的请看[install from giturl](https://docs.unity3d.com/Manual/upm-ui-giturl.html)。
+
+由于国内网络原因，在unity中可能遇到网络异常而无法安装。你可以先把 `com.code-philosophy.hybridclr` clone或者下载到本地，将文件夹改名为`com.code-philosophy.hybridclr`，直接移动到项目的`Packages`目录下即可。
+
+### 初始化 `com.code-philosophy.hybridclr` 
+
+打开菜单`HybridCLR/Installer...`， 点击`安装`按钮进行安装。 耐心等待30s左右，安装完成后会在最后打印 `安装成功`日志。
+
 ## 初始化Unity热更新项目
 
 从零开始构造热更新项目的过程较冗长，项目结构及资源及代码均可参考hybridclr_trial项目，其仓库地址为 [github](https://github.com/focus-creative-games/hybridclr_trial) 或 [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)。
@@ -119,21 +135,7 @@ public class ConsoleToScreen : MonoBehaviour
 如果你们项目把Assembly-CSharp作为AOT程序集，强烈建议关闭热更新程序集的`auto reference`选项。因为Assembly-CSharp是最顶层assembly，开启此选项后会自动引用剩余所有assembly，包括热更新程序集，很容易就出现失误引用热更新程序集导致打包失败的情况。
 :::
 
-## 安装和配置HybridCLR
-
-### 安装 `com.code-philosophy.hybridclr` 包
-
-主菜单中点击`Windows/Package Manager`打开包管理器。如下图所示点击`Add package from git URL...`，填入`https://gitee.com/focus-creative-games/hybridclr_unity.git`或`https://github.com/focus-creative-games/hybridclr_unity.git`。
-
-![add package](/img/hybridclr/install_hybridclrunity_package.jpg)
-
-不熟悉从url安装package的请看[install from giturl](https://docs.unity3d.com/Manual/upm-ui-giturl.html)。
-
-由于国内网络原因，在unity中可能遇到网络异常而无法安装。你可以先把 `com.code-philosophy.hybridclr` clone或者下载到本地，将文件夹改名为`com.code-philosophy.hybridclr`，直接移动到项目的`Packages`目录下即可。
-
-### 初始化 `com.code-philosophy.hybridclr` 
-
-打开菜单`HybridCLR/Installer...`， 点击`安装`按钮进行安装。 耐心等待30s左右，安装完成后会在最后打印 `安装成功`日志。
+## 配置HybridCLR
 
 ### 配置HybridCLR
 
