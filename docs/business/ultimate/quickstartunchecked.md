@@ -332,7 +332,7 @@ public class LoadDll : MonoBehaviour
     {
         byte[] dllBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dll.bytes");
         byte[] dhaoBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dhao.bytes");
-        LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssembly(dllBytes, dhaoBytes);
+        LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssemblyUnchecked(dllBytes, dhaoBytes);
         if (err == LoadImageErrorCode.OK)
         {
             Debug.Log($"LoadDifferentialHybridAssembly {assName} OK");
