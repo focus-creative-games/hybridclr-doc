@@ -29,6 +29,7 @@
 |[元数据优化](./metadataoptimization.md)||✔|✔|✔|
 |[标准解释性能优化](./basicoptimization)||✔|✔|✔|
 |[离线指令优化](./advancedoptimization)||✔|✔|✔|
+|global-metadata.dat加密||✔|✔|✔|
 |[代码加固](./basicencryption)||✔|✔|✔|
 |[热重载](./reload/hotreloadassembly)||||✔|
 |[访问控制机制](./accesspolicy)||||✔|

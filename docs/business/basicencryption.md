@@ -8,12 +8,17 @@
 
 |技术|安全指数|已经实现|
 |-|-|-|
+|global-metadatata.dat加密|:star:|✔|
 |元数据混淆|:star::star:|✔|
 |元数据加密|:star::star::star::star:|✔|
 |结构虚拟化|:star::star::star:|✔|
 |加密虚拟化|:star::star::star:|✔|
 |延迟解密|:star::star::star:|✔|
 |指令虚拟化|:star::star::star::star::star:||
+
+## global-metadatata.dat加密
+
+对global-metadata.dat进行加密，阻止恶意第三方还原出元数据信息。
 
 ## 元数据混淆
 
@@ -104,6 +109,7 @@ method body中保存了函数体元数据信息。
 
 |参数名|加密dll时需要与主包一致|描述|
 |-|-|-|
+|encryptGlobalMetdataDat||加密global-metadata.dat文件|
 |vmSeed|是|加密虚拟机的随机化种子|
 |metadataSeed|否|元数据的随机化加密种子|
 |key|否|加解密时所用的加密参数|
@@ -120,8 +126,7 @@ vmSeed是加密虚拟机的随机化种子。这个随机会种子会影响生�
 
 metadtaSeed和key为均为动态参数，不需要与主包一致。每次加密热更新dll都可以修改此值。推荐每经过一段时间或者经过几个版本后修改这些值。
 
-xxEncCodeLength为加密指令的长度，值越大则加密越复杂，解密耗时与加密指令长度成正比关系。由于解密过程会带来一定的开销，建议取默认值即可。如果
-加载加密的热更新程序集的时间过长，可以适当减少这些值。
+xxEncCodeLength为加密指令的长度，值越大则加密越复杂，解密耗时与加密指令长度成正比关系。由于解密过程会带来一定的开销，建议取默认值即可。如果加载加密的热更新程序集的时间过长，可以适当减少这些值。
 
 ## 加密热更新dll
 

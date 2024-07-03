@@ -8,6 +8,7 @@ We provide the industry's top managed code hardening technology, which effective
 
 |Technology|Safety Index|Achieved|
 |-|-|-|
+|global-metadatata.dat encryption|:star:|✔|
 |Metadata obfuscation|:star::star:|✔|
 |Metadata encryption|:star::star::star::star:|✔|
 |Structure Virtualization|:star::star::star:|✔|
@@ -26,6 +27,7 @@ Because instruction obfuscation will significantly harm performance, only pure i
 
 |Technology|Structure Virtualization|Encryption Virtualization|Lazy Decryption|Security Index|
 |-|-|-|-|-|
+|encryptGlobalMetdataDat||Encrypt global-metadata.dat file|
 |Customized dll file structure||||:star:|
 |~string stream encryption||✔||:star::star:|
 |~blob stream encryption||✔||:star::star:|

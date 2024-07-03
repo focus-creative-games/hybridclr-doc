@@ -29,6 +29,7 @@ Currently, there are three commercial versions, with specific feature comparison
 | [Standard Interpretation Performance Optimization](./basicoptimization)    |                   | ✔                    | ✔                | ✔                  |
 | [Offline Instruction Optimization](./advancedoptimization)    |                   | ✔                    | ✔                | ✔                  |
 | [Code Encryption](./basicencryption)         |                   | ✔                    | ✔                | ✔                  |
+|global-metadata.dat encryption||✔|✔|✔|
 | [Hot Reload](./reload/hotreloadassembly)          |                   |                      |                  | ✔                  |
 | [Access Control Mechanism](./accesspolicy)  |                   |                      |                  | ✔                  |
 | [**DHE Technology**](./differentialhybridexecution)            |                   |                      | ✔                |                    |
