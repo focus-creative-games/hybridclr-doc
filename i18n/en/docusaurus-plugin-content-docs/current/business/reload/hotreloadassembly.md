@@ -10,15 +10,18 @@ Hot reload technology is used to completely unload or reload an assembly, suitab
 
 ## Unsupported Features and Special Requirements
 
-- Business code must stop using objects or functions from the unloaded assembly and exit all old logic being executed.
-- Cannot directly unload dependent assemblies; dependencies must be unloaded first in reverse dependency order before unloading the dependent assemblies. For example, if A.dll depends on B.dll, then A.dll must be unloaded first before unloading B.dll.
-- MonoBehaviour and ScriptableObject related:
-  - Events or message functions in reloaded MonoBehaviours such as Awake, OnEnable, etc., should not be added or removed (but the function body can change).
-  - After reloading, the serialized field names of the same-named script classes in the old assembly must not change (but the types can change).
-  - Cannot inherit generic types, such as `class MyScript: CommonScript<int>`.
-- Some libraries that cache reflection information (this behavior is most common in serialization-related libraries like LitJson) need to clear the cached reflection information after hot reload.
-- Does not support destructors, ~XXX(). Also, does not allow instantiating generic classes with destructor functions that belong to the generic parameters of this assembly.
-- Not compatible with DOTS. Due to DOTS caching a large amount of type information and its complex implementation, it is difficult to clean up cached information separately.
+- Ensure that the business code no longer uses objects or functions from the unloaded Assembly and exits all executing old logic.
+- You cannot directly unload a dependent Assembly; you must unload the dependents before the dependencies in reverse dependency order. For example, if A.dll depends on B.dll, you need to unload A.dll first, then B.dll.
+- Related to MonoBehaviour and ScriptableObject:
+  - Ensure that overloaded MonoBehaviour event or message functions like Awake and OnEnable are not added or removed (but the function body can change).
+  - Ensure that the serialized field names in the script classes with the same name in the old Assembly do not change (the types can change).
+  - If the field type is a custom type A (class, struct, or enum) from an unloadable Assembly, it must be marked with the `[Serializable]` attribute.
+  - Field types such as `List&lt;A&gt;`, where A is a type from an unloadable Assembly, are not supported; replace them with `A[]`.
+  - Generic types cannot be inherited, e.g., `class MyScript : CommonScript<int>`.
+- Some libraries that cache reflection information (most common in serialization-related libraries like LitJson) need to clear cached reflection information after hot reload.
+- Destructors `~XXX()` are not supported. Instantiating generic classes with destructors where the generic parameter is a type from the current Assembly is also not allowed.
+- Incompatible with DOTS. Due to the extensive caching of type information and the complexity of implementation, it is difficult to individually clear the cached information.
+
 
 ## Incompatible Libraries
 

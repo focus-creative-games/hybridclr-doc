@@ -15,6 +15,8 @@
 - MonoBehaviour和ScriptableObject相关
   - 要求重载的MonoBehaviour中的事件或消息函数如Awake、OnEable之类不发生增删（但函数体可以变化）
   - 要求重载后在旧Assembly中存在同名脚本类的序列化字段名不发生变化（类型可以变）
+  - 如果字段类型为可卸载程序集中的自定义类型A（class或struct或enum），必须给它加上`[Serializable]`特性
+  - 不支持字段类型为`List&lt;A&gt;`其中A为可卸载的程序集中的类型，请替换为`A[]`
   - 不能继承泛型类型，例如`class MyScript : CommonScript<int>`
 - 一些会缓存反射信息的库（这种行为在序列化相关的库中最为普遍，如LitJson），在热重载后需要清理掉缓存的反射信息
 - 不支持析构函数，~XXX()。也不允许实例化泛型参数带本程序集类型的带析构函数的泛型类
