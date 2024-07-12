@@ -51,9 +51,11 @@ Unity资源管理系统在反序列化资源中的热更新脚本时，需要满
 
 ```csharp
     var go = new GameObject();
+    // 我们不希望挂载到这个GameObject上的脚本执行
+    go.Active = false;
     foreach (var type in hotUpdateAss.GetTypes())
     {
-        if (type.IsAssignTo(typeof(MonoBehaviour)))
+        if (typeof(MonoBehaviour).IsAssignFrom(type))
         {
             go.AddComponent(type);
         }

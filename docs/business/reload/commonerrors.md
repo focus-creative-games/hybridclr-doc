@@ -8,6 +8,6 @@
 
 解决办法有几种：
 
-- 给被序列化或者反序列化的类型加上`[Serializable]`特性，如果这些类型中成员字段的类型也是class类型`A`或者`List&lt;A&gt;`，则也要给`A`也加上`[Serializable]`
+- 给被序列化或者反序列化的类型加上`[Serializable]`特性，如果这些类型中成员字段的类型也是class类型`A`或者`A[]`，则也要给`A`也加上`[Serializable]`
 - 修改这些反序列化库的代码，在卸载程序集后，清空它们的反射缓存。像Unity的JsonUtility是native实现，无法清空缓存，只能更换为其他Json库。
 

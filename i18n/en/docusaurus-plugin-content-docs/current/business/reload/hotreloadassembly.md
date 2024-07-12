@@ -16,7 +16,7 @@ Hot reload technology is used to completely unload or reload an assembly, suitab
   - Ensure that overloaded MonoBehaviour event or message functions like Awake and OnEnable are not added or removed (but the function body can change).
   - Ensure that the serialized field names in the script classes with the same name in the old Assembly do not change (the types can change).
   - If the field type is a custom type A (class, struct, or enum) from an unloadable Assembly, it must be marked with the `[Serializable]` attribute.
-  - Field types such as `List&lt;A&gt;`, where A is a type from an unloadable Assembly, are not supported; replace them with `A[]`.
+  - Field types such as `List<A>`, where A is a type from an unloadable Assembly, are not supported; replace them with `A[]`.
   - Generic types cannot be inherited, e.g., `class MyScript : CommonScript<int>`.
 - Some libraries that cache reflection information (most common in serialization-related libraries like LitJson) need to clear cached reflection information after hot reload.
 - Destructors `~XXX()` are not supported. Instantiating generic classes with destructors where the generic parameter is a type from the current Assembly is also not allowed.
