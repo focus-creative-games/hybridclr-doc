@@ -52,7 +52,8 @@ HybridCLR已经稳定支持了2019.4.x、2020.3.x、2021.3.x、2022.3.x 系列LT
 
 自v5.2.0版本起，社区版本正式支持团结引擎，使用方式与Unity官方版本完全相同。
 
-团结引擎1.1.x为微信小游戏平台新增的metadta index slim优化会导致hybridclr无法在微信小游戏平台正常运行。自团结引擎1.2.0版本起新增了禁用`metadata index slim`选项，在禁用这个优化后可以使用hybridclr。
+团结引擎1.1.x为微信小游戏平台新增的metadta index slim优化会导致hybridclr无法在微信小游戏平台正常运行。
+自团结引擎1.2.0版本起 WinxinMiniGame平台的Publishing Settings中新增了`Use Slim Format For global-metadata.dat`选项，禁用这个优化后可以正常使用hybridclr。
 
 ## 特殊说明
 
