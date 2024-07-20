@@ -1,6 +1,4 @@
-# 快速上手
-
-与社区版本的[快速上手](../../beginner/quickstart.md)几乎相同，本文档只介绍不同之处。
+# 手册
 
 ## 安装
 
@@ -12,5 +10,9 @@
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
+## 使用
 
-
+- 开启完全泛型共享参见 [完全泛型共享](../fullgenericsharing)
+- 代码加密参见 [代码加固](../basicencryption)
+- 元数据优化参见 [元数据优化](../metadataoptimization)
+- 其他用法与社区版本完全相同

@@ -101,6 +101,7 @@ const sidebars = {
           items: [
             'business/pro/intro',
             'business/pro/quickstart',
+            'business/pro/manual',
             'business/pro/freetrial',
             'business/pro/commonerrors',
           ],
@@ -135,7 +136,7 @@ const sidebars = {
           items: [
             'business/reload/intro',
             'business/reload/quickstart',
-            'business/reload/hotreloadassembly',
+            'business/reload/manual',
             'business/reload/freetrial',
             'business/reload/commonerrors',
           ],
