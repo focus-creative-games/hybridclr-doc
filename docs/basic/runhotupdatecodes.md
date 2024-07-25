@@ -2,14 +2,22 @@
 
 ## 加载更新assembly
 
-根据你们项目资源管理的方式，获得热更新dll的bytes数据。然后再直接调用Assembly.Load(byte[] assemblyData)即可。代码类似
-如下：
+根据你们项目资源管理的方式，获得热更新dll的bytes数据。然后再直接调用`Assembly.Load(byte[] assemblyData)`即可。**自v6.4.0版本起，支持加载pdb符号文件**，即可以通过
+调用`Assembly.Load(byte[] assemblyData, byte[] pdbSybmbolData)`同时加载程序集和调试符号。
+
+代码如下：
 
 ```csharp
     // 从你的资源管理系统中获得热更新dll的数据
     byte[] assemblyData = xxxx; 
-    // Assembly.Load内部会自动复制assemblyData，调用完此函数可以释放assemblyData，没必要保存起来。
+
+    // Assembly.Load内部会自动复制assemblyData，调用完此函数可以释放assemblyData，不需要保存起来。
     Assembly ass = Assembly.Load(assemblyData);
+
+    // 同时加载dll和pdb文件
+    byte[] assData2 = yyy;
+    byte[] pdbData2 = zzz;
+    Assembly ass2 = Assembly.Load(assData2, pdbData2);
 ```
 
 如果有多个热更新dll，请一定要**按照依赖顺序加载**，先加载被依赖的assembly。加载完热更新dll后，有多种方式运行热更新代码，这些技巧跟不考虑热更新时完全相同。

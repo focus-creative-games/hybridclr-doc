@@ -2,12 +2,22 @@
 
 ## Load assembly
 
-According to your project resource management method, get the bytes data of the hot update dll. Then call Assembly.Load(byte[] assemblyData) directly. code like
-as follows:
+According to your project resource management method, get the bytes data of the hot update dll. Then call `Assembly.Load(byte[] assemblyData)` directly.
+ **Since version v6.4.0, it supports loading pdb symbol files**, that is, you can call `Assembly.Load(byte[] assemblyData, byte[] pdbSybmbolData)` to load the assembly and debug symbols at the same time.
+
+The code is as follows:
 
 ```csharp
-     byte[] assemblyData = xxxx; // Get hot update dll data from your resource management system
-     Assembly ass = Assembly. Load(assemblyData);
+// Get the data of the hot update dll from your resource management system
+byte[] assemblyData = xxxx;
+
+// Assembly.Load will automatically copy assemblyData internally. After calling this function, assemblyData can be released and does not need to be saved.
+Assembly ass = Assembly.Load(assemblyData);
+
+// Load dll and pdb files at the same time
+byte[] assData2 = yyy;
+byte[] pdbData2 = zzz;
+Assembly ass2 = Assembly.Load(assData2, pdbData2);
 ```
 
 If there are multiple hot update dlls, please be sure to **load them in the order of dependencies**, and load the dependent assembly first.
