@@ -252,11 +252,11 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 有几种原因：
 
-- 如果是iOS平台，有可能因为你在热更新dll列表变化后未`Generate/all`并且重新编译和替换libil2cpp.a文件。
-- 如果你使用Unity 2021及以上版本，并且WebGL平台，需要com.code-philosophy.hybridclr版本 >= 2.0.9
-- 如果是其他版本及平台，由于Unity的资源管理的实现机制，资源必须打包为AssetBundle才能正常恢复热更新脚本，放到Resource下不行。详情请看 [MonoBehaviour工作流](/basic/monobehaviour.md)。
-- 如果你安装了最新的main分支的hybridclr，则要求com.code-philosophy.hybridclr package版本 >= 1.1.17
+
+- 由于Unity的资源管理的实现机制，资源必须打包为AssetBundle才能正常恢复热更新脚本，放到Resource下不行。详情请看 [MonoBehaviour工作流](/basic/monobehaviour.md)。
 - 加载资源时还未加载对应的热更新程序集
+- 脚本所在的程序集未加入到HybridCLR Settings中的hotUpdateDlls或者preservedHotUpdateDlls列表
+- 修改HybridCLR Settings中的hotUpdateDlls或者preservedHotUpdateDlls列表后未Generate/All并且重新发主包
 
 ### 遇到  "This icall is not supported by il2cpp at System.AppDomain.Load"
 
