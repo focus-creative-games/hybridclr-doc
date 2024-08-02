@@ -26,6 +26,8 @@ Currently, there are three commercial versions, with specific feature comparison
 | [DOTS](../basic/dots)                    | ✔                  | ✔                    | ✔                | ✔                  |
 | [Full Generic Sharing](./fullgenericsharing)          |                   | ✔                    | ✔                | ✔                  |
 | [Metadata Optimization](./metadataoptimization.md) |                   | ✔                    | ✔                | ✔                  |
+|[Assembly::Load Loading Time Optimization](./assemblyloadoptimization)||✔|✔|✔|
+|[Crash Report With Interpreter Stack Trace](./crashreport)||✔|✔|✔|
 | [Standard Interpretation Performance Optimization](./basicoptimization)    |                   | ✔                    | ✔                | ✔                  |
 | [Offline Instruction Optimization](./advancedoptimization)    |                   | ✔                    | ✔                | ✔                  |
 | [Code Encryption](./basicencryption)         |                   | ✔                    | ✔                | ✔                  |

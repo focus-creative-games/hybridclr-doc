@@ -28,6 +28,8 @@
 |[完全泛型共享](./fullgenericsharing)||✔|✔|✔|
 |[元数据优化](./metadataoptimization.md)||✔|✔|✔|
 |[标准解释性能优化](./basicoptimization)||✔|✔|✔|
+|[Assembly::Load加载优化](./assemblyloadoptimization)||✔|✔|✔|
+|[包含解释器堆栈信息的崩溃日志](./crashreport)||✔|✔|✔|
 |[离线指令优化](./advancedoptimization)||✔|✔|✔|
 |global-metadata.dat加密||✔|✔|✔|
 |[代码加固](./basicencryption)||✔|✔|✔|
