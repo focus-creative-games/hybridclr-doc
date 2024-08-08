@@ -38,15 +38,11 @@ HybridCLR已经稳定支持了2019.4.x、2020.3.x、2021.3.x、2022.3.x 系列LT
 - iOS arm64
 - tvOS
 - visionOS
-- WebGL 包括WebGL、MiniGame、微信小游戏
+- WebGL 包括WebGL、MiniGame、微信小游戏、抖音小游戏
 - PS4、PS5
 - UWP
 - 华为Harmony（鸿蒙）平台（当前只有团结引擎支持鸿蒙）
 - 其他平台
-
-## 不支持的平台
-
-- 不支持抖音小游戏平台。因为抖音小游戏平台要求开发者提交il2cpp由dll生成的c++代码，他们来构建app，而他们使用了原始的libil2cpp
 
 ## 团结引擎
 
