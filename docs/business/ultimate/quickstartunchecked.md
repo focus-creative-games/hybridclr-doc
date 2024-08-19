@@ -1,20 +1,10 @@
-# 快速上手（不带校验的工作流）
+# 快速上手
 
 本教程引导从空项目开始体验HybridCLR热更新。出于简化起见，只演示BuildTarget为**Windows**或**MacOS** Standalone平台的情况。
 请在Standalone平台上正确跑通热更新流程后再自行尝试Android、iOS平台的热更新，它们的流程非常相似。
 
 旗舰版本使用难度跟社区版本相似，大多数原理相同，建议先熟悉社区版本后再尝试旗舰版本。
 
-自v5.0.0版本起，同时支持带校验的`RuntimeApi.LoadDifferentialHybridAssembly`工作流和不带校验的`RuntimeApi.LoadDifferentialHybridAssemblyUnchecked`工作流。
-本文档介绍不带校验的工作流。
-
-:::tip
-
-实践中不带校验的工作流会简单很多，不必传递originalDllMd5和currentDllMd5参数，所以省去了工作流中保存或者计算dll md5的过程。
-但要求开发者确保aot dll、hot update dll、dhao文件的一致性。
-推荐初学者在demo项目中使用带校验的工作流，熟悉工作流后在正式项目中使用不带校验的工作流。
-
-:::
 
 ## 体验目标
 
@@ -170,7 +160,9 @@ using UnityEngine;
 
 public static class BuildTools
 {
-    public const string BackupAOTDllDir = "HybridCLRData/BackupAOT";
+     public const string BackupAOTDllDir = "HybridCLRData/BackupAOT";
+
+    public const string EncrypedDllDir = "HybridCLRData/EncryptedDll";
 
     public const string DhaoDir = "HybridCLRData/Dhao";
 
@@ -193,19 +185,7 @@ public static class BuildTools
             Debug.Log($"BackupAOTDllFromAssemblyPostStrippedDir: {dll} -> {dstFile}");
         }
     }
-
-    /// <summary>
-    /// 生成首包的没有任何代码改动对应的dhao数据
-    /// </summary>
-    [MenuItem("BuildTools/GenerateUnchangedDHAODatas")]
-    public static void GenerateUnchangedDHAODatas()
-    {
-        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-        string backupDir = $"{BackupAOTDllDir}/{target}";
-        string dhaoDir = $"{DhaoDir}/{target}";
-        BuildUtils.GenerateUnchangedDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, dhaoDir);
-    }
-
+    
     /// <summary>
     /// 生成热更包的dhao数据
     /// </summary>
@@ -216,56 +196,46 @@ public static class BuildTools
         string backupDir = $"{BackupAOTDllDir}/{target}";
         string dhaoDir = $"{DhaoDir}/{target}";
         string currentDllDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
-        BuildUtils.GenerateDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, currentDllDir, null, null, dhaoDir);
+        BuildUtils.GenerateDHAODatas(SettingsUtil.DifferentialHybridAssemblyNames, backupDir, currentDllDir, null, HybridCLRSettings.Instance.injectRuleFiles, dhaoDir);
+    }
+
+    [MenuItem("BuildTools/CompileHotUpdateDlls")]
+    public static void CompileHotUpdateDlls()
+    {
+        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+        CompileDllCommand.CompileDll(target);
+    }
+
+
+    [MenuItem("BuildTools/CompileHotUpdateDllsAndGenerateDHAODatas")]
+    public static void CompileHotUpdateDllsAndGenerateDHAODatas()
+    {
+        CompileHotUpdateDlls();
+        GenerateDHAODatas();
     }
 
     /// <summary>
-    /// 复制没有改动的首包dll和dhao文件到StreamingAssets
+    /// 复制热更新dll和dhao文件到HotUpdateDatas
     /// </summary>
-    [MenuItem("BuildTools/CopyUnchangedDllAndDhaoFileToStreamingAssets")]
-    public static void CopyUnchangedDllAndDhaoFileToStreamingAssets()
+    [MenuItem("BuildTools/CopyDllAndDhaoFileToHotUpdateDataDir")]
+    public static void CopyDllAndDhaoFileToHotUpdateDataDir()
     {
         BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-        string streamingAssetsDir = Application.streamingAssetsPath;
-        Directory.CreateDirectory(streamingAssetsDir);
-
-        string dllDir = $"{BackupAOTDllDir}/{target}";
-        string dhaoDir = $"{DhaoDir}/{target}";
-        foreach (var dll in SettingsUtil.DifferentialHybridAssemblyNames)
-        {
-            string srcFile = $"{dllDir}/{dll}.dll";
-            string dstFile = $"{streamingAssetsDir}/{dll}.dll.bytes";
-            System.IO.File.Copy(srcFile, dstFile, true);
-            Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {srcFile} -> {dstFile}");
-            string dhaoFile = $"{dhaoDir}/{dll}.dhao.bytes";
-            dstFile = $"{streamingAssetsDir}/{dll}.dhao.bytes";
-            System.IO.File.Copy(dhaoFile, dstFile, true);
-            Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {dhaoFile} -> {dstFile}");
-        }
-    }
-
-    /// <summary>
-    /// 复制热更新dll和dhao文件到StreamingAssets
-    /// </summary>
-    [MenuItem("BuildTools/CopyDllAndDhaoFileToStreamingAssets")]
-    public static void CopyDllAndDhaoFileToStreamingAssets()
-    {
-        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-        string streamingAssetsDir = Application.streamingAssetsPath;
-        Directory.CreateDirectory(streamingAssetsDir);
+        string hotUpdateDatasDir = $"{Application.dataPath}/../HotUpdateDatas";
+        Directory.CreateDirectory(hotUpdateDatasDir);
 
         string dllDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
         string dhaoDir = $"{DhaoDir}/{target}";
         foreach (var dll in SettingsUtil.DifferentialHybridAssemblyNames)
         {
             string srcFile = $"{dllDir}/{dll}.dll";
-            string dstFile = $"{streamingAssetsDir}/{dll}.dll.bytes";
+            string dstFile = $"{hotUpdateDatasDir}/{dll}.dll.bytes";
             System.IO.File.Copy(srcFile, dstFile, true);
-            Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {srcFile} -> {dstFile}");
+            Debug.Log($"Copy: {srcFile} -> {dstFile}");
             string dhaoFile = $"{dhaoDir}/{dll}.dhao.bytes";
-            dstFile = $"{streamingAssetsDir}/{dll}.dhao.bytes";
+            dstFile = $"{hotUpdateDatasDir}/{dll}.dhao.bytes";
             System.IO.File.Copy(dhaoFile, dstFile, true);
-            Debug.Log($"CopyUnchangedDllAndDhaoFileToStreamingAssets: {dhaoFile} -> {dstFile}");
+            Debug.Log($"Copy: {dhaoFile} -> {dstFile}");
         }
     }
 }
@@ -285,7 +255,10 @@ public class Hello
 {
     public static void Run()
     {
-        Debug.Log("Hello, HybridCLR");
+        // 原始代码
+        Debug.Log("Hello, World");
+        // 热更新后改为
+        // Debug.Log("Hello, HybridCLR");
     }
 }
 ```
@@ -318,33 +291,53 @@ public class LoadDll : MonoBehaviour
     {
         // Editor环境下，HotUpdate.dll.bytes已经被自动加载，不需要加载，重复加载反而会出问题。
 #if !UNITY_EDITOR
-        Assembly hotUpdateAss = LoadDifferentialHybridAssembly("HotUpdate");
-#else
-        // Editor下无需加载，直接查找获得HotUpdate程序集
-        Assembly hotUpdateAss = System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == "HotUpdate");
+        LoadDifferentialHybridAssembly("HotUpdate");
 #endif
+        Assembly hotUpdateAss = System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == "HotUpdate");
         Type helloType = hotUpdateAss.GetType("Hello");
         MethodInfo runMethod = helloType.GetMethod("Run");
         runMethod.Invoke(null, null);
     }
 
-    private Assembly LoadDifferentialHybridAssembly(string assName)
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="assName">不含文件名后缀的程序集名，如HotUpdate</param>
+    /// <returns></returns>
+    private void LoadDifferentialHybridAssembly(string assName)
     {
-        byte[] dllBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dll.bytes");
-        byte[] dhaoBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dhao.bytes");
-        LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssemblyUnchecked(dllBytes, dhaoBytes);
-        if (err == LoadImageErrorCode.OK)
+        string assFile = $"{Application.streamingAssetsPath}/{assName}.dll.bytes";
+        // 如果不存在，则使用原始AOT程序集
+        if (!File.Exists(assFile))
         {
-            Debug.Log($"LoadDifferentialHybridAssembly {assName} OK");
-            return System.AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == assName);
+            LoadImageErrorCode err = RuntimeApi.LoadOriginalDifferentialHybridAssembly(assName);
+            if (err == LoadImageErrorCode.OK)
+            {
+                Debug.Log($"LoadOriginalDifferentialHybridAssembly {assName} OK");
+            }
+            else
+            {
+                Debug.LogError($"LoadOriginalDifferentialHybridAssembly {assName} failed, err={err}");
+            }
         }
         else
         {
-            Debug.LogError($"LoadDifferentialHybridAssembly {assName} failed, err={err}");
-            return null;
+            byte[] dllBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dll.bytes");
+            byte[] dhaoBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dhao.bytes");
+            LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssemblyUnchecked(dllBytes, dhaoBytes);
+            if (err == LoadImageErrorCode.OK)
+            {
+                Debug.Log($"LoadDifferentialHybridAssembly {assName} OK");
+            }
+            else
+            {
+                Debug.LogError($"LoadDifferentialHybridAssembly {assName} failed, err={err}");
+            }
         }
     }
 }
+
 
 ```
 
@@ -353,26 +346,32 @@ public class LoadDll : MonoBehaviour
 
 ## Editor中试运行
 
-运行main场景，屏幕上会显示 'Hello,HybridCLR'，表示代码工作正常。
+运行main场景，屏幕上会显示 'Hello, World'，表示代码工作正常。
 
-## 打包运行
+## 构建游戏
 
 - 运行菜单 `HybridCLR/Generate/All` 进行必要的生成操作。**这一步不可遗漏**!!!
 - 打开 `Build Settings` 对话框，点击`Build`，选择输出目录`{build}`，执行构建
-- 运行 `BuildTools/BackupAOTDll` 备份裁剪后的dhe dll。 实践中这些dll应该加入版本管理，用于后面生成dhao文件，这些文件不会再被修改
-- 运行 `BuildTools/GenerateUnchangedDHAODatas` 生成首包的dhao文件
-- 运行 `BuildTools/CopyUnchangedDllAndDhaoFileToStreamingAssets` 复制首包 dhe程序集、dhao文件到 StreamingAssets
-- 将 `Assets/StreamingAssets`目录复制到`{build}\dhe_demo2_Data\StreamingAssets`
-- 运行`{build}/Xxx.exe`，屏幕显示 `Hello,HybridCLR`，表示热更新代码被顺利执行！
+- 运行 `BuildTools/BackupAOTDll` 备份构建时生成的dhe dll。 **这一步必须在`Build`之后**，因为原始AOT dll必须是构建时生成的dll，而不是`HybridCLR/Generate/all`时生成
+
+:::tip
+
+`BuildTools/BackupAOTDll`备份的dll应该加入版本管理，用于将来热更新时生成dhao文件。
+
+:::
+
+## 首包测试
+
+- 运行`{build}/Xxx.exe`，屏幕显示 `Hello, World`，表示执行了原始代码！
 
 ## 测试热更新
 
-- 修改`Assets/HotUpdate/Hello.cs`的Run函数中`Debug.Log("Hello, HybridCLR");`代码，改成`Debug.Log("Hello, World");`。
-- 运行`HybridCLR/CompileDll/ActiveBulidTarget`生成热更新dll
-- 运行`BuildTools/GenerateDHAODatas` 生成dhao文件
-- 运行`BuildTools/CopyDllAndDhaoFileToStreamingAssets`复制热更新dll和dhao文件到StreamingAssets目录
-- 将 `Assets/StreamingAssets`目录复制到`{build}\dhe_demo2_Data\StreamingAssets`
-- 重新运行程序，会发现屏幕中显示`Hello, World`，表示热更新代码生效了！ 
+- 请确保`构建游戏`这一步已经执行了`BuildTools/BackupAOTDll`，运行一次即可，不要多次运行
+- 修改`Hello::Run`函数中`Debug.Log("Hello, World")`为`Debug.Log("Hello, HybridCLR")`
+- 运行`BuildTools/CompileHotUpdateDllsAndGenerateDHAODatas` 生成热更新dll及对应的dhao文件
+- 运行`BuildTools/CopyDllAndDhaoFileToHotUpdateDataDir`复制HotUpdate.dll.bytes和HotUpdate.dhao.bytes到`HotUpdateDatas`目录
+- 手动复制`HotUpdateDatas`目录下HotUpdate.dll.bytes和HotUpdate.dhao.bytes到`{build}\StreamingAssets`目录下
+- 再次运行，屏幕上会打印`Hello, HybridCLR`
 
 
 至此完成热更新体验！！！

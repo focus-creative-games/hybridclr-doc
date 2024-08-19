@@ -118,10 +118,10 @@ const sidebars = {
           collapsed: true,
           items: [
             'business/ultimate/intro',
-            'business/ultimate/quickstartchecked',
             'business/ultimate/quickstartunchecked',
+            'business/ultimate/build',
+            'business/ultimate/dhao',
             'business/ultimate/manual',
-            'business/ultimate/workflow',
             'business/ultimate/freetrial',
             'business/ultimate/injectrules',
             'business/ultimate/commonerrors',

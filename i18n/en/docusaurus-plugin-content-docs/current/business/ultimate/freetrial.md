@@ -52,4 +52,4 @@ In the trial version, the source code of some modules is removed and replaced wi
 
 ## Usage
 
-Apart from minor adjustments in installation and configuration as described above, the rest remains entirely according to the [Quick Start](./quickstartchecked) documentation.
+Apart from minor adjustments in installation and configuration as described above, the rest remains entirely according to the [Quick Start](./quickstartunchecked) documentation.
