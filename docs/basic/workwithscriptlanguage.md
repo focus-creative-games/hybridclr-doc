@@ -38,6 +38,7 @@ HybridCLR对 `[MonoPInvokeCallbackAttribute]` 的支持跟原生完全相同。�
 
 ```csharp
 
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 delegate int LuaFunction(IntPtr luaState);
 
 public class MonoPInvokeWrapperPreserves

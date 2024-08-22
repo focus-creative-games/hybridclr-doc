@@ -279,6 +279,67 @@ Due to recursive generic instantiation, it can never be calculated.
 
 When running the menu `HybridCLR/Generate/MethodBridge`, the generation tool recursively analyzes the number of iterations of AOT generic instantiation. The meaning is similar to `maxGenericReferenceIteration`.
 
+### enableProfilerInReleaseBuild
+
+In v6.6.0 and earlier versions, games built in Release compilation mode will call il2cpp_codegen_profiler_method_enter and il2cpp_codegen_profiler_method_exit when entering and exiting interpreter functions during game running, which increases the function call overhead by 10-15%.
+
+Since v6.7.0, Profiler support is enabled by default only when building in Debug compilation mode, and is no longer enabled in Release mode. If you want to enable Profiler support in Release mode, you need to enable the `enableProfilerInReleaseBuild` option.
+
+```cpp
+ // Il2CppCompatibleDef.h
+#ifndef HYBRIDCLR_ENABLE_PROFILER
+#define HYBRIDCLR_ENABLE_PROFILER (IL2CPP_ENABLE_PROFILER && (IL2CPP_DEBUG || HYBRIDCLR_ENABLE_PROFILER_IN_RELEASE_BUILD))
+#endif
+
+// Engine.cpp
+InterpFrame* InterpFrameGroup::Enter FrameFromNative(const MethodInfo* method, StackObject* argBase)
+{
+#if HYBRIDCLR_ENABLE_PROFILER
+    il2cpp_codegen_profiler_method_enter(method);
+#endif
+// ...
+}
+```
+
+:::warning
+After modifying this option in HybridCLRSettings, run `HybridCLR/Generate/Il2CppDef` or `HybridCLR/Generate/All`, and clear the build cache and rebuild it for this option to take effect.
+:::
+
+### enableStraceTraceInWebGLReleaseBuild
+
+In v6.6.0 and earlier versions, when building a WebGL platform target game in Release compilation mode, PUSH_STACK_FRAME and POP_STACK_FRAME will be called when entering and exiting the interpreter function during the game. This operation allows the interpreter stack to be printed correctly when Debug.Log and throwing an exception, but it increases the function call overhead by about 10%.
+
+Starting from v6.7.0, this StraceTrace is enabled by default only in the Debug mode of the WebGL platform, and it is no longer enabled in Release mode. If you want to enable StraceTrace support in Release mode, you need to enable the `enableStraceTraceInWebGLReleaseBuild` option.
+
+```cpp
+
+// Engine.cpp
+ #if HYBRIDCLR_ENABLE_STRACKTRACE
+  #define PUSH_STACK_FRAME(method, rawIp) do { \ Il2CppStackFrameInfo stackFrameInfo = { method, rawIp }; \ il2cpp::vm::StackTrace::PushFrame(stackFrameInfo); \ } while(0)
+  #define POP_STACK_FRAME() do { il2cpp: :vm::StackTrace::PopFrame(); } while(0) 
+#else
+
+#define PUSH_STACK_FRAME(method, rawIp) #define POP_STACK_FRAME()
+#endif
+
+InterpFrame* InterpFrameGroup::EnterFrameFromInterpreter(const MethodInfo* method, StackObject* argBase)
+{
+    // ... PUSH_STACK_FRAME(method, (uintptr_t)newFrame);
+    return newFrame;
+}
+
+InterpFrame* InterpFrameGroup::LeaveFrame()
+{
+    POP_STACK_FRAME();
+    // ...
+}
+```
+
+:::warning
+After modifying this option in HybridCLRSettings, please run `HybridCLR/Generate/Il2CppDef` or `HybridCLR/Generate/All`, clear the build cache and rebuild, so that this option will take effect.
+:::
+
+
 ## Build Pipeline related scripts
 
 It mainly includes the following functions:
@@ -376,6 +437,7 @@ Therefore, if a function with the `[MonoPInvokeCallback]` feature is added in su
 It is used to reserve the specified number of wrapper functions for the functions currently added with the `[MonoPInvokeCallback]` feature. In the following example, 10 wrapper functions are reserved for functions signed by LuaFunction.
 
 ```csharp
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
      delegate int LuaFunction(IntPtr luaState);
 
      public class MonoPInvokeWrapperPreserves

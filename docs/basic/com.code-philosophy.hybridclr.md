@@ -281,6 +281,76 @@ preserveHotUpdateAssemblies字段用来满足这种需求。打包时不检查�
 
 运行菜单`HybridCLR/Generate/MethodBridge`时，生成工具递归分析AOT泛型实例化的迭代次数。含义与`maxGenericReferenceIteration`相似。
 
+### enableProfilerInReleaseBuild
+
+在v6.6.0及更早版本，以Release编译模式构建的游戏，运行游戏过程中进出解释器函数时会调用il2cpp_codegen_profiler_method_enter和il2cpp_codegen_profiler_method_exit，这增加了10-15%函数调用的开销。
+
+自v6.7.0版本起，默认只有Debug编译模式构建时才会开启Profiler支持，Release模式下不再开启。如果想在Release模式下也开启Profiler支持，需要开启`enableProfilerInReleaseBuild`选项。
+
+```cpp
+
+// Il2CppCompatibleDef.h
+
+#ifndef HYBRIDCLR_ENABLE_PROFILER
+#define HYBRIDCLR_ENABLE_PROFILER  (IL2CPP_ENABLE_PROFILER && (IL2CPP_DEBUG || HYBRIDCLR_ENABLE_PROFILER_IN_RELEASE_BUILD))
+#endif
+
+// Engine.cpp
+	InterpFrame* InterpFrameGroup::EnterFrameFromNative(const MethodInfo* method, StackObject* argBase)
+	{
+#if HYBRIDCLR_ENABLE_PROFILER
+		il2cpp_codegen_profiler_method_enter(method);
+#endif
+        // ...
+    }
+```
+
+:::warning
+在HybridCLRSettings中修改此选项后，请运行`HybridCLR/Generate/Il2CppDef`或`HybridCLR/Generate/All`，并且清空构建缓存后重新构建，此选项才会生效。
+:::
+
+### enableStraceTraceInWebGLReleaseBuild
+
+在v6.6.0及更早版本中，以Release编译模式构建WebGL平台目标游戏，运行游戏过程中在进出解释器函数时会调用PUSH_STACK_FRAME和POP_STACK_FRAME。这个操作使得Debug.Log及抛出异常
+时可以正确打印解释器栈，但增加了10%左右函数调用的开销。
+
+自v6.7.0版本起，默认只有WebGL平台的Debug模式才会开启这个StraceTrace，Release模式下不再开启。如果想在Release模式下也开启StraceTrace支持，需要开启`enableStraceTraceInWebGLReleaseBuild`选项。
+
+```cpp
+
+// Engine.cpp
+#if HYBRIDCLR_ENABLE_STRACKTRACE
+
+#define PUSH_STACK_FRAME(method, rawIp) do { \
+	Il2CppStackFrameInfo stackFrameInfo = { method, rawIp }; \
+	il2cpp::vm::StackTrace::PushFrame(stackFrameInfo); \
+} while(0)
+
+#define POP_STACK_FRAME() do { il2cpp::vm::StackTrace::PopFrame(); } while(0)
+
+#else 
+#define PUSH_STACK_FRAME(method, rawIp)
+#define POP_STACK_FRAME() 
+#endif
+
+	InterpFrame* InterpFrameGroup::EnterFrameFromInterpreter(const MethodInfo* method, StackObject* argBase)
+	{
+        // ...
+		PUSH_STACK_FRAME(method, (uintptr_t)newFrame);
+		return newFrame;
+	}
+
+	InterpFrame* InterpFrameGroup::LeaveFrame()
+	{
+		POP_STACK_FRAME();
+        // ...
+	}
+```
+
+:::warning
+在HybridCLRSettings中修改此选项后，请运行`HybridCLR/Generate/Il2CppDef`或`HybridCLR/Generate/All`，并且清空构建缓存后重新构建，此选项才会生效。
+:::
+
 ## Build Pipeline相关脚本
 
 主要包含以下功能：
@@ -374,6 +444,7 @@ Consistent要求与裁剪后的dll精确一致，而`generate/all`中生成的�
 用于为当前添加了 `[MonoPInvokeCallback]` 特性的函数预留指定数量的wrapper函数。在如下示例中，为LuaFunction签名的函数预留了10个wrapper函数。
 
 ```csharp
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     delegate int LuaFunction(IntPtr luaState);
 
     public class MonoPInvokeWrapperPreserves

@@ -37,6 +37,7 @@ As shown below, there are 10 wrappers of type `LuaFunction`, 101 wrappers of typ
 
 ```csharp
 
+[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
 delegate int LuaFunction(IntPtr luaState);
 
 public class MonoPInvokeWrapperPreserves
