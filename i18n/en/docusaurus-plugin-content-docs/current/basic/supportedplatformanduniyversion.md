@@ -35,11 +35,12 @@ The following platforms have been tested for a long time and are very stable and
 - MacOS arm64(silicon)
 - Android armv7, armv8 (arm64)
 - iOS arm64
+- tvOS
+- visionOS
 - WebGL standard WebGL, MiniGame, WeChat mini games
 - PS4, PS5
 - UWP
-- tvOS
-- visionOS
+- Linux x86、x86、armv7、armv8
 - other platforms
 
 ## Special Instructions
