@@ -72,7 +72,7 @@ HybridCLR解释器核心工作包括两部分：
   - 修改 `C++ Compiler Configuration`为Debug
 - `Building Settings`中选中 "Create VisualStudio Solution"
 
-Build完成后，即产生一个可调试的工程。想了解更多，可参考[Unity官方文档](https://docs.unity3d.com/2020.3/Documentation/Manual/windowsstore-debugging-il2cpp.html)
+Build完成后，即产生一个可调试的工程。想了解更多，可参考[Unity官方文档](https://docs.unity3d.com/Manual/uwp-debug-generated-cpp.html)
 
 ### 创建Android调试工程
 
