@@ -12,12 +12,13 @@ Hot reload technology is used to completely uninstall or reload an assembly, whi
 
 - Require that business code will no longer use objects or functions in the uninstalled assembly, and exit all old logic in execution
 - Cannot directly uninstall the dependent assembly, must first uninstall the dependent in reverse dependency order, and then uninstall the dependent. For example, if A.dll depends on B.dll, you need to uninstall A.dll first, then uninstall B.dll
-- MonoBehaviour is related to ScriptableObject
-- It is required that events or message functions in the overloaded MonoBehaviour, such as Awake and OnEable, do not be added or deleted (but the function body can change)
-- It is required that the serialized field name of the script class with the same name in the old assembly does not change after overloading (the type can change)
-- If the field type is a custom type A (class or struct or enum) in the uninstallable assembly, it must be given the `[Serializable]` attribute
-- The field type `List<A>` is not supported, where A is a type in the uninstallable assembly, please replace it with `A[]`
-- Generic types cannot be inherited, such as `class MyScript : CommonScript<int>`
+- MonoBehaviour,ScriptableObject and types are marked `[Serializable]`
+    - It is required that events or message functions in the overloaded MonoBehaviour, such as Awake and OnEable, do not be added or deleted (but the function body can change)
+    - It is required that the serialized field name of the script class with the same name in the old assembly does not change after overloading (the type can change)
+    - If the field type is a custom type A (class or struct or enum) in the uninstallable assembly, it must be given the `[Serializable]` attribute
+    - The field type `List<A>` is not supported, where A is a type in the uninstallable assembly, please replace it with `A[]`
+    - Cann't be generic types, .eg `class MyScript<T> : MonoBehaviour`
+    - Generic types cannot be inherited, such as `class MyScript : CommonScript<int>`
 - Some libraries that cache reflection information (this behavior is most common in serialization-related libraries, such as LitJson), need to clean up the cached reflection information after hot reloading
 - Destructors, ~XXX(), are not supported. It is also not allowed to instantiate generic classes with destructors whose generic parameters are of this assembly type
 - Incompatible with dots. Since dots caches a large amount of type information and the implementation is complex, it is difficult to clean up the cache information separately.
