@@ -46,32 +46,6 @@ Currently, there are three commercial versions, with specific feature comparison
 | Hot Reload Edition  | Contact us via email for business inquiry | Buy the right to use for one project permanently, includes 2 years of technical support and 2 years of code updates |
 | Ultimate Edition   | Contact us via email for business inquiry | Buy the right to use for one project permanently, includes 2 years of technical support and 2 years of code updates |
 
-### Trials
-
-:::tip
-
-Both free and paid trials are only available to enterprise users. Please contact `business@code-philosophy.com` with your **corporate email** to get trial support.
-
-:::
-
-All commercial versions support the following trial options:
-
-| Trial Type                        | Price    | Service                                                              | Description                                                                                                                                                               |
-|----------------------------------|----------|----------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Free Trial without Full Source   | Free     | Technical support is available at a rate of 400 RMB/hour            | Only supports building iOS platform targets based on pre-compiled libil2cpp.a, does not provide C++ source code, does not provide tool source code. No trial period limit, but the runtime of the trial version will crash randomly after **30 minutes of startup or after three months of use**, please do not use it for formal releases. |
-| Paid Trial with Full Source      | 10% of the total price of the commercial version | Equivalent technical support services to formal paid users | Provides source code and related tools for the trial version of the commercial version, which developers can build and test on their own. If you eventually purchase the formal version, the service fee can be deducted; otherwise, unless there is false advertising or major defects, the trial fee will not be refunded. |
-
-Note that free trial versions do not support the following features:
-
-- DOTS support
-- Incremental GC
-
-Documentation for free trial versions:
-
-- [Professional Edition](./pro/freetrial)
-- [Ultimate Edition](./ultimate/freetrial)
-- [Hot Reload Edition](./reload/freetrial)
-
 ## Enterprise Technical Support
 
 You can flexibly choose the technical service items needed by the enterprise. If subscribed annually, billing will be based on the service items, otherwise, it will be based on the service duration.
