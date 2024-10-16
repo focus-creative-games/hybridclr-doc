@@ -8,6 +8,15 @@ Compared to the paid trial version and the version after formal purchase, the fr
 - The trial is free and has no trial period limit. However, if technical support is needed during the trial, additional charges will apply.
 - The trial version will randomly crash after **30 minutes** of app launch. Please do not use it for formal releases.
 
+## Hardware and platform limitation
+
+:::tip
+The official version is the same as the community version, and there are no platform restrictions for both Editor and Runtime.
+:::
+
+- Unity Editor must be run on a Mac with M1 or M2 CPU.
+- **Only supports** iOS platform release
+
 ## Supported Versions
 
 Only specific Unity versions are supported.
