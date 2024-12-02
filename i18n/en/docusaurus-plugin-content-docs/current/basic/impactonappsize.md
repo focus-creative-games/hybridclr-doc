@@ -39,8 +39,8 @@ We compared the package size across the following six scenarios:
 - HybridCLR-NotHotUpdateCode-NotMethodBridge: Integrated with HybridCLR, without HotUpdate code, and with an empty bridge function file.
 - HybridCLR-NotHotUpdateCode-MethodBridge: Integrated with HybridCLR, without HotUpdate code, and with a normal bridge function file.
 - NotHybridCLR-HotUpdateCode: Without HybridCLR integration and with HotUpdate code included (HotUpdate is part of AOT).
-- NotHybridCLR-HotUpdateCode-NotMethodBridge: Integrated with HybridCLR, with HotUpdate code included (compressed HotUpdate.dll in the StreamingAssets package), and with an empty bridge function file.
-- NotHybridCLR-HotUpdateCode-MethodBridge: Integrated with HybridCLR, with HotUpdate code included, and with a normal bridge function file.
+- HybridCLR-HotUpdateCode-NotMethodBridge: Integrated with HybridCLR, with HotUpdate code included (compressed HotUpdate.dll in the StreamingAssets package), and with an empty bridge function file.
+- HybridCLR-HotUpdateCode-MethodBridge: Integrated with HybridCLR, with HotUpdate code included, and with a normal bridge function file.
 
 The test data is as follows:
 
@@ -50,8 +50,8 @@ The test data is as follows:
 | HybridCLR-NotHotUpdateCode-NotMethodBridge| 30262         | 10075360                          | 2904652                          | 74026488                   | 19158769                  | 0                                     | 0                          |
 | HybridCLR-NotHotUpdateCode-MethodBridge   | 30900         | 10075360                          | 2904652                          | 78450168                   | 19905020                  | 0                                     | 15082                      |
 | NotHybridCLR-HotUpdateCode                | 31718         | 10893056                          | 3103289                          | 79670208                   | 20387018                  | 1206                                  | 0                          |
-| NotHybridCLR-HotUpdateCode-NotMethodBridge| 30531         | 10081232                          | 29006522                         | 74158928                   | 19177165                  | 1206                                  | 0                          |
-| NotHybridCLR-HotUpdateCode-MethodBridge   | 31259         | 10081232                          | 29006522                         | 78492496                   | 19920506                  | 1206                                  | 14861                      |
+| HybridCLR-HotUpdateCode-NotMethodBridge| 30531         | 10081232                          | 29006522                         | 74158928                   | 19177165                  | 1206                                  | 0                          |
+| HybridCLR-HotUpdateCode-MethodBridge   | 31259         | 10081232                          | 29006522                         | 78492496                   | 19920506                  | 1206                                  | 14861                      |
 
 > `Uncompressed` indicates the original size of the file within the APK, and `Compressed` indicates the compressed size within the APK.
 

@@ -40,8 +40,8 @@
 - HybridCLR-NotHotUpdateCode-NotMethodBridge  接入HybridCLR、不包含HotUpdate代码，桥接函数文件为空
 - HybridCLR-NotHotUpdateCode-MethodBridge 接入HybridCLR、不包含HotUpdate代码，正常生成桥接函数文件
 - NotHybridCLR-HotUpdateCode 未接入HybridCLR、包含HotUpdate代码（即将HotUpdate包含到AOT中）
-- NotHybridCLR-HOtUpdateCode-NotMethodBridge 接入HybridCLR、包含HotUpdate代码（将HotUpdate.dll压缩后放到StreamingAssets承包携带），桥接函数文件为空
-- NotHybridCLR-HotUpdateCode-MethodBridge 接入HybridCLR、包含HotUpdate代码，正常生成桥接函数文件
+- HybridCLR-HotUpdateCode-NotMethodBridge 接入HybridCLR、包含HotUpdate代码（将HotUpdate.dll压缩后放到StreamingAssets承包携带），桥接函数文件为空
+- HybridCLR-HotUpdateCode-MethodBridge 接入HybridCLR、包含HotUpdate代码，正常生成桥接函数文件
 
 测试数据如下：
 
@@ -51,8 +51,8 @@
 |HybridCLR-NotHotUpdateCode-NotMethodBridge|30262|10075360|2904652|74026488|19158769|0|0|
 |HybridCLR-NotHotUpdateCode-MethodBridge|30900|10075360|2904652|78450168|19905020|0|15082|
 |NotHybridCLR-HotUpdateCode|31718|10893056|3103289|79670208|20387018|1206|0|
-|NotHybridCLR-HotUpdateCode-NotMethodBridge|30531|10081232|29006522|74158928|19177165|1206|0|
-|NotHybridCLR-HotUpdateCode-MethodBridge|31259|10081232|29006522|78492496|19920506|1206|14861|
+|HybridCLR-HotUpdateCode-NotMethodBridge|30531|10081232|29006522|74158928|19177165|1206|0|
+|HybridCLR-HotUpdateCode-MethodBridge|31259|10081232|29006522|78492496|19920506|1206|14861|
 
 > `未压缩` 指在apk内该文件的原始大小，`压缩` 指在apk内该文件压缩后的大小
 
