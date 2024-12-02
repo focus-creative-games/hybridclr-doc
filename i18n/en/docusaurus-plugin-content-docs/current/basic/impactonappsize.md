@@ -33,7 +33,7 @@ The hot-update portion of the test project includes the following:
 
 The compiled HotUpdate.dll is 1216KB. To ensure fairness, the hot-update DLLs in projects integrated with HybridCLR are compressed and included in the StreamingAssets package.
 
-We compared the package size across the following six scenarios:
+We compared the package size across the following eight scenarios:
 
 - NotHybridCLR-NotHotUpdateCode: Without HybridCLR integration and without including HotUpdate code (HotUpdate is not part of AOT).
 - HybridCLR-NotHotUpdateCode-NotMethodBridge: Integrated with HybridCLR, without HotUpdate code, and with an empty bridge function file.
@@ -41,6 +41,8 @@ We compared the package size across the following six scenarios:
 - NotHybridCLR-HotUpdateCode: Without HybridCLR integration and with HotUpdate code included (HotUpdate is part of AOT).
 - HybridCLR-HotUpdateCode-NotMethodBridge: Integrated with HybridCLR, with HotUpdate code included (compressed HotUpdate.dll in the StreamingAssets package), and with an empty bridge function file.
 - HybridCLR-HotUpdateCode-MethodBridge: Integrated with HybridCLR, with HotUpdate code included, and with a normal bridge function file.
+- **HybridCLR Ultimate Edition**-NotHotUpdateCode-MethodBridge Integrated with HybridCLR Ultimate Edition, without HotUpdate code, and with a normal bridge function file.
+- **HybridCLR Ultimate Edition**-HotUpdateCode-MethodBridge Integrated with HybridCLR Ultimate Edition, with HotUpdate code included, and with a normal bridge function file.
 
 The test data is as follows:
 
@@ -50,8 +52,11 @@ The test data is as follows:
 | HybridCLR-NotHotUpdateCode-NotMethodBridge| 30262         | 10075360                          | 2904652                          | 74026488                   | 19158769                  | 0                                     | 0                          |
 | HybridCLR-NotHotUpdateCode-MethodBridge   | 30900         | 10075360                          | 2904652                          | 78450168                   | 19905020                  | 0                                     | 15082                      |
 | NotHybridCLR-HotUpdateCode                | 31718         | 10893056                          | 3103289                          | 79670208                   | 20387018                  | 1206                                  | 0                          |
-| HybridCLR-HotUpdateCode-NotMethodBridge| 30531         | 10081232                          | 29006522                         | 74158928                   | 19177165                  | 1206                                  | 0                          |
-| HybridCLR-HotUpdateCode-MethodBridge   | 31259         | 10081232                          | 29006522                         | 78492496                   | 19920506                  | 1206                                  | 14861                      |
+| HybridCLR-HotUpdateCode-NotMethodBridge| 30531         | 10081232                          | 2906522                         | 74158928                   | 19177165                  | 1206                                  | 0                          |
+| HybridCLR-HotUpdateCode-MethodBridge   | 31259         | 10081232                          | 2906522                         | 78492496                   | 19920506                  | 1206                                  | 
+
+|**HybridCLR_UltimateEdition-NotUserCode-MethodBridge**|31022|10078796|2905605|78643792|19935716|0|14837|
+|**HybridCLR_UltimateEdition-UserCode-MethodBridge**|32910|10893080|3103310|85964616|21622297|1206|15179|14861                      |
 
 > `Uncompressed` indicates the original size of the file within the APK, and `Compressed` indicates the compressed size within the APK.
 
@@ -59,15 +64,25 @@ The original size of the hot-update code HotUpdate.dll is 1216KB, which is compr
 
 Based on the above test project, we can draw the following conclusions:
 
-- The core part of HybridCLR, excluding MethodBridge.cpp, increases the package size by 196KB.
-- The bridge function file increases the package size by approximately `{MethodBridge.cpp Size} * 0.049`.
-- For every additional size `S` of game code, an app without HybridCLR integration increases in size by `S * 1.37`.
-- For every additional size `S` of game code, an app with HybridCLR integration increases in size by `S * 0.2`.
+- The core part of HybridCLR, excluding MethodBridge.cpp, increases the package size by 196KB.  
+- The bridge function file increases the package size by approximately `{MethodBridge.cpp Size} * 0.049`.  
+- For every additional size `S` of game code, an app without HybridCLR integration increases in size by `S * 1.37`.  
+- For every additional size `S` of game code, an app with HybridCLR integration increases in size by `S * 0.2`.  
+- For every additional size `S` of game code, the Ultimate Edition increases the package size by `S * 1.56`.  
+- When no update assemblies are included, the Ultimate Edition increases the package size by 32KB compared to the Community version.  
+
 
 ## Summary
 
-Integrating HybridCLR increases the package size by `196KB + {MethodBridge.cpp Size} * 0.049`. However, moving game code from AOT to hot updates can reduce the package size by `{HotUpdate.dll Size} * 1.17`.
+### Community, Professional, and Hot Reload Edition
 
-This means that if the hot-update code in a project exceeds 800KB-1500KB, integrating HybridCLR results in a smaller final package size than without it. The total package size reduction can be approximately calculated as `HotUpdate.dll Size * 1.05`.
+Integrating HybridCLR increases the package size by `196k + {MethodBridge.cpp File Size} * 0.049`, but moving game code from AOT to hot updates can reduce the package size by `{HotUpdate.dll Size} * 1.17`.
 
-The above conclusions apply to the Community, Professional, and Hot Reload versions. For the Flagship version, since DHE assemblies are also compiled into AOT, the Flagship version increases the overall package size by 2-5MB compared to not integrating HybridCLR.
+This means that if the hot-update code in a project exceeds 800KB-1500KB, integrating HybridCLR will result in a smaller final package size compared to not integrating it. The total package size reduction can be approximately calculated as `HotUpdate.dll Size * 1.05`.
+
+### Ultimate Editionn
+
+Integrating HybridCLR increases the package size by `228k + {MethodBridge.cpp File Size} * 0.049`.  
+Newly added code in the DHE assemblies will increase the package size by `{New DHE Assembly Size} * 1.56`.  
+Moving game code from AOT to the DHE assemblies will increase the package size by `{New DHE Assembly Size} * 0.19`.  
+
