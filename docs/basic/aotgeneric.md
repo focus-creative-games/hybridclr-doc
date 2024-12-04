@@ -226,6 +226,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 代码中加载补充元数据dll的方式见以下示例代码，你也可以参考 [hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial)。
 
+执行`HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly`时会在内部将传入的dllBytes复制一份，调用完该接口后**请不要保存dllBytes**，否则会造成内存浪费。
+
 :::tip
 如果RuntimeApi.LoadMetadataForAOTAssembly花费太多时间，造成卡顿，你可以在其他线程异步加载。
 :::
@@ -245,7 +247,8 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
         foreach (var aotDllName in aotDllList)
         {
             byte[] dllBytes = dllAB.LoadAsset<TextAsset>(aotDllName).bytes;
-              int err = HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, HomologousImageMode.SuperSet);
+            // 执行补充元数据时内部会自动将dllBytes复制一份，调用完成后请不要将dllBytes保存，造成无谓的内存浪费
+            int err = HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, HomologousImageMode.SuperSet);
               Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. ret:{err}");
         }
     }

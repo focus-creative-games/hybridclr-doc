@@ -5,6 +5,8 @@
 根据你们项目资源管理的方式，获得热更新dll的bytes数据。然后再直接调用`Assembly.Load(byte[] assemblyData)`即可。**自v6.4.0版本起，支持加载pdb符号文件**，即可以通过
 调用`Assembly.Load(byte[] assemblyData, byte[] pdbSybmbolData)`同时加载程序集和调试符号。
 
+执行`Assembly.Load`时内部会将assemblyData和pdbSymbolData都复制一份，调用完后请不要保存assemblyData和pdbSymbolData，否则将造成内存浪费。
+
 代码如下：
 
 ```csharp
