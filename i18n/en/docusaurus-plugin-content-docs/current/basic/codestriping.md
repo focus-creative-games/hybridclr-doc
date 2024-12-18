@@ -47,21 +47,19 @@ Since version v5.0.0, the `HybridCLR.Editor.HotUpdate.MissingMetadataChecker` cl
              // After building the main package, you need to save the aot dll at that time for later supplementary metadata or cropping inspection.
              string aotDir = "xxxx";
             
-             // The second parameter excludeDllNames is the aot dll to be excluded. Generally, an empty list will suffice. For ultimate edition users,
-             // excludeDllNames needs to be the dhe assembly list, because the dhe assembly will be hot updated, and the hot update code
-             // The type or function in the referenced dhe assembly must exist.
-             var checker = new MissingMetadataChecker(aotDir, new List<string>());
+            // The second parameter hotUpdateAssNames is the hot update assembly list. For ultimate edition, the list needs to include the DHE assemblies, i.e. SettingsUtil.HotUpdateAndDHEAssemblyNamesIncludePreserved.
+            var checker = new MissingMetadataChecker(aotDir, SettingsUtil.HotUpdateAssemblyNamesIncludePreserved);
 
-             string hotUpdateDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
-             foreach (var dll in SettingsUtil.HotUpdateAssemblyFilesExcludePreserved)
-             {
-                 string dllPath = $"{hotUpdateDir}/{dll}";
+            string hotUpdateDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
+            foreach (var dll in SettingsUtil.HotUpdateAssemblyFilesExcludePreserved)
+            {
+                string dllPath = $"{hotUpdateDir}/{dll}";
                 bool notAnyMissing = checker.Check(dllPath);
                 if (!notAnyMissing)
                 {
                     // DO SOMETHING
                 }
-             }
+            }
          }
 
 ```

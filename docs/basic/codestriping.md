@@ -47,12 +47,10 @@ com.code-philosophy.hybridclr的`HybridCLR/Generate/LinkXml`命令虽然可以�
             // 一般来说，发布热更新包时，由于中间可能调用过generate/all，SettingsUtil.GetAssembliesPostIl2CppStripDir(target)目录中包含了最新的aot dll，
             // 肯定无法检查出类型或者函数裁剪的问题。
             // 需要在构建完主包后，将当时的aot dll保存下来，供后面补充元数据或者裁剪检查。
-            string aotDir = "xxxx"; 
-            
-            // 第2个参数excludeDllNames为要排除的aot dll。一般取空列表即可。对于旗舰版本用户，
-            // excludeDllNames需要为dhe程序集列表，因为dhe 程序集会进行热更新，热更新代码中
-            // 引用的dhe程序集中的类型或函数肯定存在。
-            var checker = new MissingMetadataChecker(aotDir, new List<string>());
+            string aotDir = SettingsUtil.GetAssembliesPostIl2CppStripDir(target);
+
+            // 第2个参数hotUpdateAssNames为热更新程序集列表。对于旗舰版本，该列表需要包含DHE程序集，即SettingsUtil.HotUpdateAndDHEAssemblyNamesIncludePreserved。
+            var checker = new MissingMetadataChecker(aotDir, SettingsUtil.HotUpdateAssemblyNamesIncludePreserved);
 
             string hotUpdateDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
             foreach (var dll in SettingsUtil.HotUpdateAssemblyFilesExcludePreserved)
