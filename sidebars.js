@@ -86,6 +86,7 @@ const sidebars = {
         'business/differentialhybridexecution',
         'business/fullgenericsharing',
         'business/metadataoptimization',
+        'business/hotfix',
         'business/assemblyloadoptimization',
         'business/crashreport',
         'business/basicoptimization',
