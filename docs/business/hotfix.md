@@ -47,6 +47,7 @@ public static void ApplyHotfix()
             },
         }
     };
+    RuntimeApi.HotfixAssembly("Hotfix", hotfixDllBytes, hotfixTypes);
 }
 ```
 
