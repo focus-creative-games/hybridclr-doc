@@ -9,7 +9,7 @@ Hotfix technology specifically addresses these scenarios for dynamic bug patchin
 ## Advantages
 
 - Dynamically fix code bugs without restarting the game app.
-- Can fix any code in hot update assemblies (including the flagship DHE assemblies), such as static member functions, generic functions, and asynchronous function waits.
+- Can fix any code in hot update assemblies (including the flagship DHE assemblies), such as static member functions, generic functions, and asynchronous function.
 - Simple to use, non-intrusive to business logic, and does not require modifying any business code.
 - Unlimited fixes during app runtime. For example, after releasing version v1 with fixes, further bugs can be patched with a subsequent v2 release.
 
