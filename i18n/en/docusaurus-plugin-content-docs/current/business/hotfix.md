@@ -89,3 +89,18 @@ The `RuntimeApi::HotfixAssemblies` function can be called to apply the hotfix. E
                 }
             });
 
+
+Constructing the HotfixManifest directly in code is cumbersome and error-prone. It is recommended to first create an XML configuration file like the following example, and then convert it to the HotfixManifest class:
+
+```xml
+<manifest>
+    <assembly fullname="Hotfix">
+        <type fullname="TestHotfixMethods">
+            <method name="Foo1"/>
+            <method signature="Int32 Foo2(Int32, Int32)"/>
+        </type>
+    </assembly>
+</manifest>
+```
+
+Currently, there is no provided code for converting XML to HotfixManifest, so developers need to implement this functionality themselves.

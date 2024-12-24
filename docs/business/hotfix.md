@@ -92,3 +92,18 @@ Hotfix技术即为专门解决此类动态修复bug的场合。它可以运行�
 
 ```
 
+直接在代码中构造HotfixManifest比较麻烦并且易错。建议先创建一个类似这样的xml配置文件，再转换为HotfixManifest类，类似如下:
+
+```xml
+<manifest>
+    <assembly fullname="Hotfix">
+        <type fullname="TestHotfixMethods">
+            <method name="Foo1"/>
+            <method signature="Int32 Foo2(Int32, Int32)"/>
+        </type>
+    </assembly>
+</manifest>
+
+```
+
+目前没有提供将xml转为HotfixManifest的代码，需要开发者自行实现。
