@@ -1,106 +1,89 @@
 # Hotfix
 
-For trivial updates, such as a few lines of bug fixes, some projects may prefer dynamically patching the game during runtime rather than forcing players to restart the current game app. 
+Some updates merely consist of a few lines of bug code fixes, and some projects may wish to dynamically repair these directly during the game's running process, instead of forcing players to restart the current game App.
+Currently, versions other than the [hot reload version](./reload/intro) do not support reloading hot update assemblies.
+Even the hot loading version, because it supports completely uninstalling an assembly and reloading a completely new assembly, has many [restrictions and requirements](./reload/hotreloadassembly#Unsupported_features_and_special_requirements),
+which is highly intrusive to business code.
 
-Currently, apart from the [hot reload version](./reload/intro), other versions do not support reloading hot update assemblies. Even in the hot reload version, due to its ability to completely unload and reload an assembly, it imposes many [restrictions and requirements](./reload/hotreloadassembly#unsupported-features-and-special-requirements) on code and significantly intrudes into business logic.
-
-Hotfix technology specifically addresses these scenarios for dynamic bug patching. It allows runtime bug fixes for hot update modules in a seamless manner without intruding into business logic.
+Hotfix technology is specifically designed to solve such occasions for dynamically fixing bugs. It can fix bugs in hot update modules in an unnoticeable way during runtime, and it is non-intrusive to business code.
 
 ## Advantages
 
-- Dynamically fix code bugs without restarting the game app.
-- Can fix any code in hot update assemblies (including the flagship DHE assemblies), such as static member functions, generic functions, and asynchronous function.
-- Simple to use, non-intrusive to business logic, and does not require modifying any business code.
-- Unlimited fixes during app runtime. For example, after releasing version v1 with fixes, further bugs can be patched with a subsequent v2 release.
+- Dynamically fix code bugs without needing to restart the game App
+- Can fix any code in hot update assemblies (including flagship version DHE assemblies), including static member functions, generic functions, asynchronous functions, etc.
+- Easy to use, non-intrusive to business code, no need to modify any business code
+- No limit on the number of fixes, multiple fixes can be made during app runtime. For example, after publishing version v1 and fixing, if other bugs are found, then publish version v2 for the fix
 
-## Limitations and Drawbacks
+## Limitations and Defects
 
-- Can only modify function bodies, not type definitions (e.g., changing class names, adding or removing fields, functions, or modifying function signatures).
-- Each patch loads a new hot update assembly, and memory from previously loaded assemblies cannot be released, leading to a certain degree of memory leakage.
+- Can only fix the function body, cannot modify type definitions (such as changing class names, adding or deleting fields, adding or deleting functions, modifying function signatures, etc.)
+- Each fix will load a hot update assembly, and the memory of the previously loaded assembly cannot be released, causing some memory leaks
 
 ## Usage
 
-The `RuntimeApi::HotfixAssemblies` function can be called to apply the hotfix. Example code is as follows:
+Call the `RuntimeApi::HotfixAssembly` function to complete the hotfix, example code is as follows.
 
 ```csharp
-            RuntimeApi.HotfixAssemblies(new HotfixManifest
+
+public static void ApplyHotfix()
+{
+    byte[] hotfixDllBytes = LoadFromXXX("Hotfix");
+    var hotfixTypes = new List<HotfixType>
+    {
+        // The full name of the class to be fixed, including the namespace (if any)
+        name = "TestHotfixMethods",
+        // The list of methods to be fixed
+        methods = new List<HotfixMethod>
+        {
+            new HotfixMethod
             {
-                assemblies = new List<HotfixAssembly>
-                {
-                    new HotfixAssembly
-                    {
-                        // Name of the target assembly to fix
-                        name = "Hotfix",
-                        // Content of the latest DLL file
-                        hotfixAssemblyBytes = LoadDll.GetDllBytes("Hotfix.new.dll"),
-                        // List of classes to fix
-                        classes = new List<HotfixClass>
-                        {
-                            new HotfixClass
-                            {
-                                // Fully qualified name of the class, including namespace (if any)
-                                name = "TestHotfixMethods",
-                                // List of methods to fix
-                                methods = new List<HotfixMethod>
-                                {
-                                    new HotfixMethod
-                                    {
-                                        // Fix by method name; if there are multiple methods with the same name, all will be fixed
-                                        name = "Foo1",
-                                    },
-                                    new HotfixMethod
-                                    {
-                                        // Fix by method signature; either `name` or `signature` must be provided, but not both
-                                        signature = "Int32 Foo2(Int32, Int32)",
-                                    },
-                                }
-                            },
-                            new HotfixClass
-                            {
-                                name = "TestHotfixCtors",
-                                methods = new List<HotfixMethod>
-                                {
-                                    new HotfixMethod
-                                    {
-                                        // Constructor; if there are multiple constructors, all will be fixed
-                                        name = ".ctor",
-                                    },
-                                    new HotfixMethod
-                                    {
-                                        // Constructor with a specific signature
-                                        signature = ".ctor(Int32)",
-                                    },
-                                }
-                            },
-                            new HotfixClass
-                            {
-                                name = "TestHotfixStaticCtors",
-                                methods = new List<HotfixMethod>
-                                {
-                                    new HotfixMethod
-                                    {
-                                        // Static constructor of the class
-                                        name = ".cctor",
-                                    },
-                                }
-                            },
-                        }
-                    }
-                }
-            });
+                // Fix by function name, if there are multiple functions with the same name, all will be fixed
+                name = "Foo1",
+            },
+            new HotfixMethod
+            {
+                // Fix by function signature. Only one of name and signature should be provided, otherwise an error will occur
+                signature = "Int32 Foo2(Int32, Int32)",
+            },
+        }
+    };
+}
+```
 
+When there are many dlls and functions that need to be fixed, this operation is tedious and prone to errors. It is recommended to first create a hotfix.manifest.xml configuration file, then convert it to the HotfixManifest class, and then use RuntimeApi.HotfixAssemblies to fix all at once, the code is similar to the following:
 
-Constructing the HotfixManifest directly in code is cumbersome and error-prone. It is recommended to first create an XML configuration file like the following example, and then convert it to the HotfixManifest class:
+```csharp
 
-```xml
+public static void ApplyHotfix()
+{
+    string hotfixXmlStr = @"
 <manifest>
-    <assembly fullname="Hotfix">
-        <type fullname="TestHotfixMethods">
-            <method name="Foo1"/>
-            <method signature="Int32 Foo2(Int32, Int32)"/>
+    <assembly fullname=""Hotfix"">
+        <type fullname=""TestHotfixMethods"">
+            <method name=""Foo1"" />
+            <method signature=""Int32 Foo2(Int32, Int32)"" />
+            <method name=""Bar1"" />
+            <method signature=""Int32 Bar2(Int32, Int32)"" />
+        </type>
+        <type fullname=""TestHotfixCtors"">
+            <method name="".ctor"" />
+            <method signature="".ctor(Int32)"" />
+        </type>
+        <type fullname=""TestHotfixStaticCtors"">
+            <method name="".cctor"" />
+        </type>
+        <type fullname=""TestHotfixGenericClass`1"">
+            <method name=""Foo1"" />
+            <method name=""Foo2"" />
+        </type>
+        <type fullname=""TestHotfixGenericMethods"">
+            <method name=""Foo1"" />
         </type>
     </assembly>
 </manifest>
-```
+";
 
-Currently, there is no provided code for converting XML to HotfixManifest, so developers need to implement this functionality themselves.
+    RuntimeApi.HotfixAssemblies(HotfixManifest.LoadFrom(s_fixXmlStr, assName => LoadDll.GetDllBytes(assName + ".dll")));
+}
+
+```

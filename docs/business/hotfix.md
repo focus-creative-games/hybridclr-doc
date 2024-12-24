@@ -1,6 +1,6 @@
 # Hotfix动态热修复
 
-有的更新仅仅是寥寥几行bug代码修复，有些项目可能希望可以直接在游戏运行过程中动态修复，而不是强迫玩家重启当前的游戏App。
+有的更新仅仅是寥寥几行bug代码修复，有些开发者可能希望可以直接在游戏运行过程中动态修复，而不是强迫玩家重启当前的游戏App。
 目前除了[热重载版本](./reload/intro)以外的版本都不支持重新加载热更新程序集。
 即使是热加载版本，由于它支持彻底卸载一个程序集并且可以重新加载全新的程序集，对代码有较多[限制和要求](./reload/hotreloadassembly#不支持特性及特殊要求)，
 对业务代码侵入性很大。
@@ -21,89 +21,72 @@ Hotfix技术即为专门解决此类动态修复bug的场合。它可以运行�
 
 ## 使用
 
-调用`RuntimeApi::HotfixAssemblies`函数即可完成热修复，示例代码如下。
+调用`RuntimeApi::HotfixAssembly`函数即可完成热修复，示例代码如下。
 
 ```csharp
-            RuntimeApi.HotfixAssemblies(new HotfixManifest
-            {
-                assemblies = new List<HotfixAssembly>
-                {
-                    new HotfixAssembly
-                    {
-                        // 需要修复的目标程序集名
-                        name = "Hotfix",
-                        // 最新的dll文件内容
-                        hotfixAssemblyBytes = LoadDll.GetDllBytes("Hotfix.new.dll"),
-                        // 需要修复的类列表
-                        classes = new List<HotfixClass>
-                        {
-                            new HotfixClass
-                            {
-                                // 修复的类全名，含namespace（如果有）
-                                name = "TestHotfixMethods",
-                                // 修复的函数列表
-                                methods = new List<HotfixMethod>
-                                {
-                                    new HotfixMethod
-                                    {
-                                        // 按函数名，如果有多个同名函数，则全部都会被修复
-                                        name = "Foo1",
-                                    },
-                                    new HotfixMethod
-                                    {
-                                        // 按函数签名。 name和signature只能提供一个，否则会报错
-                                        signature = "Int32 Foo2(Int32, Int32)",
-                                    },
-                                }
-                            },
-                            new HotfixClass
-                            {
-                                name = "TestHotfixCtors",
-                                methods = new List<HotfixMethod>
-                                {
-                                    new HotfixMethod
-                                    {
-                                        // 构造函数，如果有多个构造函数，则全部都会被修复
-                                        name = ".ctor",
-                                    },
-                                    new HotfixMethod
-                                    {
-                                        // 指定签名的构造函数
-                                        signature = ".ctor(Int32)",
-                                    },
-                                }
-                            },
-                            new HotfixClass
-                            {
-                                name = "TestHotfixStaticCtors",
-                                methods = new List<HotfixMethod>
-                                {
-                                    new HotfixMethod
-                                    {
-                                        // 类静态构造函数
-                                        name = ".cctor",
-                                    },
-                                }
-                            },
-                        }
-                    }
-                }
-            });
 
+public static void ApplyHotfix()
+{
+    byte[] hotfixDllBytes = LoadFromXXX("Hotfix");
+    var hotfixTypes = new List<HotfixType>
+    {
+        // 修复的类全名，含namespace（如果有）
+        name = "TestHotfixMethods",
+        // 修复的函数列表
+        methods = new List<HotfixMethod>
+        {
+            new HotfixMethod
+            {
+                // 按函数名，如果有多个同名函数，则全部都会被修复
+                name = "Foo1",
+            },
+            new HotfixMethod
+            {
+                // 按函数签名。name和signature只能提供一个，否则会报错
+                signature = "Int32 Foo2(Int32, Int32)",
+            },
+        }
+    };
+}
 ```
 
-直接在代码中构造HotfixManifest比较麻烦并且易错。建议先创建一个类似这样的xml配置文件，再转换为HotfixManifest类，类似如下:
+当需要修复的dll和函数比较多时，这么操作琐碎并且易错。建议先创建一个hotfix.manifest.xml配置文件，再转换为HotfixManifest类，然后使用`RuntimeApi.HotfixAssemblies`一次性修复，代码类似如下:
 
-```xml
+
+```csharp
+
+public static void ApplyHotfix()
+{
+    string hotfixXmlStr = @"
 <manifest>
-    <assembly fullname="Hotfix">
-        <type fullname="TestHotfixMethods">
-            <method name="Foo1"/>
-            <method signature="Int32 Foo2(Int32, Int32)"/>
+    <assembly fullname=""Hotfix"">
+        <type fullname=""TestHotfixMethods"">
+            <method name=""Foo1"" />
+            <method signature=""Int32 Foo2(Int32, Int32)"" />
+            <method name=""Bar1"" />
+            <method signature=""Int32 Bar2(Int32, Int32)"" />
+        </type>
+        <type fullname=""TestHotfixCtors"">
+            <method name="".ctor"" />
+            <method signature="".ctor(Int32)"" />
+        </type>
+        <type fullname=""TestHotfixStaticCtors"">
+            <method name="".cctor"" />
+        </type>
+        <type fullname=""TestHotfixGenericClass`1"">
+            <method name=""Foo1"" />
+            <method name=""Foo2"" />
+        </type>
+        <type fullname=""TestHotfixGenericMethods"">
+            <method name=""Foo1"" />
         </type>
     </assembly>
 </manifest>
+";
+
+    RuntimeApi.HotfixAssemblies(HotfixManifest.LoadFrom(s_fixXmlStr, assName => LoadDll.GetDllBytes(assName + ".dll")));
+}
 
 ```
 
-目前没有提供将xml转为HotfixManifest的代码，需要开发者自行实现。
+
