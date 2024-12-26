@@ -239,6 +239,11 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 升级到com.code-philosohpy.hybridclr到6.1.0+版本。
 
+### 在团结引擎构建微信小游戏平台时出现`"hybridclr doesn't support 'SLIM_GLOBAL_METADATA_FILE == 1' "`错误
+
+团结引擎1.1.x为微信小游戏平台新增的metadta index slim优化会导致hybridclr无法在微信小游戏平台正常运行。
+自团结引擎1.2.0版本起 WinxinMiniGame平台的Publishing Settings中新增了`Use Slim Format For global-metadata.dat`选项，禁用这个优化后可以正常使用hybridclr。
+
 ## 运行时错误
 
 ### EntryPointNotFoundException. Unable to find entry point named 'RuntimeApi_LoadMetadataForAOTAssembly' in 'GameAssembly`
