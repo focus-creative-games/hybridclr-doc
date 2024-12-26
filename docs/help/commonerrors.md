@@ -181,7 +181,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 你更新 com.code-philosophy.hybridclr包后未重新install，导致本地lil2cpp目录代码过旧。
 
-### 打包里发现 "Undefined symbols for architecture arm64: "il2cpp::utils::Debugger::xxxxx"
+### 打包时发现 "Undefined symbols for architecture arm64: "il2cpp::utils::Debugger::xxxxx"
 
 原因是 build_libil2cpp.sh打包出的 libil2cpp.a是release模式的，与development模式的工程一起编译时会出现编译错误。
 
@@ -200,6 +200,10 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 ### 出现 IL2CPP_POP_ACTIVE_EXCEPTION 相关编译错误
 
 因为2021.3.31和2022.3.11版本起，修改了该宏定义，导致在旧版本hybridclr上出现编译错误。解决办法为升级到最新hybridclr版本即可。
+
+### 出现 `error: no matching function for call to 'il2cpp_codegen_get_marshal_directive_exception'`
+
+因为你使用的hybridclr版本太旧，不支持你当前Unity版本。解决办法为升级到最新hybridclr版本。
 
 ### 打包时出现编译错误，通用处理办法
 

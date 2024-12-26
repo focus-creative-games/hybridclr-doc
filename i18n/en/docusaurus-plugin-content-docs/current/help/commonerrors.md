@@ -201,6 +201,12 @@ Install was not executed after upgrading the package. Just install it in `Hybrid
 
 Since versions 2021.3.31 and 2022.3.11, the macro definition has been modified, resulting in compilation errors on older versions of hybridclr. The solution is to upgrade to the latest hybridclr version.
 
+###  `error: no matching function for call to 'il2cpp_codegen_get_marshal_directive_exception'`
+
+Because the com.code-philosophy.hybridclr package version is too old that doesn't support your current unity version. The solution is to upgrade to the latest hybridclr version.
+
+因为你使用的hybridclr版本太旧，不支持你当前Unity版本。解决办法为升级到最新hybridclr版本。
+
 ### Compilation errors occur during packaging, general solutions
 
 To a large extent, it is caused by the mismatch between your package and hybridclr c++ code versions or your Unity version is too new and hybridclr is not supported yet. you need to:
