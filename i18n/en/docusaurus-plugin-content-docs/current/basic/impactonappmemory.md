@@ -106,3 +106,9 @@ Generally speaking, the binary code will be reduced after accessing the professi
 
 - The newly added heap memory is approximately `{MethodBridge.cpp size} * 0.1` + 0.7M (instruction optimization module memory) + `1.2M * {number of threads that have executed interpreted code}` + `{hot update assembly size} * 3` + `{total size of AOT assemblies + total size of DHE assemblies} * 0.12` - `{size of all assemblies} * 0.2`
 - **Increase** Code segment memory to approximately `{DHE assembly size} * 0.86` + `{MethodBridge.cpp size} * 0.3`
+
+:::warning
+
+Since the sample project is small, the test results may not be consistent with the actual project. `{hot update assembly size} * 3` This part of memory is obviously overestimated. Please refer to the actual project.
+
+:::
