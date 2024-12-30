@@ -63,6 +63,7 @@ const sidebars = {
         'basic/memory',
         'basic/performance',
         'basic/impactonappsize',
+        'basic/impactonappmemory',
         'basic/notsupportedfeatures',
         'basic/com.code-philosophy.hybridclr',
         'basic/bestpractice',

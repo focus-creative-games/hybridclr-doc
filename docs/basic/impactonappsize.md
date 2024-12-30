@@ -1,10 +1,11 @@
 # 对App包体影响
 
-接入hybridclr后，会轻微地增加包体，主要由以下几部分构成：
+接入hybridclr后对包体影响主要由以下几部分构成：
 
 1. hybridclr除了MethodBridge.cpp以外的主体代码
 2. 桥接函数文件MethodBridge.cpp代码
 3. il2cpp将HybridCLR.Runtime.dll代码翻译后的cpp代码
+4. 将AOT程序集改为解释执行后减少了二进制代码的大小
 
 其中第1部分代码不到3万行，第3部分代码不到2000行，它们对最终包体的影响很小，而MethodBridge.cpp是根据AOT程序集计算生成的，一般来说，如果AOT程序集代码越多，MethodBridge.cpp
 文件大小会越大。一般来说，根据项目AOT模块的复杂度，MethodBridge.cpp文件大小在2M-40M之间。
