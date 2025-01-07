@@ -125,6 +125,7 @@ const sidebars = {
             'business/ultimate/dhao',
             'business/ultimate/manual',
             'business/ultimate/injectrules',
+            'business/ultimate/retargetmetadata',
             'business/ultimate/commonerrors',
           ],
         },
