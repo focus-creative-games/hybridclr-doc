@@ -39,31 +39,6 @@ Unity资源管理系统在反序列化资源中的热更新脚本时，需要满
 
 ## 已知问题
 
-### 主线程AddComponent及其他资源加载线程加载包含热更新脚本的资源同时进行时偶发的崩溃问题
-
-此问题来自[issue](https://github.com/focus-creative-games/hybridclr/issues/96)报告。
-
-在第一次使用某热更新类型时（主线程AddComponent或者资源线程加载含脚本的资源）会触发引擎创建MonoScript数据，然而此操作并非线程安全。由于未接入hybridclr时，所有脚本都在启动时已经初始化，因此不会有线程安全问题。当接入hybridclr后，在偶然情况下（尤其是加载包含大量脚本的资源）会触发这个问题。
-
-解决办法：
-
-加载完热更新程序集后，通过临时创建的GameObject,把所有热更新脚本都添加一遍，类似这样：
-
-```csharp
-    var go = new GameObject();
-    // 我们不希望挂载到这个GameObject上的脚本执行
-    go.Active = false;
-    foreach (var type in hotUpdateAss.GetTypes())
-    {
-        if (typeof(MonoBehaviour).IsAssignFrom(type))
-        {
-            go.AddComponent(type);
-        }
-    }
-    GameObject.Destroy(go);
-
-```
-
 ### GameObject.GetComponent(string name) 接口无法获得组件
 
 这是已知bug,跟unity的代码实现有关，只有挂载在热更新资源上热更新脚本才会有这个问题，通过代码中AddComponent添加的热更新脚本是可以用这个方法查找到。如果遇到这个问题请改用 `GameObject.GetComponent<T>()` 或 `GameObject.GetComponent(typeof(T))`
