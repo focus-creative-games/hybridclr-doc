@@ -239,6 +239,11 @@ Staging directory for trimmed AOT dlls. The final directory is under the platfor
 Supplementary metadata AOT dll list. **package itself does not use this configuration item**. It provides a place to configure the AOT dll list, which is convenient for developers to use in their own building pipeline, so that developers do not need to define a supplementary metadata AOT dll configuration script separately.
 Do not include the '.dll' suffix when filling in the assembly name, just like `Main`, `Assembly-CSharp`.
 
+### dontPreserveUnityEngineCoreTypesInLinkXml
+
+Do not preserve the engine core class when calls `HybridCLR/Generate/LinkXml`, the default value is false. That is, by default, all dlls starting with UnityEngine in the `Editor\Data\Managed\UnityEngine` directory under the Unity Editor installation directory will be scanned.
+If a type defines an extern function, it is considered a core class, and an item `<type fullname="xxx" preserve="all"/>` will be added to link.xml.
+
 ### outputLinkFile
 
 When running the menu `HybridCLR/Generate/LinkXml` command, the output link.xml file path.

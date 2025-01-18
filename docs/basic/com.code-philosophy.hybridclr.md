@@ -229,6 +229,7 @@ preserveHotUpdateAssemblies字段用来满足这种需求。打包时不检查�
 - 每个路径`dir`，会先尝试搜索`{dir}/{platform}`，再尝试搜索`{dir}`。这样做为了兼顾平台特殊性及通用性。
 
 下面展示一个使用示例。你有一个外部dll，它的位置为 `{proj}/MyDir1/MyDir2/Foo.dll`，则你应该：
+
 - 在 hotUpdateAssemblies 添加 `Foo`
 - 在 externalHotUpdateAssemblyDirs 里添加目录 `MyDir1/Mydir2`
 
@@ -240,6 +241,11 @@ preserveHotUpdateAssemblies字段用来满足这种需求。打包时不检查�
 
 补充元数据AOT dll列表。**package本身没有用到这个配置项**。它提供了一个配置AOT dll列表的地方，方便开发者在自己的打包流程中使用，这样就不用开发者单独再定义一个补充元数据AOT dll配置脚本了。
 填写assembly名称时不要包含'.dll'后缀，像`Main`、`Assembly-CSharp`这样即可。
+
+### dontPreserveUnityEngineCoreTypesInLinkXml
+
+`HybridCLR/Generate/LinkXml`时不要保留引擎核心类，默认值为false。即默认会扫描Unity Editor安装目录下的`Editor\Data\Managed\UnityEngine`目录中所有UnityEngine开头的dll，
+如果某个类型定义了extern函数，则认为是核心类，将在link.xml中添加一项`<type fullname="xxx" preserve="all"/>`。
 
 ### outputLinkFile
 
