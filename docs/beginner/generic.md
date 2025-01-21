@@ -112,6 +112,14 @@ public class LoadDll : MonoBehaviour
 
 现在你可以在热更新代码随意使用AOT泛型了。
 
+:::tip
+
+请保存打包时生成的裁剪后的AOT dll（一般在`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`目录下）。如果需要补充元数据时使用这些保存的AOT dll。
+
+打包完成后，补充元数据dll不会发生变化，请**不要在每次热更新时使用最新生成的AOT dll**。
+
+:::
+
 ## 优化补充元数据dll大小
 
 默认生成的补充元数据dll中包含了大量补充元数据机制不需要的数据，自v4.0.16版本起支持对补充元数据dll进行剔除优化，详细文档见[AOT泛型](../basic/aotgeneric)。

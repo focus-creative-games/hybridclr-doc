@@ -178,6 +178,15 @@ LoadMetadataForAOTAssembly函数可以在任何时机调用，另外既可以在
 
 使用`HybridCLR/Generate/AotDlls`命令也可以立即生成裁剪后的AOT dll，它的工作原理是通过导出一个Temp工程来获得裁剪AOT dll。
 
+
+:::tip
+
+请保存打包时生成的裁剪后的AOT dll（一般在`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`目录下）。如果需要补充元数据时使用这些保存的AOT dll。
+
+打包完成后，补充元数据dll不会发生变化，请**不要在每次热更新时使用最新生成的AOT dll**。
+
+:::
+
 ### 应该补充元数据的assembly列表
 
 `HybridCLR/generate/AOTGenericReference` 命令生成的`AOTGenericReferences.cs`文件中包含了应该补充元数据的assembly列表，示例如下。你不需要运行游戏也能快速知道应该补充哪些元数据。
