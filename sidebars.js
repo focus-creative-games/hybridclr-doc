@@ -124,6 +124,7 @@ const sidebars = {
             'business/ultimate/build',
             'business/ultimate/dhao',
             'business/ultimate/manual',
+            'business/ultimate/multidheassemblies',
             'business/ultimate/injectrules',
             'business/ultimate/retargetmetadata',
             'business/ultimate/commonerrors',
