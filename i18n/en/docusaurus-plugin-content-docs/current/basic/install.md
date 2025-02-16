@@ -3,17 +3,13 @@
 
 ## Install a compatible Unity version
 
-Any version of 2019.4.x, 2020.3.x, 2021.3.x, or 2022.3.x is supported. It is recommended to install versions 2019.4.40, 2020.3.26+, 2021.3.x, and 2022.3.x.
+Any version of 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x or 6000.x.y is supported. It is recommended to install versions 2019.4.40, 2020.3.26+, 2021.3.x, 2022.3.x and 6000.x.y .
 
 :::tip
 If your version is 2019.4.0-2019.4.39, **Need to switch to 2019.4.40 to complete HybridCLR installation, and then switch back to the current version**.
 
 If your version is 2020.3.0-2020.3.25, after completing the installation in Installer, copy `2020.3.x/Editor/Data/il2cpp/external` from the installation directory of any version 2020.3.26+ to replace
   `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`.
-:::
-
-:::caution
-If you are not an experienced Unity developer, it is recommended to use version 2021.3.1 to experience HybridCLR first.
 :::
 
 According to the target platform you packaged, select the necessary modules during the installation process. If you package Android or iOS, just select the corresponding module directly. If you want to package Standalone, you must additionally select `Windows Build Support(IL2CPP)` or `Mac Build Support(IL2CPP)`.
