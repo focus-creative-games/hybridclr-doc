@@ -23,13 +23,6 @@ public class Print : MonoBehaviour
 }
 ```
 
-## 解决GameObject被裁剪的问题
-
-由于快速上手中完全没有用到GameObject，导致GameObject类型的部分函数在打包时被裁剪。`HybridCLR/Generate/All`命令会重新扫描热更新程序集，生成link.xml以保留热更新代码中用到的类型。
-
-请运行完该命令后**重新构建一次新包**，否则运行下一步的热更新代码时会出现`GameObject::.ctor`函数找不到的错误。
-
-
 ## 代码中调用AddComponent来动态挂载热更新脚本
 
 修改 `Hello.Run`函数，添加动态挂载Print脚本的代码，最终代码如下:
@@ -43,6 +36,13 @@ public class Print : MonoBehaviour
         go.AddComponent<Print>();
     }
 ```
+
+## 解决GameObject被裁剪的问题
+
+由于快速上手中完全没有用到GameObject，导致GameObject类型的部分函数在打包时被裁剪。需要执行以下操作，否则运行下一步的热更新代码时会出现`GameObject::.ctor`函数找不到的错误：
+
+- 运行`HybridCLR/Generate/All`命令重新扫描热更新程序集，生成link.xml以保留热更新代码中用到的类型。
+- **重新构建一次新包**。
 
 热更新后，屏幕上会新增一行日志 `[Print] GameObject:Test1`。
 

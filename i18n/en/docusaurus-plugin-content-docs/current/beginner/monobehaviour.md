@@ -24,12 +24,6 @@ public class Print : MonoBehaviour
 }
 ```
 
-## Solve issue of GameObject being stripped
-
-Since GameObject is not used at all in the quick start, some functions of the GameObject type are stripped when building. The `HybridCLR/Generate/All` command will rescan the hot update assembly and generate link.xml to retain the types used in the hot update code.
-
-Please **rebuild a new package** after running this command, otherwise the error `GameObject::.ctor` function cannot be found will appear when running the next hot update code.
-
 ## Call AddComponent in the code to dynamically mount the hot update script
 
 Modify the `Hello.Run` function and add the code to dynamically mount the Print script. The final code is as follows:
@@ -43,6 +37,12 @@ Modify the `Hello.Run` function and add the code to dynamically mount the Print 
          go. AddComponent<Print>();
      }
 ```
+
+## Solve issue of GameObject being stripped
+
+Since GameObject is not used at all in the quick start, some functions of the GameObject type are stripped when building. The `HybridCLR/Generate/All` command will rescan the hot update assembly and generate link.xml to retain the types used in the hot update code.
+
+Please **rebuild a new package** after running this command, otherwise the error `GameObject::.ctor` function cannot be found will appear when running the next hot update code.
 
 After the hot update, a line of log `[Print] GameObject:Test1 value:1` will be added on the screen.
 
