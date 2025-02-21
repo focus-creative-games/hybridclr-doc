@@ -480,6 +480,23 @@ WebGL平台打包时默认使用 `faster (smaller) build`选项，该选项会�
 1. 如果仍有问题，升级到最新的hybridclr版本
 1. 如果极有问题，请联系我们技术支持
 
+## webgl（或微信小游戏之类）在iOS5.4 系统出现"Not implemented"、"Class::FromIl2CppType"之类的错误日志，卡在启动画面无法启动
+
+此为 Unity & iOS 15.4 的 BUG，解决办法有两个：
+
+1. 微信提供的 wasm 代码分包(推荐)
+2. Unity WebGL 官方论坛的[临时修复方案](https://forum.unity.com/threads/ios-15-webgl-2-issue.1176116/page-2)。具体地说，打开`HybridCLRData/LocalIl2CppData-xxx/il2cpp/libil2cpp/metadata/GenericMetadata.cpp`
+文件，在代码行`const Il2CppType* GenericMetadata::InflateIfNeeded`函数前加一行代码`#pragma clang optimize off`，在函数后加入`#pragma clang optimize on`。最终代码如下：
+
+```cpp
+#pragma clang optimize off
+    const Il2CppType* GenericMetadata::InflateIfNeeded(const Il2CppType* type, const Il2CppGenericContext* context, bool inflateMethodVars)
+    {
+        // ...
+    }
+#pragma clang optimize on
+```
+
 ### 使用 Unity.netcode.runtime 后出现 NotSupportNative2Managed 桥接函数缺失异常
 
 原因是 在Unity.netcode.runtime.dll中 NetworkManager.RpcReceiveHandler 是internal， 定义如下

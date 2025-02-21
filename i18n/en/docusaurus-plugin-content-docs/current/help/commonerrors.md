@@ -449,6 +449,24 @@ The WebGL platform uses the `faster (smaller) build` option by default when pack
 1. If you still have problems, upgrade to the latest hybridclr version
 1. If you still have problems, please contact our technical support
 
+## webgl (or WeChat mini games) has error logs such as "Not implemented" and "Class::FromIl2CppType" on iOS5.4, and is stuck on the startup screen and cannot be started
+
+This is a bug in Unity & iOS 15.4, and there are two solutions:
+
+1. The wasm code subpackage provided by WeChat (recommended)
+
+2. [Temporary fix](https://forum.unity.com/threads/ios-15-webgl-2-issue.1176116/page-2) on the Unity WebGL official forum. Specifically, open the file `HybridCLRData/LocalIl2CppData-xxx/il2cpp/libil2cpp/metadata/GenericMetadata.cpp`
+, add a line of code `#pragma clang optimize off` before the line of code `const Il2CppType* GenericMetadata::InflateIfNeeded` function, and add `#pragma clang optimize on` after the function. The final code is as follows:
+
+```cpp
+#pragma clang optimize off
+const Il2CppType* GenericMetadata::InflateIfNeeded(const Il2CppType* type, const Il2CppGenericContext* context, bool inflateMethodVars)
+{
+// ...
+}
+#pragma clang optimize on
+```
+
 ### NotSupportNative2Managed bridge function missing exception occurs after using Unity.netcode.runtime
 
 The reason is that NetworkManager.RpcReceiveHandler is internal in Unity.netcode.runtime.dll and is defined as follows

@@ -37,7 +37,7 @@
 |[热重载](./reload/hotreloadassembly)||||✔|
 |[访问控制机制](./accesspolicy)||||✔|
 |[**DHE技术**](./differentialhybridexecution)|||✔||
-|技术支持||1年|2年|2年|
+|技术支持||2年|2年|2年|
 
 ### 价格标准
 

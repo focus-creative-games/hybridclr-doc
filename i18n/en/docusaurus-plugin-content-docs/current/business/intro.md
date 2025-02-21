@@ -36,7 +36,7 @@ Currently, there are three commercial versions, with specific feature comparison
 | [Hot Reload](./reload/hotreloadassembly)          |                   |                      |                  | ✔                  |
 | [Access Control Mechanism](./accesspolicy)  |                   |                      |                  | ✔                  |
 | [**DHE Technology**](./differentialhybridexecution)            |                   |                      | ✔                |                    |
-| Technical Support        |                   | 1 year               | 2 years          | 2 years            |
+| Technical Support        |                   | 2 year               | 2 years          | 2 years            |
 
 ### Pricing
 
