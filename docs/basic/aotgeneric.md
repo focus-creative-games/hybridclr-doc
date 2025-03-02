@@ -318,7 +318,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 加载补充元数据不仅导致内存占用明显增加（一般为**3-4**倍补充元数据dll大小），还增加了启动时间。对于微信小游戏这些对包体和内存要求严苛的场合，这是一个影响较大的问题。
 被补充的泛型函数以解释方式执行，还降低了运行性能。
 
-HybridCLR支持`full genric sharing`后，不再需要补充元数据，简化了工作流，以原生方式运行AOT泛型，性能大幅提升，彻底解决了补充元数据的以上缺点。
+HybridCLR支持`full generic sharing`后，不再需要补充元数据，简化了工作流，以原生方式运行AOT泛型，性能大幅提升，彻底解决了补充元数据的以上缺点。
 详细文档见[完全泛型共享](../business/fullgenericsharing)。
 
 ## 附录：AOT泛型的共享泛型实例化示例
