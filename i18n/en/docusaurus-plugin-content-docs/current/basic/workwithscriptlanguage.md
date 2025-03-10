@@ -71,12 +71,24 @@ public class MonoPInvokeWrapperPreserves
 
 ```
 
-## limit
+## Limitations
 
-:::caution
-Please make sure that the function parameters are simple primitive types such as int, float and so on.
-:::
+Currently, when calling MonoPInvokeCallback type functions, no marshal processing is performed on the parameters. Ordinary int and float types work fine, but parameters like string will crash if they are used directly because the native layer passes 'char*' and is not marshaled to string!
 
-At present, there is no marshal processing for reference type parameters. Reference type parameters such as string are directly passed as parameters, which will inevitably lead to a crash after use!
-If there is such a need, you can put the callback function in the AOT, and call back the hot update in the AOT
-function.
+If you encounter string type parameters, there are two solutions:
+
+1. You can put the callback function in AOT and call back the hot update function in AOT.
+
+2. Change the parameter to IntPtr type, and then call Marshal.PtrToStringUTF8 to convert the original char* type data of IntPtr type into string. The sample code is as follows.
+
+```csharp
+[MonoPInvokeCallback(typeof(Func<Intptr, int>))]
+public static int Inc(IntPtr ptr)
+{
+string s = Marshal.PtrToStringUTF8(ptr);
+return s.Length;
+}
+
+```
+
+Other non-primitive type parameters that need Marshal can be processed in the same way.

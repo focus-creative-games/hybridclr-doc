@@ -15,7 +15,7 @@ Please run through the hot update process correctly on the Standalone platform a
 ### Install Unity
 
 :::caution
-HybridCLR supports all LTS versions of Unity 2019-2022. If the currently used version is not among the recommended versions below, please refer to the [Install HybridCLR](/basic/install.md) document.
+HybridCLR supports all LTS versions of Unity 2019-6000. If the currently used version is not among the recommended versions below, please refer to the [Install HybridCLR](/basic/install.md) document.
 :::
 
 - Install any version 2019.4.40, 2020.3.26+, 2021.3.0+, 2022.3.0+

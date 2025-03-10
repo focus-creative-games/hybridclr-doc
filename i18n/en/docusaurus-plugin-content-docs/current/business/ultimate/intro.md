@@ -4,7 +4,7 @@ The Ultimate Edition is primarily aimed at projects with strict performance requ
 
 ## Supported Versions
 
-Supports all Unity 2019-2022 LTS versions.
+Supports all Unity 2019-6000 LTS versions.
 
 ## Advantages
 

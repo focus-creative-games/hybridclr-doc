@@ -11,4 +11,4 @@ The Hot Reload Special Edition provides support for the innovative `Hot Reload T
 
 ## Supported Versions
 
-Compatible with all Unity 2019-2022 LTS versions.
+Compatible with all Unity 2019-6000 LTS versions.

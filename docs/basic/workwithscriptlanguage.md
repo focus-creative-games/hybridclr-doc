@@ -74,10 +74,21 @@ public class MonoPInvokeWrapperPreserves
 
 ## 限制
 
-:::caution
-请确保函数参数都是简单primitive类型如int、float之类。
-:::
+目前调用MonoPInvokeCallback类型函数时没有对参数作marshal处理。普通的int、float类型工作正常，但像string之类参数由于native层传递的是'char*'，没有marshal转为string，直接使用后必然会崩溃！
 
-目前没有对引用类型参数作marshal处理，诸如string之类引用类型的参数都是直接传参处理，使用后必然会导致崩溃！
-如果实在有这种需求，可以将回调函数放到AOT中，在AOT中再回调热更新
-函数。
+如果遇到string类型参数的情况，有两种解决办法：
+
+1. 可以将回调函数放到AOT中，在AOT中再回调热更新函数。
+2. 将参数改为IntPtr类型，然后再调用Marshal.PtrToStringUTF8将IntPtr类型的原始char*类型数据转成string。示例代码如下。
+
+```csharp
+    [MonoPInvokeCallback(typeof(Func<Intptr, int>))]
+    public static int Inc(IntPtr ptr)
+    {
+        string s = Marshal.PtrToStringUTF8(ptr);
+        return s.Length;
+    }
+
+```
+
+其他需要Marshal的非primitive类型的参数均可仿照这个方法处理。

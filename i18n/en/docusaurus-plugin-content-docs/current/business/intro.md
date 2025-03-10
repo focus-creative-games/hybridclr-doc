@@ -6,7 +6,7 @@ We offer various high-end commercial versions and customizable technical service
 
 :::tip
 
-All commercial versions will be long-term supported for **Unity 2019-2022 LTS** versions, ensuring long-term stable technical support for projects.
+All commercial versions will be long-term supported for **Unity 2019-6000 LTS** versions, ensuring long-term stable technical support for projects.
 
 :::
 
@@ -22,7 +22,7 @@ Currently, there are three commercial versions, with specific feature comparison
 | MonoBehaviour            | ✔                 | ✔                    | ✔                | ✔                  |
 | Supplementary Metadata   | ✔                 | ✔                    | ✔                | ✔                  |
 | Incremental GC           | ✔                 | ✔                    | ✔                | ✔                  |
-| Unity 2019-2022 LTS      | ✔                 | ✔                    | ✔                | ✔                  |
+| Unity 2019-6000 LTS      | ✔                 | ✔                    | ✔                | ✔                  |
 | [DOTS](../basic/dots)                    | ✔                  | ✔                    | ✔                | ✔                  |
 | [Full Generic Sharing](./fullgenericsharing)          |                   | ✔                    | ✔                | ✔                  |
 | [Metadata Optimization](./metadataoptimization.md) |                   | ✔                    | ✔                | ✔                  |
