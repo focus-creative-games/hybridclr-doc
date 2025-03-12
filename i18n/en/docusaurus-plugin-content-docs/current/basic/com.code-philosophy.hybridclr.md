@@ -227,6 +227,7 @@ The search path, so that there is no need to copy the external dll to the projec
 - For each path `dir`, it will first try to search `{dir}/{platform}`, and then try to search `{dir}`. This is done in order to take into account the specificity and versatility of the platform.
 
 An example of usage is shown below. You have an external dll at `{proj}/MyDir1/MyDir2/Foo.dll`, then you should:
+
 - Add `Foo` to hotUpdateAssemblies
 - Add directory `MyDir1/Mydir2` in externalHotUpdateAssemblyDirs
 
@@ -238,11 +239,6 @@ Staging directory for trimmed AOT dlls. The final directory is under the platfor
 
 Supplementary metadata AOT dll list. **package itself does not use this configuration item**. It provides a place to configure the AOT dll list, which is convenient for developers to use in their own building pipeline, so that developers do not need to define a supplementary metadata AOT dll configuration script separately.
 Do not include the '.dll' suffix when filling in the assembly name, just like `Main`, `Assembly-CSharp`.
-
-### dontPreserveUnityEngineCoreTypesInLinkXml
-
-Do not preserve the engine core class when calls `HybridCLR/Generate/LinkXml`, the default value is false. That is, by default, all dlls starting with UnityEngine in the `Editor\Data\Managed\UnityEngine` directory under the Unity Editor installation directory will be scanned.
-If a type defines an extern function, it is considered a core class, and an item `<type fullname="xxx" preserve="all"/>` will be added to link.xml.
 
 ### outputLinkFile
 
@@ -283,67 +279,6 @@ Due to recursive generic instantiation, it can never be calculated.
 ### maxMethodBridgeGenericIteration
 
 When running the menu `HybridCLR/Generate/MethodBridge`, the generation tool recursively analyzes the number of iterations of AOT generic instantiation. The meaning is similar to `maxGenericReferenceIteration`.
-
-### enableProfilerInReleaseBuild
-
-In v6.6.0 and earlier versions, games built in Release compilation mode will call il2cpp_codegen_profiler_method_enter and il2cpp_codegen_profiler_method_exit when entering and exiting interpreter functions during game running, which increases the function call overhead by 10-15%.
-
-Since v6.7.0, Profiler support is enabled by default only when building in Debug compilation mode, and is no longer enabled in Release mode. If you want to enable Profiler support in Release mode, you need to enable the `enableProfilerInReleaseBuild` option.
-
-```cpp
- // Il2CppCompatibleDef.h
-#ifndef HYBRIDCLR_ENABLE_PROFILER
-#define HYBRIDCLR_ENABLE_PROFILER (IL2CPP_ENABLE_PROFILER && (IL2CPP_DEBUG || HYBRIDCLR_ENABLE_PROFILER_IN_RELEASE_BUILD))
-#endif
-
-// Engine.cpp
-InterpFrame* InterpFrameGroup::Enter FrameFromNative(const MethodInfo* method, StackObject* argBase)
-{
-#if HYBRIDCLR_ENABLE_PROFILER
-    il2cpp_codegen_profiler_method_enter(method);
-#endif
-// ...
-}
-```
-
-:::warning
-After modifying this option in HybridCLRSettings, run `HybridCLR/Generate/Il2CppDef` or `HybridCLR/Generate/All`, and clear the build cache and rebuild it for this option to take effect.
-:::
-
-### enableStraceTraceInWebGLReleaseBuild
-
-In v6.6.0 and earlier versions, when building a WebGL platform target game in Release compilation mode, PUSH_STACK_FRAME and POP_STACK_FRAME will be called when entering and exiting the interpreter function during the game. This operation allows the interpreter stack to be printed correctly when Debug.Log and throwing an exception, but it increases the function call overhead by about 10%.
-
-Starting from v6.7.0, this StraceTrace is enabled by default only in the Debug mode of the WebGL platform, and it is no longer enabled in Release mode. If you want to enable StraceTrace support in Release mode, you need to enable the `enableStraceTraceInWebGLReleaseBuild` option.
-
-```cpp
-
-// Engine.cpp
- #if HYBRIDCLR_ENABLE_STRACKTRACE
-  #define PUSH_STACK_FRAME(method, rawIp) do { \ Il2CppStackFrameInfo stackFrameInfo = { method, rawIp }; \ il2cpp::vm::StackTrace::PushFrame(stackFrameInfo); \ } while(0)
-  #define POP_STACK_FRAME() do { il2cpp: :vm::StackTrace::PopFrame(); } while(0) 
-#else
-
-#define PUSH_STACK_FRAME(method, rawIp) #define POP_STACK_FRAME()
-#endif
-
-InterpFrame* InterpFrameGroup::EnterFrameFromInterpreter(const MethodInfo* method, StackObject* argBase)
-{
-    // ... PUSH_STACK_FRAME(method, (uintptr_t)newFrame);
-    return newFrame;
-}
-
-InterpFrame* InterpFrameGroup::LeaveFrame()
-{
-    POP_STACK_FRAME();
-    // ...
-}
-```
-
-:::warning
-After modifying this option in HybridCLRSettings, please run `HybridCLR/Generate/Il2CppDef` or `HybridCLR/Generate/All`, clear the build cache and rebuild, so that this option will take effect.
-:::
-
 
 ## Build Pipeline related scripts
 
@@ -387,10 +322,10 @@ Copy it to the `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{platform}` di
 The original aot dll can be used directly. The advantage of this is that the workflow is more convenient, and there is no need to update the aot dll after each package. The disadvantage is that it takes up more memory, and at the same time greatly increases the size of the trimmed dll. Please use the original or trimmed aot dll.
 
 
-##iOSBuild-script
+## iOSBuild-script
 
 `Editor/Data~/iOSBuild` in the package contains the scripts needed to compile the iOS version libil2cpp.a. After running the `HybridCLR/Installer...` menu command to successfully initialize HybridCLR, it will be automatically copied to the `{project}/HybridCLRData/iOSBuild` directory.
-** Subsequent operations must be performed in the `{project}/HybridCLRData/iOSBuild` directory**. For the specific operation of compiling libil2cpp.a, please refer to the document [iOS Platform Packaging](../basic/buildpipeline.md).
+**Subsequent operations must be performed in the `{project}/HybridCLRData/iOSBuild` directory**. For the specific operation of compiling libil2cpp.a, please refer to the document [iOS Platform Packaging](../basic/buildpipeline.md).
 
 ## Runtime related scripts
 
