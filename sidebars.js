@@ -122,7 +122,7 @@ const sidebars = {
             'business/ultimate/intro',
             'business/ultimate/quickstartunchecked',
             'business/ultimate/build',
-            'business/ultimate/dhao',
+            'business/ultimate/metaversionworkflow',
             'business/ultimate/manual',
             'business/ultimate/multidheassemblies',
             'business/ultimate/injectrules',

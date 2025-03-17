@@ -43,21 +43,20 @@ No need for any processing, just export the xcode project directly, and then pac
 If your com.code-philosophy.hybridclr version is < v3.3.0, since the path of libil2cpp-related code is hard-coded in the xcode project, if you export the xcode project and push it to other computers for buiding, the code file will not be found mistake!
 :::
 
-
 ### When com.code-philosophy.hybridclr version &lt; v3.2.0
 
 Platforms other than iOS compile the target program based on the libil2cpp source code, and the iOS platform uses the pre-compiled libil2cpp.a file. The xcode project exported by Unity references the pre-generated libil2cpp.a, but does not contain the libil2cpp source code.
 Direct buiding cannot support hot updates. Therefore, when compiling an iOS program, you need to compile libil2cpp.a separately, then **replace the libil2cpp.a file** of the xcode project, and then package it.
 
-**Please replace the libil2cpp.a file in the xcode project by yourself**.
-
 The `com.code-philosophy.hybridclr/Data~/iOSBuild` directory contains the scripts needed to compile `libil2cpp.a`. After completing the installation using `HybridCLR/Installer...`, the iOSBuild directory will be copied to the `{project}/HybridCLRData/iOSBuild` directory.
 
-### Compile libil2cpp.a
+Please follow steps belowing:
 
-- Run `HybridCLR/Generate/All` to generate all necessary files
-- Open the command console and switch to the `{project}/HybridCLRData/iOSBuild` directory. Please make sure the absolute path of this path does not contain spaces! Otherwise an error will occur.
-- bash ./build_libil2cpp.sh compiles libil2cpp.a. After running, if the libil2cpp.a file can be found in the `iOSBuild/build` directory and the size is greater than 60M, it means the compilation is successful
+- Compile `libil2cpp.a`
+  - Run `HybridCLR/Generate/All` to generate all necessary files
+  - Open the command console and switch to the `{project}/HybridCLRData/iOSBuild` directory. Please make sure the absolute path of this path does not contain spaces! Otherwise an error will occur.
+  - bash ./build_libil2cpp.sh compiles libil2cpp.a. After running, if the libil2cpp.a file can be found in the `iOSBuild/build` directory and the size is greater than 60M, it means the compilation is successful
+- replace the libil2cpp.a file in the xcode project. You need do this manually.
 
 ## Common errors
 

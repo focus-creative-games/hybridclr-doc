@@ -38,32 +38,26 @@ Unity 2019的Android平台，以及团结引擎的鸿蒙平台在第二步`导�
 - 将 `{proj}\HybridCLRData\LocalIl2CppData-{platform}\il2cpp\libil2cpp\hybridclr\generated`目录 替换导出工程中的此目录。
 - 在导出工程上执行build
 
-
 ## iOS平台的特殊处理
 
 ### 当 com.code-philosophy.hybridclr 版本 &ge; v3.2.0
 
 不需要任何处理，直接导出xcode工程，再打包即可。由于在build完成后才将libil2cpp源码加入xcode工程，因此只能先导出xcode，再手动或者命令行编译，试图直接`Build And Run`会出错。
 
-:::danger
-如果你的 com.code-philosophy.hybridclr 版本 &lt; v3.3.0, 由于xcode工程里写死了libil2cpp相关代码的路径，如果你导出xcode工程，推送到其他电脑上打包，会出现代码文件找不到的错误！
-:::
-
-
 ### 当 com.code-philosophy.hybridclr 版本 &lt; v3.2.0
 
 除了iOS以外平台都是根据libil2cpp源码编译出目标程序,iOS平台使用提前编译好libil2cpp.a文件。Unity导出的xcode工程引用了提前生成好的libil2cpp.a，而不包含libil2cpp源码，
 直接打包无法支持热更新。因此编译iOS程序时需要自己单独编译libil2cpp.a，再**替换xcode工程的libil2cpp.a文件**，接着再打包。
 
-**替换xcode工程中的libil2cpp.a文件请自行完成**。
-
 `com.code-philosophy.hybridclr/Data~/iOSBuild` 目录包含了编译 `libil2cpp.a` 所需的脚本。使用`HybridCLR/Installer...`完成安装后，该iOSBuild目录会被复制到`{project}/HybridCLRData/iOSBuild` 目录。
 
-### 编译 libil2cpp.a 
+流程如下：
 
-- 运行 `HybridCLR/Generate/All` 生成所有必要的文件
-- 打开命令控制台，切换到 `{project}/HybridCLRData/iOSBuild` 目录。请确保这个路径的绝对路径不包含空格！否则会出错。
-- bash ./build_libil2cpp.sh 编译libil2cpp.a 。运行结束后，如果在`iOSBuild/build`目录下能找到libil2cpp.a文件并且size大于60M，表示编译成功
+- 编译 `libil2cpp.a`
+  - 运行 `HybridCLR/Generate/All` 生成所有必要的文件
+  - 打开命令控制台，切换到 `{project}/HybridCLRData/iOSBuild` 目录。请确保这个路径的绝对路径不包含空格！否则会出错。
+  - bash ./build_libil2cpp.sh 编译libil2cpp.a 。运行结束后，如果在`iOSBuild/build`目录下能找到libil2cpp.a文件并且size大于60M，表示编译成功。
+- 替换xcode工程中的libil2cpp.a文件。请自行完成。
 
 ## 常见错误
 
