@@ -18,7 +18,7 @@ Hotfix技术即为专门解决此类动态修复bug的场合。它可以运行�
 
 - 只能修复函数体，不能修改类型定义（如修改类名、增删字段、增删函数、修改函数签名之类）
 - 每次修复都会加载一次热更新程序集，之前加载的程序集内存无法释放，造成一定的内存泄露
-- 与函数Inline优化不兼容。
+- 与函数Inline优化不兼容，需要关闭函数inline。在热更新加载前或者热更新入口调用`RuntimeApi.SetRuntimeOption(RuntimeOptionId.MaxMethodInlineDepth, 0);`
 
 ## 使用
 

@@ -1,9 +1,5 @@
 # 构建和热更新
 
-在`v7.6.0`及更早的版本使用DHAO工作流，自`v7.7.0`版本起移除了DHAO工作流，新增了[MetaVersion工作流](./metaversionworkflow)。
-
-使用单主包时，MetaVersion工作流与DHAO工作流差别不大。但存在多主包时，MetaVersion工作流更简单。
-
 ## 构建游戏
 
 - 运行`HybridCLR/Generate/All`
@@ -48,26 +44,28 @@ CreateAotSnapshot做了以下工作：
 
 调用`MetaVersionWorkflow.GenerateAotSnapshotMetaVersionFiles(string prevSnapshotDir, string curSnapshotDir)`为快照中dhe dll生成对应的meta version文件。
 
-`MetaVersionWorkflow.GenerateAotSnapshotMetaVersionFiles`的`preSnapshotDir`的参数规则：
+`MetaVersionWorkflow.GenerateAotSnapshotMetaVersionFiles`的`prevSnapshotDir`的参数规则：
 
-- 如果是第一个AotSnapshot，由于不存在更旧的AotSnapshot，`preSnapshotDir`取null。
-- 如果项目使用单主包的模式，即同时只有一个有效主包，发布新主包后旧主包失效，则`preSnapshotDir`取null。
-- 如果项目使用多主包模式，即发布新主包后旧主包仍然有效，则`preSnapshotDir`参数取上一个发布的主包的AotSnapshot目录。
+- 如果是第一个AotSnapshot，由于不存在更旧的AotSnapshot，`prevSnapshotDir`取null。
+- 如果项目使用单主包的模式，即同时只有一个有效主包，发布新主包后旧主包失效，则`prevSnapshotDir`取null。
+- 如果项目使用多主包模式，即发布新主包后旧主包仍然有效，则`prevSnapshotDir`参数取上一个发布的主包的AotSnapshot目录。
 
 GenerateAotSnapshotMetaVersionFiles生成了以下文件：
 
-- meta version文件。生成到MetaVersions目录下
+- meta version和spec文件。生成到MetaVersions目录下
 - signature-mapper.json文件
 
 生成前目录结构如下：
 
 ```txt
   Snapshots
-  ├── PreAotSnapshotDir
+  ├── PrevAotSnapshotDir
       ├── *.dll
       ├── InjectRules
       ├── MetaVersions
         ├── *.mv.bytes
+        ├── *.mv.spec
+        ├── *.mv.diff.spec
       ├── signature-mapper.json
       └── manifest.json
   ├── CurrentSnapshotDir
@@ -80,11 +78,13 @@ GenerateAotSnapshotMetaVersionFiles生成了以下文件：
 
 ```txt
   Snapshots
-  ├── PreAotSnapshotDir
+  ├── PrevAotSnapshotDir
       ├── *.dll
       ├── InjectRules
       ├── MetaVersions
         ├── *.mv.bytes
+        ├── *.mv.spec
+        ├── *.mv.diff.spec
       ├── signature-mapper.json
       └── manifest.json
   ├── CurrentAotSnapshotDir
@@ -92,6 +92,8 @@ GenerateAotSnapshotMetaVersionFiles生成了以下文件：
       ├── InjectRules
       ├── MetaVersions (New)
         ├── *.mv.bytes
+        ├── *.mv.spec
+        ├── *.mv.diff.spec
       ├── signature-mapper.json (New)
       └── manifest.json
 ```
@@ -99,7 +101,7 @@ GenerateAotSnapshotMetaVersionFiles生成了以下文件：
 ### 随包携带AOT快照的meta version文件（可选，但强烈建议）
 
 `RuntimeApi::LoadDifferentialHybridAssemblyWithMetaVersion`的参数`originalMetaVersionFileBytes`为DHE程序集的AOT快照中相应的meta version文件内容。
-这个meta version文件每个主包都不一样，并且在构建主包时已经完全确定。此文件比较小，建议随主包携带。
+这个meta version文件每个主包都不一样，并且在构建主包时已经完全确定。此文件比较小，强烈建议随主包携带。
 
 ### 多平台
 
@@ -161,6 +163,8 @@ DHE程序集也可以依赖DHE程序集。
   ├── *.dll
   ├── MetaVersions
     ├── *.mv.bytes
+    ├── *.mv.spec
+    ├── *.mv.diff.spec
 ```
 
 示例代码如下：
@@ -174,6 +178,9 @@ DHE程序集也可以依赖DHE程序集。
         }
 
 ```
+
+`*.mv.spec`是`*.mv.bytes`的可阅读版本，而`*.mv.diff.spec`记录了`*.mv.spec`中发生版本变化的元数据。这两类文件只用于方便追踪问题，运行过程中用不到它们。
+建议将它们加入到仓库，但不要加入到热更新资源，因为没有任何用途！
 
 ## 其他
 

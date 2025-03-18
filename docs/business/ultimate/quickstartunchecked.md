@@ -247,12 +247,12 @@ public class LoadDll : MonoBehaviour
         else
         {
             byte[] dllBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dll.bytes");
-            byte[] currentmeta versionBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.mv.bytes");
-            byte[] originalmeta versionBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/Originalmeta versions/{assName}.mv.bytes");
-            LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssemblyWithmeta version(dllBytes,
+            byte[] currentMetaVersionBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.mv.bytes");
+            byte[] originalMetaVersionBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/OriginalMetaVersions/{assName}.mv.bytes");
+            LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssemblyWithMetaVersion(dllBytes,
                 null,
-                originalmeta versionBytes,
-                currentmeta versionBytes
+                originalMetaVersionBytes,
+                currentMetaVersionBytes
                 );
             if (err == LoadImageErrorCode.OK)
             {
