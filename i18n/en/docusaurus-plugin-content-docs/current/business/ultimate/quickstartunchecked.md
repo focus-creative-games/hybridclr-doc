@@ -262,7 +262,7 @@ With this, the entire hot update project setup is complete!
 
 ## Testing in the Editor
 
-Run the `main` scene, and the screen should display `Hello, World`, indicating that the code is working correctly.
+Run the `main` scene, and Console window will show log `Hello, World`, indicating that the code is working correctly.
 
 ## Building the Game
 
@@ -286,7 +286,7 @@ The AOT snapshot directory created by `Build/CreateAotSnapshot` should be added 
 
 ## Initial Package Testing
 
-- Run `{build}/Xxx.exe`, and the screen should display `Hello, World`, indicating that the original code is executed!
+- Run `{build}/Xxx.exe`, and Player Log file will contain log `Hello, World`, indicating that the original code is executed!
 
 ## Testing Hot Updates
 
@@ -295,6 +295,6 @@ The AOT snapshot directory created by `Build/CreateAotSnapshot` should be added 
 - Run `Build/CompileAndGenerateHotUpdateMetaVersionFiles` to generate the hot update DLL and corresponding meta version files.
 - Run `Build/CopyHotUpdateDllAndMetaVersionFilesToHotUpdateDataDir`. This will copy the hot update DLL and meta version files to the `{proj}/HotUpdateSnapshot/{buildTarget}` directory.
 - Manually copy all files from the `{proj}/HotUpdateSnapshot/{buildTarget}` directory to the `{build}\StreamingAssets` directory.
-- Run the application again, and the screen should display `Hello, HybridCLR`.
+- Run the application again, and Player Log file will contain log `Hello, HybridCLR`.
 
 With this, the hot update process is complete!

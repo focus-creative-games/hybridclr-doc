@@ -124,6 +124,7 @@ const sidebars = {
             'business/ultimate/build',
             'business/ultimate/loadassembly',
             'business/ultimate/metaversionworkflow',
+            'business/ultimate/dhaoworkflow',
             'business/ultimate/manual',
             'business/ultimate/injectrules',
             'business/ultimate/retargetmetadata',

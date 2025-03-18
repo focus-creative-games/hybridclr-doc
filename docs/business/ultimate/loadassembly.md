@@ -18,15 +18,16 @@
 
 ## 加载DHE程序集
 
-RuntimeApi中提供两个加载DHE程序集的接口：
+RuntimeApi中提供三个加载DHE程序集的接口：
 
 - LoadOriginalDifferentialHybridAssembly 用于加载没有发生任何改变的DHE程序集
-- LoadDifferentialHybridAssemblyWithMetaVersion 用于加载没有改变或者改变的DHE程序集
+- LoadDifferentialHybridAssemblyWithDHAO 用于加载没有改变或者改变的DHE程序集，使用dhao文件
+- LoadDifferentialHybridAssemblyWithMetaVersion 用于加载没有改变或者改变的DHE程序集，使用meta version文件
 
 在明确知道没有发生任何改变时，可以调用LoadOriginalDifferentialHybridAssembly接口指示直接使用原始的DHE程序集，仅需要传递程序集名，不需要传递原始DHE程序集数据，因为AOT中
 已经包含完整的原始DHE程序集信息。
 
-无论有没有改变，都可以调用LoadDifferentialHybridAssemblyWithMetaVersion加载DHE程序集。
+无论有没有改变，都可以调用LoadDifferentialHybridAssemblyWithXxx加载DHE程序集。
 
 对于调用LoadOriginalDifferentialHybridAssembly有一些限制：
 
@@ -40,11 +41,21 @@ RuntimeApi中提供两个加载DHE程序集的接口：
 我们建议使用以下简单规则：
 
 - 发布主包后，未发生任何热更新时，使用LoadOriginalDifferentialHybridAssembly加载所有DHE程序集
-- 发布热更新后，无论有没有改变，统一使用LoadDifferentialHybridAssemblyWithMetaVersion加载DHE程序集
+- 发布热更新后，无论有没有改变，统一使用LoadDifferentialHybridAssemblyWithXxx加载DHE程序集
+
+## LoadDifferentialHybridAssemblyWithDHAO
+
+该函数有如下参数：
+
+|参数|描述|
+|-|-|
+|currentDllBytes|最新的DHE程序集的文件内容|
+|currentDllSymbolBytes|最新DHE程序集的pdb文件内容，此参数可以为null|
+|dhaoBytes|使用最新DHE程序集生成的dhao文件内容|
 
 ## LoadDifferentialHybridAssemblyWithMetaVersion
 
-该函数有4个参数：
+该函数有如下参数：
 
 |参数|描述|
 |-|-|

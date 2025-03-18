@@ -273,7 +273,7 @@ public class LoadDll : MonoBehaviour
 
 ## Editor中试运行
 
-运行main场景，屏幕上会显示 'Hello, World'，表示代码工作正常。
+运行main场景，Console窗口会打印 'Hello, World'，表示代码工作正常。
 
 ## 构建游戏
 
@@ -297,7 +297,7 @@ CreateAotSnapshot生成的AOT快照包含以下内容：
 
 ## 首包测试
 
-- 运行`{build}/Xxx.exe`，屏幕显示 `Hello, World`，表示执行了原始代码！
+- 运行`{build}/Xxx.exe`，Player Log日志文件中有 `Hello, World`日志，表示执行了原始代码！
 
 ## 测试热更新
 
@@ -306,6 +306,6 @@ CreateAotSnapshot生成的AOT快照包含以下内容：
 - 运行`Build/CompileAndGenerateHotUpdatemeta versionFiles` 生成热更新dll及对应的meta version文件
 - 运行`Build/CopyHotUpdateDllAndMetaVersionFilesToHotUpdateDataDir`。它会将热更新dll及对应的meta version文件复制到`{proj}/HotUpdateSnapshot/{buildTarget}`目录
 - 手动复制`{proj}/HotUpdateSnapshot/{buildTarget}`目录下所有文件到`{build}\StreamingAssets`目录下
-- 再次运行，屏幕上会打印`Hello, HybridCLR`
+- 再次运行，Player Log日志文件中有`Hello, HybridCLR`日志
 
 至此完成热更新！！！
