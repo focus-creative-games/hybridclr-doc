@@ -11,6 +11,7 @@ Supports all Unity 2019-6000 LTS versions.
 - Includes all features of the [Professional Edition](../pro/intro).
 - Incorporates the innovative [DHE](../differentialhybridexecution) technology, where unchanged code performs identically to native code. Compared to the purely interpreted approach of the community edition, DHE offers an astonishing **3-30 times** or higher performance boost, achieving nearly native performance levels overall.
 - Includes two years of technical support.
+- Supports iterative updates for multiple builds. This means that multiple builds (e.g., v1, v2, ..., vn) can coexist simultaneously, all loading the same latest version of the hot-update code. The newer the build, the better its performance.
 
 ## Predictable Effects
 

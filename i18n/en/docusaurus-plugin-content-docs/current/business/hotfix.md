@@ -18,6 +18,7 @@ Hotfix technology is specifically designed to solve such occasions for dynamical
 
 - Can only fix the function body, cannot modify type definitions (such as changing class names, adding or deleting fields, adding or deleting functions, modifying function signatures, etc.)
 - Each fix will load a hot update assembly, and the memory of the previously loaded assembly cannot be released, causing some memory leaks
+- ​Incompatible with function inline optimization; function inlining needs to be disabled. Before hot update loading or at the entry point of the hot update, call `RuntimeApi.SetRuntimeOption(RuntimeOptionId.MaxMethodInlineDepth, 0);`
 
 ## Usage
 
