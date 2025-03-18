@@ -98,26 +98,10 @@ public static class BuildTools
         MetaVersionWorkflow.GenerateHotUpdateMetaVersionFiles(latestSnapshotSolutionDir, newHotUpdateSolutionDir);
     }
 
-    [MenuItem("Build/CompileHotUpdateDlls")]
-    public static void CompileHotUpdateDlls()
-    {
-        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-        string outputDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
-        Directory.CreateDirectory(outputDir);
-        var group = BuildPipeline.GetBuildTargetGroup(target);
-
-        ScriptCompilationSettings scriptCompilationSettings = new ScriptCompilationSettings();
-        scriptCompilationSettings.group = group;
-        scriptCompilationSettings.target = target;
-        scriptCompilationSettings.extraScriptingDefines = new string[] { "HOT_UPDATE_CHANGE" };
-        ScriptCompilationResult scriptCompilationResult = PlayerBuildInterface.CompilePlayerScripts(scriptCompilationSettings, outputDir);
-        Debug.Log("compile finish!!!");
-    }
-
     [MenuItem("Build/CompileAndGenerateHotUpdateMetaVersionFiles")]
     public static void CompileAndGenerateHotUpdateMetaVersionFiles()
     {
-        CompileHotUpdateDlls();
+        CompileDllCommand.CompileDllActiveBuildTarget();
         GenerateHotUpdateMetaVersionFiles();
     }
 
