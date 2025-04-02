@@ -18,14 +18,21 @@ Create an empty Unity project.
 
 ### Installing HybridCLR
 
-1. Extract `hybridclr_unity.zip` and place it in the project's `Packages` directory, renaming it to `com.code-philosophy.hybridclr`.
-2. Extract the corresponding `il2cpp_plus-{version}.zip` based on your Unity version.
-3. Extract `hybridclr.zip`.
-4. Place the `hybridclr` directory from `hybridclr.zip` into the `libil2cpp` directory extracted from `il2cpp-{version}.zip`. Ensure that the file `libil2cpp\hybridclr\RuntimeApi.cpp` exists; otherwise, the `hybridclr` directory is misplaced.
-5. Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the extracted `libil2cpp` directory, and proceed with the installation.
-6. Depending on your Unity version:
-   - For versions **≥ 2020**, replace the `Unity.IL2CPP.dll` file in `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` (Unity 2020) or `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` (Unity 2021+) with the file from `ModifiedDlls\{version}\Unity.IL2CPP.dll`. If there is no file for your version, contact us to create one.
-   - For version **2019**, no action is required, as the installation process automatically copies the necessary files.
+- Extract `hybridclr_unity.zip` and place it in the project's `Packages` directory, renaming it to `com.code-philosophy.hybridclr`.
+- Extract the corresponding `il2cpp_plus-{version}.zip` based on your Unity version.
+- Extract `hybridclr.zip`.
+- Place the `hybridclr` directory from `hybridclr.zip` into the `libil2cpp` directory extracted from `il2cpp-{version}.zip`. Ensure that the file `libil2cpp\hybridclr\RuntimeApi.cpp` exists; otherwise, the `hybridclr` directory is misplaced.
+- Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the extracted `libil2cpp` directory, and proceed with the installation.
+- Depending on your Unity version:
+  - **If version >= 2023**:  
+    - First install **Unity 2022.3.60f1**  
+    - Copy the `2022.3.60f1\Editor\Data\il2cpp\build\deploy` directory to `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`  
+    - Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll` with the file `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll`  
+  - **If version >= 2021**:  Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` with `ModifiedDlls\{verions}\Unity.IL2CPP.dll`  
+  - **If version >= 2020**:  Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` with `ModifiedDlls\{verions}\Unity.IL2CPP.dll`  
+  - **If version 2019**:  No action required, as files are automatically copied during installation  
+
+*(Note: `{proj}` represents your project root path, and `{verions}` should match your specific Unity version number)*
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
