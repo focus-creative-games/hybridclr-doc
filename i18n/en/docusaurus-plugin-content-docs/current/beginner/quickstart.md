@@ -18,7 +18,7 @@ Please run through the hot update process correctly on the Standalone platform a
 HybridCLR supports all LTS versions of Unity 2019-6000. If the currently used version is not among the recommended versions below, please refer to the [Install HybridCLR](/basic/install.md) document.
 :::
 
-- Install any version 2019.4.40, 2020.3.26+, 2021.3.0+, 2022.3.0+
+- Install any version 2019.4.40, 2020.3.26+, 2021.3.0+, 2022.3.0+, 6000.0.0+
 - Depending on your operating system, when selecting modules during installation, you must select `Windows Build Support(IL2CPP)` or `Mac Build Support(IL2CPP)`.
 
 ![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
