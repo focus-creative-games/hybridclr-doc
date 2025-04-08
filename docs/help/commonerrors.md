@@ -469,12 +469,17 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 hybridclr与dots不兼容导致，商业化版本可以解决这个问题。
 
+## 游戏启动时出现`Unable to load il2cpp`错误
+
+这是因为你当前使用的hybridclr与你的Unity版本号不兼容导致的。一般来说是因为你的版本太新，你当前的hybridclr未及时合并你当前版本的il2cpp的代码改动。
+
+请升级hybridclr到最新版本，然后重新打包。如果仍然有问题，请报告给我们，我们会在一周内发布新版本解决这个兼容问题。
+
 ## WebGL 运行时出现 function signature mismatch错误
 
 WebGL平台打包时默认使用 `faster (smaller) build`选项，该选项会开启完全泛型共享，而社区版本必须补充元数据后才能与完全泛型共享机制配合工作。请依次尝试以下办法：
 
 1. 确保hybridclr为v4.0.0+版本，如果低于此版本请升级
-1. 尝试补充元数据，补充`函数栈最顶部的c#代码所在的`程序集
 1. 如果仍有问题，则可能是桥接函数与最终构建的包不匹配导致，比如说'Generate/all'时开启了'development'但构建时却未开启'development'。解决办法为使用构建时的参数，运行`generate/all`，清除build缓存后重新构造
 1. 如果仍有问题，将 `Player Settings`中 `IL2CPP Code Generation` 切换到 `Faster Runtime`
 1. 如果仍有问题，升级到最新的hybridclr版本

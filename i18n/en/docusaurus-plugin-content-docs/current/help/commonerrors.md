@@ -449,6 +449,12 @@ The WebGL platform uses the `faster (smaller) build` option by default when pack
 1. If you still have problems, upgrade to the latest hybridclr version
 1. If you still have problems, please contact our technical support
 
+## `Unable to load il2cpp` error appears when the game starts
+
+This is because the hybridclr you are currently using is incompatible with your Unity version. Generally speaking, it is because your version is too new and your current hybridclr has not merged the code changes of your current version of il2cpp in time.
+
+Please upgrade hybridclr to the latest version and repackage it. If there is still a problem, please report it to us and we will release a new version within a week to solve this compatibility issue.
+
 ## webgl (or WeChat mini games) has error logs such as "Not implemented" and "Class::FromIl2CppType" on iOS5.4, and is stuck on the startup screen and cannot be started
 
 This is a bug in Unity & iOS 15.4, and there are two solutions:
