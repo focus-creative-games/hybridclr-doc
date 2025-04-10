@@ -284,7 +284,7 @@ CreateAotSnapshot生成的AOT快照包含以下内容：
 
 - 请确保`构建游戏`这一步已经执行了`Build/CreateAotSnapshot`，运行一次即可，不要多次运行
 - 修改`Hello::Run`函数中`Debug.Log("Hello, World")`为`Debug.Log("Hello, HybridCLR")`
-- 运行`Build/CompileAndGenerateHotUpdatemeta versionFiles` 生成热更新dll及对应的meta version文件
+- 运行`Build/CompileAndGenerateHotUpdateMetaVersionFiles` 生成热更新dll及对应的meta version文件
 - 运行`Build/CopyHotUpdateDllAndMetaVersionFilesToHotUpdateDataDir`。它会将热更新dll及对应的meta version文件复制到`{proj}/HotUpdateSnapshot/{buildTarget}`目录
 - 手动复制`{proj}/HotUpdateSnapshot/{buildTarget}`目录下所有文件到`{build}\StreamingAssets`目录下
 - 再次运行，Player Log日志文件中有`Hello, HybridCLR`日志
