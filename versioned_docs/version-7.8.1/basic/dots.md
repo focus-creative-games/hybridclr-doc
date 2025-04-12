@@ -80,6 +80,7 @@ DOTS的TypeManager初始化时机过早，而且不支持动态注册Component�
     private static void InitializeWorld()
     {
 #if !UNITY_EDITOR
+        // dotsAsseemblies为所有包含自定义Component、System等DOTS类型的AOT和热更新程序集
         var dotsAssemblies = new Assembly[] { ... };
         var componentTypes = new HashSet<System.Type>();
         TypeManager.CollectComponentTypes(dotsAssemblies, componentTypes);
@@ -99,6 +100,7 @@ DOTS的TypeManager初始化时机过早，而且不支持动态注册Component�
     private static void InitializeWorld()
     {
 #if !UNITY_EDITOR
+        // dotsAsseemblies为所有包含自定义Component、System等DOTS类型的AOT和热更新程序集
         var dotsAssemblies = new Assembly[] { ... };
         var componentTypes = new HashSet<Type>();
         TypeManager.CollectComponentTypes(dotsAssemblies, componentTypes);
