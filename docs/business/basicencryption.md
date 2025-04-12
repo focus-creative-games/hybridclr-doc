@@ -140,9 +140,6 @@ xxEncCodeLength为加密指令的长度，值越大则加密越复杂，解密�
 
 ```
 
-对于旗舰版本用户，由于默认的dhao文件记录了加密前的currentDll的MD5值，因此如果对dll进行加密，需要同步更新dhao文件，否则Runtime.LoadDifferentialHybridAssembly会运行失败。
-为了方便使用，我们单独提供`HybridCLR.Editor.DHE.BuildUtil.EncryptDllAndGenerateDHAODatas`函数用于一次性完成加密和生成dhao文件的工作。
-
 ## 运行时加载热更新dll
 
 与普通热更新dll没有任何区别，使用`Assembly.Load`即可。

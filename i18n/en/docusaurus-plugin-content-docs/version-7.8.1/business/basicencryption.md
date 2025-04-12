@@ -136,9 +136,6 @@ The `HybridCLR.Editor.Encryption.EncryptUtil` class is provided to encrypt the d
 
 ```
 
-For flagship version users, since the default dhao file records the MD5 value of currentDll before encryption, if the dll is encrypted, the dhao file needs to be updated synchronously, otherwise Runtime.LoadDifferentialHybridAssembly will fail to run.
-For ease of use, we provide the `HybridCLR.Editor.DHE.BuildUtil.EncryptDllAndGenerateDHAODatas` function separately to complete the encryption and generation of dhao files in one go.
-
 ## Load hot update dll at runtime
 
 There is no difference from ordinary hot update dll, just use `Assembly.Load`.
