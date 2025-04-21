@@ -66,36 +66,52 @@
 
 ### RuntimeApi::TryUnloadAssembly
 
-该接口尝试卸载程序集。如果卸载成功，返回true；如果卸载失败，则保持现状并且返回false。
+该接口尝试卸载程序集。如果正常完成卸载，则report.success为true，否则 report.success字段为false。
 
 ```csharp
         /// <summary>
-        /// 尝试卸载程序集
+        /// Attempts to unload the assembly.
         /// </summary>
-        /// <param name="assembly"></param>
-        /// <param name="printObjectReferenceLink">发现非法引用时是否打印引用链，此项不仅会导致卸载时间显著延长，
-        /// 还会导致卸载期间有一个native内存暴涨峰值（卸载完成后会回落），强烈建议线上项目关闭此选项</param>
+        /// <param name="assembly">The assembly to unload.</param>
+        /// <param name="printObjectReferenceLink">If true, prints the reference chain when illegal references are detected. Enabling this may increase unloading time.</param>
         /// <returns></returns>
-    public static extern bool TryUnloadAssembly(Assembly assembly, bool printObjectReferenceLink);
+        public static UnloadAssemblyReport TryUnloadAssembly(Assembly assembly, bool printObjectReferenceLink)
+        {
+            //...
+        }
+```
+
+如果printObjectReferenceLink为true，会显著增加卸载时间。建议先用printObjectReferenceLink为false尝试卸载，如果失败，再用printObjectReferenceLink为true进行卸载。示例代码如下：
+
+```csharp
+
+    void TwoPhaseUnloadAssembly(Assembly ass)
+    {
+        var report = RuntimeApi.TryUnloadAssembly(ass, false);
+        if (!report.success)
+        {
+            report = RuntimeApi.TryUnloadAssembly(ass, true);
+        }
+    }
+
 ```
 
 ### RuntimeApi::ForceUnloadAssembly
 
-该接口强行卸载程序集。如果卸载过程中发布异常状况，则返回false，否则返回true。无论返回结果如何，都会移除该程序集。
+该接口强行卸载程序集，并且返回UnloadAssemblyReport。如果正常完成卸载，则report.success为true，否则 report.success字段为false。无论返回结果如何，都会移除该程序集。
 
 ```csharp
         /// <summary>
-        /// 强行卸载程序集，不管AppDomain中是否还存在对该程序集的引用
+        /// Forcefully unloads the assembly regardless of remaining references to it in the AppDomain.
         /// </summary>
-        /// <param name="assembly">被卸载的程序集</param>
-        /// <param name="ignoreObjectReferenceValidation">是否不调用LiveObjectValidator检查非法引用，建议取false</param>
-        /// <param name="printObjectReferenceLink">发现非法引用时是否打印引用链，此项不仅会导致卸载时间显著延长，
-        /// 还会导致卸载期间有一个native内存暴涨峰值（卸载完成后会回落），强烈建议线上项目不要开启此选项</param>
-        /// <returns>是否没有非法引用，true表示没有，false表示有</returns>
-        /// <exception cref="UnloadAssemblyException"></exception>
-        public static bool ForceUnloadAssembly(Assembly assembly, bool ignoreObjectReferenceValidation, bool printObjectReferenceLink)
+        /// <param name="assembly">The assembly to be unloaded.</param>
+        /// <param name="ignoreObjectReferenceValidation">Whether to skip LiveObjectValidator's illegal reference checking. Recommended to set to false.</param>
+        /// <param name="printObjectReferenceLink">If true, prints reference chains when illegal references are detected. Enabling this may increase unloading time.</param>
+        /// <returns>Indicates whether no illegal references were found (true means no illegal references, false means some exist).</returns>
+        /// <exception cref="UnloadAssemblyException">Thrown when assembly unloading fails.</exception>
+        public static UnloadAssemblyReport ForceUnloadAssembly(Assembly assembly, bool ignoreObjectReferenceValidation, bool printObjectReferenceLink)
         {
-            throw new UnloadAssemblyException($"Failed to unload assembly {assembly.FullName}");
+            // ...
         }
 ```
 
@@ -121,7 +137,6 @@
         }
 
 ```
-
 
 ## 解决被卸载对象的引用问题
 

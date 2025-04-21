@@ -65,37 +65,53 @@ Currently, two interfaces are provided for uninstalling assemblies:
 
 ### RuntimeApi::TryUnloadAssembly
 
-This interface attempts to uninstall the assembly. If the uninstallation succeeds, true is returned; if the uninstallation fails, the status quo is maintained and false is returned.
+This interface attempts to unload an assembly. If the unloading is completed normally, report.success is true, otherwise the report.success field is false.
 
 ```csharp
 /// <summary>
-/// Try to uninstall the assembly
+/// Attempts to unload the assembly.
 /// </summary>
-/// <param name="assembly"></param>
-/// <param name="printObjectReferenceLink">Whether to print the reference chain when an illegal reference is found. This option will not only significantly extend the uninstallation time,
-/// but also cause a spike in native memory during uninstallation (it will fall back after uninstallation). It is strongly recommended that online projects turn off this option</param>
+/// <param name="assembly">The assembly to unload.</param>
+/// <param name="printObjectReferenceLink">If true, prints the reference chain when illegal references are detected. Enabling this may increase unloading time.</param>
 /// <returns></returns>
-public static extern bool TryUnloadAssembly(Assembly assembly, bool printObjectReferenceLink);
+public static UnloadAssemblyReport TryUnloadAssembly(Assembly assembly, bool printObjectReferenceLink)
+{
+    //...
+}
+```
+
+If printObjectReferenceLink is true, the uninstallation time will increase significantly. It is recommended to try uninstalling with printObjectReferenceLink set to false first. If it fails, uninstall with printObjectReferenceLink set to true. The sample code is as follows:
+
+```csharp
+
+void TwoPhaseUnloadAssembly(Assembly ass)
+{
+    var report = RuntimeApi.TryUnloadAssembly(ass, false);
+    if (!report.success)
+    {
+        report = RuntimeApi.TryUnloadAssembly(ass, true);
+    }
+}
+
 ```
 
 ### RuntimeApi::ForceUnloadAssembly
 
-This interface forcibly uninstalls the assembly. If an exception is issued during the uninstallation process, false is returned, otherwise true is returned. Regardless of the return result, the assembly will be removed.
+This interface forcibly unloads the assembly and returns UnloadAssemblyReport. If the unloading is completed normally, report.success is true, otherwise the report.success field is false. Regardless of the return result, the assembly will be removed.
 
 ```csharp
-/// <summary>
-/// Forcefully uninstall an assembly, regardless of whether there is still a reference to the assembly in the AppDomain
-/// </summary>
-/// <param name="assembly">Assembly to be uninstalled</param>
-/// <param name="ignoreObjectReferenceValidation">Whether to not call LiveObjectValidator to check for illegal references, it is recommended to take false</param>
-/// <param name="printObjectReferenceLink">Whether to print the reference chain when an illegal reference is found. This option will not only significantly extend the uninstall time,
-/// but also cause a spike in native memory during uninstallation (it will fall back after uninstallation is completed). It is strongly recommended that online projects do not enable this option</param>
-/// <returns>Whether there are no illegal references, true means no, false means yes</returns>
-/// <exception cref="UnloadAssemblyException"></exception>
-public static bool ForceUnloadAssembly(Assembly assembly, bool ignoreObjectReferenceValidation, bool printObjectReferenceLink)
-{
-    throw new UnloadAssemblyException($"Failed to unload assembly {assembly.FullName}");
-}
+ /// <summary>
+ /// Forcefully unloads the assembly regardless of remaining references to it in the AppDomain.
+ /// </summary>
+ /// <param name="assembly">The assembly to be unloaded.</param>
+ /// <param name="ignoreObjectReferenceValidation">Whether to skip LiveObjectValidator's illegal reference checking. Recommended to set to false.</param>
+ /// <param name="printObjectReferenceLink">If true, prints reference chains when illegal references are detected. Enabling this may increase unloading time.</param>
+ /// <returns>Indicates whether no illegal references were found (true means no illegal references, false means some exist).</returns>
+ /// <exception cref="UnloadAssemblyException">Thrown when assembly unloading fails.</exception>
+ public static UnloadAssemblyReport ForceUnloadAssembly(Assembly assembly, bool ignoreObjectReferenceValidation, bool printObjectReferenceLink)
+ {
+    // ...
+ }
 ```
 
 ## HotReload compatibility check
