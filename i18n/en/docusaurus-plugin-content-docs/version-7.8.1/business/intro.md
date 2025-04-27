@@ -43,7 +43,7 @@ Currently, there are three commercial versions, with specific feature comparison
 | Version            | Price (RMB)            | Description                                                                      |
 |--------------------|------------------------|----------------------------------------------------------------------------------|
 | Community Edition  | 0                      | Unlimited usage period                                                          |
-| Professional Edition | Contact us via email for business inquiry | Buy the right to use for one project permanently, includes 1 year of technical support and 1 year of code updates |
+| Professional Edition | Contact us via email for business inquiry | Buy the right to use for one project permanently, includes 2 year of technical support and 2 year of code updates |
 | Hot Reload Edition  | Contact us via email for business inquiry | Buy the right to use for one project permanently, includes 2 years of technical support and 2 years of code updates |
 | Ultimate Edition   | Contact us via email for business inquiry | Buy the right to use for one project permanently, includes 2 years of technical support and 2 years of code updates |
 
