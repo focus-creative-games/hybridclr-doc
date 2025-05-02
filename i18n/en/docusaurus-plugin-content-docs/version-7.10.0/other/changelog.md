@@ -1,0 +1,63 @@
+# Changelog
+
+- 2023.05.19 Update to Unity's latest LTS version 2020.3.48 and 2021.3.25. The last 2020LTS version support has been completed.
+- 2023.04.26 Update to the latest LTS version of Unity 2020.3.47 and 2021.3.23
+- 2023.03.20 com.code-philosophy.hybridclr contains aot assembly list and beautified generic class and function name when generating AOTGenericReference
+- 2023.3.11 Update to the latest LTS version of Unity 2020.3.46 and 2021.3.20
+- 2023.2.4 The 2021 version of the WebGL platform supports mounting scripts on resources
+- 2023.2.4 Complete the final version of DHE
+- 2023.2.3 release version 2.0
+- 2023.1.14 Update to the latest LTS version of Unity 2020.3.43 and 2021.3.16
+- 2022.12.08 support netstandard 2.0
+- 2022.11.28 officially launched multi-branch management hybridclr and il2cpp_plus, and created the official version 1.0 branch at the same time
+- 2022.11.24 Update to the latest LTS version of Unity 2020.3.42 and 2021.3.14
+- 2022.11.21 DHE can correctly handle metadata and generics involved in AOT functions
+- 2022.11.09 Update to the latest LTS version of Unity 2020.3.41 and 2021.3.13
+- 2022.11.07 Open the LTS version and enter the stage of stable maintenance.
+- 2022.10.26 The official main QQ group has reached 3,000 people!
+- 2022.10.26 Support SuperSet metadata mode. The original AOT dll can be loaded directly, simplifying the packaging workflow.
+- 2022.10.19 The WebGL platform runs through all test cases except the platform itself, and supports scripts mounted on resources.
+- 2022.10.08 support profile
+- 2022.9.23 Implemented a complete workflow tool, one-click packaging
+- 2022.8.29 Update 2020.3.33 to the latest 2020.3.38 version, update 2021.3.1 to the latest 2020.3.8 version! The hybridclr_trial installer supports the use of compatible versions, and it is no longer mandatory to install the corresponding version of the branch.
+- 2022.8.27 Support Unity 2019.4.x LTS series version
+- 2022.8.9 officially support macOS intel+silicon platform
+- 2022.7.24 Support MonoPInvokeCallbackAttribute.
+- 2022.7.22 Officially support the Unity 2021 LTS series version.
+- 2022.7.15 Support WebGL platform, run through almost all unit tests (more than 1600 unit tests only 11 failed)
+- 2022.7.14 Support Win 32(x86)
+- 2022.7.13 Cooperative course with UWA launched
+- 2022.7.10 Officially support Android armv7 32-bit version! ! !
+- 2022.7.6 **Code Philosophy (code philosophy) was established! ! ! **, renamed to HybridCLR
+- On July 4, 2022, the number of github stars exceeded 2000
+- 2022.6.7 Launched the first Android and iOS dual-platform moderate game
+- 2022.5.31 For the first time, a serious RPG card project was run on the three platforms of PC, Android, and iOS in a complete, stable and smooth manner! ! !
+- 2022.5.19 There are two fully running Android projects
+- 2022.5.18 Support Android(armv8) and iOS(64) platforms! ! ! Run all unit tests
+- 2022.4.19 The number of QQ main groups exceeded 1000! ! !
+- 2022.4.16 Completely run a large-scale MMORPG project on the PC platform for the first time
+- **2022.3.23** open source
+- 2022.3.19 Run through the first mini-game 2048
+- 2022.3.16
+   - Using the generic sharing mechanism to solve some AOT generic problems
+   - Load the luban configuration normally, and run a large-scale code for the first time
+- 2022.3.6
+   - Support generic functions (ordinary generic functions and virtual generic functions)
+- 2022.3.3
+   - Support for generic classes
+   - Support delegate call
+- 2022.2.27 version
+   - Full support for exception mechanism
+- 2022.2.25 version
+   - Implement a complete register instruction set
+- 2022.1.16 preview 2 version
+   - support interface
+   - Support generic interface
+   - Support for handling value types
+   - Implemented a relatively complete IL instruction set support
+- 2022.1.10 release preview 1 version
+   - Support object definition and inheritance
+   - Support virtual function calls
+   - Use the original IL instruction set to support all basic instructions: such as numerical calculation, branch jump
+- 2021.12.19 Start of development
+- 2021.11.2 Created the HybridCLR QQ main group
