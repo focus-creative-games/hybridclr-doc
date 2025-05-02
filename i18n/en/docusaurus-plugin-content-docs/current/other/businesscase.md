@@ -3,6 +3,12 @@
 There are currently more than a thousand domestic and foreign commercial games using HybridCLR, among which hundreds of commercial projects have been launched online (AppStore or Google Play).
 We only count the commercial projects using the HybridCLR solution among the top 200 best-sellers and the top 500 free in China.
 
+:::tip
+
+The following data was collected on **February 2, 2024**. Due to updated IPA download requirements by the iOS App Store, we can no longer use automated tools for analysis. We have not updated commercial case statistics for over a year.  
+The current proportion of HybridCLR usage in the App Store's Top Grossing and Free Charts is likely significantly higher than the data shown below.
+
+:::
 
 ## Proportion of HybridCLR used in recently launched commercial projects
 
