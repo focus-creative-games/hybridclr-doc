@@ -3,11 +3,15 @@
 有一些项目已经上线，它们的大多数代码已经用lua实现了；或者一些新项目已经用lua开发到一半，他们无法完全切换为全C#开发，但希望
 可以同时接入HybridCLR，帮助慢慢过渡到全部原生C#热更新。由于HybridCLR是原生C#热更新技术，原生支持与这些脚本语言配合工作。
 
-:::tip
+## 原理
 
-你要做的，仅仅是将那些要热更新wrapper文件生成到热更新模块，同时提前预留足够多的ReversePInvoke函数。
+所有第三方脚本（lua、typescript、python等）与C#代码交互都依赖于用`[MonoPInvokeCallback]`标记要从native回调的C#函数。
+il2cpp会为每个标记了`[MonoPInvokeCallback]`的函数绑定一个单独的Wrapper函数，处理managed与native之间传参与返回值marshal之类的问题。
 
-:::
+同样的，hybridclr也需要为每个标记了`[MonoPInvokeCallback]`的函数生成对应的Wrapper函数。但对于iOS这类禁用了jit的平台，显然没法运行时
+动态生成这些wrapper函数。因此需要提前为将来可能用到的这类函数预留相应的Wrapper函数。
+
+如何预留Wrapper函数，详见文档[MonoPInvokeCallback支持](./monopinvokecallback)。
 
 ## xlua
 
@@ -18,77 +22,3 @@ xlua并未考虑过模块化，生成的代码全在全局Assembly-CSharp里，�
 
 确保预留了足够多的ReversePInvokeWrapper函数并且生成的wrapper代码能放到热更新模块，并且正确注册即可。
 
-## MonoPInvokeCallbackAttribute支持
-
-HybridCLR对 `[MonoPInvokeCallbackAttribute]` 的支持跟原生完全相同。由于每个标注 `[MonoPInvokeCallbackAttribute]` 的函数必须有一个唯一对应的c++函数，而AOT限制导致不可能运行时新增函数，
-因而要提前为每个`[MonoPInvokeCallbackAttribute]`函数生成一个`c++ wrapper函数`，用于与之绑定。这些wrapper函数在 `hybridclr/generated/ReversePInvokeMethodStub_{abi}.cpp` 文件中。
-
-[com.code-philosophy.hybridclr](/basic/com.code-philosophy.hybridclr.md) 已经提供了脚本帮助自动生成这些wrapper函数，运行菜单命令`HybridCLR/Generate/ReversePInvokeWrapper` 即可。
-
-## 预留 ReversePInvokeWrapper 函数
-
-`HybridCLR/Generate/ReversePInvokeWrapper`默认为每个带`[MonoPInvokeCallbackAttribute]`特性的函数生成一个wrapper函数。
-但如果仅仅生成跟当前拥有`[MonoPInvokeCallbackAttribute]`特性的函数相同个数的wrapper函数，后面新增热更新函数则
-会发生wrapper函数不足的问题。解决方法是使用`HybridCLR.ReversePInvokeWrapperGenerationAttribute`进行预留操作。
-
-在带有`MonoPInvokeCallbackAttribute`的函数上新增一个特性 `[ReversePInvokeWrapperGeneration(int preserveCount)]`，则为**这个签名**的函数生成preserveCount个wrapper函数。如果不包含此特性，则只会为这个函数生成
-一个wrapper函数。如果对多个相同签名的函数添加了`[ReversePInvokeWrapperGeneration(xx)]` 特性，则wrapper函数总数为 `所有 preserveCount之和 + 不包含 ReversePInvokeWrapperGenerationAttribute 特性的函数个数`。
-
-如下如示， `LuaFunction` 类型的wrapper有10个， `Func<int, int, int>` 类型的wrapper有101个，`Func<int, int>` 类型的wrapper有1个。 
-
-```csharp
-
-[UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-delegate int LuaFunction(IntPtr luaState);
-
-public class MonoPInvokeWrapperPreserves
-{
-    [ReversePInvokeWrapperGeneration(10)]
-    [MonoPInvokeCallback(typeof(LuaFunction))]
-    public static int LuaCallback(IntPtr luaState)
-    {
-        return 0;
-    }
-
-    [ReversePInvokeWrapperGeneration(100)]
-    [MonoPInvokeCallback(typeof(Func<int, int, int>))]
-    public static int Sum(int a, int b)
-    {
-        return a + b;
-    }
-
-    [MonoPInvokeCallback(typeof(Func<int, int, int>))]
-    public static int Sum2(int a, int b)
-    {
-        return a + b;
-    }
-
-    [MonoPInvokeCallback(typeof(Func<int, int>))]
-    public static int Inc(int a)
-    {
-        return a + 1;
-    }
-}
-
-```
-
-## 限制
-
-目前调用MonoPInvokeCallback类型函数时没有对参数作marshal处理。普通的int、float类型工作正常，但像string之类参数由于native层传递的是'char*'，没有marshal转为string，直接使用后必然会崩溃！
-
-如果遇到string类型参数的情况，有两种解决办法：
-
-1. 可以将回调函数放到AOT中，在AOT中再回调热更新函数。
-2. 将参数改为IntPtr类型，然后再调用Marshal.PtrToStringUTF8将IntPtr类型的原始char*类型数据转成string。示例代码如下。
-
-```csharp
-    [MonoPInvokeCallback(typeof(Func<Intptr, int>))]
-    public static int Inc(IntPtr ptr)
-    {
-        string s = Marshal.PtrToStringUTF8(ptr);
-        return s.Length;
-    }
-
-```
-
-其他需要Marshal的非primitive类型的参数均可仿照这个方法处理。

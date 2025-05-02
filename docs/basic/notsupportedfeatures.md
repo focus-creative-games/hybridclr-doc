@@ -4,7 +4,7 @@
 不在限制事项中的特性HybridCLR都支持，请不要再问HybridCLR是否支持某个功能。
 :::
 
-- 暂时不支持在热更新脚本中定义extern函数，但可以调用AOT中extern函数。
+- 自v8.0.0版本起支持在热更新脚本中定义extern函数，但对返回值和参数有一定限制，详见文档[PInvoke](./pinvoke)。
 - 不支持`System.Runtime.InteropServices.Marshal`中 `Marshal.StructureToPtr`之类序列化结构的函数，但普通Marshal函数如`Marshal.PtrToStringAnsi`都是能正常工作的。
 - 不支持[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.xxx)]。纯粹是时机问题，Unity收集这些函数的时机很早，此时热更新dll还没加载。一个推荐的办法是你使用反射收集这些函数，在合适的时机主动调用它们。
 - 不支持对解释代码部分进行C#级别调试，因为没暂时没时间写调试器

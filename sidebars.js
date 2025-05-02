@@ -57,6 +57,8 @@ const sidebars = {
         'basic/buildwebgl',
         'basic/codestriping',
         'basic/monobehaviour',
+        'basic/pinvoke',
+        'basic/monopinvokecallback',
         'basic/aotgeneric',
         'basic/methodbridge',
         'basic/dots',
