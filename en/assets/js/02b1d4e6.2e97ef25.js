@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[9024],{9328:e=>{e.exports=JSON.parse('{"title":"Others","slug":"/other","permalink":"/en/docs/other","navigation":{"previous":{"title":"Issue Report","permalink":"/en/docs/help/issue"},"next":{"title":"Related Third-party Projects","permalink":"/en/docs/other/relativepojects"}}}')}}]);
