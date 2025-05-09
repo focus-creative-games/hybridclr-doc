@@ -218,6 +218,14 @@ To a large extent, it is caused by the mismatch between your package and hybridc
 
 If your version is 2020.3.0-2020.3.25, after completing the installation in the Installer, copy `2020.3.x/Editor/Data/il2cpp/external` from the installation directory of any version 2020.3.26+ and replace `{project} /HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
 
+### "PInvoke method {method.FullName} has unsupported parameter or return type. Please check the method signature." appears when calling `HybridCLR/Generate/All` or building
+
+The extern function defined in the hot update code does not support parameters or return values ​​such as string or array. Please change the corresponding parameters to IntPtr and marshal these parameters yourself, or move the function to AOT for definition. For details, please see [PInvoke support](../basic/pinvoke).
+
+### "MonoPInvokeCallback method {method.FullName} has unsupported parameter or return type. Please check the method signature." appears when calling `HybridCLR/Generate/All` or building
+
+The function defined in the hot update code with the `[MonoPInvokeCallback]` attribute added does not support parameters or return values ​​such as string or array. Please change the corresponding parameters to IntPtr and marshal these parameters yourself, or move the function to AOT for definition.
+See [MonoPInvokCallback support](../basic/monopinvokecallback) for details.
 
 ## Runtime errors
 
@@ -360,6 +368,10 @@ The bridge function in the aot -> interpreter direction is missing. Please make 
 If it works fine on Android but has problems on iOS, it is because you did not recompile libil2cpp.a.
 
 If you still have problems, please give feedback to the administrator technical support in the group.
+
+### Encountered `ExecutionEngineException: NotSupportManaged2NativeFunctionMethod`
+
+This is caused by the lack of bridge functions for the extern functions defined in the hot update code. Please reserve bridge functions related to extern functions in advance when building the main package. For details, see the document [PInvoke support](../basic/pinvoke).
 
 ### ExecutionEngineException: Attempting to call method 'xxxx' for which no ahead of time (AOT) code was generated.
 

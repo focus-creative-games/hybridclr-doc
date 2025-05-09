@@ -244,6 +244,15 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 团结引擎1.1.x为微信小游戏平台新增的metadta index slim优化会导致hybridclr无法在微信小游戏平台正常运行。
 自团结引擎1.2.0版本起 WinxinMiniGame平台的Publishing Settings中新增了`Use Slim Format For global-metadata.dat`选项，禁用这个优化后可以正常使用hybridclr。
 
+### `HybridCLR/Generate/All`或构建时出现"PInvoke method {method.FullName} has unsupported parameter or return type. Please check the method signature."
+
+在热更新代码中定义的extern函数不支持string或者数组之类的参数或者返回值，请将相应参数修改为IntPtr同时自行marshal这些参数，或者将该函数移到AOT中定义。详细请见[PInvoke支持](../basic/pinvoke)。
+
+### `HybridCLR/Generate/All`或构建时出现"MonoPInvokeCallback method {method.FullName} has unsupported parameter or return type. Please check the method signature."
+
+在热更新代码中定义的添加了`[MonoPInvokeCallback]`特性的函数不支持string或者数组之类的参数或者返回值，请将相应参数修改为IntPtr同时自行marshal这些参数，或者将该函数移到AOT中定义。
+详细请见[MonoPInvokCallback支持](../basic/monopinvokecallback)。
+
 ## 运行时错误
 
 ### EntryPointNotFoundException. Unable to find entry point named 'RuntimeApi_LoadMetadataForAOTAssembly' in 'GameAssembly`
@@ -385,6 +394,10 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 如果Android上正常，而iOS上有问题，则是因为你没有重新编译libil2cpp.a。
 
 如果还有问题，请在群里反馈给管理员 技术支持。
+
+### 遇到`ExecutionEngineException: NotSupportManaged2NativeFunctionMethod`
+
+这是热更新代码中定义的extern函数缺失桥接函数引起。请在构建主包时提前预留extern函数相关的桥接函数。详细见文档[PInvoke支持](../basic/pinvoke)。
 
 ### ExecutionEngineException: Attempting to call method 'xxxx' for which no ahead of time (AOT) code was generated.
 

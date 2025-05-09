@@ -11,7 +11,7 @@ Due to maintenance cost considerations, HybridCLR only supports the LTS series v
 - 2021.3.x
 - 2022.3.x
 - 2023.2.x
-- 6000.0.x
+- 6000.x.y
 
 :::tip
 

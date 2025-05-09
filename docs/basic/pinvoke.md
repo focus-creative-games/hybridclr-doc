@@ -24,7 +24,7 @@ hybridclr一直以来都支持调用AOT中定义的extern函数，但自**v8.0.0
 
 ## 预留桥接函数
 
-调用PInvoke函数时，同样需要解决managed到native的参数转换，因此需要预先生成该PInvoke函数相应的桥接函数，否则运行时会抛出异常。
+调用PInvoke函数时，同样需要解决managed到native的参数转换，因此需要预先生成该PInvoke函数相应的桥接函数，否则运行时会抛出异常 `ExecutionEngineException: NotSupportManaged2NativeFunctionMethod`。
 
 对于构造主包时在热更新代码中已经存在的PInvoke函数，会自动为它们生成相应桥接函数，不需要特殊处理。对于未来可能用到，但没有现存跟它
 相同签名的PInvoke函数的函数，需要为它预留相应桥接函数。

@@ -24,7 +24,7 @@ Supporting extern functions relies on the runtime to find function symbols in dy
 
 ## Reserved bridge function
 
-When calling a PInvoke function, you also need to solve the parameter conversion from managed to native, so you need to generate the corresponding bridge function for the PInvoke function in advance, otherwise an exception will be thrown at runtime.
+When calling a PInvoke function, you also need to solve the parameter conversion from managed to native, so you need to generate the corresponding bridge function for the PInvoke function in advance, otherwise an exception `ExecutionEngineException: NotSupportManaged2NativeFunctionMethod` will be thrown at runtime.
 
 For PInvoke functions that already exist in the hot update code when constructing the main package, the corresponding bridge function will be automatically generated for them, and no special processing is required. For functions that may be used in the future but do not have an existing PInvoke function with the same signature, you need to reserve the corresponding bridge function for it.
 
