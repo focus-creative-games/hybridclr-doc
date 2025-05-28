@@ -165,7 +165,7 @@ Just click `Install` to complete the installation. After the installation is suc
 Fill in the commit id or branch or tag of the hybridclr and il2cpp_plus warehouses you want to install. If the version number of hybridclr is left blank, install the latest version from the main branch of the hybridclr repository.
 If the version number of il2cpp_plus is left blank, install the latest version of the main branch of the corresponding annual release (such as 2020-main).
 
-**hybridclr_uniyt branch
+**hybridclr_unity branch
 
 , The branch of the hybridclr warehouse and the branch of the il2cpp_plus warehouse must match**. If you use the main branch of com.code-philosophy.hybridclr, hybridclr must use the main branch, il2cpp_plus must use `{version}-main`, if your hybridclr_unity uses the 1.0 branch, then hybridclr must use the `1.0` branch, il2cpp_plus The `{version}-1.0` branch must be used. If you use a version of a tag, make sure the branch the tag belongs to matches.
 

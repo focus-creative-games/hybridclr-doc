@@ -156,7 +156,7 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 填写你要安装的hybridclr和il2cpp_plus仓库的 commit id或branch或tag。如果hybridclr的版本号留空，则安装hybridclr仓库main分支的最新版本。
 如果il2cpp_plus的版本号留空，则安装相应年度版本主分支（如2020-main）的最新版本。
 
-**hybridclr_uniyt分支、hybridclr仓库的分支跟il2cpp_plus仓库分支必须匹配**。如果你com.code-philosophy.hybridclr使用了main分支，则hybridclr必须使用main分支，il2cpp_plus必须使用`{version}-main`，如果你hybridclr_unity使用了1.0分支， 则hybridclr必须使用`1.0`分支，il2cpp_plus必须使用`{version}-1.0`分支。 如果你使用了某个tag的版本，确保这个tag所属的分支匹配。
+**hybridclr_unity分支、hybridclr仓库的分支跟il2cpp_plus仓库分支必须匹配**。如果你com.code-philosophy.hybridclr使用了main分支，则hybridclr必须使用main分支，il2cpp_plus必须使用`{version}-main`，如果你hybridclr_unity使用了1.0分支， 则hybridclr必须使用`1.0`分支，il2cpp_plus必须使用`{version}-1.0`分支。 如果你使用了某个tag的版本，确保这个tag所属的分支匹配。
 
 hybridclr仓库推荐填写`1.0`，即每次安装1.0分支的最新版本；il2cpp_plus仓库推荐填`{年度版本}-1.0`（如2020-1.0），即每次安装`{年度版本}-1.0`分支的最新版本。如图：
 
