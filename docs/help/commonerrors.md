@@ -403,7 +403,6 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 为出错的函数所在的dll补充元数据即可。
 
-
 ### GetReversePInvokeWrapper fail. exceed max wrapper num of method
 
 Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特性的函数预留Wrapper函数，详见[MonoPInvokeCallback支持](../basic/workwithscriptlanguage.md)
@@ -418,8 +417,8 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 > 当使用addressables来更新热更新的dll时。由于是先使用了Addressables的LoadAssetAsync函数，导致Addressables需要先进行初始化，此时的初始化中如果资源的类型是在热更新的类型，那么Addressables会认为该资源的类型为System.Object。所以需要先进行dll的加载才能够使用Addressables来加载资源，否则就会报UnityEngine.AddressableAssets.InvalidKeyException: Exception of type 'UnityEngine.AddressableAssets.InvalidKeyException' was thrown. No Asset found with for Key=xxx. Key exists as Type=System.Object, which is not assignable from the requested Type=YourHotUpdateAssetType。
 
-
 解决办法有如下几种：
+
 - 使用`LoadAsset<System.Object>`接口加载后再强转
 - 在loaddll结束后重新加载catalog `Addressables.LoadContentCatalogAsync($"{Addressables.RuntimePath}/catalog.json");`
 
@@ -474,21 +473,39 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 - 升级到v5.2.0+版本，支持最大64M的dll
 - 将热更新dll拆分成多个更小的dll
 
-## 启动时执行AutomaticWorldBootstrap::Initialize过程中调用ResourceCatalogData::GetGUIDFromPath崩溃
+### 启动时执行AutomaticWorldBootstrap::Initialize过程中调用ResourceCatalogData::GetGUIDFromPath崩溃
 
 你当前使用的entities版本不能直接使用Player Building中打包，必须安装`com.unity.platforms`，使用它单独的提供的打包方式，[详细文档](https://docs.unity3d.com/Packages/com.unity.entities@0.51/manual/ecs_building_projects.html)。
 
-## Job.ScheduleBatch 崩溃
+### 热更新程序集引用了Unity.Entities，运行时抛出异常 DllNotFoundException: netstandard
+
+正常情况下netstandard程序集会在构建过程中被裁剪，可以通过`link.xml`中保留netstandard解决。
+
+### 运行DOTS时遇到Invaild type name的异常
+
+dots生成的assembly上的 [BurstCompiler.StaticTypeReinit(type)] 注解中type类型名有错误。例如：它生成了这样的类型名
+"GameLogic.TestSystem+GameLogic.__codegen__OnCreate_00000015$BurstDirectCall" ，正确应该是“ GameLogic.TestSystem+__codegen__OnCreate_00000015$BurstDirectCall” ，
+hybridclr读取到这个custom attribute时调用il2cpp接口解析类型时就出错了。
+
+解决办法有几条：
+
+- 修改 il2cpp::vm::Tyep::TyepNameParser::ParseTypeName的实现，让它能够读出dots生成的病态的名字
+- 移除System、ComponentData等类型的命名空间，这样嵌套子类型中就不会错误地包含namespace，在这种情况下名字就能正确解析了
+- 找unity报告让他们修复这个bug
+
+类似的问题参考[issue#164](https://github.com/focus-creative-games/hybridclr/issues/164)。
+
+### Job.ScheduleBatch 崩溃
 
 hybridclr与dots不兼容导致，商业化版本可以解决这个问题。
 
-## 游戏启动时出现`Unable to load il2cpp`错误
+### 游戏启动时出现`Unable to load il2cpp`错误
 
 这是因为你当前使用的hybridclr与你的Unity版本号不兼容导致的。一般来说是因为你的版本太新，你当前的hybridclr未及时合并你当前版本的il2cpp的代码改动。
 
 请升级hybridclr到最新版本，然后重新打包。如果仍然有问题，请报告给我们，我们会在一周内发布新版本解决这个兼容问题。
 
-## WebGL 运行时出现 function signature mismatch错误
+### WebGL 运行时出现 function signature mismatch错误
 
 WebGL平台打包时默认使用 `faster (smaller) build`选项，该选项会开启完全泛型共享，而社区版本必须补充元数据后才能与完全泛型共享机制配合工作。请依次尝试以下办法：
 
@@ -498,7 +515,7 @@ WebGL平台打包时默认使用 `faster (smaller) build`选项，该选项会�
 1. 如果仍有问题，升级到最新的hybridclr版本
 1. 如果极有问题，请联系我们技术支持
 
-## webgl（或微信小游戏之类）在iOS5.4 系统出现"Not implemented"、"Class::FromIl2CppType"之类的错误日志，卡在启动画面无法启动
+### webgl（或微信小游戏之类）在iOS5.4 系统出现"Not implemented"、"Class::FromIl2CppType"之类的错误日志，卡在启动画面无法启动
 
 此为 Unity & iOS 15.4 的 BUG，解决办法有两个：
 
