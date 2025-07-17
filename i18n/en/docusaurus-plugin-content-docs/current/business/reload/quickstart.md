@@ -28,34 +28,46 @@ Try to unload. If there is a reference to the object in the unloaded assembly in
 The sample code is as follows:
 
 ```csharp
-
 // First load
-Assembly ass = Assembly.Load(yyy);
+    Assembly ass = Assembly.Load(yyy);
 
-// Execute some code
-Type mainType = ass.GetType("Entry");
-mainType.GetMethod("Main").Invoke(null, null);
+    // Execute some code
+    Type mainType = ass.GetType("Entry");
+    mainType.GetMethod("Main").Invoke(null, null);
 
-// First unload
-// The printObjectReferenceLink parameter is true, which means that when the unloading fails, a detailed reference chain log of illegal objects will be printed, which is convenient for developers to locate where illegal references are maintained.
-// It is recommended to set it to true only during the development period and change it to false after the official launch
-if (!RuntimeApi.TryUnloadAssembly(ass, true))
-{
-    throw new Exception("unload fail");
-}
+    // First unload
+    // When printObjectReferenceLink=true, object reference relationships are maintained, making unloading slower.
+    // First, try unloading with printObjectReferenceLink=false. If it fails, set printObjectReferenceLink=true,
+    // attempt unloading again, and log invalid reference links.
+    var report = RuntimeApi.TryUnloadAssembly(ass, false);
+    if (!report.success)
+    {
+        report = RuntimeApi.TryUnloadAssembly(ass, true);
+        foreach (string log in report.invalidObjectReferenceLinkLogs)
+        {
+            Debug.LogError(log);
+        }
+        throw new Exception("unload fail");
+    }
 
-// Second load
-Assembly newAss = Assembly.Load(yyy);
+    // Second load
+    Assembly newAss = Assembly.Load(yyy);
 
-// Execute some code
-Type mainType = ass.GetType("Entry");
-mainType.GetMethod("Main").Invoke(null, null);
+    // Execute some code
+    mainType = ass.GetType("Entry");  // Note: Should be `newAss.GetType("Entry")` to avoid a bug
+    mainType.GetMethod("Main").Invoke(null, null);
 
-// Second uninstall
-if (!RuntimeApi.TryUnloadAssembly(ass, true))
-{
-    throw new Exception("unload fail");
-}
+    // Second unload
+    report = RuntimeApi.TryUnloadAssembly(ass, false);  // Note: Should be `newAss` instead of `ass`
+    if (!report.success)
+    {
+        report = RuntimeApi.TryUnloadAssembly(ass, true);  // Note: Should be `newAss` instead of `ass`
+        foreach (string log in report.invalidObjectReferenceLinkLogs)
+        {
+            Debug.LogError(log);
+        }
+        throw new Exception("unload fail");
+    }
 ```
 
 ### ForceUnloadAssembly

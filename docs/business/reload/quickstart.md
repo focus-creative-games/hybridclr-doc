@@ -38,10 +38,17 @@
     mainType.GetMethod("Main").Invoke(null, null);
 
     // 第一次卸载
-    // printObjectReferenceLink参数为true表示当卸载失败时，会打印出详细的非法对象的引用链日志，方便开发者定位出哪儿保持了非法引用。
-    // 建议只在开发期为true，正式上线后改为false
-    if (!RuntimeApi.TryUnloadAssembly(ass, true))
+    // printObjectReferenceLink=true 时会维护对象的引用关系，导致卸载比较耗时。
+    // 先尝试printObjectReferenceLink=false时卸载，如果失败让 printObjectReferenceLink=true，
+    // 再次尝试卸载，打印非法引用日志
+    var report = RuntimeApi.TryUnloadAssembly(ass, false);
+    if (!report.success)
     {
+        report = RuntimeApi.TryUnloadAssembly(ass, true);
+        foreach (string log in report.invalidObjectReferenceLinkLogs)
+        {
+            Debug.LogError(log);
+        }
         throw new Exception("unload fail");
     }
 
@@ -49,12 +56,18 @@
     Assembly newAss = Assembly.Load(yyy);
 
     // 执行一些代码
-    Type mainType = ass.GetType("Entry");
+    mainType = ass.GetType("Entry");
     mainType.GetMethod("Main").Invoke(null, null);
 
     // 第二次卸载
-    if (!RuntimeApi.TryUnloadAssembly(ass, true))
+    report = RuntimeApi.TryUnloadAssembly(ass, false);
+    if (!report.success)
     {
+        report = RuntimeApi.TryUnloadAssembly(ass, true);
+        foreach (string log in report.invalidObjectReferenceLinkLogs)
+        {
+            Debug.LogError(log);
+        }
         throw new Exception("unload fail");
     }
 ```
@@ -75,8 +88,13 @@
     // 第一次卸载
     // ignoreObjectReferenceValidation参数为true表示卸载过程中不检查非法对象引用，可以缩短卸载时间。但建议无论开发期还是正式发布都取false
     // printObjectReferenceLink参数为true表示当卸载失败时，会打印出详细的非法对象的引用链日志，方便开发者定位出哪儿保持了非法引用。建议只在开发期为true，正式上线后改为false
-    if (!RuntimeApi.ForceUnloadAssembly(ass, false, true))
+    var report = RuntimeApi.ForceUnloadAssembly(ass, false, true);
+    if (!report.success)
     {
+        foreach (string log in report.invalidObjectReferenceLinkLogs)
+        {
+            Debug.LogError(log);
+        }
         throw new Exception("unload fail");
     }
 
@@ -84,12 +102,17 @@
     Assembly newAss = Assembly.Load(yyy);
 
     // 执行一些代码
-    Type mainType = ass.GetType("Entry");
+    mainType = ass.GetType("Entry");
     mainType.GetMethod("Main").Invoke(null, null);
 
     // 第二次卸载
-    if (!RuntimeApi.ForceUnloadAssembly(ass, false, true))
+    report = RuntimeApi.ForceUnloadAssembly(ass, false, true);
+    if (!report.success)
     {
+        foreach (string log in report.invalidObjectReferenceLinkLogs)
+        {
+            Debug.LogError(log);
+        }
         throw new Exception("unload fail");
     }
 ```

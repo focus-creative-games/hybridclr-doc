@@ -90,6 +90,10 @@ void TwoPhaseUnloadAssembly(Assembly ass)
     if (!report.success)
     {
         report = RuntimeApi.TryUnloadAssembly(ass, true);
+        foreach (string log in report.invalidObjectReferenceLinkLogs)
+        {
+            Debug.LogError(log);
+        }
     }
 }
 
