@@ -12,3 +12,8 @@ Obfuz已经提供了以下相关文档：
 - [构建过程中执行混淆](https://www.obfuz.com/docs/manual/build-pipeline)
 - [增量混淆与代码热更新](https://www.obfuz.com/docs/manual/incremental-obfuscation-and-hotupdate)
 - [与HybridCLR协同工作](https://www.obfuz.com/docs/manual/work-with-hybridclr)
+- **[多态dll文件](https://www.obfuz.com/docs/manual/hybridclr/polymorphic-dll)**
+
+:::tip
+**多态dll文件**能有效对抗破解和篡改dll，强烈建议商业项目使用此特性。
+:::
