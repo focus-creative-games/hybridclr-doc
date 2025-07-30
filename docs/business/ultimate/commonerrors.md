@@ -16,3 +16,23 @@
 - 使用了错误的原始dhe dll或者最新的dhe dll
 - development选项不一致导致dll差异巨大。如构建主包时开启了development选项，但编译dll时没有使用`CompileDll/activeTarget_development`命令。或者构造主包时禁用了development选项，但编译dll时使用`CompileDll/activeTarget_development`，都会导致这个问题。
 - dhe程序集为预编译好的dll，构造主包时该dhe程序集被裁剪，导致与最新的dhe dll差异巨大。解决办法为在`link.xml`中添加`<assembly fullname="YourExternDll" preserve="all"/>` 完全保留该dll
+
+## 生成dhao或者mv文件时遇到错误`Exception: [SignatureToIdMapper] version mismatch, expected 1, but got 0`
+
+从v8.4.0版本起修复了一个函数签名的计算bug，修复后的函数签名计算方式发生了变化。如果使用旧版本hybridclr生成的snapshot
+跟最新的热更新代码生成dhao或者mv文件，就会产生这种错误。
+
+解决办法：
+
+- 如果已经对外发布了游戏App，并且使用meta version工作流
+
+开启`HybridCLRSettings.generateCompatibleMethodSignature`选项。 但由于此版本的method signature计算有bug，建议
+重新发布app时升级到v8.4.0及更高版本。
+
+- 如果已经对外发布了游戏App，但使用dhao工作流
+
+不应该遇到此错误。
+
+- 如果还在开发期
+
+重新发布App，重新生成aot snapshot。
