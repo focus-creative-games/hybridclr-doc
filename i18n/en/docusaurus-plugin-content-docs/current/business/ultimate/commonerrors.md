@@ -16,3 +16,21 @@ A small amount of code changes will generally only affect the function in which 
 - The wrong original DHE DLL or the latest DHE DLL was used
 - Inconsistent development options lead to huge differences in DLLs. For example, the development option is turned on when building the main package, but the `CompileDll/activeTarget_development` command is not used when compiling the DLL. Or the development option is disabled when constructing the main package, but the `CompileDll/activeTarget_development` is used when compiling the DLL.
 - The DHE assembly is a precompiled DLL. When constructing the main package, the DHE assembly is trimmed, resulting in a huge difference with the latest DHE DLL. The solution is to add `<assembly fullname="YourExternDll" preserve="all"/>` in `link.xml` to completely retain the DLL
+
+## Error: `Exception: [SignatureToIdMapper] version mismatch, expected 1, but got 0` when generating a dhao or mv file
+
+A bug in function signature calculation has been fixed since version 8.4.0. This fix results in a change in the way function signatures are calculated. This error will occur if you use a snapshot generated with an older version of HybridCLR with the latest hot-update code to generate a dhao or mv file.
+
+Solution:
+
+- If you have already released your game app and are using the meta version workflow,
+
+enable the `HybridCLRSettings.generateCompatibleMethodSignature` option. However, due to a bug in method signature calculation in this version, it is recommended that you upgrade to v8.4.0 or later when re-releasing your app.
+
+- If you have already released your game app but are using the dhao workflow,
+
+you should not encounter this error.
+
+- If you are still in development,
+
+Re-release your app and regenerate the aot snapshot.
