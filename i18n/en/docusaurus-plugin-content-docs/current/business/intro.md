@@ -1,74 +1,77 @@
 # Introduction
 
-We offer various high-end commercial versions and customizable technical services to meet the needs of game projects in various scenarios.
+We provide multiple high-end commercial versions and flexibly customizable technical services to meet game project requirements in various application scenarios.
 
 ## Commercial Versions
 
 :::tip
 
-All commercial versions will be long-term supported for **Unity 2019-6000 LTS** versions, ensuring long-term stable technical support for projects.
+All commercial versions provide long-term support for **Unity 2019-6000 LTS** versions, ensuring projects have long-lasting and stable technical support.
 
 :::
 
-Currently, there are three commercial versions, with specific feature comparisons as follows:
+Currently, there are three commercial versions with specific feature comparisons as follows:
 
-- [Professional Edition](./pro/intro.md). Significant improvements in [interpreted execution performance](./basicoptimization) (numeric instruction performance is **280%-735%** of the community version), optimized metadata memory, support for code encryption, effectively ensuring code security.
-- [**Ultimate Edition**](./ultimate/intro.md). Includes all features of the Professional Edition, additionally featuring our core [DHE technology](./differentialhybridexecution), greatly improving performance, almost (**100% when unchanged**) reaching the same level as native AOT.
-- [Hot Reload Edition](./reload/intro.md). Includes all features of the Professional Edition, and supports unloading and reloading individual assemblies. Currently, it can unload **100%** of the metadata memory of the assembly.
+- [Professional Edition](./pro/intro.md). Significantly improves [interpretation execution performance](./basicoptimization) (numerical instruction performance is **280%-735%** of the community version), optimizes metadata memory, supports code encryption, and effectively ensures code security
+- [**Ultimate Edition**](./ultimate/intro.md). Includes all Professional Edition features, plus our core [DHE technology](./differentialhybridexecution), dramatically improving performance to nearly (**100% when unchanged**) the same level as native AOT
+- [Hot Reload Edition](./reload/intro.md). Includes all Professional Edition features while supporting unloading and reloading individual assemblies, currently capable of unloading **100%** of assembly metadata memory
 
-| Feature                  | Community Edition | Professional Edition | Ultimate Edition | Hot Reload Edition |
-|--------------------------|-------------------|----------------------|------------------|--------------------|
-| Interpreted Execution    | ✔                 | ✔                    | ✔                | ✔                  |
-| MonoBehaviour            | ✔                 | ✔                    | ✔                | ✔                  |
-| Supplementary Metadata   | ✔                 | ✔                    | ✔                | ✔                  |
-| Incremental GC           | ✔                 | ✔                    | ✔                | ✔                  |
-| Unity 2019-6000 LTS      | ✔                 | ✔                    | ✔                | ✔                  |
-| [DOTS](../basic/dots)                    | ✔                  | ✔                    | ✔                | ✔                  |
-| [Full Generic Sharing](./fullgenericsharing)          |                   | ✔                    | ✔                | ✔                  |
-| [Metadata Optimization](./metadataoptimization.md) |                   | ✔                    | ✔                | ✔                  |
-|[Hotfix](./hotfix)|✔|✔|✔|
-|[Assembly::Load Loading Time Optimization](./assemblyloadoptimization)||✔|✔|✔|
-|[Crash Report With Interpreter Stack Trace](./crashreport)||✔|✔|✔|
-| [Standard Interpretation Performance Optimization](./basicoptimization)    |                   | ✔                    | ✔                | ✔                  |
-| [Offline Instruction Optimization](./advancedoptimization)    |                   | ✔                    | ✔                | ✔                  |
-| [Code Encryption](./basicencryption)         |                   | ✔                    | ✔                | ✔                  |
-|global-metadata.dat encryption||✔|✔|✔|
-| [Hot Reload](./reload/hotreloadassembly)          |                   |                      |                  | ✔                  |
-| [Access Control Mechanism](./accesspolicy)  |                   |                      |                  | ✔                  |
-| [**DHE Technology**](./differentialhybridexecution)            |                   |                      | ✔                |                    |
-| Technical Support        |                   | 2 year               | 2 years          | 2 years            |
+|Feature|Community|Professional|Ultimate|Hot Reload|
+|-|-|-|-|-|
+|Interpretation Execution|✔|✔|✔|✔|
+|MonoBehaviour|✔|✔|✔|✔|
+|Supplemental Metadata|✔|✔|✔|✔|
+|Incremental GC|✔|✔|✔|✔|
+|Unity 2019-6000 LTS|✔|✔|✔|✔|
+|[DOTS](../basic/dots)|✔|✔|✔|✔|
+|[Full Generic Sharing](./fullgenericsharing)||✔|✔|✔|
+|[Metadata Optimization](./metadataoptimization.md)||✔|✔|✔|
+|[Standard Interpretation Performance Optimization](./basicoptimization)||✔|✔|✔|
+|[Hotfix Dynamic Hot Repair](./hotfix)||✔|✔|✔|
+|[Assembly::Load Loading Optimization](./assemblyloadoptimization)||✔|✔|✔|
+|[Crash Logs with Interpreter Stack Information](./crashreport)||✔|✔|✔|
+|[Offline Instruction Optimization](./advancedoptimization)||✔|✔|✔|
+|global-metadata.dat Encryption||✔|✔|✔|
+|[Code Hardening](./basicencryption)||✔|✔|✔|
+|[Hot Reload](./reload/hotreloadassembly)||||✔|
+|[Access Control Mechanism](./accesspolicy)||||✔|
+|[**DHE Technology**](./differentialhybridexecution)|||✔||
+|Technical Support||2 years|2 years|2 years|
 
-### Pricing
+### Pricing Standards
 
-| Version            | Price (RMB)            | Description                                                                      |
-|--------------------|------------------------|----------------------------------------------------------------------------------|
-| Community Edition  | 0                      | Unlimited usage period                                                          |
-| Professional Edition | Contact us via email for business inquiry | Buy the right to use for one project permanently, includes 2 year of technical support and 2 year of code updates |
-| Hot Reload Edition  | Contact us via email for business inquiry | Buy the right to use for one project permanently, includes 2 years of technical support and 2 years of code updates |
-| Ultimate Edition   | Contact us via email for business inquiry | Buy the right to use for one project permanently, includes 2 years of technical support and 2 years of code updates |
+
+|Version|Price (RMB)|Description|
+|-|-|-|
+|Community Edition|0|Unlimited use|
+|Professional Edition|Contact business via email|Perpetual license for one project, includes 2 years technical support and 2 years code updates|
+|Hot Reload Edition|Contact business via email|Perpetual license for one project, includes 2 years technical support and 2 years code updates|
+|Ultimate Edition|Contact business via email|Perpetual license for one project, includes 2 years technical support and 2 years code updates|
+
 
 ## Enterprise Technical Support
 
-You can flexibly choose the technical service items needed by the enterprise. If subscribed annually, billing will be based on the service items, otherwise, it will be based on the service duration.
+You can flexibly choose the technical service projects needed by the enterprise. If you subscribe annually, billing is based on service items; otherwise, billing is based on service duration.
 
-### Technical Support Contents
+### Technical Support Content
 
-- Standard response and resolution of bugs, including one-on-one remote assistance and guidance. Most reproducible bugs will be fixed or provided with workarounds within 2-7 days.
-- Solve some special platform compatibility issues.
-- Support for some currently unsupported versions (excluding versions before 2018).
-- Optimization guidance.
-- Other services.
+- Standard bug response and resolution, including one-on-one remote assistance guidance. Most reproducible bugs will be fixed or provided with workaround solutions within 2-7 days
+- Solve some special platform compatibility issues
+- Support for some currently unsupported versions (excluding 2018 and earlier versions)
+- Optimization guidance
+- Other services
 
-### Pricing
+### Pricing Standards
 
-Since HybridCLR is easy to use and stable, most companies do not need long-term technical support. Therefore, only timed technical support services are provided.
-Unused time in a single service can be retained for subsequent use. To save business costs, time-based billing under 2000 RMB **does not provide** contracts and invoices, please understand.
+Since HybridCLR is easy to use and runs stably, most companies do not require long-term technical support, so we only provide hourly technical support services.
+Unused time from a single service session can be retained for future use. To save business costs, hourly billing of 1500 RMB and below **does not provide** contracts and invoices, please understand.
 
-| Service Level | Scope of Problem Solving                                      | Price                      |
-|---------------|--------------------------------------------------------------|----------------------------|
-| Standard     | Provides technical support for basic usage questions, excluding bug fixes and implementation of unreleased features | 100 RMB per hour, billed in 15-minute increments (e.g., 15 minutes, 2 hours) |
-| Expert       | Solves complex problems, including bug fixes                 | 1500 RMB per hour, billed in 30-minute increments (e.g., 30 minutes, 2 hours) |
+|Service Level|Problem Scope|Price|
+|-|-|-|
+|Standard|Provides basic usage technical Q&A, does not include bug fixes or unimplemented feature solutions|100 RMB/hour, billed in 15-minute intervals (e.g., 15 minutes, 2 hours)|
+|Expert|Solves complex problems, including bug fixes|1500 RMB/hour, billed in 30-minute intervals (e.g., 30 minutes, 2 hours)|
+
 
 ## Contact Us
 
-Please use your company's **corporate email** to email `business@code-philosophy.com` for inquiries. Emails initiated by personal email accounts such as QQ or 126 will be ignored, please understand.
+Please use your company's **corporate email** to send inquiries to `business@code-philosophy.com`. Emails sent from personal accounts like QQ or 126 email will be ignored, please understand.

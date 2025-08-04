@@ -1,31 +1,28 @@
-# Issue Report
+# Bug Report Template
 
-Before reporting bugs, please confirm that the following steps have been completed:
-- Check out the [Common Errors Documentation](../help/commonerrors.md) carefully, most beginner questions are there.
-- At this point, if it is still confirmed that it is a bug, please send it to the technical customer service (QQ1732047670) according to the **Feedback Template** below.
+Before reporting a bug, please confirm you have completed the following steps:  
+- Carefully review the [Common Errors documentation](/help/commonerrors.md), as most beginner issues are covered there.
+- If you're still certain it's a bug, please follow the **Report Template** below and send it to technical support (QQ1732047670).
 
-## Bug Feedback
+## Bug Report
 
-If it is determined to be a bug, please submit the issue according to the following bug feedback template (some larger files such as export projects do not need to be submitted), and then directly feedback the issue to the technical customer service, and attach materials on QQ (such as export projects, etc. ).
+If you're certain it's a bug, please submit an issue following the bug report template below (you don't need to submit large files like exported projects), then directly report the issue to technical support, while also providing materials (like exported projects) via QQ.
 
-**Issue Template**
+**Bug Report Template**
 
-- Unity Editor version. Such as 2020.3.33.
-- operating system. Such as Win10.
-- Wrong BuildTarget. Such as Android 64.
-- The version number of com.code-philosophy.hybridclr. Such as v2.3.1.
-- The version number of the hybridclr repository. Such as v2.2.0.
-- The version number of the il2cpp_plus repository. Such as v2021-2.2.0.
+- Unity Editor version. e.g., 2020.3.33
+- Operating system. e.g., Win 10
+- Problematic BuildTarget. e.g., Android 64
+- com.code-philosophy.hybridclr version number. e.g., v2.3.1
 - Screenshots and log files
-- Recurrence conditions
-- The c# code location of the error (if it can be located)
-- Free users must provide one of the materials that meet the following conditions, otherwise it will be rejected, because bug feedback that does not meet the standards will waste too much of our time, please understand.
-   - a reproducible piece of code
-   - A minimal reproducible Unity project that requires modifications based on hybridclr_trial. And reproduce immediately after packaging
-   - Win 64 reproducible export Debug project (must be started to reproduce) and hot update dll (used to track instructions)
+- Reproduction conditions
+- Location of problematic C# code (if identifiable)
+- Free users must provide one of the following materials that meet the criteria, otherwise the report will be rejected, as non-standard bug reports waste too much of our time. Please understand.
+  - Reproducible code segment
+  - Reproducible minimal Unity project, required to be modified based on hybridclr_trial. Must reproduce immediately after building
+  - Win 64 reproducible exported Debug project (must reproduce on startup) and hot update dlls (for instruction tracing)
 - Commercial users can provide one of the following materials.
-   - The minimal reproducible Unity project, try to modify it on the basis of hybridclr_trial.
-   - Win 64 reproducible export Debug project (must be started to reproduce) and hot update dll (used to track instructions)
-   - Android (64 or 32) reproducible export Debug project must be able to be successfully packaged directly, and there must be no errors such as missing key store! ! ! It must be built and then run to reproduce.
-   - xcode export project. It must be run to reproduce.
-   
+  - Reproducible minimal Unity project, preferably modified based on hybridclr_trial.
+  - Win 64 reproducible exported Debug project (must reproduce on startup) and hot update dlls (for instruction tracing)
+  - Android (64 or 32) reproducible exported Debug project, must be able to build successfully without issues like missing key store!!! Must reproduce after build and run.
+  - Xcode exported project. Must reproduce on run.

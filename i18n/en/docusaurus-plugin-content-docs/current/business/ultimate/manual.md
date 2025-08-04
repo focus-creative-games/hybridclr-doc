@@ -2,21 +2,19 @@
 
 ## Installation
 
-- Unzip hybridclr_unity.zip and put it in the project Packages directory, rename it to com.code-philosophy.hybridclr
-- Unzip the corresponding `il2cpp_plus-{version}.zip` according to your Unity version
-- Unzip `hybridclr.zip`
-- Put the hybridclr directory after unzipping `hybridclr.zip` into the libil2cpp directory after unzipping `il2cpp-{version}.zip`
-- Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the libil2cpp directory just unzipped, and install it
+- Extract hybridclr_unity.zip and place it in the project Packages directory, rename it to com.code-philosophy.hybridclr
+- Extract the corresponding `il2cpp_plus-{version}.zip` according to your Unity version
+- Extract `hybridclr.zip`
+- Place the hybridclr directory from the extracted `hybridclr.zip` into the libil2cpp directory from the extracted `il2cpp-{version}.zip`
+- Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the libil2cpp directory you just extracted, and perform the installation
 - According to your Unity version:
-  - **If version >= 2023**:  
-    - First install **Unity 2022.3.60f1**  
-    - Copy the `2022.3.60f1\Editor\Data\il2cpp\build\deploy` directory to `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`  
-    - Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll` with the file `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll`  
-  - **If version >= 2021**:  Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` with `ModifiedDlls\{verions}\Unity.IL2CPP.dll`  
-  - **If version >= 2020**:  Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` with `ModifiedDlls\{verions}\Unity.IL2CPP.dll`  
-  - **If version 2019**:  No action required, as files are automatically copied during installation  
-
-*(Note: `{proj}` represents your project root path, and `{verions}` should match your specific Unity version number)*
+  - If version >= 2023,
+    - First install Unity 2022.3.60f1
+    - Copy the `2022.3.60f1\Editor\Data\il2cpp\build\deploy` directory as `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`
+    - Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll` with the `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll` file
+  - If version >= 2021, replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` with the `ModifiedDlls\{verions}\Unity.IL2CPP.dll` file
+  - If version >= 2020, replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` with the `ModifiedDlls\{verions}\Unity.IL2CPP.dll` file
+  - If version is 2019, no action needed as it's automatically copied during the Install process
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
@@ -25,54 +23,56 @@
 ### Configure PlayerSettings
 
 - Switch `Scripting Backend` to `IL2CPP`
-- Switch `Api Compatibility Level` to `.Net 4.x`(Unity 2019-2020) or `.Net Framework` (Unity 2021+)
+- Switch `Api Compatability Level` to `.Net 4.x` (Unity 2019-2020) or `.Net Framework` (Unity 2021+)
 
 ![player settings](/img/hybridclr/ultimate-project-settings.jpg)
 
-### Enable incremental GC
+### Enable Incremental GC
 
-Enable the `use incremental GC` option in `Player Settings`, no settings are required for HybridCLR.
+Simply enable the `use incremental GC` option in `Player Settings`, no settings required for HybridCLR.
 
-### Enable full generic sharing
+### Enable Full Generic Sharing
 
-- 2020 version does not support full generic sharing
+- 2020 version doesn't support full generic sharing
 - 2021 version needs to set IL2CPP Code Generation option to `faster(smaller)`
-- 2022 version enables full generic sharing by default and cannot be turned off. If you set IL2CPP Code Generation option to `faster(smaller)`, you can further reduce the package size.
+- 2022 version has full generic sharing enabled by default and cannot be disabled. If you set IL2CPP Code Generation option to `faster(smaller)`, it can further reduce package size.
 
-## Enable and disable standard instruction optimization
+## Enable and Disable Standard Instruction Optimization
 
-Standard optimization is enabled by default. You can actively control to enable or disable this feature through the `RuntimeApi.EnableTransformOptimization` function.
+Standard optimization is enabled by default. You can actively control enabling or disabling this feature through the `RuntimeApi.EnableTransformOptimization` function.
 
-Standard instruction optimization and advanced instruction optimization are two completely independent and mutually exclusive features. For each interpreted function, you can only choose to use one of them or not use them at all.
+Standard instruction optimization and advanced instruction optimization are completely independent and mutually exclusive features. For each interpreted function, you can only choose to use one of them or not use them at all.
 
 ### Configure HybridCLR
 
-As with the community version, click the `HybridCLR/Settings` menu to open the configuration dialog box.
+Same as the community version, click the `HybridCLR/Settings` menu to open the configuration dialog.
 
-| Field | Description|
+| Field | Description |
 |-|-|-|
-|differentialHybridAssemblies|DHE assembly list. Add the assembly names that need differential hybrid execution to this list, such as HotUpdate. The same assembly cannot be added to both the differentialHybridAssemblies and hotUpdateAssemblies lists. |
+|differentialHybridAssemblies|DHE assembly list. Add assembly names that need differential hybrid execution to this list, such as HotUpdate. The same assembly **cannot be added simultaneously** to both differentialHybridAssemblies and hotUpdateAssemblies lists.|
 
-### Reserve all DHE assemblies in link.xml
+### Reserve All DHE Assemblies in link.xml
 
-For user-owned code such as Assembly-CSharp, il2cpp generally does not trim. However, for third-party assemblies that are directly added to Unity in the form of dll, if all are not reserved, these dlls will be trimmed during packaging, and there will be huge changes when generating dhao files, which is obviously not what we expect.
+For user's own code like Assembly-CSharp, il2cpp generally doesn't strip it. But for third-party assemblies added directly to Unity as dll files, if not all are reserved, these dlls will be stripped during packaging, which will cause massive changes when generating dhao files, which is obviously not what we expect.
 
-Add similar configurations `<assembly fullname="YourExternDll" preserve="all"/>` to all your dhe assemblies in `Assets/link.xml` (or other custom link.xml).
+Add configurations like `<assembly fullname="YourExternDll" preserve="all"/>` for all your dhe assemblies in `Assets/link.xml` (or other custom link.xml).
 
-## Configure function injection strategy
+## Configure Function Injection Strategy
 
 :::tip
 
-In most projects, the default full injection strategy has little impact on performance. As long as there is no performance problem, you don't need to care about this configuration.
+In most projects, the default full injection strategy has negligible performance impact. As long as there are no performance issues, you don't need to and shouldn't care about this configuration.
 
 :::
 
-In order to avoid indirect dirty function contagion (i.e. function A calls function B, if B changes, A will also be marked as changed), a small check jump code is injected into all function headers by default. Although it is a very simple `if (method->isInterpterImpl)` statement, for short functions such as `int Age {get; set;}`, this insertion may cause observable performance degradation (even up to 10%).
+To avoid indirect dirty function contamination (i.e., function A calls function B, if B changes, A will also be marked as changed), by default a small section of check and jump code is injected at the beginning of all functions. Although it's a very simple `if (method->isInterpterImpl)` statement, for short functions like `int Age {get; set;}`, this insertion may cause observable performance degradation (even up to 10%).
 
-Function injection strategy is used to optimize this situation. For short functions that do not change, configuring it to not inject can improve performance. For details, please see the [InjectRules](./injectrules) document.
+Function injection strategy is used to optimize this situation. For short functions that won't change, configuring them as non-injected can improve performance. See the [InjectRules](./injectrules) document for details.
 
-In `HybridCLR Settings`, fill in the injection policy file path in the `InjectRuleFiles` field. The relative path of the file is the project root directory (such as `Assets/InjectRules/DefaultInjectRules.xml`).
+Fill in the injection strategy file path in the `InjectRuleFiles` field in `HybridCLR Settings`. The file's relative path is the project root directory (such as `Assets/InjectRules/DefaultInjectRules.xml`).
 
-## Unsupported features
+## Unsupported Features
 
-- Unsupported `script debugging` build option
+- Does not support enabling the `script debugging` build option
+
+

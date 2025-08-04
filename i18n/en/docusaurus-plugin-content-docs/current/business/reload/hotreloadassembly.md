@@ -1,36 +1,36 @@
-# HotReload Technology
+# Hot Reload Technology
 
-Hot reload technology is used to completely uninstall or reload an assembly, which is suitable for games of the mini-game collection type. This solution only provides **commercial version**.
+Hot reload technology is used to completely unload or reload an assembly, suitable for mini-game collection type games. This solution is only available in **commercial versions**.
 
-## Supported features
+## Supported Features
 
-- Support uninstalling assemblies, uninstalling 100% of the memory occupied by assemblies
-- Support reloading assemblies, the code can be arbitrarily changed or even completely different (MonoBehaviour and Scriptable have certain restrictions)
-- Support **limiting the set of functions that can be accessed in hot updates of assemblies**, which is suitable for creating sandbox environments in UGC games to avoid damage caused by malicious player code.
+- Supports unloading assemblies, unloading 100% of the memory occupied by assemblies
+- Supports reloading assemblies, code can change arbitrarily or even be completely different (MonoBehaviour and Scriptable have certain limitations)
+- Supports **limiting the set of functions that can be accessed within hot update assemblies**, suitable for creating sandbox environments in UGC games to prevent malicious player code from causing damage.
 
-## Unsupported features and special requirements
+## Unsupported Features and Special Requirements
 
-- Require that business code will no longer use objects or functions in the uninstalled assembly, and exit all old logic in execution
-- Cannot directly uninstall the dependent assembly, must first uninstall the dependent in reverse dependency order, and then uninstall the dependent. For example, if A.dll depends on B.dll, you need to uninstall A.dll first, then uninstall B.dll
-- MonoBehaviour,ScriptableObject and types are marked `[Serializable]`
-    - It is required that events or message functions in the overloaded MonoBehaviour, such as Awake and OnEable, do not be added or deleted (but the function body can change)
-    - It is required that the serialized field name of the script class with the same name in the old assembly does not change after overloading (the type can change)
-    - If the field type is a custom type A (class or struct or enum) in the uninstallable assembly, it must be given the `[Serializable]` attribute
-    - The field type `List<A>` is not supported, where A is a type in the uninstallable assembly, please replace it with `A[]`
-    - Cann't be generic types, .eg `class MyScript<T> : MonoBehaviour`
-    - Generic types cannot be inherited, such as `class MyScript : CommonScript<int>`
-- Some libraries that cache reflection information (this behavior is most common in serialization-related libraries, such as LitJson), need to clean up the cached reflection information after hot reloading
-- Destructors, ~XXX(), are not supported. It is also not allowed to instantiate generic classes with destructors whose generic parameters are of this assembly type
-- Incompatible with dots. Since dots caches a large amount of type information and the implementation is complex, it is difficult to clean up the cache information separately.
+- Requires business code to no longer use objects or functions from unloaded assemblies, and to exit all executing old logic
+- Cannot directly unload dependent assemblies; must unload in reverse dependency order, first unloading dependents, then dependencies. For example, if A.dll depends on B.dll, A.dll must be unloaded first, then B.dll
+- MonoBehaviour, ScriptableObject, and types marked with `[Serializable]`
+  - Requires that event or message functions like Awake, OnEnable in reloaded MonoBehaviour do not change in number (but function bodies can change)
+  - Requires that serialized field names of script classes with the same name in the old assembly do not change after reloading (types can change)
+  - If field type is a custom type A (class, struct, or enum) from an unloadable assembly, it must be marked with the `[Serializable]` attribute
+  - Does not support field types like `List<A>` where A is a type from an unloadable assembly; replace with `A[]`
+  - Cannot be generic or inherit from generic types, e.g., `class MyScript<T>` or `class MyScript : CommonScript<int>`
+- Some libraries that cache reflection information (this behavior is most common in serialization-related libraries like LitJson) need to clear cached reflection information after hot reload
+- Does not support destructors, ~XXX(). Also does not allow instantiation of generic classes with destructors where generic parameters include types from this assembly
+- Incompatible with DOTS. Due to DOTS heavily caching type information and complex implementation, it's difficult to individually clear cached information.
 
-## Memory unloading rate
+## Memory Unload Rate
 
-Except for the following metadata memory that cannot be unloaded, almost all other (99.9%) metadata can be unloaded:
+Except for the following metadata memory that cannot be unloaded, almost all (99.9%) metadata can be unloaded:
 
-- Script classes such as MonoBehavoiur and ScriptableObject. The Il2CppClass corresponding to them at the runtime level will be referenced by the Unity engine internally and cannot be released, but most member metadata such as method can be released
-- Types marked with `[Serializable]`. Similar to MonoBehaviour, they may also be referenced by the Unity engine memory during serialization and cannot be released.
-- Generic classes used during the operation of this assembly, but not involving this assembly type. For example, `List<int>` metadata will not be released, but `List<MyHotReloadClass>` will be released
+- Script classes like MonoBehaviour, ScriptableObject. Their corresponding Il2CppClass at runtime level is referenced internally by Unity engine and cannot be released, but most member metadata like methods can be released
+- Types marked with `[Serializable]`. Similar to MonoBehaviour, they may also be referenced internally by Unity engine during serialization and cannot be released.
+- Generic classes used during assembly execution that don't involve types from this assembly. For example, `List<int>` metadata won't be released, but `List<MyHotReloadClass>` will be released
 
-All unreleased metadata (MonoBehaviour, Serializable class) will be reused when the assembly is loaded again. Loading and unloading the same assembly multiple times will only cause one unreleased behavior, which will not cause leaks or continuous growth of unreleased metadata memory.
+All unreleased metadata (MonoBehaviour, Serializable classes) will be **reused** when reloading the assembly. Multiple loads and unloads of the same assembly will only cause one unreleased behavior and won't lead to leakage or continuous growth of unreleased metadata memory.
 
-In actual projects, more than 99% of metadata memory can be unloaded for most assemblies.
+In actual projects, for most assemblies, over 99% of metadata memory can be unloaded.
+

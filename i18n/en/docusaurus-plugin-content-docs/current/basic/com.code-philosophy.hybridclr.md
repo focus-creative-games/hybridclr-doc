@@ -1,86 +1,85 @@
-# Hybridclr Package
+# hybridclr Package Manual
 
-`com.code-philosophy.hybridclr` is a Unity package that provides the Editor workflow tool script and Runtime script required by HybridCLR. with the help of
-The workflow tool provided by com.code-philosophy.hybridclr makes it very easy to package an App that supports HybridCLR hot update function. The hybridclr_unity package mainly includes the following contents:
+`com.code-philosophy.hybridclr` is a Unity package that provides Editor workflow tools and Runtime scripts required by HybridCLR. With the workflow tools provided by com.code-philosophy.hybridclr, packaging an App that supports HybridCLR hot update functionality becomes very simple. The hybridclr_unity package mainly contains the following content:
 
-- Editor related scripts
-- Runtime related scripts
--iOSBuild script
+- Editor-related scripts
+- Runtime-related scripts
+- iOSBuild scripts
 
 :::caution
-Before v3.0.0 the package name was `com.focus-creative-games.hybridclr_unity`.
+The package name before v3.0.0 was `com.focus-creative-games.hybridclr_unity`.
 :::
 
-## HybridCLR menu introduction
+## HybridCLR Menu Introduction
 
-The following submenus are all under the `HybridCLR` menu in the menu bar. For the sake of simplification, we no longer include HybridCLR when we mention submenus below.
+The following submenus are all under the `HybridCLR` menu in the menu bar. For simplification, we will not include HybridCLR when mentioning submenus below.
 
 ### Installer...
 
-A handy installer is provided to help correctly set up the local il2cpp directory, which contains a modified version replacing the `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` directory with HybridCLR.
+For detailed documentation, see [Installing HybridCLR](./install.md).
 
-The installer needs to copy il2cpp (similar to `C:\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\il2cpp`) related files from the Unity installation directory of the matching version.
+Installer is a convenient installer that helps correctly set up the local il2cpp directory, including replacing the `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` directory with the HybridCLR modified version.
 
-- For 2019.4.40+, 2021.3.26+, 2021.3.0+, 2022.3.0+ versions, copy the il2cpp file directly from the installation directory of that version.
-- For versions 2020.3.16-2020.3.25, an additional version 2020.3.26 or later needs to be installed. After completing the installation in the Installer, switch back to the current version.
-- For the 2019.4.0-2019.4.39 version, you need to install the 2019.4.40 version additionally, and switch back to the current version after completing the installation in the Installer.
 
-`Installation Status: Installed | Not Installed` in the installation interface indicates whether HybridCLR initialization is complete. Click Install, if successful, the `Installation Successful` log will be displayed at the end, and the installation status will switch to `Installed`, otherwise please check the error log.
+The installation interface shows `Installation Status: Installed|Not Installed` indicating whether HybridCLR initialization is complete. Click install, and if successful, it will display `Installation Successful` log and the installation status will switch to `Installed`, otherwise please check error logs.
 
 :::tip
-If HybridCLR is already installed, clicking the Install button will install the latest HybridCLR version of libil2cpp.
+If HybridCLR is already installed, clicking the install button will install the latest HybridCLR version of libil2cpp.
 :::
 
-The branch or tag compatible with hybridclr and il2cpp_plus corresponding to the current package version has been configured in the `Data~/hybridclr_version.json` file in com.code-philosophy.hybridclr.
-The Installer will install the version specified in the configuration, and no longer supports customizing the version to be installed.
+The `Data~/hybridclr_version.json` file in com.code-philosophy.hybridclr has already configured the compatible hybridclr and il2cpp_plus branches or tags corresponding to the current package version. The Installer will install the version specified in the configuration and no longer supports custom installation versions.
 
 The configuration looks like this:
 
 ```json
 {
-     "versions": [
-     {
-         "unity_version": "2019",
-         "hybridclr" : { "branch": "v2.0.1"},
-         "il2cpp_plus": { "branch": "v2019-2.0.1"}
-     },
-     {
-         "unity_version": "2020",
-         "hybridclr" : { "branch": "v2.0.1"},
-         "il2cpp_plus": { "branch": "v2020-2.0.1"}
-     },
-     {
-         "unity_version": "2021",
-         "hybridclr" : { "branch": "v2.0.1"},
-         "il2cpp_plus": { "branch": "v2021-2.0.1"}
-     }
-     ]
+    "versions": [
+    {
+        "unity_version":"2019",
+        "hybridclr" : { "branch":"v2.0.1"},
+        "il2cpp_plus": { "branch":"v2019-2.0.1"}
+    },
+    {
+        "unity_version":"2020",
+        "hybridclr" : { "branch":"v2.0.1"},
+        "il2cpp_plus": { "branch":"v2020-2.0.1"}
+    },
+    {
+        "unity_version":"2021",
+        "hybridclr" : { "branch":"v2.0.1"},
+        "il2cpp_plus": { "branch":"v2021-2.0.1"}
+    },
+    {
+        "unity_version":"2022",
+        "hybridclr" : { "branch":"v2.0.1"},
+        "il2cpp_plus": { "branch":"v2020-2.0.1"}
+    }
+    ]
 }
 ```
 
-If you must install other versions of hybridclr or il2cpp_plus, modify the branch in the configuration file to be the target branch or tag.
+If you must install other versions of hybridclr or il2cpp_plus, modify the branch in this configuration file to the target branch or tag.
 
 ![install_default](/img/hybridclr/install_default.jpg)
 
-From version 2.3.1 onwards, it supports copying and installing directly from the libil2cpp directory that contains hybridclr made locally. If your network is not good, or git is not installed and you cannot download and install remotely from the warehouse, you can first [il2cpp_plus](https://github.com/focus-creative-games/il2cpp_plus) and [hybridclr](https:/ /github.com/focus-creative-games/hybridclr) is downloaded to the local, and then according to the document in the **Installation Principle** section below, the libil2cpp directory containing hybridclr is merged from these two warehouses, and then installed in `Installer` Enable `Copy libil2cpp from local` option in the interface, select the libil2cpp directory you made, and click `Install` to execute the installation. As shown below.
+Starting from version 2.3.1, support for directly copying and installing from a local self-made libil2cpp directory containing hybridclr has been added. If you have poor network connectivity or don't have git installed and can't download remotely from repositories, you can first download [il2cpp_plus](https://github.com/focus-creative-games/il2cpp_plus) and [hybridclr](https://github.com/focus-creative-games/hybridclr) locally, then according to the **Installation Principle** section documentation below, merge these two repositories to create a libil2cpp directory containing hybridclr. Then in the `Installer` interface, enable the `Copy libil2cpp from local` option, select your created libil2cpp directory, and click `Install` to execute installation. As shown below.
 
 ![install](/img/hybridclr/install.jpg)
 
 ### Compile Dll
 
-For each target, you must use the hot update dll compiled under the compile switch of the target platform, otherwise the hot update code will not match the code information of the AOT main package or hot update resources.
+For each target, you must use hot update dlls compiled under the target platform compilation switches, otherwise there will be mismatches between hot update code and AOT main package or hot update resource code information.
 
-The `HybridCLR.Editor` assembly of com.code-philosophy.hybridclr provides the `HybridCLR.Editor.Commands.CompileDllCommand.CompileDll(BuildTarget target)` interface,
-It is convenient for developers to compile hot update dll by themselves flexibly. After the compilation is completed, the hot update dll is placed in the `{project}/HybridCLRData/HotUpdateDlls/{platform}` directory.
+The `HybridCLR.Editor` assembly in com.code-philosophy.hybridclr provides the `HybridCLR.Editor.Commands.CompileDllCommand.CompileDll(BuildTarget target)` interface, making it convenient for developers to flexibly compile hot update dlls themselves. After compilation, hot update dlls are placed in the `{project}/HybridCLRData/HotUpdateDlls/{platform}` directory.
 
 ### Generate
 
-Generate contains the generation commands needed for packaging.
+Generate contains generation commands needed during packaging.
 
 
 ### Generate/Il2CppDef
 
-The hybridclr code needs to be compatible with multiple Unity versions, and macro definitions related to the current Unity version are required. The `Generate/Il2CppDef` command generates relevant version macros and other necessary codes, and the generated codes are similar to the following.
+hybridclr code needs to be compatible with multiple Unity versions and requires macro definitions related to the current Unity version. The `Generate/Il2CppDef` command generates related version macros and other necessary code. The generated code looks like this:
 
 ```cpp
 // hybridclr/generated/UnityVersion.h
@@ -93,14 +92,14 @@ The hybridclr code needs to be compatible with multiple Unity versions, and macr
 
 ### Generate/LinkXml
 
-Scan the AOT type referenced by the hot update dll, generate link.xml, and prevent the AOT type or function used by the hot update script from being clipped. The output file path is specified in the `OuputLinkXml` field in HybridCLRSettings.asset, and the default is `LinkGenerator/link.xml`.
+Scans AOT types referenced by hot update dlls and generates link.xml to prevent AOT types or functions used by hot update scripts from being stripped. The output file path is specified in the `OuputLinkXml` field in HybridCLRSettings.asset, defaulting to `LinkGenerator/link.xml`.
 
-For a more specific introduction to clipping, please see [Code Clipping Principles and Solutions](codestriping.md).
+For more specific introduction to stripping, see [Code Stripping Principles and Solutions](codestriping.md).
 
 ### Generate/AotDlls
 
-Generate trimmed AOT dlls. The script achieves the goal of generating trimmed AOT dlls by exporting the project in a temporary directory. Generating AOT dlls depends on `Generate/LinkXml` and `Generate/Il2CppDef`.
-If you did not use `HybridCLR/Generate/All` such a one-click generation command, please run the following commands in sequence:
+Generate trimmed AOT dlls. The script exports projects in a temporary directory to achieve the goal of generating trimmed AOT dlls. Generating AOT dlls depends on `Generate/LinkXml` and `Generate/Il2CppDef`.
+If you haven't used one-click generation commands like `HybridCLR/Generate/All`, please run the following commands in order:
 
 - `HybridCLR/Generate/Il2CppDef`
 - `HybridCLR/Generate/LinkXml`
@@ -108,9 +107,9 @@ If you did not use `HybridCLR/Generate/All` such a one-click generation command,
 
 ### Generate/MethodBridge
 
-Scan and generate bridge function files according to the current AOT dll set. For related documents, please see [bridge function](methodbridge.md).
+Scans the current AOT dll set to generate bridge function files. For related documentation, see [Bridge Functions](methodbridge.md).
 
-Generate bridge function depends on AOT dlls and hot update dlls. If you did not use `HybridCLR/Generate/All` such a one-click generation command, please run the following commands in sequence:
+Generating bridge functions depends on AOT dlls and hot update dlls. If you haven't used one-click generation commands like `HybridCLR/Generate/All`, please run the following commands in order:
 
 - `HybridCLR/Generate/Il2CppDef`
 - `HybridCLR/Generate/LinkXml` (implicitly calls `HybridCLR/CompileDll/ActiveBuildTarget`)
@@ -119,292 +118,287 @@ Generate bridge function depends on AOT dlls and hot update dlls. If you did not
 
 ### Generate/AOTGenericReference
 
-Scan all generated AOT generic types and function instantiations according to the current hot update dll, and generate a **inspired** generic instantiation file `AOTGenericReferences.cs`.
-Since it is troublesome to convert the scanned generic types and functions into corresponding code references, all generated generic instantiation codes are **comment code**.
+Scans all generated AOT generic type and function instantiations based on the current hot update dlls, and generates an **heuristic** generic instantiation file `AOTGenericReferences.cs`.
+Since converting the scanned generic types and functions to corresponding code references is quite troublesome, all generated generic instantiation code is **commented code**.
 
-The `AOTGenericReferences.cs` file also contains a list of assemblies that should be supplemented with metadata, similar to the following, so that developers can quickly know which metadata should be supplemented without running the game.
+The `AOTGenericReferences.cs` file also contains the assembly list that should supplement metadata, like the following, making it convenient for developers to quickly know which metadata should be supplemented without running the game.
 
 ```csharp
-// {{ AOT assemblies
-// Main.dll
-// System. Core. dll
-// UnityEngine.CoreModule.dll
-// mscorlib.dll
-// }}
+	// {{ AOT assemblies
+	// Main.dll
+	// System.Core.dll
+	// UnityEngine.CoreModule.dll
+	// mscorlib.dll
+	// }}
 ```
 
 
-Please add instantiation references to generic types and functions in other files, as this output file will be overwritten every time it is regenerated.
-This generic instantiation documentation is only for inspiration, telling you which classes and functions can be instantiated with aot generics.
-For more specific AOT generic related documents, please see [AOT Generic Introduction](../basic/aotgeneric.md).
+Please add generic type and function instantiation references in other files, as this output file will be overwritten each time it's regenerated.
+This generic instantiation documentation only serves as inspiration, telling you which classes and functions can have AOT generic instantiation.
+For more specific AOT generic related documentation, see [AOT Generic Introduction](/basic/aotgeneric.md).
 
 :::tip
-After using the supplementary metadata mechanism, **does not process** and does not affect normal operation. But if you manually instantiate aot generics, you can improve performance. The suggestion is to manually instantiate a small number of performance-sensitive classes or functions, such as `Dictionary<int,int>`.
+After using the supplemental metadata mechanism, **no processing** is needed and it won't affect normal operation. However, if you manually instantiate AOT generics, performance can be improved. The recommendation is to manually instantiate generics only for a small number of performance-sensitive classes or functions, such as `Dictionary<int,int>`.
 :::
 
-It is at the discretion of the developer to convert to the correct instantiation reference (**this operation is optional, it can be completely ignored or only partially processed**), that is, instantiate the generic class or generic in this annotation in the AOT code type function. The method is roughly as follows:
+Developers should discretionally convert to correct instantiation references (**this operation is optional, can be completely unprocessed or only partially processed**), i.e., instantiate these commented generic classes or generic functions in AOT code. The method is roughly as follows:
 
 ```csharp
 
-     // System.Collections.Generics.List`1<System.Object>.ctor
-     new List<object>();
+    // System.Collections.Generics.List`1<System.Object>.ctor
+    new List<object>();
 
-     // System.Byte[] Array.Empty`1<System.Byte>()
-     Array. Empty<byte>();
+    // System.Byte[] Array.Empty`1<System.Byte>()
+    Array.Empty<byte>();
 
 ```
 
 ### Generate/ReversePInvokeWrapper
 
-Generate a ReversePInvokeWrapper function for hot-updated C# static functions marked with `[MonoPInvokeCallback]` annotation. Please refer to the document [MonoPInvokeCallback Support](workwithscriptlanguage.md) for the specific introduction of MonoPInvokeCallback
+Generates ReversePInvokeWrapper functions for hot update C# static functions marked with `[MonoPInvokeCallback]` annotation. For specific MonoPInvokeCallback introduction, see documentation [MonoPInvokeCallback Support](./workwithscriptlanguage.md)
 
 
 ### Generate/All
 
 One-click execution of necessary generation operations before packaging.
 
-## HybridCLR configuration
+## HybridCLR Configuration
 
-Click the menu `HybridCLR/Settings` to open the configuration interface. The fields are detailed below.
+Click menu `HybridCLR/Settings` to open the configuration interface. Below are detailed field descriptions.
 
 ### enable
 
-Whether to enable HybridCLR hot update. The default is true. If false, the packaging no longer includes HybridCLR functionality.
+Whether to enable HybridCLR hot updates. Default is true. If false, packaging will no longer include HybridCLR functionality.
 
 :::caution
-If HybridCLR is disabled, please also remove the reference to the HybridCLR.Runtime assembly in the main project, otherwise there will be errors such as missing symbols such as `RuntimeApi::LoadMetadataForAOTAssembly` when packaging.
+If HybridCLR is disabled, please also remove references to the HybridCLR.Runtime assembly in the main project, otherwise packaging will result in missing symbol errors like `RuntimeApi::LoadMetadataForAOTAssembly`.
 :::
 
 ### useGlobalIl2cpp
 
-Whether to use the global installation location, that is, the il2cpp directory under the editor installation location. The default is false. Generally, `useGlobalIl2cpp=true` is only required when packaging WebGL.
+Whether to use the global installation location, i.e., the il2cpp directory under the editor installation location. Default is false. Generally, `useGlobalIl2cpp=true` is only needed when packaging WebGL.
 
-Note that even if `useGlobalIl2Cpp=true`, il2cpp will still be copied to the HybridCLRData directory during installation. Before copying, you need to run `HybridCLR/Generate/Il2CppDef` to generate the version macro,
-Then manually replace the `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` directory with the corresponding directory under the editor installation directory.
-In addition, every time you run `HybridCLR/Generate/*` to execute the generation operation, the output directory is still the local directory, and you need to manually copy and replace the libil2cpp directory in the global installation location.
+Note that even if `useGlobalIl2Cpp=true`, installation will still copy il2cpp to the HybridCLRData directory. Before copying, you need to first run `HybridCLR/Generate/Il2CppDef` to generate version macros,
+then manually replace the `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` directory with the corresponding directory under the editor installation directory.
+Additionally, each time you run `HybridCLR/Generate/*` to execute generation operations, the output directory is still the local directory, and you need to manually copy and replace the libil2cpp directory at the global installation location.
 
 ### hybridclrRepoURL
 
-The address of the hybridclr warehouse, the default value is `https://gitee.com/focus-creative-games/hybridclr`. When installing the Installer, clone the hybridclr warehouse code from this address.
+The address of the hybridclr repository, default value is `https://gitee.com/focus-creative-games/hybridclr`. The Installer clones hybridclr repository code from this address during installation.
 
 ### il2cppPlusRepoURL
 
-The address of the il2cpp_plus warehouse, the default value is `https://gitee.com/focus-creative-games/il2cpp_plus`. When the Installer is installed, clone the il2cpp_plus warehouse code from this address.
+The address of the il2cpp_plus repository, default value is `https://gitee.com/focus-creative-games/il2cpp_plus`. The Installer clones il2cpp_plus repository code from this address during installation.
 
 ### hotUpdateAssemblyDefinitions
 
-The list of hot update modules defined in the form of assembly definition (asmdef) is equivalent to `hotUpdateAssemblies` below, but it is more convenient to drag and drop asmdef modules in the editor, and it is not easy to make mistakes and write wrong names.
+Hot update module list defined in assembly definition (asmdef) form, which is equivalent to the `hotUpdateAssemblies` below, except that dragging asmdef modules in the editor is more convenient and less prone to name errors.
 
 :::caution
-`hotUpdateAssemblyDefinitions` and `hotUpdateAssemblies` are combined to form the final hot update dll list. The same assembly should not appear in two lists at the same time, an error will be reported!
+`hotUpdateAssemblyDefinitions` and `hotUpdateAssemblies` combined form the final hot update dll list. The same assembly should not appear in both lists simultaneously, as it will cause errors!
 :::
 
-###hotUpdateAssemblies
+### hotUpdateAssemblies
 
-Some assemblies exist in the form of dll, such as the hot update dll you created in an external project, or you directly use Assembly-CSharp as your hot update dll. Since there is no corresponding asmdef file, it can only be manually configured in the form of dll name.
-Do not include the '.dll' suffix when filling in the assembly name, just like `Main`, `Assembly-CSharp`. Assembly in asmdef form, you can also choose not to add it to `hotUpdateAssemblyDefinitions`,
-Instead, add to `hotUpdateAssemblies`. But this is not as convenient as directly dragging into the list, you can choose at your own discretion.
+Some assemblies exist in dll form, for example, hot update dlls you created in external projects, or if you directly use Assembly-CSharp as your hot update dll. Since there are no corresponding asmdef files, they can only be manually configured by dll name.
+When filling in assembly names, don't include the '.dll' suffix, just like `Main`, `Assembly-CSharp`. For assemblies in asmdef form, you can also choose not to add them to `hotUpdateAssemblyDefinitions`,
+but add them to `hotUpdateAssemblies` instead. However, this is not as convenient as directly dragging into the list, you can choose as appropriate.
 
-`hotUpdateAssemblyDefinitions` and `hotUpdateAssemblies` are combined to form the final hot update dll list. The same assembly should not appear in two lists at the same time, an error will be reported!
+`hotUpdateAssemblyDefinitions` and `hotUpdateAssemblies` combined form the final hot update dll list. The same assembly should not appear in both lists simultaneously, as it will cause errors!
 
 ### preserveHotUpdateAssemblies
 
-A list of reserved hot update dll names. Sometimes I want to add some hot update dlls in the future, and expect the scripts of these new hot update dlls to be mounted on resources. If you directly add the hot update dll name to hotUpdateAssemblies, an error will be reported that the assembly does not exist.
-The preserveHotUpdateAssemblies field is used to meet this requirement. These dlls are not checked for validity when packaging and will be added to an assembly list file like scriptingassemblies.json.
-Do not include the `.dll` suffix when filling in the assembly name, just like `Assembly-CSharp`.
+Reserved hot update dll name list. Sometimes you want to add new hot update dlls in the future and expect scripts from these new hot update dlls to be mountable to resources. If you directly add hot update dll names to hotUpdateAssemblies, it will report assembly not found errors.
+The preserveHotUpdateAssemblies field is used to meet this need. The validity of these dlls is not checked during packaging, and they will be added to assembly list files like scriptingassemblies.json.
+When filling in assembly names, don't include the `.dll` suffix, just like `Assembly-CSharp`.
 
 ### hotUpdateDllCompileOutputRootDir
 
-The output root directory of the compiled hot update dll. The final output directory is under the platform subdirectory of this directory, namely `${hotUpdateDllCompileOutputRootDir}/{platform}`.
+The output root directory for compiled hot update dlls. The final output directory is under the platform subdirectory of this directory, i.e., `${hotUpdateDllCompileOutputRootDir}/{platform}`.
 
 ### externalHotUpdateAssemblyDirs
 
-Customize the search path for external hot update dlls. Some hot update projects of frameworks or projects are placed outside Unity, and the compiled dll is also outside. This parameter provides a hot update dll
-The search path, so that there is no need to copy the external dll to the project or to the hotUpdateAssemblies directory every time.
+Custom search paths for external hot update dlls. Some frameworks or projects have hot update projects placed outside Unity, and the compiled dlls are also external. This parameter provides a search path for hot update dlls,
+so you don't need to copy external dlls to the project or to the hotUpdateAssemblies directory every time.
 
-- Search in the order of the search path, the higher the priority, the higher the priority.
-- The search path must be a relative location, relative to the project root directory (that is, the **parent directory** of Assets). That is, fill in `mydir` and search for `{proj}/mydir`.
-- For each path `dir`, it will first try to search `{dir}/{platform}`, and then try to search `{dir}`. This is done in order to take into account the specificity and versatility of the platform.
+- Search in order of search paths, with earlier ones having higher priority.
+- Search paths must be relative positions, relative to the project root directory (i.e., the **parent directory** of Assets). Fill in `mydir` to search `{proj}/mydir`.
+- For each path `dir`, it will first try to search `{dir}/{platform}`, then try to search `{dir}`. This is done to balance platform specificity and generality.
 
-An example of usage is shown below. You have an external dll at `{proj}/MyDir1/MyDir2/Foo.dll`, then you should:
+Here's a usage example. You have an external dll located at `{proj}/MyDir1/MyDir2/Foo.dll`, then you should:
 
 - Add `Foo` to hotUpdateAssemblies
-- Add directory `MyDir1/Mydir2` in externalHotUpdateAssemblyDirs
+- Add directory `MyDir1/Mydir2` to externalHotUpdateAssemblyDirs
 
 ### strippedAOTDllOutputRootDir
 
-Staging directory for trimmed AOT dlls. The final directory is under the platform subdirectory of this directory, namely `${strippedAOTDllOutputRootDir}/{platform}`.
+Temporary directory for trimmed AOT dlls. The final directory is under the platform subdirectory of this directory, i.e., `${strippedAOTDllOutputRootDir}/{platform}`.
 
-### patchAOTA Assemblies
+### patchAOTAssemblies
 
-Supplementary metadata AOT dll list. **package itself does not use this configuration item**. It provides a place to configure the AOT dll list, which is convenient for developers to use in their own building pipeline, so that developers do not need to define a supplementary metadata AOT dll configuration script separately.
-Do not include the '.dll' suffix when filling in the assembly name, just like `Main`, `Assembly-CSharp`.
+Supplemental metadata AOT dll list. **The package itself doesn't use this configuration item**. It provides a place to configure the AOT dll list, making it convenient for developers to use in their own packaging workflows, so developers don't need to separately define a supplemental metadata AOT dll configuration script.
+When filling in assembly names, don't include the '.dll' suffix, just like `Main`, `Assembly-CSharp`.
+
 
 ### outputLinkFile
 
-When running the menu `HybridCLR/Generate/LinkXml` command, the output link.xml file path.
+The output link.xml file path when running the menu `HybridCLR/Generate/LinkXml` command.
 
-:::danger
-Do not point to `Assets/link.xml`, that link.xml is generally used to manually reserve the AOT type, and this automatically output link.xml will be overwritten every time.
+:::caution
+Never point to `Assets/link.xml`, that link.xml is generally used to manually reserve AOT types, while this automatically output link.xml will overwrite every time.
 :::
 
 ### outputAOTGenericReferenceFile
 
-The path of the AOT generic instantiation assembly file output when running the menu `HybridCLR/Generate/AOTGenericReference`.
+The path of the AOT generic instantiation collection file output when running the menu `HybridCLR/Generate/AOTGenericReference`.
 
 ### maxGenericReferenceIteration
 
-When running the menu `HybridCLR/Generate/AOTGenericReference`, the generation tool recursively analyzes the number of iterations of AOT generic instantiation.
+When running the menu `HybridCLR/Generate/AOTGenericReference`, the iteration count for the generation tool to recursively analyze AOT generic instantiation.
 
-Because new generic classes and generic functions may be used indirectly in generic functions, multiple rounds of iterations are required to analyze all generic instantiations. The `maxGenericReferenceIteration` parameter is used to control the number of iterations. This parameter is generally within 10 enough, you can observe the log
-It can be seen that the calculation terminates after several rounds of iterations. If there are still a large number of uncalculated iterations of generics when the iteration terminates, this value can be increased appropriately.
+Because generic functions may indirectly use new generic classes and generic functions, multiple iterations are needed to analyze all generic instantiations. The `maxGenericReferenceIteration` parameter is used to control the iteration count. This parameter is generally sufficient within 10. You can observe through logs
+how many iterations it takes before calculation terminates. If there are still many generics uncalculated when iteration terminates, you can appropriately increase this value.
 
-Why not iterate until all generic instantiations are computed? Because there may be situations that can never be calculated. The following code, AOT.Show()
-Due to recursive generic instantiation, it can never be calculated.
+Why not iterate repeatedly until all generic instantiations are calculated? Because there might be cases where calculation can never be completed. In the following code, AOT.Show()
+can never finish calculation due to recursive generic instantiation.
 
 ```csharp
 
-     struct AOT<A>
-     {
+    struct AOT<A>
+    {
 
-         public void Show()
-         {
-             var a = new AOT<AOT<A>>();
-             a.Show();
-         }
-     }
+        public void Show()
+        {
+            var a = new AOT<AOT<A>>();
+            a.Show();
+        }
+    }
 
 ```
 
 ### maxMethodBridgeGenericIteration
 
-When running the menu `HybridCLR/Generate/MethodBridge`, the generation tool recursively analyzes the number of iterations of AOT generic instantiation. The meaning is similar to `maxGenericReferenceIteration`.
+When running the menu `HybridCLR/Generate/MethodBridge`, the iteration count for the generation tool to recursively analyze AOT generic instantiation. The meaning is similar to `maxGenericReferenceIteration`.
 
-## Build Pipeline related scripts
+## Build Pipeline Related Scripts
 
-It mainly includes the following functions:
+Mainly includes the following functionality:
 
 - Check and fix settings
-- Automatically exclude hot update assembly when packaging
-- Add the hot update dll name to the assembly list when packaging
-- backup trimmed AOT dll
+- Automatically exclude hot update assemblies during packaging
+- Add hot update dll names to assembly list during packaging
+- Backup trimmed AOT dlls
 
-### Check and fix settings
+### Check and Fix Settings
 
-It is part of the packaging workflow, and the relevant code is in `Editor/BuildProcessors/CheckSettings.cs`. Contains the following actions:
+Part of the packaging workflow, related code is in `Editor/BuildProcessors/CheckSettings.cs`. Includes the following operations:
 
-- Set or clear the UNITY_IL2CPP_PATH environment variable according to whether HybridCLR is enabled. The UNITY_IL2CPP_PATH environment variable modified in the script is the environment variable of this process, so don't worry about interfering with other projects.
-- if your package version less than v4.0.0, you have to turn off the incremental GC (Use Incremental GC) option. Because incremental GC is not currently supported. WebGL platforms ignore this option. **com.code-philosophy.hybridclr will automatically turn off this option, you don't have to do it manually**.
-- `Scripting Backend` is switched to `il2cpp`, WebGL platform does not need to set this option. **Since `v2.4.0`, this option is set automatically, you can do it without manually**.
-- `Api Compatability Level` switched to `.NetFramework 4` (Unity 2019, 2020) or `.Net Framework` (Unity 2021+). **Since `v2.4.0`, this option is set automatically, you can do it without manually**.
-- If no hot update assembly is set in HybridCLRSettings, an error will be displayed.
+- Set or clear UNITY_IL2CPP_PATH environment variable based on whether HybridCLR is enabled. The UNITY_IL2CPP_PATH environment variable modified in the script is the environment variable of this process, so don't worry about interfering with other projects.
+- If version is below (not including) v4.0.0, it will check and automatically disable the Use Incremental GC option
+- Switch `Scripting Backend` to `il2cpp`. WebGL platform doesn't need to set this option. **Starting from `v2.4.0`, this option will be set automatically, so manual operation is not needed**.
+- Switch `Api Compatability Level` to `.NetFramework 4` (Unity 2019, 2020) or `.Net Framework` (Unity 2021+)
+- If no hot update assembly is set in HybridCLRSettings, an error prompt is shown.
 
-### Automatically exclude hot update assembly when packaging
+### Automatically Exclude Hot Update Assemblies During Packaging
 
-It is part of the packaging workflow, and the relevant code is in `Editor/BuildProcessors/FilterHotFixAssemblies.cs`.
+Part of the packaging workflow, related code is in `Editor/BuildProcessors/FilterHotFixAssemblies.cs`.
 
-Obviously, the hot update assembly should not be processed by il2cpp and compiled into the final package body. We handle the `IFilterBuildAssemblies` callback,
-Remove the hot update dll from the list of build assemblies. The script will additionally check whether the name of the assembly is wrongly written, and whether there is a duplicate assembly configured by mistake.
+Obviously, hot update assemblies should not be processed by il2cpp and compiled into the final package. We handle the `IFilterBuildAssemblies` callback,
+removing hot update dlls from the build assemblies list. The script will additionally check for incorrect assembly names and mistakenly configured duplicate assemblies.
 
-### Add the hot update dll name to the assembly list when packaging
+### Add Hot Update DLL Names to Assembly List During Packaging
 
-It is part of the packaging workflow, and the relevant code is in `Editor/BuildProcessors/PatchScriptingAssemblyList.cs`.
+Part of the packaging workflow, related code is in `Editor/BuildProcessors/PatchScriptingAssemblyList.cs`.
 
-When the tool is packaged, it will automatically add the dll name of the hot update assembly to the assembly list configuration file. The dll name of the assembly where the hot update MonoBehaviour script is located must be added to the assembly list configuration file,
-Unity's resource management system can correctly identify and restore hot update scripts. For a more detailed introduction to the principle, please see [Using Hot Update MonoBehaviour](../basic/monobehaviour.md) .
+The tool automatically adds hot update assembly dll names to the assembly list configuration file during packaging. The dll names of assemblies containing hot update MonoBehaviour scripts must be added to the assembly list configuration file,
+so Unity's resource management system can correctly identify and restore hot update scripts. For more detailed principle introduction, see [Using Hot Update MonoBehaviour](/basic/monobehaviour.md).
 
-### Backup trimmed AOT dll
+### Backup Trimmed AOT DLLs
 
-It is part of the packaging workflow, and the relevant code is in `Editor/BuildProcessors/CopyStrippedAOTAssemblies.cs`.
+Part of the packaging workflow, related code is in `Editor/BuildProcessors/CopyStrippedAOTAssemblies.cs`.
 
-When the supplementary metadata mode is `HomologousImageMode::Consistent`, the cropped AOT dll generated during packaging needs to be used. Therefore, the cropped AOT dll generated during the building pipeline will be automatically
-Copy it to the `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{platform}` directory for future processing. When the data mode is `HomologousImageMode::SuperSet`,
-The original aot dll can be used directly. The advantage of this is that the workflow is more convenient, and there is no need to update the aot dll after each package. The disadvantage is that it takes up more memory, and at the same time greatly increases the size of the trimmed dll. Please use the original or trimmed aot dll.
+When the supplemental metadata mode is `HomologousImageMode::Consistent`, the trimmed AOT dlls generated during packaging are needed. Therefore, the trimmed AOT dlls generated during the packaging process are automatically copied to the `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{platform}` directory for future processing. When the data mode is `HomologousImageMode::SuperSet`,
+original aot dlls can be used directly. The advantage is workflow convenience, not needing to update aot dlls after each packaging. The disadvantage is using more memory and significantly increasing the size of trimmed dlls. Users should weigh whether to use original or trimmed aot dlls.
 
 
-## iOSBuild-script
+## iOSBuild Scripts
 
-`Editor/Data~/iOSBuild` in the package contains the scripts needed to compile the iOS version libil2cpp.a. After running the `HybridCLR/Installer...` menu command to successfully initialize HybridCLR, it will be automatically copied to the `{project}/HybridCLRData/iOSBuild` directory.
-**Subsequent operations must be performed in the `{project}/HybridCLRData/iOSBuild` directory**. For the specific operation of compiling libil2cpp.a, please refer to the document [iOS Platform Packaging](../basic/buildpipeline.md).
+The `Editor/Data~/iOSBuild` in the package contains scripts needed to compile the iOS version libil2cpp.a. After successfully initializing HybridCLR by running the `HybridCLR/Installer...` menu command, it will be automatically copied to the `{project}/HybridCLRData/iOSBuild` directory.
+**Subsequent operations must be performed in the `{project}/HybridCLRData/iOSBuild` directory**. For specific operations to compile libil2cpp.a, see documentation [iOS Platform Packaging](/basic/buildpipeline.md).
 
-## Runtime related scripts
+## Runtime Related Scripts
 
 Contains classes used at runtime.
 
 ### LoadImageErrorCode
 
-Error code of loading hot update dll.
+Error codes for loading hot update dlls.
 
 ### Metadata Mode HomologousImageMode
 
-Two metadata schemas are currently supported:
 
-#### `HomologousImageMode::Consistent` mode
+:::tip
 
-That is, the supplementary dll is exactly the same as the trimmed dll when packaging. Therefore, the clipped dll generated during the build process must be used, and the original dll cannot be copied directly. We added processing code in `HybridCLR.BuildProcessors.CopyStrippedAOTAssemblies`, automatically copy these clipped dlls to the `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}` directory when packaging.
+Recommend beginners use Super mode. In scenarios where memory conservation is needed, Consistent mode can be used instead.
 
-#### `HomologousImageMode::SuperSet` mode
+:::
 
-That is, the supplementary dll is a superset of the trimmed dll when packaging, and contains all the metadata of the trimmed dll. One of the easiest superset dlls to get is the original aot dll, which is also the recommended superset dll.
+Currently supports two metadata modes.
 
-- The original UnityEngine-related AOT dll is in the PlayBackEngines subdirectory of the Unity installation directory
-- The original .net core AOT dll such as mscorlib.dll is in the `unityaot{xxx}` directory of the Unity installation directory. 2019-2020 will be unified into the unityaot directory, and will be split into multiple directories starting from 2021. If you package android, take unityaot-linux, and if you package iOS, take unityaot-macos.
-- The AOT dll of the plug-in is the original dll of the corresponding platform in the project directory. If it is in the form of source code, it is a compiled dll, just take the corresponding dll in the `HybridCLR/HotUpdateDlls/{platform}` directory
+#### `HomologousImageMode::Consistent` Mode
 
-Take the Win64 target under Win of Unity 2020.3.33 version as an example:
+The supplemented dll is exactly the same as the trimmed dll during packaging. Therefore, the trimmed dll generated during the build process must be used, and the original dll cannot be copied directly. We added processing code in `HybridCLR.BuildProcessors.CopyStrippedAOTAssemblies` to automatically copy these trimmed dlls to the `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}` directory during packaging.
 
-- mscorlib.dll in `{editor}/Editor/Data/MonoBleedingEdge/lib/mono/unityaot`
-- UnityEngine.CoreModule.dll in `{editor}/Editor/Data/Playbackengines/windowsstandalonesupport/Variations/il2cpp/Managed`
-- protobuf-net.dll is the original `protobuf-net.dll` in your project
-- The AOT dll corresponding to your AOT module Main is `HybridCLR/HotUpdateDlls/{platform}/Main.dll`
+#### `HomologousImageMode::SuperSet` Mode
 
-The `SuerSet` mode can also use the trimmed dll of the `Consistent` mode, since it obviously contains all the metadata for itself.
+Consistent requires exact consistency with the trimmed dll, while the trimmed aot dll generated in `generate/all` often has minor differences from the one generated during actual packaging, causing loading errors. SuperSet mode has lower consistency requirements for dlls compared to Consistent mode, only requiring that the types and functions needed for supplemental metadata exist.
+
+Due to SuperSet mode using relaxed consistency, matching calculations become more complex, requiring maintenance of more related metadata and using more memory.
 
 ### RuntimeApi
 
-The underlying tool class for operating HybridCLR. The more commonly used ones are:
+Low-level utility class for operating HybridCLR. Commonly used ones include:
 
-- `LoadImageErrorCode LoadMetadataForAOTAssembly(byte[] dllBytes, HomologousImageMode mode)` is used to load supplementary metadata assembly.
+- `LoadImageErrorCode LoadMetadataForAOTAssembly(byte[] dllBytes, HomologousImageMode mode)` used to load supplemental metadata assemblies.
 
 ### ReversePInvokeWrapperGenerationAttribute
 
-If a scripting language such as xlua is used in the project, the `[MonoPInvokeCallback]` annotation needs to be added to the C# function to be registered in lua. This returns a corresponding C++ for these C# functions
-Function pointer, used to register in the scripting language. HybridCLR supports registering hot-updated C# code in lua, but the C++ stub function corresponding to `[MonoPInvokeCallback]` must be generated in advance to return a corresponding C++ function pointer for each C# function.
-The script provides the function of automatically generating stub functions. For details, see [MonoPInvokeCallback support](workwithscriptlanguage.md) and [HybridCLR+lua/js/python](workwithscriptlanguage.md) documents
+If your project uses script languages like xlua, C# functions to be registered in lua need to have `[MonoPInvokeCallback]` annotations. This allows returning a corresponding C++ function pointer for these C# functions, which can be registered in script languages. HybridCLR supports registering hot update C# code in lua, but C++ stub functions corresponding to `[MonoPInvokeCallback]` must be generated in advance to return a corresponding C++ function pointer for each C# function.
+The script provides automatic stub function generation functionality. For details, see [MonoPInvokeCallback Support](workwithscriptlanguage.md) and [HybridCLR+lua/js/python](workwithscriptlanguage.md) documentation.
 
-Each function with the `[MonoPInvokeCallback]` attribute requires a unique corresponding wrapper function. These wrapper functions must be pre-generated during packaging and cannot be changed.
-Therefore, if a function with the `[MonoPInvokeCallback]` feature is added in subsequent hot updates, there will be insufficient wrapper functions. ReversePInvokeWrapperGenerationAttribute
-It is used to reserve the specified number of wrapper functions for the functions currently added with the `[MonoPInvokeCallback]` feature. In the following example, 10 wrapper functions are reserved for functions signed by LuaFunction.
+Each function with `[MonoPInvokeCallback]` attribute needs a uniquely corresponding wrapper function. These wrapper functions must be pre-generated during packaging and cannot be changed.
+Therefore, if hot updates subsequently add functions with `[MonoPInvokeCallback]` attributes, there will be insufficient wrapper functions. ReversePInvokeWrapperGenerationAttribute
+is used to reserve a specified number of wrapper functions for functions currently having `[MonoPInvokeCallback]` attributes. In the following example, 10 wrapper functions are reserved for functions with LuaFunction signature.
 
 ```csharp
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-     delegate int LuaFunction(IntPtr luaState);
+    delegate int LuaFunction(IntPtr luaState);
 
-     public class MonoPInvokeWrapperPreserves
-     {
-         [ReversePInvokeWrapperGeneration(10)]
-         [MonoPInvokeCallback(typeof(LuaFunction))]
-         public static int LuaCallback(IntPtr luaState)
-         {
-             return 0;
-         }
+    public class MonoPInvokeWrapperPreserves
+    {
+        [ReversePInvokeWrapperGeneration(10)]
+        [MonoPInvokeCallback(typeof(LuaFunction))]
+        public static int LuaCallback(IntPtr luaState)
+        {
+            return 0;
+        }
 
-         [MonoPInvokeCallback(typeof(Func<int, int, int>))]
-         public static int Sum(int a, int b)
-         {
-             return a + b;
-         }
+        [MonoPInvokeCallback(typeof(Func<int, int, int>))]
+        public static int Sum(int a, int b)
+        {
+            return a + b;
+        }
 
-         [MonoPInvokeCallback(typeof(Func<int, int, int>))]
-         public static int Sum2(int a, int b)
-         {
-             return a + b;
-         }
+        [MonoPInvokeCallback(typeof(Func<int, int, int>))]
+        public static int Sum2(int a, int b)
+        {
+            return a + b;
+        }
 
-         [MonoPInvokeCallback(typeof(Func<int>))]
-         public static int Sum3()
-         {
-             return 0;
-         }
-     }
+        [MonoPInvokeCallback(typeof(Func<int>))]
+        public static int Sum3()
+        {
+            return 0;
+        }
+    }
 ```

@@ -1,51 +1,55 @@
 # FAQ
 
-## What platforms does HybridCLR support?
+## Which platforms does HybridCLR support?
 
-All platforms supported by il2cpp support
+All platforms supported by il2cpp are supported.
 
-## How much will HybridCLR increase the package body
+## How much does HybridCLR increase the package size?
 
-Taking the 2019 version as an example, the libil2cpp.a file of the Android project is exported in release mode, the original version is 12.69M, and the HybridCLR version is 13.97M, which means an increase of about 1.3M.
+Taking the 2019 version as an example, the libil2cpp.a file exported for Android in release mode: original version 12.69M, HybridCLR version 13.97M, which means an increase of approximately 1.3M.
 
-## Why does the package size printed by HybridCLR increase a lot?
+## Why does the package built with HybridCLR increase significantly in size?
 
-HybridCLR itself will only add a few inclusions (1-2M). The package body has increased a lot because you mistakenly reserved too many classes in link.xml, resulting in a sharp increase in the package body. Please refer to Unity's clipping rules for optimization.
+HybridCLR itself only increases the package size by a small amount (1-2M). The significant increase is because you incorrectly preserved too many classes in link.xml, causing the package size to increase dramatically. Please optimize according to Unity's stripping rules.
 
-## Is HybridCLR embedded with mono?
+## Does HybridCLR embed mono?
 
-no. HybridCLR supplements il2cpp with a complete register interpreter implemented completely independently.
+No. HybridCLR provides il2cpp with a completely independent and self-implemented register-based interpreter.
 
-## Are there any restrictions on writing code in HybridCLR?
+## Are there any limitations when writing code with HybridCLR?
 
-Few restrictions, see [Unsupported Features](../basic/notsupportedfeatures.md)
-
+Almost no limitations. See [Unsupported Features](/basic/notsupportedfeatures.md)
 
 ## Does it support generic classes and generic functions?
 
-Thorough and complete support without any limitations.
+Complete and thorough support with no limitations.
 
-## Support hot update MonoBehaviour?
+## Does it support hot updating MonoBehaviour?
 
-fully support. Not only can it be added in the code, but it can also be directly linked to hot update resources. For details, see [Using Hot Update MonoBehaviour](../basic/monobehaviour.md)
+Full support. You can not only add them in code but also directly attach them to hot update resources. See [Using Hot Update MonoBehaviour](/basic/monobehaviour.md) for details.
 
 ## Does it support reflection?
 
-Supported, without any restrictions.
+Yes, with no limitations.
 
-## How about multithreading support?
+## How is multi-threading support?
 
-Full support. Support Thread, Task, volatile, ThreadStatic, async.
+Complete support. Supports Thread, Task, volatile, ThreadStatic, async.
 
 ## Does it support multiple assemblies?
 
-Support, up to 255. But the dependent dll will not be loaded automatically. You need to manually load hot-updated dlls in the order of dependencies.
+Yes. However, it won't automatically load dependent DLLs. You need to manually load hot update DLLs in dependency order.
 
+## What's the maximum number of DLLs that can be loaded simultaneously?
 
-## Does it support .net standard 2.0?
+You can simultaneously load a maximum of 3 DLLs up to 64M each, 16 DLLs up to 16M each, 64 DLLs up to 4M each, and 255 DLLs up to 1M each. That means a maximum of 338 DLLs can be loaded simultaneously.
 
-support. But please note that the main project is packaged with .net standard, while the hot update dll must be packaged with .net 4.x**. For detailed explanation, please refer to [Common Errors Documentation](../help/commonerrors.md)
+## Does it support .NET Standard 2.0?
+
+Yes. However, note that the main project should be packaged with .NET Standard, while hot update DLLs **must be packaged with .NET 4.x**. For detailed explanation, see [Common Errors Documentation](/help/commonerrors.md)
 
 ## Does it support Unity's DOTS framework?
 
-support. The burst code in the AOT part works fine, but the burst code in the hot update part is executed interpretively. This is obvious.
+Yes. Burst code in the AOT part works normally, but burst code in the hot update part executes in interpreter mode. This is expected.
+
+

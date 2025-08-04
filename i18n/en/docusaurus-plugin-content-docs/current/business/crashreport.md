@@ -1,8 +1,9 @@
-# Crash Report With Interpreter Strace Trace
+# Crash Logs with Interpreter Stack Information
 
-The community version does not contain interpreter stack information when it crashes, making it difficult to locate errors in online projects. The commercial version adds richer interpreter stack information when it crashes, making it easier to locate problems.
+Community version crashes do not include interpreter stack information, making it difficult for online projects to locate errors. The commercial version adds richer interpreter stack information when crashing, making it easier to locate problems.
 
 The log looks like this:
 
 ![crashlog](/img/hybridclr/crashlog.jpg)
+
 

@@ -1,82 +1,83 @@
 # DOTS Support
 
-The initialization timing of TypeManager in DOTS is too early, and it does not support dynamically registering Component and System types. To ensure the normal operation of the hot update module in the DOTS system, modifications need to be made to the DOTS source code to adjust the initialization timing of the World.
+DOTS's TypeManager initializes too early and doesn't support dynamic registration of Components and Systems. To make hot update modules run properly in DOTS systems, DOTS source code needs to be modified to adjust the initialization timing of World.
 
 ## Supported Versions
 
-Due to the rapid iteration and modification of DOTS, in order to reduce maintenance costs, only the following versions of com.unity.entities are maintained:
+Since DOTS is still rapidly iterating and changing, to reduce maintenance costs, only the following versions of com.unity.entities are maintained:
 
 - 0.51.1-preview.21
 - 1.0.16
 
-Currently, compatibility testing has only been completed on Unity 2021+ versions, and compatibility with Unity 2020 and lower versions has not been tested. Generally, as long as the corresponding version of com.unity.entities can run normally on that Unity version, hybridclr support should also be available.
+Currently only tested on Unity 2021+ versions, Unity 2020 and lower versions haven't been tested for compatibility. Generally speaking, as long as the corresponding version of com.unity.entities can run normally on that Unity version, it can also support HybridCLR.
 
-Developers with special requirements for DOTS versions need to contact us for separate customized payment due to the higher maintenance cost of maintaining separate DOTS versions.
-
+Developers with special DOTS version requirements need to contact us for separate paid customization due to the high cost of maintaining individual DOTS versions.
 
 ## Supported Features
 
-Currently, most DOTS features can run normally under hybridclr, except for features related to BurstCompile and resource serialization.
+Currently most DOTS features can run normally under HybridCLR, with only features related to BurstCompile and resource serialization having poor support.
 
 ### Version 1.0.16
 
-| Feature          | Community Version | Professional Version | Enterprise Version | Hot Reload Version |
-|------------------|-------------------|----------------------|--------------------|--------------------|
-| Jobs             | ✔                 | ✔                    | ✔                  | ✔                  |
-| Managed Component | ✔                 | ✔                    | ✔                  | ✔                  |
-| Unmanaged Component | ✔               | ✔                    | ✔                  | ✔                  |
-| Managed System   | ✔                 | ✔                    | ✔                  | ✔                  |
-| Unmanaged System | ✔                 | ✔                    | ✔                  | ✔                  |
-| Aspect           | ✔                 | ✔                    | ✔                  | ✔                  |
-| IJobEntity       | ✔                 | ✔                    | ✔                  | ✔                  |
-| BurstCompile     |                   |                      | ✔                  |                    |
-| SubScene         |                   |                      |                    |                    |
+|Feature|Community Edition|Professional Edition|Ultimate Edition|Hot Reload Edition|
+|-|-|-|-|-|
+|Jobs|✔|✔|✔|✔|
+|Managed Component|✔|✔|✔|✔|
+|Unmanaged Component|✔|✔|✔|✔|
+|Managed System|✔|✔|✔|✔|
+|Unmanaged System|✔|✔|✔|✔|
+|Aspect|✔|✔|✔|✔|
+|IJobEntity|✔|✔|✔|✔|
+|BurstCompile|||✔||
+|SubScene|||||
 
 ### Version 0.51.1-preview.21
 
-| Feature          | Community Version | Professional Version | Enterprise Version | Hot Reload Version |
-|------------------|-------------------|----------------------|--------------------|--------------------|
-| Jobs             | ✔                 | ✔                    | ✔                  | ✔                  |
-| Managed Component | ✔                 | ✔                    | ✔                  | ✔                  |
-| Unmanaged Component | ✔               | ✔                    | ✔                  | ✔                  |
-| Managed System   | ✔                 | ✔                    | ✔                  | ✔                  |
-| Unmanaged System | ✔                 | ✔                    | ✔                  | ✔                  |
-| IJobEntity       | ✔                 | ✔                    | ✔                  | ✔                  |
-| BurstCompile     |                   |                      | ✔                  |                    |
-| SubScene         |                   |                      |                    |                    |
+|Feature|Community Edition|Professional Edition|Ultimate Edition|Hot Reload Edition|
+|-|-|-|-|-|
+|Jobs|✔|✔|✔|✔|
+|Managed Component|✔|✔|✔|✔|
+|Unmanaged Component|✔|✔|✔|✔|
+|Managed System|✔|✔|✔|✔|
+|Unmanaged System|✔|✔|✔|✔|
+|IJobEntity|✔|✔|✔|✔|
+|BurstCompile|||✔||
+|SubScene|||||
 
 ## Installation
 
 ### Installing com.unity.entities
 
-- Remove the com.unity.entities package from the project, exit the Unity Editor, and clear the directory corresponding to the package under `Library\PackageCache`.
-- Download the [modified com.unity.entities](https://code-philosophy.feishu.cn/file/NH0cbaeneozfd8xdbvmcLNvfn2d) according to the version used by the project, and unzip the `com.unity.entities.7z` in the corresponding directory to the Packages directory. Make sure that the directory name after decompression is com.unity.entities.
+- Remove the com.unity.entities package from the project, exit Unity Editor, and clear the corresponding directory in the `Library\PackageCache` directory
+- Based on the version used by your project, download the [modified com.unity.entities](https://code-philosophy.feishu.cn/file/NH0cbaeneozfd8xdbvmcLNvfn2d), extract the `com.unity.entities.7z` from the corresponding directory to the Packages directory. Make sure the extracted directory name is com.unity.entities.
 
-When reopening the Unity Editor, you may be prompted to perform API upgrades. Decide whether to upgrade according to the project situation.
+When reopening Unity Editor, you may be prompted whether to perform API upgrade. Decide whether to upgrade based on your project situation.
 
-### Modify Project Settings
+### Modifying Project Settings
 
-To avoid potential issues caused by dynamically registering Component or System during DOTS runtime, adjust the initialization timing of World to ensure that all hot update types are registered before running all Worlds.
+To avoid potential issues with dynamic registration of Components or Systems during DOTS runtime, you need to adjust World initialization timing to ensure all hot update types are registered before running all Worlds.
 
-Add the compilation macro `UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP_RUNTIME_WORLD` in `Player Settings` under `Scripting Define Symbols`. For detailed instructions, refer to the World's [custom initialization documentation](https://docs.unity3d.com/Packages/com.unity.entities@0.51/manual/world.html).
+In `Player Settings`'s `Scripting Define Symbols`, add the compilation macro `UNITY_DISABLE_AUTOMATIC_SYSTEM_BOOTSTRAP_RUNTIME_WORLD`. For detailed introduction, see World's
+[custom initialization documentation](https://docs.unity3d.com/Packages/com.unity.entities@0.51/manual/world.html).
 
 ### Initialization
 
-To avoid encountering issues, perform initialization **after loading the hot update code and before running any dots code**.
+To avoid encountering problems, please initialize **after loading hot update code and before running any DOTS code**.
 
-Initialization mainly consists of two parts:
+Initialization mainly includes two parts:
 
-- Register hot update dots types.
-- Initialize World.
+- Register hot update DOTS types
+- Initialize World
 
-There are slight differences in the initialization implementations of different versions of com.unity.entities.
+Different com.unity.entities versions have slightly different initialization implementations.
 
-For version 0.51.1, the initialization code is as follows:
+0.51.1 version initialization code:
 
 ```csharp
     private static void InitializeWorld()
     {
 #if !UNITY_EDITOR
+        // dotsAsseemblies are all AOT and hot update assemblies containing custom Component, System and other DOTS types
         var dotsAssemblies = new Assembly[] { ... };
         var componentTypes = new HashSet<System.Type>();
         TypeManager.CollectComponentTypes(dotsAssemblies, componentTypes);
@@ -90,12 +91,13 @@ For version 0.51.1, the initialization code is as follows:
     }
 ```
 
-For version 1.0.16, the initialization code is as follows:
+1.0.16 version initialization code:
 
 ```csharp
     private static void InitializeWorld()
     {
 #if !UNITY_EDITOR
+        // dotsAsseemblies are all AOT and hot update assemblies containing custom Component, System and other DOTS types
         var dotsAssemblies = new Assembly[] { ... };
         var componentTypes = new HashSet<Type>();
         TypeManager.CollectComponentTypes(dotsAssemblies, componentTypes);
@@ -110,14 +112,14 @@ For version 1.0.16, the initialization code is as follows:
     }
 ```
 
-## Resolve ReversePInvokeCallback Issues
+### Solving ReversePInvokeCallback Issues
 
-When initializing Unmanaged Systems, the DOTS system will attempt to obtain the Marshal pointer of its OnStart-like functions. hybridclr needs to bind a runtime-unique cpp function pointer for each of these functions, otherwise the error GetReversePInvokeWrapper fail. exceed max wrapper num of method will occur during runtime. For detailed instructions, refer to the HybridCLR+lua/js/python documentation.
+When DOTS system initializes Unmanaged Systems, it tries to get Marshal pointers for functions like OnStart. HybridCLR needs to bind a runtime-unique cpp function pointer for each such function,
+otherwise a `GetReversePInvokeWrapper fail. exceed max wrapper num of method` error will occur during runtime. For detailed introduction, see the [HybridCLR+lua/js/python](https://hybridclr.doc.code-philosophy.com/docs/basic/workwithscriptlanguage) documentation.
 
-In simple terms, a sufficient number of SystemBaseRegistry.ForwardingFunc corresponding wrapper functions need to be reserved. Add the following code to the hot update module (or DHE assembly, but not in AOT assemblies):
+Simply put, you need to reserve enough wrapper functions corresponding to SystemBaseRegistry.ForwardingFunc. Add the following code in the hot update module (can also be in DHE assembly, but not in AOT assembly):
 
 ```csharp
-
 public static class PreserveDOTSReversePInvokeWrapper
 {
     [ReversePInvokeWrapperGeneration(100)]
@@ -131,8 +133,8 @@ public static class PreserveDOTSReversePInvokeWrapper
 
 ```
 
-Change the number 100 in the code to an appropriate number, recommended to be 5-10 times the number of Unmanaged System types.
+Change the 100 in the code to an appropriate number. It's recommended to be 5-10 times the number of Unmanaged System types.
 
-## Burst Related
+### Burst Related
 
-Hot update functions containing [BurstCompile] have changed, remove the [BurstCompile] attribute, otherwise errors will occur during runtime. This issue may be optimized in the future.
+- When hot update functions containing `[BurstCompile]` change, you need to remove the `[BurstCompile]` attribute, otherwise runtime errors will occur. This issue may be optimized in the future

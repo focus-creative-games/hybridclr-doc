@@ -1,6 +1,7 @@
-# Assembly::Load Loading Time Optimization
+# Assembly::Load Loading Optimization
 
-The commercial version optimizes the Assembly::Load loading time from several aspects, and finally reduces the Assembly::Load time to ##20%## of the original.
+The commercial version optimizes Assembly::Load loading time from several aspects, ultimately reducing Assembly::Load time to **20%** of the original.
 
-- Optimize the code of InterpreterImage::InitRuntimeMetadatas
-- Delayed initialization of some metadata that takes time and does not need to be initialized immediately
+- Optimized InterpreterImage::InitRuntimeMetadatas code
+- Lazily initialized some time-consuming metadata that doesn't need immediate initialization
+

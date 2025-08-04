@@ -1,351 +1,393 @@
-# AOT Generic
+# AOT Generics
 
-There are two types of generic features in the CLR: generic types and generic functions. Generics are an extremely widely used feature in C#. Even a usage that does not explicitly contain generics may imply generic-related definitions or operations.
+CLR has two types of generic features: generic types and generic functions. Generics are an extremely widely used feature in C#. Even code that doesn't obviously contain generic usage may implicitly include generic-related definitions or operations.
 
-For the generic class defined in **hot update code, you can use it freely without restrictions, but for **AOT generics**, you have encountered some problems.
+## AOT Generic Problems
 
-il2cpp is an AOT runtime, and almost all (why not all?) types used in its runtime are statically determined at compile time. You have only instantiated `List<int>` and `List<string>` in AOT, you can use `new List<int>()` in hot update code
-, but cannot use `new List<float>()`. Because although il2cpp can create most of the metadata of the `List<float>` type in memory, it cannot create its member function implementations.
+For generic classes **defined in hot update code**, they can be used freely without restrictions. However, for **AOT generics**, some problems are encountered.
+
+il2cpp is an AOT runtime, and almost all types used at runtime (why not all?) are statically determined at compile time. If you only instantiated `List<int>` and `List<string>` in AOT, you can use `new List<int>()` in hot update code,
+but you cannot use `new List<float>()`. This is because although il2cpp can create most metadata for the `List<float>` type in memory, it cannot create implementations for its member functions.
 For example, you can get `typeof(List<float>)` through reflection, but you cannot call any of its member functions, including constructors.
 
-Generic classes, especially generic containers such as List and Dictionary are widely used in code. If `List<HotUpdateType>` cannot run due to AOT restrictions, then the code restriction for game hot update is also too large up. Fortunately, HybridCLR solves this problem completely using two types of techniques:
+Additionally, some special C# mechanisms also cause AOT generic problems, such as the compiler potentially generating implicit AOT generic references for complex syntax sugar like async. Therefore, to make these mechanisms work properly, the AOT generic instantiation problems they cause must also be resolved.
+Taking async as an example, the compiler generates several classes, state machines, and some code for async. These hidden generated code contains calls to multiple AOT generic functions. For example, `void AsyncTaskMethodBuilder::Start<TStateMachine>(ref TStateMachine stateMachine)`.
 
-- `Generic sharing` technology based on il2cpp
-- Based on `Supplementary Metadata` technology, which is also HybridCLR's patented technology
+Generic classes, especially generic containers like List and Dictionary, are so widely used in code that if AOT limitations prevented things like `List<HotUpdateType>` from running, the code restrictions for game hot updates would be too severe. Fortunately, HybridCLR uses several technologies to completely solve this problem:
+
+- Based on il2cpp's `generic sharing` technology.
+- Based on `supplemental metadata` technology. This is also HybridCLR's patented technology. This technology is also available in the community version.
+- Based on `full generic sharing` complete generic sharing technology. This technology is currently only available in commercial versions.
 
 :::tip
-Since the il2cpp generic sharing technology has great limitations, it is strongly recommended to use the `supplementary metadata` technology to solve the generic problem.
+Due to the significant limitations of il2cpp generic sharing technology, it is strongly recommended to use `supplemental metadata` or `full generic sharing` technology to solve generic problems.
 :::
 
-## Generic sharing mechanism of il2cpp
+## il2cpp's Generic Sharing Mechanism
 
-In order to avoid generic code expansion and save memory, il2cpp generates only one code for some codes that can be shared while ensuring the correctness of code logic. To introduce a concept called **generic code sharing** [Generic Sharing](https://blog.unity.com/technology/il2cpp-internals-generic-sharing-implementation).
-Generic function implementations whose generic parameters are of class type can be shared. For example, the code compiled for the List&lt;String&gt; method can be directly used for the List&lt;Stream&gt; method, but the generic parameter of the value type cannot be shared.
+To avoid generic code bloat and save memory, il2cpp only generates one copy of code for code that can be shared while ensuring code logic correctness. This introduces a concept called **Generic Code Sharing** [Generic Sharing](https://blog.unity.com/technology/il2cpp-internals-generic-sharing-implementation).
+Simply put, as long as you **instantiate a shared instance of a generic class or generic function in AOT**, you can use it in hot update code.
 
-  Take List&lt;T&gt; as an example:
+Taking List&lt;T&gt; as an example:
 
-- You can use any instantiation type of List used in AOT. For example, if you have used List&lt;vector3&gt; in AOT, you can also use it in hot update
-- Any List&lt;HotUpdateEnum&gt; can be used. You only need to instantiate a certain List&lt;enumeration type of the same underlying type&gt; in AOT.
-- The generic parameter List&lt;HotUpdateClass&gt; of any reference type can be used. You only need to instantiate List&lt;object&gt; (or any reference generic parameter such as List&lt;string&gt;) in AOT
+- You can use any List instantiation type used in AOT. For example, if you used List&lt;vector3&gt; in AOT, you can also use it in hot updates
+- You can use any List&lt;HotUpdateEnum&gt;. You just need to instantiate a List&lt;enum type with the same underlying type&gt; in AOT.
+- You can use generic parameters of any reference type List&lt;HotUpdateClass&gt;. You just need to have instantiated List&lt;object&gt; (or any reference generic parameter like List&lt;string&gt;) in AOT
 
-## Shared type calculation rules
+## Shared Type Calculation Rules
 
-Assuming that the shared type of the generic class T is sharing type, the calculation rules are as follows.
+Assume the shared type of generic class T is sharing type, calculated as follows.
 
-### Non-enumeration value types
+### Non-enum Value Types
 
-The sharing type is itself. For example, the sharing type of int is int
+sharing type is itself. For example, int's share type is int
 
-### Enum Type
+### Enum Types
 
-The sharing type is an enumeration whose underlying type is the same as it. For example
+sharing type is an enum with the same underlying type. For example
 
 ```csharp
 enum MyEnumA
 {
-     A = 1,
+    A = 1,
 }
 enum MyEnumB
 {
-     A = 10,
+    A = 10,
 }
 
 enum MyEnumC : short
 {
-     A = 1,
+    A = 1,
 }
 
 enum MyEnumD : short
 {
-     A = 1,
+    A = 1,
 }
 
 ```
 
-MyEnumA and MyEnumB sharing the same type, and MyEnumC and MyEnumD sharing the same type.
+MyEnumA and MyEnumB have the same shared type, MyEnumC and MyEnumD have the same shared type.
 
-### class reference type
+### Class Reference Types
 
 sharing type is object
 
 ### Generic Types
 
-For `GenericType<T1, T2, ...>`, if the GenericType is a class type, then the sharing type is object, otherwise the sharing type is `GenericType<shareType<T1>, shareType<T2>, ...>`. For example:
+For `GenericType<T1, T2, ...>`, if GenericType is a class type, then share type is object, otherwise share type is `GenericType<shareType<T1>, shareType<T2>, ...>`. For example:
 
-- The sharing type of `Dictionary<int, string>` is `object`
-- The sharing type of `ValueTuple<int, string>` is `ValueTuple<int, object>`
+- The share type of `Dictionary<int, string>` is `object`
+- The share type of `ValueTuple<int, string>` is `ValueTuple<int, object>`
 
-### Shared generic function evaluation rules for generic functions
+### Shared Generic Function Calculation Rules for Generic Functions
 
-The AOT generic function of `Class<C1, C2, ...>.Method<M1, M2, ...>(A1, A2, ...)` is `Class<sharing(C1), sharing(C2) , ...>.Method<sharing(M1), sharing(M2), ...>(sharing(A1), sharing(A2), ...)`. For example:
+The AOT generic function for `Class<C1, C2, ...>.Method<M1, M2, ...>(A1, A2, ...)` is `Class<sharing(C1), sharing(C2), ...>.Method<sharing(M1), sharing(M2), ...>(sharing(A1), sharing(A2), ...>`. For example:
 
-- Shared function of `List<string>.ctor` is `List<object>.ctor`
-- The shared function of `List<int>.Add(int)` is `List<int>.Add(int)`
-- The shared function of `YourGenericClass<string, int, List<int>>.Show<string, List<int>, int>(ValueTuple<int, string>, string, int)` is `YourGenericClass<object, int, object >.Show<object, object, int>(ValueTuple<int, object>, object, int)`
+- The shared function for `List<string>.ctor` is `List<object>.ctor`
+- The shared function for `List<int>.Add(int)` is `List<int>.Add(int)`
+- The shared function for `YourGenericClass<string, int, List<int>>.Show<string, List<int>, int>(ValueTuple<int, string>, string, int)` is `YourGenericClass<object, int, object>.Show<object, object, int>(ValueTuple<int, object>, object, int)`
 
 
-## The reason why the value type in il2cpp does not support generic sharing
+## Why Value Types Don't Support Generic Sharing in il2cpp
 
-It is easy to understand that value types of different sizes cannot be shared, but why can't value types of the same size be shared generically like a class? There are two main reasons.
+It's easy to understand that value types of different sizes cannot be shared, but why can't value types of the same size support generic sharing like classes? There are mainly two reasons.
 
-### Problems caused by memory alignment
+### Problems Caused by Memory Alignment
 
-Even if the value types have the same size, if the alignment is different, when they are used as subfields of other classes, the memory size and layout of the final class may be different.
+Even if value types have the same size, if their alignment methods are different, when they are subfields of other classes, the final memory size and layout of the containing class may be different.
 
 ```csharp
 struct A // size = 4, alignment = 2
 {
-     short x;
-     short y;
+    short x;
+    short y;
 };
 
-struct B // size = 4, alignment = 4
+struct B // size = 4，alignment = 4
 {
-     int x;
+    int x;
 };
 
 struct GenericDemo<T>
 {
-     short x;
-     T v;
+    short x;
+    T v;
 
-     public T GetValue() => v;
+    public T GetValue() => v;
 };
 
 ```
 
-`GenericDemo<A>` size=6, alignment=2, field v is offset by 2 in the class; and `GenericDemo<B>` size=8, alignment=4, field v is offset by 4 in the class. Obviously, for the GetValue function, due to the different offsets of v, it is impossible to use the same set of c++ codes to work correctly for these two classes.
+`GenericDemo<A>` size=6, alignment=2, field v has offset 2 in the class; while `GenericDemo<B>` size=8, alignment=4, field v has offset 4 in the class. Obviously for the GetValue function, due to different v offsets, it's impossible to use the same C++ code to work correctly for both classes.
 
-### ABI issues
+### ABI Issues
 
-Structures of the same size and alignment are equivalent in [x64 ABI](https://docs.microsoft.com/zh-cn/cpp/build/x64-software-conventions?redirectedfrom=MSDN&view=msvc-170) , you can use structures of the same size for shared generic instantiation. But it doesn't work in [arm64 ABI](https://docs.microsoft.com/zh-cn/cpp/build/arm64-windows-abi-conventions?view=msvc-170).
+Structs with the same size and alignment are equivalent in [x64 ABI](https://docs.microsoft.com/en-us/cpp/build/x64-software-conventions?redirectedfrom=MSDN&view=msvc-170) and can use structs of the same size as shared generic instantiations. However, this is not possible in [arm64 ABI](https://docs.microsoft.com/en-us/cpp/build/arm64-windows-abi-conventions?view=msvc-170).
 
-`struct IntVec3 { int32_t x, y, z; }` and `struct FloatVec3 { float x, y, z}` are both 12 in size, but when they are passed as function parameters, the way of passing parameters is different:
+`struct IntVec3 { int32_t x, y, z; }` and `struct FloatVec3 { float x, y, z}` although both have size 12, they have different parameter passing methods when passed as function arguments:
 
 - IntVec3 is passed by reference
-- The three fields of FloatVec3 are placed in three floating-point registers respectively
+- FloatVec3's three fields are placed in three separate floating-point registers
 
-This is another key reason why structs cannot be shared generically.
+This is another key reason why structs cannot support generic sharing.
 
-## Defects of the generic sharing mechanism
+## Limitations of Generic Sharing Mechanism
 
-Since value types cannot be shared generically, if a value type appears in the generic parameter of a generic instance (class or function), this generic instance must be instantiated in advance in AOT. if
-Your generic parameter type is the value type defined in the hot update code. Since the hot update type is obviously impossible to instantiate generics in AOT in advance, you are hot updating the code
-Codes such as `List<hot update value type>` cannot be used in , which brings great inconvenience to development.
+Since value types cannot support generic sharing, if value types appear in the generic parameters of generic instances (classes or functions), these generic instances must be instantiated in advance in AOT. If your generic parameter type is a value type defined in hot update code, since hot update types obviously cannot be generically instantiated in advance in AOT, you cannot use code like `List<HotUpdateValueType>` in hot update code. This not only brings great inconvenience to development, but re-releasing the main package in the short term after going online is also unrealistic.
 
-Fortunately, we innovatively proposed the patented technology of `Supplementary Metadata`, which completely solved this problem.
+In addition, syntax sugar like async generates state machines that are value types when compiled in non-Development mode, which cannot support generic sharing. You must compile the dll in Development mode to utilize the generic sharing mechanism. This is not only troublesome but also reduces the performance of interpretation execution to some extent.
 
-## Generic function instantiation technology based on supplementary metadata (HybridCLR's patented technology)
+Fortunately, we have innovatively proposed the patented `supplemental metadata` technology and the `full generic sharing` technology supporting il2cpp, which completely solves this problem.
 
-All metadata except functions in AOT generic metadata can be instantiated in memory through the Inflate technology, but functions cannot be instantiated. The problem that AOT generic functions cannot be instantiated is essentially because il2cpp loses the original function body IL metadata during the translation of `IL -> C++`.
-Take the `List<T>.Add` function as an example, if there is no original IL function information, the correct `List<long The implementation of >.Add`. Our solution is very ingenious - to supplement the lost metadata of the original generic function body.
+## Generic Function Instantiation Technology Based on Supplemental Metadata (HybridCLR's Patented Technology)
+
+All metadata in AOT generic metadata except functions can be instantiated in memory through Inflate technology, but functions cannot be instantiated. The problem that AOT generic functions cannot be instantiated is essentially because il2cpp loses the original function body IL metadata during the `IL -> C++` translation process.
+Taking the `List<T>.Add` function as an example, without the original IL function information, it's impossible to get the correct implementation of `List<long>.Add` from existing `List<int>.Add` or `List<object>.Add`. Our solution is ingenious—supplementing the missing original generic function body metadata.
 
 
-Use the `HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly` function in the com.code-philosophy.hybridclr package to supplement the corresponding metadata for the AOT assembly.
-The LoadMetadataForAOTAssembly function can be called at any time. In addition, it can be called in AOT or hot update. You just need to call it before using AOT generics (only need to call it once).
-In theory, the earlier the loading, the better. In practice, the more reasonable time is after the hot update is completed, or after the hot update dll is loaded but before any code is executed. If the dll that supplements the metadata is also entered into the main package as an additional data file (for example, put it under StreamingAssets), it will be better loaded when the main project starts.
+Use the `HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly` function in the com.code-philosophy.hybridclr package to supplement corresponding metadata for AOT assemblies.
+The LoadMetadataForAOTAssembly function can be called at any time, and can be called both in AOT and hot update code. You just need to call it before using AOT generics (only need to call once).
+Theoretically, the earlier the loading the better. In practice, a reasonable timing is after hot update completion, or after hot update dll loading but before executing any code. If the supplemental metadata dll is also packaged into the main package as additional data files (e.g., placed in StreamingAssets), loading during main project startup is better.
 
-**Supplementary metadata has no load order requirement**.
+**Supplemental metadata has no loading order requirements**.
 
-:::tip
-It is the generic function that loses the IL function body metadata, not the generic parameter type that loses metadata. Take `List<YourValueType>.Add` as an example,
-It is the `List<T>.Add` function that is missing raw IL function body metadata, not `YourValueType` that is missing metadata, so
-The metadata of the aot dll where the generic class resides should be supplemented. For example, in order to use `List<Vector3>`, you should supplement the metadata of the dll where `List<T>` resides (namely `mscorlib`), instead of supplementing the metadata of the dll where `YourValueType` resides.
-:::
-
-If the AOT generic supplements the corresponding generic metadata, and il2cpp generic sharing instantiation also exists, in order to maximize performance, HybridCLR will give priority to il2cpp generic sharing.
-
-Although the generic function instantiation technology based on supplementary metadata is quite perfect, after all, the instantiated function is executed in an interpreted manner. If the generic instantiation in AOT can be performed in advance, the performance can be greatly improved.
-Therefore, generic classes and functions that are commonly used, especially performance-sensitive, can be instantiated in AOT in advance. We provide tools to help automatically scan and collect corresponding generic instances, you can run the menu command `HybridCLR/Generate/AOTGenericReference`.
+After supplemental metadata is loaded, it will occupy approximately 6 times the dll size in memory, and this memory cannot be reclaimed. For applications with high memory requirements, please use the commercial version's full generic sharing technology, which no longer requires supplemental metadata and saves this memory.
 
 :::tip
-This command only collects the AOT generic instances used in the hot update, and all generated are in the form of annotations. You need to refer to this file yourself and explicitly instantiate some generics in other places according to actual needs.
+It's the generic functions that lose IL function body metadata, not the generic parameter types that lose metadata. Taking `List<YourValueType>.Add` as an example,
+it's the `List<T>.Add` function that lacks original IL function body metadata, not `YourValueType` that loses metadata. Therefore,
+you should supplement the metadata of `mscorlib.dll` where `List<T>.Add` is located, not the metadata of the dll where `YourValueType` is located.
 :::
 
-### Get Supplementary Metadata dll
+If AOT generics have supplemental corresponding generic metadata and il2cpp generic sharing instantiation also exists, to maximize performance, HybridCLR will prioritize trying il2cpp generic sharing.
 
-The clipped AOT dll generated by **building pipeline** can be used to supplement metadata. The com.code-philosophy.hybridclr plugin will automatically copy them to `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`. Note that tailoring AOT dlls of different BuildTargets cannot be reused.
+Although the generic function instantiation technology based on supplemental metadata is quite perfect, the instantiated functions are executed in interpretation mode after all. If they can be generically instantiated in advance in AOT, performance can be significantly improved.
+So for commonly used and especially performance-sensitive generic classes and functions, they can be instantiated in advance in AOT. We provide tools to help automatically scan and collect corresponding generic instances. You can run the menu command `HybridCLR/Generate/AOTGenericReference`.
 
-Using the `HybridCLR/Generate/AotDlls` command can also generate the trimmed AOT dll immediately, it works by exporting a Temp project to get the trimmed AOT dll.
+:::tip
+This command only collects AOT generic instances used in hot updates, and all generated code is in comment form. You need to refer to this file yourself and explicitly instantiate some generics elsewhere according to actual needs.
+:::
+### Obtaining Supplemental Metadata DLL
 
-### should make up
-A list of assemblies filled with metadata
+The trimmed AOT dll generated during the **packaging process** can be used for supplemental metadata. The com.code-philosophy.hybridclr plugin will automatically copy them to `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`. Note that trimmed AOT dlls from different BuildTargets cannot be reused.
 
-The `AOTGenericReferences.cs` file generated by the `HybridCLR/generate/AOTGenericReference` command contains a list of assemblies that should be supplemented with metadata, like this. You don't need to run the game to quickly know which metadata should be added.
+You can also use the `HybridCLR/Generate/AotDlls` command to immediately generate trimmed AOT dlls. Its working principle is to obtain trimmed AOT dlls by exporting a Temp project.
+
+
+:::tip
+
+Please save the trimmed AOT dlls generated during packaging (usually in the `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}` directory). Use these saved AOT dlls when supplemental metadata is needed.
+
+After packaging is complete, supplemental metadata dlls will not change. Please **do not use the latest generated AOT dlls for every hot update**.
+
+:::
+
+### Assembly List That Should Supplement Metadata
+
+The `AOTGenericReferences.cs` file generated by the `HybridCLR/generate/AOTGenericReference` command contains the assembly list that should supplement metadata, as shown in the example below. You can quickly know which metadata should be supplemented without running the game.
+
+:::tip
+
+The calculation result of the PatchedAOTAssemblyList is conservative, and in practice you may not need to supplement so many. If there's no obvious memory pressure, supplementing all according to the list is more convenient. If optimization is needed, you can only supplement the most common dlls (like mscorlib), and add corresponding dlls later when encountering AOT generic errors.
+
+Supplemental metadata dlls can be hot updated, so you don't need to worry about suddenly encountering generic errors in a version after release.
+
+:::
 
 ```csharp
-// {{ AOT assemblies
-// Main.dll
-// System. Core. dll
-// UnityEngine.CoreModule.dll
-// mscorlib.dll
-// }}
+using System.Collections.Generic;
+public class AOTGenericReferences : UnityEngine.MonoBehaviour
+{
+
+	// {{ AOT assemblies
+	public static readonly IReadOnlyList<string> PatchedAOTAssemblyList = new List<string>
+	{
+		"Main.dll",
+		"System.Core.dll",
+		"UnityEngine.CoreModule.dll",
+		"mscorlib.dll",
+	};
+
+    	// {{ constraint implement type
+	// }} 
+
+	// {{ AOT generic types
+	// AOTDefs.HierarchyGeneric2<int>
+	// IBar<object>
+	// IRun<object>
+	// System.Action<UnityEngine.RaycastHit>
+}
 ```
 
 ### Metadata Mode HomologousImageMode
 
-Two metadata schemas are currently supported:
+Currently supports two metadata modes:
 
-- `HomologousImageMode::Consistent` mode, that is, the supplementary dll is exactly the same as the cropped dll when packaging. Therefore, the clipped dll generated during the build process must be used, and the original dll cannot be copied directly.
-- `HomologousImageMode::SuperSet` mode, that is, the supplementary dll is a superset of the cropped dll when packaging. This mode relaxes the requirements for AOT dll, you can use either the cut AOT dll or the original AOT dll.
+- `HomologousImageMode::Consistent` mode, which means the supplemented dll is exactly the same as the trimmed dll during packaging. Therefore, you must use the trimmed dll generated during the build process, and cannot directly copy the original dll.
+- `HomologousImageMode::SuperSet` mode, which means the supplemented dll is a superset of the trimmed dll during packaging. This mode relaxes the requirements for AOT dlls, allowing you to use either trimmed AOT dlls or original AOT dlls.
 
-### Load supplementary metadata sample code
+### Sample Code for Loading Supplemental Metadata
 
-See the sample code below for how to load the supplementary metadata dll in the code, and you can also refer to [hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial).
+The method for loading supplemental metadata dlls in code is shown in the following sample code. You can also refer to [hybridclr_trial](https://github.com/focus-creative-games/hybridclr_trial).
 
+When executing `HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly`, a copy of the passed dllBytes will be made internally. After calling this interface, **please do not save dllBytes**, otherwise it will cause memory waste.
+
+:::tip
+If RuntimeApi.LoadMetadataForAOTAssembly takes too much time and causes lag, you can load it asynchronously in another thread.
+:::
 ```csharp
-     public static unsafe void LoadMetadataForAOTAssembly()
-     {
-         List<string> aotDllList = new List<string>
-         {
-             "mscorlib.dll",
-             "System.dll",
-             "System.Core.dll", // required if using Linq
-             // "Newtonsoft.Json.dll",
-             // "protobuf-net.dll",
-         };
+    public static unsafe void LoadMetadataForAOTAssembly()
+    {
+        List<string> aotDllList = new List<string>
+        {
+            "mscorlib.dll",
+            "System.dll",
+            "System.Core.dll", // If using Linq, this is needed
+            // "Newtonsoft.Json.dll",
+            // "protobuf-net.dll",
+        };
 
-         AssetBundle dllAB = LoadDll. AssemblyAssetBundle;
-         foreach (var aotDllName in aotDllList)
-         {
-             byte[] dllBytes = dllAB.LoadAsset<TextAsset>(aotDllName).bytes;
-               int err = HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, HomologousImageMode.SuperSet);
-               Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}.ret:{err}");
-         }
-     }
+        AssetBundle dllAB = LoadDll.AssemblyAssetBundle;
+        foreach (var aotDllName in aotDllList)
+        {
+            byte[] dllBytes = dllAB.LoadAsset<TextAsset>(aotDllName).bytes;
+            // When executing supplemental metadata, dllBytes will be automatically copied internally. Please do not save dllBytes after calling to avoid unnecessary memory waste
+            int err = HybridCLR.RuntimeApi.LoadMetadataForAOTAssembly(dllBytes, HomologousImageMode.SuperSet);
+              Debug.Log($"LoadMetadataForAOTAssembly:{aotDllName}. ret:{err}");
+        }
+    }
 ```
 
-## Optimize supplementary metadata dll size
+## Optimizing Supplemental Metadata DLL Size
 
-Loading supplementary metadata dll not only increases the size of the package body or hot update resources, but also consumes considerable memory space during runtime loading. For details, see the [Memory and GC] (./memory) document. Optimize supplementary metadata dll size
-It has positive significance for memory-sensitive situations.
+:::tip
 
-Supplementary metadata technology only uses the metadata information of generic functions in the supplementary metadata dll. The metadata of non-generic functions contained in the supplementary metadata dll is redundant. Eliminating them completely will not
-Affects the normal working of the supplementary metadata mechanism. Therefore `com.code-philosophy.hybridclr` provides a supplementary metadata optimization tool class `HybridCLR.Editor.AOT.AOTAssemblyMetadataStripper` since version v4.0.16
-Implement this elimination optimization work.
+Whether to optimize supplemental metadata does not affect the normal operation of the supplemental metadata mechanism. It is recommended for projects with package size or memory optimization pressure to perform this operation.
 
-This elimination effect varies greatly from assembly to assembly. The following are our test results in the unit test project:
+:::
 
-|Assembly name|Original size|Optimized size|Optimization rate|
+Loading supplemental metadata dlls not only increases package size or hot update resource size, but also consumes considerable memory space at runtime. For details, see the [Memory and GC](./memory) documentation. Optimizing supplemental metadata dll size has positive significance for memory-sensitive scenarios.
+
+Supplemental metadata technology only uses the metadata information of generic functions in supplemental metadata dlls. The metadata of non-generic functions contained in supplemental metadata dlls is redundant, and completely removing them will not affect the normal operation of the supplemental metadata mechanism. Therefore, starting from v4.0.16, `com.code-philosophy.hybridclr` provides the supplemental metadata optimization tool class `HybridCLR.Editor.AOT.AOTAssemblyMetadataStripper` to implement this removal optimization work.
+
+The removal effect varies by assembly, with significant differences. The following are our test results on a unit test project:
+
+|Assembly Name|Original Size|Optimized Size|Optimization Rate|
 |-|-|-|-|
 |mscorlib|2139k|1329k|37.9%|
 |System|186k|63.0k|66.2%|
 |System.Core|96.3k|89.1k|7.4%|
 
 
-The sample code is as follows:
+Sample code is as follows:
 
 ```csharp
 
-         /// remove the non-generic function metadata from the trimmed AOT dlls and output it to the StrippedAOTAssembly2 directory.
-         public static void StripAOTAssembly()
-         {
-             BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-             string srcDir = SettingsUtil.GetAssembliesPostIl2CppStripDir(target);
-             string dstDir = $"{SettingsUtil.HybridCLRDataDir}/StrippedAOTAssembly2/{target}";
-             foreach (var src in Directory.GetFiles(srcDir, "*.dll"))
-             {
-                 string dllName = Path.GetFileName(src);
-                 string dstFile = $"{dstDir}/{dllName}";
-                 AOTAssemblyMetadataStripper.Strip(src, dstFile);
-             }
-         }
+        /// Further remove non-generic function metadata from AOT dll, output to StrippedAOTAssembly2 directory
+        public static void StripAOTAssembly()
+        {
+            BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+            string srcDir = SettingsUtil.GetAssembliesPostIl2CppStripDir(target);
+            string dstDir = $"{SettingsUtil.HybridCLRDataDir}/StrippedAOTAssembly2/{target}";
+            foreach (var src in Directory.GetFiles(srcDir, "*.dll"))
+            {
+                string dllName = Path.GetFileName(src);
+                string dstFile = $"{dstDir}/{dllName}";
+                AOTAssemblyMetadataStripper.Strip(src, dstFile);
+            }
+        }
 
 ```
 
-## AOT generic problems caused by some C# special mechanisms
 
-The compiler may generate implicit AOT generic references for complex syntactic sugar such as async. Therefore, in order for these mechanisms to work properly, the AOT generic instantiation problems caused by them must also be resolved.
+## Full Generic Sharing Technology
 
-Taking async as an example, the compiler generates several classes, state machines and some codes for async. These hidden generated codes contain calls to multiple AOT generic functions. The common ones are:
+:::tip
+The `full generic sharing` technology is currently only available in commercial versions.
+:::
 
-- `void AsyncTaskMethodBuilder::Start<TStateMachine>(ref TStateMachine stateMachine)`
-- `void AsyncTaskMethodBuilder::AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>(ref TAwaiter awaiter, ref TStateMachine stateMachine)`
-- `void AsyncTaskMethodBuilder::SetException(Exception exception)`
-- `void AsyncTaskMethodBuilder::SetResult()`
-- `void AsyncTaskMethodBuilder<T>::Start<TStateMachine>(ref TStateMachine stateMachine)`
-- `void AsyncTaskMethodBuilder<T>::AwaitUnsafeOnCompleted<TAwaiter, TStateMachine>(ref TAwaiter awaiter, ref TStateMachine stateMachine)`
-- `void AsyncTaskMethodBuilder<T>::SetException(Exception exception)`
-- `void AsyncTaskMethodBuilder<T>::SetResult(T result)`
+Although supplemental metadata completely solves AOT generic problems, supplemental metadata requires carrying or hot updating supplemental metadata dlls, leading to increased package size or increased hot update time.
+Loading supplemental metadata not only significantly increases memory usage (generally **3-4** times the supplemental metadata dll size), but also increases startup time. For scenarios like WeChat mini-games that have strict requirements for package size and memory, this is a significant impact.
+Supplemented generic functions execute in interpretation mode, which also reduces runtime performance.
 
-Both generic instantiation techniques can solve these problems. You can use the generic sharing mechanism, that is, instantiate these functions in advance in AOT, but **Note**, the state machine generated by Unity in the dll compiled in release mode is of the ValueType type, which makes it impossible to sharing generics, but The state machine generated in debug mode is of class type and can be shared generically. Therefore, if you use the il2cpp generic sharing mechanism, in order to use the async syntax in the hot update, when using the script to compile the dll, you must add `scriptCompilationSettings.options = ScriptCompilationOptions.DevelopmentBuild;` code, so that the compiled state machine is a class type, Works fine in hot update code. If `Supplementary Metadata Technology` has been used, due to full support for AOT generics, there are **unlimited** compilation methods.
+After HybridCLR supports `full generic sharing`, supplemental metadata is no longer needed, simplifying the workflow, running AOT generics natively with significantly improved performance, completely solving the above shortcomings of supplemental metadata.
+For detailed documentation, see [Full Generic Sharing](../business/fullgenericsharing).
 
-Instantiating these generics in AOT is tedious and **strongly recommended** to use the supplementary metadata mechanism.
+## Appendix: Shared Generic Instantiation Examples for AOT Generics
 
-## `full generic sharing` technical supplementary introduction
-
-Since the 2021.3.x LTS version, il2cpp has fully supported the `full generic sharing' technology. When the `Il2Cpp Code Generation` option in Build Settings is `faster runtime`, it is the generic sharing mechanism introduced in the previous chapter , enabled for `faster(smaller) build`
-`full generic sharing` mechanism. The `full generic sharing` technology can overcome the defect that the value type generics of traditional il2cpp cannot be shared. All generic instances of generic functions (regardless of whether the generic parameters are value types or class types) completely sharing one code.
-
-The advantage of full generic sharing is that it can be instantiated arbitrarily, and it can save code size. The disadvantage is that it greatly hurts the performance of generic functions. The fully generic shared code is sometimes several to ten times slower than the standard generic shared code, and even worse than the purely interpreted version. Therefore it is strongly recommended to **not enable** the `faster(smaller) build` option. Because of this, although HybridCLR can work with the `full generic sharing` mechanism, it does not take advantage of this mechanism at all. Because this mechanism has basically no practical significance except when you want to reduce the inclusion extremely.
-
-## Appendix: Example of shared generic instantiation of AOT generics
+:::caution
+HybridCLR has excellent performance. Unless you actually encounter performance issues, in most cases you should use supplemental metadata technology or `full generic sharing` technology to solve AOT generic problems.
+:::
 
 ### Example 1
 
-error log
+Error log
 
-```csharp
-MissingMethodException: AOT generic method isn't instantiated in aot module
-   void System.Collections.Generic.List<System.String>.ctor()
+```text
+MissingMethodException: AOT generic method not instantiated in aot module 
+  void System.Collections.Generic.List<System.String>.ctor()
 ```
 
-You add a call to `List<string>.ctor()` in RefType, which is `new List<string>()`. Thanks to the **generic sharing mechanism**, you just call `new List<object>()`.
+You can add a call to `List<string>.ctor()` anywhere in the main project (e.g., in RefTypes.cs), which is `new List<string>()`. Due to the **generic sharing mechanism**, you can call `new List<object>()`.
 
 ```csharp
 class RefTypes
 {
-   public void MyAOTRefs()
-   {
-       new List<object>(); // can also use new List<string>()
-   }
+  public void MyAOTRefs()
+  {
+      new List<object>(); // You can also use new List<string>()
+  }
 }
 ```
 
 ### Example 2
 
-error log
+Error log
 
-```csharp
-MissingMethodException: AOT generic method isn't instantiated in aot module
-     void System.ValueType<System.Int32, System.String>.ctor()
+```text
+MissingMethodException: AOT generic method not instantiated in aot module 
+    void System.ValueType<System.Int32, System.String>.ctor()
 ```
 
-:::info
-The empty constructor of the value type does not call the corresponding constructor, but corresponds to the initobj instruction. In fact, you can't directly reference it, but you just need to force the instantiation of this type, and all functions of the preserve class will naturally include the .ctor function.
+:::tip
+The empty constructor of value types doesn't call the corresponding constructor, but corresponds to the initobj instruction. Actually you cannot directly reference it, but you just need to force instantiate this type, preserve all functions of this class, and naturally it will include the .ctor function.
 :::
 
-In practice you can use forced boxing `(object)(default(ValueTuple<int, object>))`.
+In practice, you can use forced boxing `(object)(default(ValueTuple<int, object>))`.
 
 ```csharp
 class RefTypes
 {
-   public void MyAOTRefs()
-   {
-       // The following two ways of writing are both possible
-       _ = (object)(new ValueTuple<int, object>());
-       _ = (object)(default(ValueTuple<int, object>));
-   }
+  public void MyAOTRefs()
+  {
+      // Both of the following approaches work
+      _ = (object)(new ValueTuple<int, object>());
+      _ = (object)(default(ValueTuple<int, object>));
+  }
 }
 ```
 
 ### Example 3
 
-error log
+Error log
 
-```csharp
-MissingMethodException: AOT generic method isn't instantiated in aot module
-   System.Void System.Runtime.CompilerService.AsyncVoidMethodBuilder::Start<UIMgr+ShowUId__2>(UIMgr+<ShowUI>d__2&)
+```text
+MissingMethodException: AOT generic method not instantiated in aot module 
+  System.Void System.Runtime.CompilerService.AsyncVoidMethodBuilder::Start<UIMgr+ShowUId__2>(UIMgr+<ShowUI>d__2&)
 ```
 
 ```csharp
 class RefTypes
 {
-   public void MyAOTRefs()
-   {
-       System.Runtime.CompilerService.AsyncVoidMethodBuilder builder = default;
-       IAsyncStateMachine asm = default;
-       builder.Start(ref asm);
-   }
+  public void MyAOTRefs()
+  {
+      System.Runtime.CompilerService.AsyncVoidMethodBuilder builder = default;
+      IAsyncStateMachine asm = default;
+      builder.Start(ref asm);
+  }
 }
 ```
+
+

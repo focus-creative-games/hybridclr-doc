@@ -1,47 +1,46 @@
-# DHAO file
+# DHAO Files
 
-The dhao file is the core concept of DHE technology. The dhao file contains the information of the types and functions changed in the latest hot update dll calculated offline. When executing a hot update function, the runtime directly determines whether to use the latest interpreted version or directly call the original AOT function based on the information in the dhao file.
-The dhao file calculated offline is extremely critical for DHE technology. If there is no dhao file, the original AOT dll needs to be carried additionally, and the cost of calculating function changes is extremely high.
+DHAO files are the core concept of DHE technology. DHAO files contain pre-calculated information about changed types and functions in the latest hot update dll. At runtime, the system directly determines whether to use the latest interpreted version or call the original AOT function when executing a hot update function based on the information in the DHAO file.
+Pre-calculated DHAO files are extremely critical for DHE technology. Without DHAO files, the original AOT dll would need to be carried additionally, and the cost of calculating function changes would be extremely high.
 
-By comparing the latest hot update dll with the AOT dll generated during packaging, the changed types and functions are calculated offline and saved as dhao files. Therefore, for the DHE mechanism to work properly, it must rely on the correctness of the dhao file, and the correctness of the dhao file
-depends on accurately providing the latest hot update dll and the AOT dll generated during packaging.
+By comparing the latest hot update dll with the AOT dll generated during packaging, changed types and functions are calculated offline and saved as DHAO files. Therefore, for the DHE mechanism to work properly, it must rely on the correctness of DHAO files, and the correctness of DHAO files depends on accurately providing the latest hot update dll and the AOT dll generated during packaging.
 
-`HybridCLR.Editor.DHE.BuildUtils` provides multiple functions related to generating dhao files.
+`HybridCLR.Editor.DHE.BuildUtils` provides multiple functions related to generating DHAO files.
 
-|Function name|Description|
+|Function Name|Description|
 |-|-|
-|GenerateDHAODatas|Generate dhao file for hot update package (i.e. when code changes)|
-|EncryptDllAndGenerateDHAODatas|When primary code reinforcement is enabled, generate encrypted dll and dhao file for hot update package (i.e. when code changes)|
+|GenerateDHAODatas|Generate DHAO files for hot update packages (when code changes occur)|
+|EncryptDllAndGenerateDHAODatas|When basic code protection is enabled, generate encrypted dlls and DHAO files for hot update packages (when code changes occur)|
 
-## Mark changed function information
+## Marking Changed Function Information
 
-Currently, it is possible to automatically calculate the changed functions by comparing the latest hot update dll with the aot dll generated during packaging, and manual operation is not required in most cases. But in fact, there is no perfect code that can determine logical equivalence.
-The tool simply compares IL one by one to determine equivalence. Sometimes, the function may be equivalent but the IL has changed (such as swapping the order of two unrelated lines of code), which will be judged as a function transformation and switched to interpreted execution.
-If this happens, **and there are extremely strict performance requirements for the function**, developers can manually use the UnchangedAttribute feature to mark the function's variability.
-`[Unchanged]` and `[Unchanged(true)]` indicate unchanged, `[Unchanged(false)]` indicates changed, and unmarked features are automatically calculated by the tool.
+Currently, it's possible to automatically calculate changed functions by comparing the latest hot update dll with the AOT dll generated during packaging. Manual operation is not required in most cases. However, there is no perfect code that can determine logical equivalence.
+The tool simply compares IL one by one to determine equivalence. Sometimes functions may be equivalent but IL changes (such as swapping the order of two unrelated lines of code), which will be determined as function changes and switch to interpreted execution.
+If this situation occurs, **and there are extremely strict performance requirements for that function**, developers can manually use the UnchangedAttribute to mark the function's change status.
+`[Unchanged]` and `[Unchanged(true)]` indicate no change, `[Unchanged(false)]` indicates change, and unmarked attributes are automatically calculated by the tool.
 
-Incorrectly marking unchanged functions as changed will not affect the correctness of the operation, but only the performance. Even if all hot update functions are marked as changed, they can still run normally. However, incorrectly marking changed functions as unchanged will not only cause errors in the operation logic,
-but also cause crashes in serious cases!
+Incorrectly marking unchanged functions as changed will not affect runtime correctness, only performance. Even if all hot update functions are marked as changed, it can still run normally. But incorrectly marking changed functions as unchanged will not only cause runtime logic errors,
+but may also cause crashes in severe cases!
 
 :::caution
-Unless there are special circumstances and you are an experienced expert, do not mark manually. Because the compiler often generates some hidden classes or fields, these class names are not stable. The C# code that looks the same on the surface may not be the same as the actual generated code. Forcibly marking it as `[Unchanged]` will lead to incorrect operation logic or even crashes.
+Unless special circumstances and you are an experienced expert, do not manually mark. Because compilers often generate hidden classes or fields, and these class names are not stable. C# code that looks the same on the surface may not generate the same actual code. Forcing annotation as `[Unchanged]` will lead to incorrect runtime logic or even crashes.
 :::
 
-## Merge dhao files
+## Merging DHAO Files
 
-Game packages released based on the same or similar source code have only slight differences in their original dhe assemblies on different platforms, and the dhao files generated during hot updates also have only slight differences.
-This results in the need to calculate a separate dhao file for each platform (even for the same platform, the generated original dll may have slight differences due to the instability of code compilation), which makes the maintenance of dhao complicated and error-prone. This problem is particularly serious when multiple new and old game packages exist at the same time.
-You can consider merging the dhao files of multiple platforms corresponding to the same dhe assembly, which does not affect the correctness of the operation and has little impact on performance.
+Game packages released based on the same or similar source code have only minor differences in their original dhe assemblies across different platforms, and the DHAO files generated during hot updates also have only minor differences.
+This requires calculating separate DHAO files for each platform (even on the same platform, due to code compilation instability, the generated original dlls may have minor differences), making DHAO maintenance complex and error-prone. This problem is particularly serious when multiple old and new game packages exist simultaneously.
+Consider merging DHAO files for multiple platforms corresponding to the same dhe assembly, which does not affect runtime correctness while having minimal impact on performance.
 
-We provide the `HybridCLR.Editor.DHE.BuildUtil::MergeDHAOFiles` function to achieve the goal of merging dhao files.
+We provide the `HybridCLR.Editor.DHE.BuildUtil::MergeDHAOFiles` function to achieve the goal of merging DHAO files.
 
-Note that the workflow with verification cannot use the method of merging dhao files, because the workflow with verification will check the md5 code of the original dll, which is definitely not a match.
+Note that workflows with validation cannot use merged DHAO files because validated workflows check the md5 code of the original dll, which will definitely not match.
 
-## Notes
+## Precautions
 
-### The results of calculating dhao caused by external dlls have huge differences
+### External dlls cause massive differences in DHAO calculation results
 
-If an external dll is marked as a DHE assembly, the external dll will be trimmed when it is packaged, and when calculating the dhao file, the original external dll is taken, resulting in huge differences, which is not expected. There are several solutions:
+If external dlls are marked as DHE assemblies, because external dlls are stripped during packaging, but when calculating DHAO files, the original external dll is taken, causing massive differences, which is not expected. There are several solutions:
 
-1. In link.xml, `<assembly fullname="YourExternDll" preserve="all"/>` completely retain the external dll
-2. Instead of using the latest hot update dll to calculate the difference, use the aot dll generated when the latest code is repackaged to calculate the difference
+1. In link.xml add `<assembly fullname="YourExternDll" preserve="all"/>` to completely preserve external dlls
+2. Don't use the latest hot update dll to calculate differences, but use the AOT dll generated when repackaging with the latest code to calculate differences

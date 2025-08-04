@@ -1,59 +1,61 @@
-# Use MonoBehaviour
 
-HybridCLR fully supports the MonoBehaviour workflow. You can not only dynamically mount the hot update script in the code through AddComponent, but also hang the hot update script on the resource, and then restore the script by loading the resource.
+# Using MonoBehaviour
 
-Based on the project of the quickstart document, we demonstrate how to use the hot update script.
+HybridCLR fully supports the MonoBehaviour workflow. You can dynamically attach hot update scripts through AddComponent in code, or attach hot update scripts to assets and restore them by loading assets.
 
-## Create `Print.cs` hot update script
+Based on the quick start guide project, we demonstrate how to use hot update scripts.
 
-Create `Assets/HotUpdate/Print.cs` script, the code is as follows:
+## Create `Print.cs` Hot Update Script
+
+Create the `Assets/HotUpdate/Print.cs` script with the following code:
 
 ```csharp
-using System. Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Print : MonoBehaviour
 {
-     public int value = 1;
-
-     void Start()
-     {
-         Debug.Log($"[Print] GameObject:{name} value:{value}");
-     }
+    void Start()
+    {
+        Debug.Log($"[Print] GameObject:{name}");   
+    }
 }
 ```
 
-## Call AddComponent in the code to dynamically mount the hot update script
+## Dynamically Attach Hot Update Scripts Using AddComponent in Code
 
-Modify the `Hello.Run` function and add the code to dynamically mount the Print script. The final code is as follows:
+Modify the `Hello.Run` function to add code for dynamically attaching the Print script. The final code is as follows:
 
 ```csharp
-     public static void Run()
-     {
-         Debug. Log("Hello, World");
+    public static void Run()
+    {
+        Debug.Log("Hello, World");
 
-         GameObject go = new GameObject("Test1");
-         go. AddComponent<Print>();
-     }
+        GameObject go = new GameObject("Test1");
+        go.AddComponent<Print>();
+    }
 ```
 
-## Solve issue of GameObject being stripped
+## Resolve GameObject Stripping Issues
 
-Since GameObject is not used at all in the quick start, some functions of the GameObject type are stripped when building. The `HybridCLR/Generate/All` command will rescan the hot update assembly and generate link.xml to retain the types used in the hot update code.
+Since GameObject is not used at all in the quick start guide, some functions of the GameObject type are stripped during packaging. You need to perform the following operations, otherwise you'll encounter a `GameObject::.ctor` function not found error when running the hot update code:
 
-Please **rebuild a new package** after running this command, otherwise the error `GameObject::.ctor` function cannot be found will appear when running the next hot update code.
+- Run the `HybridCLR/Generate/All` command to re-scan hot update assemblies and generate link.xml to preserve types used in hot update code.
+- **Rebuild the package**.
 
-After the hot update, a line of log `[Print] GameObject:Test1 value:1` will be added on the screen.
+After hot updating, a new log line `[Print] GameObject:Test1` will appear on the screen.
 
-## Mount the script to the hot update resource
+## Attach Scripts to Hot Update Assets
 
-Due to the limitations of the Unity resource management system, the resources (prefab, scene, ScriptableObject resources) mounted by the hot update script must be typed into assetbundle**, and the resources can be instantiated from the ab package to restore the script correctly.
+Due to Unity's resource management system limitations, assets (prefab, scene, ScriptableObject resources) with hot update scripts attached **must be built into assetbundles** and instantiated from ab packages to properly restore scripts.
 
 :::danger
-If you mount the hot update script to Resources and other resources that come with the main package, a scripting missing error will occur!
+**If hot update scripts are attached to resources that come with the main package like Resources, scripting missing errors will occur!** However, if they are first built into assetbundle packages and then placed in Resources, loading that bundled assetbundle at runtime is fine.
 :::
 
-Since the whole process involves packing the ab package, it is relatively lengthy, so I won't detail it here. Try the hybridclr_trial project ([github](https://focus-creative-games/hybridclr_trial) or [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)) directly.
+Since the entire process involves building ab packages and is quite lengthy, it won't be detailed here. Please directly experience the hybridclr_trial project ([github](https://github.com/focus-creative-games/hybridclr_trial) or [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)).
 
-For beginners, you just need to remember: the resource (scene or prefab) that mounts the hot update script must be packaged into ab, and the hot update dll can be loaded before instantiating the resource (this requirement is obvious!).
+For beginners, you just need to remember: resources (scenes or prefabs) with hot update scripts attached must be packaged into ab, and load the hot update dll before instantiating resources (this requirement is obvious!).
+
+

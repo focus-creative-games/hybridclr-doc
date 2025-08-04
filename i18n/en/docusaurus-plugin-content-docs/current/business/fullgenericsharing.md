@@ -1,29 +1,30 @@
 # Full Generic Sharing
 
-Although supplementary metadata has completely solved the AOT generic problem, it leads to the need to carry supplementary metadata DLLs with the package or download them during hot updates, thus increasing the size of the package or the time required for hot updates.
-Loading supplementary metadata not only significantly increases memory usage but also increases startup time. This is a major issue for scenarios with strict requirements on package size and memory, such as WeChat mini-games.
-Furthermore, generic functions that have been supplemented are executed in interpreted mode, which also reduces runtime performance.
+Although supplemental metadata completely solves the AOT generic problem, supplemental metadata leads to the need to carry supplemental metadata dlls with the package or download them during hot updates, causing increased package size or increased hot update time.
+Loading supplemental metadata not only significantly increases memory usage but also increases startup time. For scenarios like WeChat mini-games that have strict requirements for package size and memory, this is a significant issue.
+Additionally, supplemented generic functions execute in interpretation mode, which also reduces runtime performance.
 
-With the introduction of Full Generic Sharing in HybridCLR, there is no longer a need for supplementary metadata, simplifying the workflow and effectively addressing the aforementioned shortcomings of supplementary metadata.
+After HybridCLR supports `full generic sharing`, supplemental metadata is no longer needed, simplifying the workflow and better addressing the above shortcomings of supplemental metadata.
 
 ## Supported Versions
 
-Supported Unity LTS versions include Unity 2021 and higher.
+Supports Unity 2021 and higher LTS versions.
 
 ## Principle
 
-The old generic sharing technology could only share generics for class types. Starting from Unity 2021.3.x LTS versions, il2cpp has supported the `Full Generic Sharing` technology, which means that generic parameters of any type (including value types) can be shared. HybridCLR leverages this mechanism to achieve perfect support for AOT generics without the need for supplementary metadata.
+The old generic sharing technology could only perform generic sharing for class types. Starting from 2021.3.x LTS versions, il2cpp already supports `full generic sharing` technology,
+meaning generic parameters can be shared regardless of type (including value types). HybridCLR utilizes this mechanism to achieve perfect support for AOT generics without needing supplemental metadata.
 
 ## Configuration
 
 :::warning
 
-Enabling `faster (smaller build)` will significantly affect the performance of generic functions (15% or even higher), so it is recommended not to enable this option.
+`faster (smaller build)` will have a significant impact on generic function performance (15% or even higher), so it's recommended not to enable this option.
 
-If you are using Unity 2021 and there is no memory pressure, it is still recommended to use the supplementary metadata technology to solve the generic problem.
+If using 2021 version and there's no memory pressure, it's still recommended to use supplemental metadata technology to solve generic problems.
 
 :::
 
-- The 2020 version does not support Full Generic Sharing.
-- For the 2021 version, the IL2CPP Code Generation option should be set to `faster (smaller build)`.
-- The 2022 version has Full Generic Sharing enabled by default and cannot be disabled. If the IL2CPP Code Generation option is set to `faster (smaller build)`, it can further reduce the package size.
+- 2020 version does not support full generic sharing
+- 2021 version needs to set IL2CPP Code Generation option to `faster(smaller build)`
+- 2022 version enables full generic sharing by default and cannot be disabled. If setting IL2CPP Code Generation option to `faster(smaller build)`, it can further reduce package size.

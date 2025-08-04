@@ -1,28 +1,28 @@
 # Free Trial
 
-Compared to the paid trial version and the version after formal purchase, the free trial version only provides pre-compiled binary libs and tools, and only supports building for the iOS platform target.
+Compared to the paid trial version and the officially purchased version which both include all HybridCLR runtime and Editor source code, the free trial version only provides precompiled
+binary lib and tools, and only supports building iOS platform targets.
+
 
 ## Trial Rules
 
-- Targeted towards enterprise users only.
-- The trial is free and has no trial period limit. However, if technical support is needed during the trial, additional charges will apply.
-- The trial version will randomly crash after **30 minutes** of app launch. Please do not use it for formal releases.
+- Only for enterprise users
+- Trial is free with no time limit, but technical support during the trial requires additional payment
+- The trial version will **randomly crash** 1 hour after the App starts, please do not use it for officially released versions
 
-## Hardware and platform limitation
+## Hardware and Platform Limitations
 
 :::tip
-The official version is the same as the community version, and there are no platform restrictions for both Editor and Runtime.
+The official version, like the community version, has no platform restrictions for either Editor or Runtime.
 :::
 
-- Unity Editor must be run on a Mac with M1 or M2 CPU.
-- **Only supports** iOS platform release
+- Requires Unity Editor to run on Mac computers with M1 or M2 CPU.
+- **Only supports** publishing to iOS platform
 
 ## Supported Versions
 
-Only specific Unity versions are supported.
+Only supports the following specific Unity versions:
 
-- ~~2019.4.40f1~~ To be supported
-- ~~2020.3.48f1~~ To be supported
 - 2021.3.31f1
 - 2022.3.11f1
 
@@ -30,35 +30,35 @@ Only specific Unity versions are supported.
 
 :::tip
 
-The following features are supported in the paid trial or the formal paid version.
+All the following features are supported in the official source code version
 
 :::
 
 - dots
 - **Incremental GC**
-- Development build options like Profiler, Script Debugging, etc.
+- Profiler, Script Debugging and other development Build options
 
-The lack of support for Incremental GC and various compilation options is due to the need for separate libil2cpp.a files for each compilation parameter, greatly increasing maintenance costs.
+Incremental GC and various compilation options are not supported because each compilation parameter requires a separate libil2cpp.a, greatly increasing maintenance costs.
 
 ## Installation
 
-The relevant libil2cpp code has been directly included in the package. Open the `HybridCLR/Installer` menu and click the Install button to complete the installation.
+The related libil2cpp code is already included directly in the Package. Open the `HybridCLR/Installer` menu and click the Install button to complete the installation.
 
-## Configuration
+## Settings
 
-Compared to the community version or the formal commercial version, the following settings need to be modified:
+Compared to the community version or the official commercial version, the following settings need to be modified:
 
-- Disable incremental GC
+- Disable Incremental GC
 - Disable development options
-- The value of the encryption parameter vmSeed cannot be modified and must remain as 0. Other encryption parameters can be modified.
+- Cannot modify the vmSeed value of encryption parameters, must keep it as 0. Other encryption parameters can be modified
 
-## Differences from the Standard Commercial Version
+## Differences from Standard Commercial Version
 
-In the trial version, the source code of some modules is removed and replaced with compiled binary programs. The following are the related modules:
+The trial version has removed source code for some modules and replaced them with calls to compiled binary programs. The following are the related modules.
 
-- DllEncryptor DLL encryption module
+- DllEncryptor dll encryption module
 - DhaoGenerator dhao generation module
 
 ## Usage
 
-Apart from minor adjustments in installation and configuration as described above, the rest remains entirely according to the [Quick Start](./quickstartunchecked) documentation.
+Except for the installation and settings adjustments as described in the documentation above, the rest can completely follow the [Quick Start](./quickstartunchecked).

@@ -1,52 +1,52 @@
+
 # MonoBehaviour Support
 
-HybridCLR fully supports the hot update MonoBehaviour and ScriptableObject workflow, that is, you can add a hot update script on the GameObject in the code or mount it directly on the resource.
-Hot update script. However, due to the particularity of Unity's resource management mechanism, mounting hot update scripts on resources requires some special processing in the packaging workflow.
+HybridCLR fully supports hot update MonoBehaviour and ScriptableObject workflows, allowing you to add hot update scripts to GameObjects in code or directly attach hot update scripts to assets. However, due to the special nature of Unity's asset management mechanism, attaching hot update scripts to assets requires some special handling in the packaging workflow.
 
-## Used through code
+## Usage Through Code
 
-`AddComponent<T>()` or `AddComponent(Type type)` is fully supported at all times. Just load the hot update dll into the runtime through Assembly.Load in advance
-Just within.
+`AddComponent<T>()` or `AddComponent(Type type)` are perfectly supported at any time. You just need to load the hot update DLL into the runtime using Assembly.Load beforehand.
 
-## Mount MonoBehaviour on the resource or create a ScriptableObject type resource
+## Attaching MonoBehaviour to Assets or Creating ScriptableObject Type Assets
 
-When the Unity resource management system deserializes hot update scripts in resources, it needs to meet the following conditions:
+Unity's asset management system requires the following conditions to be met when deserializing hot update scripts in assets:
 
-1. The dll where the script is located has been loaded into the runtime
-1. It must be a resource packaged using AssetBundle (**addressable and other frameworks that indirectly use ab can also**)
-1. The dll where the script is located must be added to the assembly list file generated during packaging. This list file is loaded when Unity starts and is immutable data. The list file names and formats of different versions of Unity are different.
+1. The DLL containing the script must already be loaded into the runtime
+2. Must be assets packaged using AssetBundle (**frameworks that indirectly use AB like Addressable also work**)
+3. The DLL containing the script must be added to the assembly list file generated during packaging. This list file is loaded at Unity startup and is immutable data. Different Unity versions have different list file names and formats.
 
-If no processing is done on the packaging process, since the hot update dll has been removed in the `IFilterBuildAssemblies` callback, it will definitely not appear in the assembly list file.
-Since condition 3 is not met, the hot update script mounted in the hot update resource cannot be restored, and a `Scripting Missing` error will occur during runtime.
+If no special processing is done to the packaging process, since hot update DLLs are removed in the `IFilterBuildAssemblies` callback, they definitely won't appear in the assembly list file. Due to not meeting condition 3, hot update scripts attached to hot update assets cannot be restored, and `Scripting Missing` errors will occur at runtime.
 
-Therefore, we have made special processing in the `Editor/BuildProcessors/PatchScriptingAssemblyList.cs` script, adding the hot update dll to the assembly list file.
-You need to add the hot update assembly in the project to the HotUpdateAssemblyDefinitions or HotUpdateAssemblies field in the HybridCLRSettings configuration.
+Therefore, we've made special handling in the `Editor/BuildProcessors/PatchScriptingAssemblyList.cs` script to add hot update DLLs to the assembly list file. You need to add hot update assemblies in your project to the `HotUpdateAssemblyDefinitions or HotUpdateAssemblies fields in HybridCLRSettings configuration`.
 
-It only restricts hot update resources to be packaged in the form of ab package, and there is no limit to the way hot update dll is packaged. You can freely choose the hot update method according to the project requirements**, you can package the dll into ab, or bare data
-files, or encrypted compression, etc. As long as it can be guaranteed to use Assembly.Load to load the hot update resource before loading it.
+Only hot update assets are restricted to be packaged as AB bundles; there are no restrictions on hot update DLL packaging methods. You can **freely choose hot update methods** according to project requirements, packaging DLLs into AB, as raw data files, or with encryption and compression, etc. Just ensure they're loaded using Assembly.Load before loading hot update assets.
 
-## assembly list file
+:::warning
+**If hot update scripts are attached to assets like Resources that ship with the main package, scripting missing errors will occur!** However, if you first package them as AssetBundle packages and then place them under Resources, loading that bundled AssetBundle at runtime works fine.
+:::
 
-The names and formats of the assembly list files are different in different Unity versions.
+## Assembly List File
 
-- 2019 version. It is a globalgamemanagers file when uncompressed and packaged. When compressed and packaged, it is first saved to the globalgamemanagers file, and then packaged into the data.unity3d file in BundleFile format and other files.
-- 2020-2021 version. Saved in the ScriptingAssembles.json file.
+Different Unity versions have different names and formats for assembly list files.
 
-## Known issues
+- 2019 version: globalgamemanagers file when uncompressed; saved to globalgamemanagers file then packaged with other files into data.unity3d file in BundleFile format when compressed.
+- 2020-2021 versions: Saved in ScriptingAssembles.json file.
 
-### GameObject.GetComponent(string name) interface cannot get component
+## Known Issues
 
-This is a known bug, which is related to the code implementation of unity. This problem occurs only when the hot update script is mounted on the hot update resource. The hot update script added through AddComponent in the code can be found by this method. If you encounter this problem please use `GameObject.GetComponent<T>()` or `GameObject.GetComponent(typeof(T))` instead
+### GameObject.GetComponent(string name) Interface Cannot Get Components
 
-## Others
+This is a known bug related to Unity's code implementation. Only hot update scripts attached to hot update assets have this problem; hot update scripts added through AddComponent in code can be found using this method. If you encounter this issue, please use `GameObject.GetComponent<T>()` or `GameObject.GetComponent(typeof(T))` instead.
 
-Do not modify the name of the dll where the script that needs to be linked to the resource is online, because the assembly list file cannot be modified after it is packaged.
+## Other Notes
 
-It is recommended not to disable TypeTree when typing AB, otherwise the normal AB loading method will fail. (The reason is that for scripts that disable TypeTree, Unity will verify the signature of the script in order to prevent the binary mismatch from causing process crash during the deserialization of MonoBehaviour. The content of the signature is the Hash generated by the script FullName and TypeTree data, but because we The hot update script information does not exist in the packaged installation package, so the verification will definitely fail)
+Don't modify the DLL names of scripts that need to be attached to assets after going live, because the assembly list file cannot be modified after packaging.
 
-If TypeTree must be disabled, a workaround is to disable the Hash verification of the script. In this case, the user must ensure that the code is consistent with the resource version when packaging, otherwise it may cause Crash, sample code
+It's recommended not to disable TypeTree when building AB, otherwise normal AB loading methods will fail. (The reason is that for scripts with disabled TypeTree, Unity performs signature verification to prevent process crashes during MonoBehaviour deserialization due to binary mismatches. The signature content is a hash generated from the script's FullName and TypeTree data, but since our hot update script information doesn't exist in the packaged installation, verification will definitely fail)
+
+If you must disable TypeTree, a workaround is to disable script hash verification. In this case, users must ensure code and asset version consistency during packaging, otherwise crashes may occur. Example code:
 
 ```csharp
-     AssetBundleCreateRequest req = AssetBundle. LoadFromFileAsync(path);
-     req.SetEnableCompatibilityChecks(false); // Non-public, needs to be called by reflection
+    AssetBundleCreateRequest req = AssetBundle.LoadFromFileAsync(path);
+    req.SetEnableCompatibilityChecks(false); // Non-public, needs to be called through reflection
 ```

@@ -1,38 +1,40 @@
 # DHAO Workflow
 
 :::warning
-If you are using HybridCLR version >= v7.7.0, it is recommended to use the [MetaVersion Workflow](./metaversionworkflow).
+If you are using hybridclr version >= v7.7.0, it is recommended to use the [MetaVersion Workflow](./metaversionworkflow).
 :::
 
-The DHAO workflow is the oldest workflow used for DHE hot updates. Before version v7.6.0, only the DHAO workflow was supported.
+The DHAO workflow is the longest-used workflow for DHE hot updates. Before version v7.6.0 and earlier, only the DHAO workflow was supported.
 
 ## Principle
 
-When loading DHE assemblies, it is necessary to know which types and functions have changed in order to decide whether the runtime should call the original AOT code or execute the latest hot-update code through interpretation. This difference calculation relies on the original DHE and the latest DHE assembly. The calculation is very complex and time-consuming, and it is not feasible to perform it in real-time during runtime. Therefore, an offline calculation method is used, and the resulting difference information is saved into a dhao file.
+When loading DHE assemblies, you need to know which types and functions have changed to decide whether the runtime should call the original AOT code or interpret and execute the latest hot update code. This difference calculation relies on the original DHE and latest DHE assemblies,
+and the calculation is very complex and time-consuming, making it impossible to calculate in real-time during runtime, so an offline calculation method is used. The calculated difference information is saved in the dhao file.
 
-The principle of the DHAO workflow is simple. However, since the dhao file is calculated based on the latest DHE and the original DHE, if there are multiple main packages in the official release, a corresponding dhao file must be generated for each main package. When there are many main packages, this process can become complex and difficult to manage. The [MetaVersion Workflow](./metaversionworkflow) completely solves this pain point.
+The DHAO workflow principle is simple, but since dhao files are calculated based on the latest DHE and original DHE, if there are multiple main packages after official release, you need to generate corresponding dhao files for each main package.
+When there are many main packages, this process is relatively complex and difficult to manage. The [MetaVersion workflow] completely solves this pain point.
 
 ## Basic Concepts
 
-To understand the DHAO workflow, you need to be familiar with the following terms:
+Understanding the DHAO workflow requires understanding the following terms:
 
 - AOT Snapshot
-- Inject Rule file
+- inject rule files
 - manifest.json
-- dhao file
-- spec file
+- dhao files
+- spec files
 
 ### AOT Snapshot
 
-An AOT Snapshot is a collection of files required to calculate the dhao file. It includes the following:
+AOT Snapshot is a collection of files needed to calculate dhao files, which includes the following files:
 
-- dll file
-- Inject Rule file
+- dll files
+- inject rule files
 - manifest.json
 
-The AOT Snapshot records the AOT information of the main package, and its core function is to calculate the dhao file required for hot updates.
+AOT Snapshot records the main package AOT information, and its core function is to calculate the dhao files needed for hot updates.
 
-The directory structure of an AOT Snapshot is as follows:
+The directory structure of AOT Snapshot is as follows:
 
 ```txt
   AotSnapshotDir
@@ -41,70 +43,69 @@ The directory structure of an AOT Snapshot is as follows:
     └── manifest.json
 ```
 
-The AOT Snapshot information is fully determined at the time of main package build. Please add it to your project's version control system.
+AOT Snapshot information is completely determined when building the main package, please add it to the project's version control system.
 
-### Inject Rule File
+### Inject Rule Files
 
-By default, code is injected at the beginning of almost all DHE functions. Code injection can greatly alleviate the problem of dirty function propagation, but its downside is that it increases code size and introduces a small amount of additional overhead. The Inject Rule file is used to customize code injection rules, allowing certain functions to be excluded from injection. For detailed documentation, see [Function Injection Strategy](./injectrules).
+By default, code is injected at the beginning of almost all DHE functions. Injected code can greatly alleviate the dirty function contamination problem, but the disadvantage is that it increases code size and brings a small amount of additional overhead. Inject Rule files are used to
+customize code injection rules, allowing some functions not to be injected. For detailed documentation, see [Function Injection Strategy](./injectrules).
 
 ### manifest.json
 
-This file records information such as the list of DHE assemblies.
+Records information such as the DHE assembly list.
 
-### dhao File
+### dhao Files
 
-The dhao file records the types and functions that have changed in the DHE assembly. When these changed functions are executed, they will automatically switch to interpreted execution.
+dhao files record the changed types and functions in DHE assemblies. When executing those changed functions, it will automatically switch to interpretation execution.
 
-The dhao file has a `.dhao.bytes` suffix.
+dhao files use the `.dhao.bytes` suffix.
 
-### spec File
+### spec Files
 
-The spec file is a human-readable version of the dhao file. This file is not needed during runtime. It is recommended to add it to your repository, but do not include it in the hot-update resource system, as it serves no purpose there!
+spec files are the readable version of dhao files, this file is not used during runtime. It is recommended to add it to the repository, but do not add it to the hot update resource system, as it serves no purpose!
 
-## Build and Hot-Update Workflow
+## Build and Hot Update Workflow
 
-- Build Main Package
-  - Export the main package project or directly build the main package.
-  - Create an AOT Snapshot.
+- Build main package
+  - Export main package project or directly build main package
+  - Create AOT Snapshot
+- Release hot update
+  - Compile hot update dll
+  - Calculate dhao files based on AOT Snapshot and latest hot update dll
+  - Add hot update dll and dhao files to hot update resource system
 
-- Release Hot Update
-  - Compile the hot-update dll.
-  - Calculate the dhao file based on the AOT Snapshot and the latest hot-update dll.
-  - Add the hot-update dll and dhao file to the hot-update resource system.
-
-## Creating an AOT Snapshot
+## Create AOT Snapshot
 
 :::warning
-The dll in the AOT Snapshot must be precisely consistent with the binary code in the built main package. Please create it only after **exporting the project** or **building**! Do not use the AOT dll generated by `HybridCLR/Generate/All`!
+The dll in AOT Snapshot must exactly match the binary code in the built main package, please be sure to create it **after exporting the project** or **Build**! You cannot use the AOT dll generated by `HybridCLR/Generate/All`!
 :::
 
-Call `DhaoWorkflow.CreateAotSnapshot(BuildTarget target, string outputSnapshotDir)` to create the AOT Snapshot files.
+Call `DhaoWorkflow.CreateAotSnapshot(BuildTarget target, string outputSnapshotDir)` to create AOT Snapshot files.
 
-Please add the AOT Snapshot to version control for future use.
+Please add AOT Snapshot to version control for future use.
 
-## Generating dhao Files
+## Generate dhao
 
-The generation process is as follows:
+Generation process:
 
-- Use `HybridCLR/CompileDll/ActivedBuildTarget` to compile the latest hot-update dll.
-- Call `DhaoWorkflow.GenerateDhaoFiles(string aotSnapshotDir, string hotUpdateSnapshotDir, string dhaoOutputDir)` to generate the dhao file.
+- Use `HybridCLR/CompileDll/ActivedBuildTarget` to compile the latest hot update dll.
+- Call `DhaoWorkflow.GenerateDhaoFiles(string aotSnapshotDir, string hotUpdateSnapshotDir, string dhaoOutputDir)` to generate dhao files.
+  
+  aotSnapshotDir is the AOT Snapshot directory created when building the main package. hotUpdateSnapshotDir is the latest hot update dll directory. dhaoOutputDir is the dhao file output directory.
 
-  - `aotSnapshotDir` is the directory of the AOT Snapshot created during the main package build.
-  - `hotUpdateSnapshotDir` is the directory of the latest hot-update dll.
-  - `dhaoOutputDir` is the output directory for the dhao file.
+## Multi-platform and Multi-main Package
 
-## Multi-Platform and Multiple Main Packages
+Due to the implementation principle of dhao, each time a hot update is released, each `{main package-platform}` combination needs to generate separate dhao files.
 
-Due to the implementation principle of dhao, each `{main package - platform}` combination requires a separate dhao file to be generated whenever a hot update is released.
-
-## Merging Multiple dhao Files (Not Recommended)
+## Merge Multiple dhao Files (Not Recommended)
 
 :::warning
 
-Merging dhao files will lead to performance degradation. Use this feature with caution!!!
+Merging dhao files will cause performance degradation, use this feature with caution!!!
 
 :::
 
-If you find it cumbersome to provide separate dhao files for each main package, you can consider merging all dhao files for the same platform into a single dhao file. This can be done by calling `DhaoWorkflow.MergeDhaoFile`.
+If you find it troublesome to provide separate dhao files for each main package, you can consider merging the dhao files of all main packages under the same platform into one dhao file. Call `DhaoWorkflow.MergeDhaoFile` to complete this work.
 
-Merging dhao files for all main packages into one has a significant downside. The resulting dhao file will record the union of all type and function changes from the input dhao files. This means that if a function has changed only in an older main package and not in the latest one, the merged dhao file will still mark this function as changed, causing it to be executed in interpreted mode even in the latest main package. This leads to performance degradation.
+Merging dhao files of all main packages into one dhao file has a disadvantage: the final output dhao file records type and function changes as the union of type and function changes in all input dhao files. This means that if a function only
+changed in an old main package but not in the latest main package, the merged dhao file will mark this function as changed, causing this function to be executed in interpretation mode even in the latest main package. This brings performance degradation.

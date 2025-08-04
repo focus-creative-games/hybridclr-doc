@@ -1,28 +1,27 @@
-# Hotfix
+# Hotfix Dynamic Hot Repair
 
-Some updates merely consist of a few lines of bug code fixes, and some projects may wish to dynamically repair these directly during the game's running process, instead of forcing players to restart the current game App.
-Currently, versions other than the [hot reload version](./reload/intro) do not support reloading hot update assemblies.
-Even the hot loading version, because it supports completely uninstalling an assembly and reloading a completely new assembly, has many [restrictions and requirements](./reload/hotreloadassembly#Unsupported_features_and_special_requirements),
-which is highly intrusive to business code.
+Some updates are just a few lines of bug fixes, and some developers might want to dynamically fix them while the game is running, rather than forcing players to restart the current game app.
+Currently, versions other than the [Hot Reload Edition](./reload/intro) don't support reloading hot update assemblies.
+Even the hot reload version, despite supporting complete unloading of assemblies and reloading of entirely new assemblies, has many [limitations and requirements](./reload/hotreloadassembly#unsupported-features-and-special-requirements) for code, making it highly intrusive to business code.
 
-Hotfix technology is specifically designed to solve such occasions for dynamically fixing bugs. It can fix bugs in hot update modules in an unnoticeable way during runtime, and it is non-intrusive to business code.
+Hotfix technology is specifically designed to solve such dynamic bug fixing scenarios. It can fix bugs in hot update modules at runtime without affecting the user experience, and it's non-intrusive to business code.
 
 ## Advantages
 
-- Dynamically fix code bugs without needing to restart the game App
-- Can fix any code in hot update assemblies (including flagship version DHE assemblies), including static member functions, generic functions, asynchronous functions, etc.
-- Easy to use, non-intrusive to business code, no need to modify any business code
-- No limit on the number of fixes, multiple fixes can be made during app runtime. For example, after publishing version v1 and fixing, if other bugs are found, then publish version v2 for the fix
+- Dynamically fixes code bugs without needing to restart the game app
+- Can fix any code in hot update assemblies (including DHE assemblies in Ultimate Edition), including static member functions, generic functions, async functions, etc.
+- Simple to use, non-intrusive to business code, requires no modification of any business code
+- No limit on the number of fixes; can be applied multiple times during app runtime. For example, after releasing v1 fix, other bugs are discovered and v2 fix can be released immediately
 
-## Limitations and Defects
+## Limitations and Drawbacks
 
-- Can only fix the function body, cannot modify type definitions (such as changing class names, adding or deleting fields, adding or deleting functions, modifying function signatures, etc.)
-- Each fix will load a hot update assembly, and the memory of the previously loaded assembly cannot be released, causing some memory leaks
-- ​Incompatible with function inline optimization; function inlining needs to be disabled. Before hot update loading or at the entry point of the hot update, call `RuntimeApi.SetRuntimeOption(RuntimeOptionId.MaxMethodInlineDepth, 0);`
+- Can only fix function bodies, cannot modify type definitions (such as changing class names, adding/removing fields, adding/removing functions, modifying function signatures, etc.)
+- Each fix loads a hot update assembly once; previously loaded assembly memory cannot be released, causing some memory leakage
+- Incompatible with function inline optimization; function inlining must be disabled. Call `RuntimeApi.SetRuntimeOption(RuntimeOptionId.MaxMethodInlineDepth, 0);` before hot update loading or at the hot update entry point
 
 ## Usage
 
-Call the `RuntimeApi::HotfixAssembly` function to complete the hotfix, example code is as follows.
+Call the `RuntimeApi::HotfixAssembly` function to complete hot repair. Example code as follows:
 
 ```csharp
 
@@ -31,19 +30,19 @@ public static void ApplyHotfix()
     byte[] hotfixDllBytes = LoadFromXXX("Hotfix");
     var hotfixTypes = new List<HotfixType>
     {
-        // The full name of the class to be fixed, including the namespace (if any)
+        // Full name of the class to fix, including namespace (if any)
         name = "TestHotfixMethods",
-        // The list of methods to be fixed
+        // List of functions to fix
         methods = new List<HotfixMethod>
         {
             new HotfixMethod
             {
-                // Fix by function name, if there are multiple functions with the same name, all will be fixed
+                // By function name; if there are multiple functions with the same name, all will be fixed
                 name = "Foo1",
             },
             new HotfixMethod
             {
-                // Fix by function signature. Only one of name and signature should be provided, otherwise an error will occur
+                // By function signature. Only one of name or signature can be provided, otherwise an error will occur
                 signature = "Int32 Foo2(Int32, Int32)",
             },
         }
@@ -52,7 +51,8 @@ public static void ApplyHotfix()
 }
 ```
 
-When there are many dlls and functions that need to be fixed, this operation is tedious and prone to errors. It is recommended to first create a hotfix.manifest.xml configuration file, then convert it to the HotfixManifest class, and then use RuntimeApi.HotfixAssemblies to fix all at once, the code is similar to the following:
+When there are many dlls and functions to fix, this operation is tedious and error-prone. It's recommended to first create a hotfix.manifest.xml configuration file, then convert it to a HotfixManifest class, and use `RuntimeApi.HotfixAssemblies` to apply all fixes at once. The code would look like this:
+
 
 ```csharp
 
@@ -89,3 +89,5 @@ public static void ApplyHotfix()
 }
 
 ```
+
+

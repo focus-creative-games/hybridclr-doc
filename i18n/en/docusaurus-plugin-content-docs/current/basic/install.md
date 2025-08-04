@@ -1,73 +1,66 @@
-# Install
 
-## Install a compatible Unity version
+# Installation
 
-Any version of 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x or 6000.x.y is supported. It is recommended to install versions 2019.4.40, 2020.3.26+, 2021.3.x, 2022.3.x and 6000.x.y .
+## Install Compatible Unity Version
+
+Supports any version from 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x, 6000.x.y. We recommend installing versions 2019.4.40, 2020.3.26+, 2021.3.x, 2022.3.x, 6000.x.y.
 
 :::tip
-If your version is 2019.4.0-2019.4.39, **Need to switch to 2019.4.40 to complete HybridCLR installation, and then switch back to the current version**.
+If your version is 2019.4.0-2019.4.39, **you need to first switch to version 2019.4.40 to complete the HybridCLR installation, then switch back to your current version**.
 
-If your version is 2020.3.0-2020.3.25, after completing the installation in Installer, copy `2020.3.x/Editor/Data/il2cpp/external` from the installation directory of any version 2020.3.26+ to replace
-  `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`.
+If your version is 2020.3.0-2020.3.25, after completing the installation in the Installer, copy `2020.3.x/Editor/Data/il2cpp/external` from any 2020.3.26+ version installation directory to replace `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`.
 :::
 
-According to the target platform you packaged, select the necessary modules during the installation process. If you package Android or iOS, just select the corresponding module directly. If you want to package Standalone, you must additionally select `Windows Build Support(IL2CPP)` or `Mac Build Support(IL2CPP)`.
+Based on your target build platform, select the necessary modules during installation. For Android or iOS builds, simply select the corresponding modules. For Standalone builds, you must additionally select `Windows Build Support(IL2CPP)` or `Mac Build Support(IL2CPP)`.
 
 ![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
 
-## Install IDE and related tools
+## Install IDE and Related Tools
 
 - Windows
-  - Under Win, you need to install `visual studio 2019` or later. The installation must include at least the `Game Development with Unity` and `Game Development with C++` components.
-  - install git
+  - On Windows, you need to install `Visual Studio 2019` or higher. The installation must include at least `Game development with Unity` and `Game development with C++` components.
+  - Install git
 - Mac
-  - Requires MacOS version >= 12, xcode version >= 13, for example `xcode 13.4.1, macos 12.4`.
-  - install git
-  - install cmake
+  - Requires macOS version >= 12, Xcode version >= 13, for example `Xcode 13.4.1, macOS 12.4`.
+  - Install git
+  - Install cmake
 
-### Select `com.code-philosophy.hybridclr` version
+### Select `com.code-philosophy.hybridclr` Version
 
 :::tip
-The package name before v3.0.0 is `com.focus-creative-games.hybridclr_unity`.
+Versions prior to v3.0.0 were named `com.focus-creative-games.hybridclr_unity`.
 :::
 
-The `v3.x.y` and `v4.x.y` series versions have removed support for Unity 2019, but starting from the `v5.0.0` version, support for Unity 2019 has been restored, and support for source code Form packaging for iOS.
-Developers using the 2019 version are strongly recommended to choose the latest `v8.x.y` version.
+The `v3.x.y` and `v4.x.y` series removed support for Unity 2019, but starting from `v5.0.0`, **support for Unity 2019 has been restored**, and it supports iOS builds in source code form.
+Developers using Unity 2019 are strongly recommended to choose `v8.x.y` and newer versions.
 
-These versions have been verified by a large number of online projects and are already very stable. There is no need to worry about which one is better. Generally speaking, the newer version has more bugs fixed, more optimizations, and a better user experience.
+These versions have all been validated by numerous online projects and are very stable. You don't need to worry about which one is better - generally speaking, newer versions fix more bugs and optimize more, providing a better user experience.
 
-## Install the `com.code-philosophy.hybridclr` package
+## Install `com.code-philosophy.hybridclr` package
 
-The warehouse address is [github](https://github.com/focus-creative-games/hybridclr_unity), and the domestic fast mirror warehouse is [gitee](https://gitee.com/focus-creative-games/hybridclr_unity) .
+The repository address is [github](https://github.com/focus-creative-games/hybridclr_unity), and the domestic fast mirror repository is [gitee](https://gitee.com/focus-creative-games/hybridclr_unity).
 
-There are three installation methods:
+There are several installation methods:
 
-- Install from git url using Package Manager
-- Install from openupm using Package Manager
-- local installation
+- Install from git URL using Package Manager
+- Local installation
 
-### Install from git url
+### Install from git URL
 
-Click `Windows/Package Manager` in the main menu to open the package manager. Click `Add package from git URL...` as shown below, fill in `https://gitee.com/focus-creative-games/hybridclr_unity.git` or `https://github.com/focus-creative -games/hybridclr_unity.git`.
+Click `Windows/Package Manager` in the main menu to open the package manager. As shown in the image below, click `Add package from git URL...` and enter `https://gitee.com/focus-creative-games/hybridclr_unity.git` or `https://github.com/focus-creative-games/hybridclr_unity.git`.
 
 - The main branch address is `https://gitee.com/focus-creative-games/hybridclr_unity.git`
 - Other tag version addresses are `https://gitee.com/focus-creative-games/hybridclr_unity.git#{tag}`
 
-If you want to install a certain branch or tag version, please add `#{tag}` after the address, such as `https://gitee.com/focus-creative-games/hybridclr_unity.git#v3.0.1`.
+To install a specific branch or tag version, add `#{tag}` after the address, such as `https://gitee.com/focus-creative-games/hybridclr_unity.git#v3.0.1`.
 
 ![add package](/img/hybridclr/install_hybridclrunity_package.jpg)
 
-If you are not familiar with installing packages from url, please see [install from giturl](https://docs.unity3d.com/Manual/upm-ui-giturl.html).
-
-### Install from openupm
-
-openump address [com.focus-creative-games.hybridclr_unity](https://openupm.com/packages/com.focus-creative-games.hybridclr_unity/).
-
-For the specific installation method, please open this link and view the detailed installation instructions on the page.
+If you're unfamiliar with installing packages from URLs, please refer to [install from giturl](https://docs.unity3d.com/Manual/upm-ui-giturl.html).
 
 ### Install from local files
 
-After cloning the warehouse locally, rename the directory to `com.code-philosophy.hybridclr` (for versions before v3.0.0, please use `com.focus-creative-games.hybridclr_unity`), and then directly move to the Packages directory of the project. Can.
+After cloning the repository locally, rename the directory to `com.code-philosophy.hybridclr` (for versions prior to v3.0.0, use `com.focus-creative-games.hybridclr_unity`), then move it directly to the project's Packages directory.
 
 ## Update com.code-philosophy.hybridclr
 
@@ -75,144 +68,145 @@ After updating com.code-philosophy.hybridclr, you need to re-run `HybridCLR/Inst
 
 ## Initialize HybridCLR
 
-In order to reduce the size of the package itself, some files need to be copied from the Unity Editor installation directory. Therefore, after installing the plug-in, an additional initialization process is required.
+To reduce the size of the package itself, some files need to be copied from Unity Editor's installation directory. Therefore, after installing the plugin, an additional initialization process is required.
 
-Click the menu `HybridCLR/Installer...` to pop up the installation interface.
+Click the menu `HybridCLR/Installer...` to open the installation interface.
 
-The branch or tag compatible with hybridclr and il2cpp_plus corresponding to the current package version has been configured in the `Data~/hybridclr_version.json` file in com.code-philosophy.hybridclr.
-The Installer will install the version specified in the configuration, and no longer supports customizing the version to be installed.
+The `Data~/hybridclr_version.json` file in com.code-philosophy.hybridclr has already configured the compatible hybridclr and il2cpp_plus branches or tags corresponding to the current package version.
+The Installer will install the versions specified in the configuration and no longer supports custom version selection for installation.
 
 The configuration looks like this:
 
 ```json
 {
-     "versions": [
-     {
-         "unity_version": "2019",
-         "hybridclr" : { "branch": "v2.0.1"},
-         "il2cpp_plus": { "branch": "v2019-2.0.1"}
-     },
-     {
-         "unity_version": "2020",
-         "hybridclr" : { "branch": "v2.0.1"},
-         "il2cpp_plus": { "branch": "v2020-2.0.1"}
-     },
-     {
-         "unity_version": "2021",
-         "hybridclr" : { "branch": "v2.0.1"},
-         "il2cpp_plus": { "branch": "v2021-2.0.1"}
-     }
-     ]
+    "versions": [
+    {
+        "unity_version":"2019",
+        "hybridclr" : { "branch":"v2.0.1"},
+        "il2cpp_plus": { "branch":"v2019-2.0.1"}
+    },
+    {
+        "unity_version":"2020",
+        "hybridclr" : { "branch":"v2.0.1"},
+        "il2cpp_plus": { "branch":"v2020-2.0.1"}
+    },
+    {
+        "unity_version":"2021",
+        "hybridclr" : { "branch":"v2.0.1"},
+        "il2cpp_plus": { "branch":"v2021-2.0.1"}
+    }
+    ]
 }
 ```
 
-If you must install other versions of hybridclr or il2cpp_plus, modify the branch in the configuration file to be the target branch or tag.
-
-In most cases, just click `Install` to download and install from the remote repository by default. After the installation is successful, the console will print the `installation successful` log. As shown below.
+If you must install other versions of hybridclr or il2cpp_plus, modify the branch in this configuration file to the target branch or tag. In most cases, you can simply click `Install` to download and install from the remote repository by default. After successful installation, the console will print `Installation successful` log. As shown in the image below.
 
 ![install_default](/img/hybridclr/install_default.jpg)
 
-From version 2.3.1 onwards, it supports copying and installing directly from the libil2cpp directory that contains hybridclr made locally. If your network is not good, or git is not installed and you cannot download and install remotely from the warehouse, you can first [il2cpp_plus](https://github.com/focus-creative-games/il2cpp_plus) and [hybridclr](https:/ /github.com/focus-creative-games/hybridclr) is downloaded to the local, and then according to the document in the **Installation Principle** section below, the libil2cpp directory containing hybridclr is merged from these two warehouses, and then installed in `Installer` Enable `Copy libil2cpp from local` option in the interface, select the libil2cpp directory you made, and click `Install` to execute the installation. As shown below.
+Starting from v2.3.1, support has been added for direct installation by copying from locally made libil2cpp directories containing hybridclr. If you have poor network connectivity or haven't installed git, preventing remote download from repositories, you can first download [il2cpp_plus](https://github.com/focus-creative-games/il2cpp_plus) and [hybridclr](https://github.com/focus-creative-games/hybridclr) locally, then follow the **Installation Principle** section documentation below to merge these two repositories into a libil2cpp directory containing hybridclr. Then in the `Installer` interface, enable the `Copy libil2cpp from local` option, select your made libil2cpp directory, and click `Install` to execute the installation. As shown in the image below.
 
 ![install](/img/hybridclr/install.jpg)
 
-Since the installation process needs to pull the hybridclr and il2cpp_plus warehouses, it may fail due to network failures. If
-`HybridCLRData/hybridclr_repo` or `HybridCLRData/il2cpp_plus_repo` is empty when finding failed, please try again.
+The most common failure reason is that git is not installed, or Unity Editor and Unity Hub were not restarted after installing git. If you're certain git is installed and cmd can indeed run git, try restarting your computer.
 
-The most common cause of failure is that git is not installed, or UnityEditor and UnityHub have not been restarted after installing git. If you are sure that git is installed and git can indeed be run in cmd, try restarting the computer.
+If automatic installation fails due to various special reasons, please refer to the **Installation Principle** section below to manually simulate the entire installation process.
 
-If the automated installation cannot be completed due to various special reasons, please refer to the following **Installation Principle** to manually simulate the entire installation process.
-
-## Special handling after installation
+## Special Handling After Installation
 
 ### WebGL Platform
 
 :::tip
-Local installation has been supported since Unity 2021.3.4+ and 2022.3.0+ versions, and the WebGL platform construction process is exactly the same as other platforms.
+Starting from Unity 2021.3.4+ and 2022.3.0+ versions, local installation is already supported, and the WebGL platform build process is identical to other platforms
 :::
 
-Due to Unity's own reasons, if the Unity version used is lower than 2021.3.4, the WebGL platform must be installed globally. Please consult the `Global Installation` documentation in the following section.
+Due to Unity's own reasons, if using Unity versions lower than 2021.3.4, building for WebGL platform requires global installation. Please refer to the `Global Installation` documentation in the section below.
 
 ### Unity 2019
 
-In order to support 2019, the source code generated by il2cpp needs to be modified, so we modified the 2019 version of the il2cpp tool. Therefore, there is an additional step in the Installer installation process: copy `{package}/Data~/ModifiedUnityAssemblies/2019.4.40/Unity.IL2CPP.dll` to `{project}/HybridCLRData/LocalIl2CppData/il2cpp/build/deploy/net471 /Unity.IL2CPP.dll`
+To support 2019, we need to modify the source code generated by il2cpp, so we modified the il2cpp tool for the 2019 version. Therefore, the Installer's installation process includes an additional step: copying `{package}/Data~/ModifiedUnityAssemblies/2019.4.40/Unity.IL2CPP.dll` to `{project}/HybridCLRData/LocalIl2CppData/il2cpp/build/deploy/net471/Unity.IL2CPP.dll`
 
-**Note that this operation is automatically completed when the Installer is installed, no manual operation is required.**
+**Note that this operation is automatically completed during Installer installation and does not require manual operation.**
 
-For developers using the 2019.4.0-2019.4.39 version, please switch to the 2019.4.40 version to complete the installation, and then switch back to your current version.
+:::tip
+For developers using versions 2019.4.0-2019.4.39, please first switch to version 2019.4.40 to complete the installation, then switch back to your current version.
+:::
 
-## Using HybridCLR in non-compatible versions of Unity
+## Using HybridCLR in Non-Compatible Unity Versions
 
-Since we haven't fully tested all Unity versions, in fact, some Unity versions that are not in the supported list may also be able to use HybridCLR normally. The installation method is as follows:
+Since we haven't fully tested all Unity versions, some Unity versions not in the support list may actually work normally with HybridCLR. Installation method is as follows:
 
-- Find a version in the support list that is closest to your version, for example, if your version number is 2021.2.20, then the latest version from you is 2021.3.0.
-- First switch your Unity project to this latest supported version, install HybridCLR.
+- Find a version in the support list that's closest to your version. For example, if your version is 2021.2.20, the closest version would be 2021.3.0.
+- First switch your Unity project to this closest supported version and install HybridCLR.
 - Switch back to your Unity version.
-- Try to package, if it can run smoothly, it means that HybridCLR supports your version, if there is a problem, then upgrade the version.
+- Try building. If it runs smoothly, it means HybridCLR supports your version. If there are problems, it's better to upgrade your version.
 
-If you must use this version, you can contact us for [Business Technical Support](../business/intro.md).
+If you must use that version, you can contact us for [commercial technical support](../business/intro.md).
 
-## How `HybridCLR/Installer` works
+## How `HybridCLR/Installer` Works
 
-This section is just an introduction to the principle. **The operation of installing libil2cpp has been completed by the installer, and you do not need to do it manually**.
+This section only explains the principle. **The libil2cpp installation operations have been completed by the installer and do not require manual operation**.
 
 The HybridCLR installation process mainly includes these parts:
 
-- Make libil2cpp that supports hot update
-- Install locally or globally to make the new version of libil2cpp take effect
-- Minor improvements to the Unity Editor
+- Create libil2cpp that supports hot updates
+- Local or global installation to make the new version of libil2cpp effective
+- Minor modifications to Unity Editor
 
-### Replace libil2cpp code
+### Replace libil2cpp Code
 
-The original libil2cpp code is AOT runtime and needs to be replaced with the modified libil2cpp to support hot updates. The modified libil2cpp consists of two parts
+The original libil2cpp code is an AOT runtime and needs to be replaced with a modified libil2cpp to support hot updates. The modified libil2cpp consists of two parts
 
 - il2cpp_plus
 - hybridclr
 
-The il2cpp_plus repository is a slightly modified version of the original libil2cpp to support dynamic **register** metadata (changed hundreds of lines of code). This repository is highly comparable to the original libil2cpp code
-resemblance. hybridclr is the core code of the interpreter, including metadata loading, code transform (compilation), and code interpretation and execution.
+The il2cpp_plus repository is a version that has made minimal modifications to the original libil2cpp to support dynamic **register** metadata (modified a few hundred lines of code). This repository is highly
+similar to the original libil2cpp code. hybridclr is the core code of the interpreter part, including metadata loading, code transform (compilation), and code interpretation execution.
 
-As shown in the figure below, merge the `il2cpp_plus/libil2cpp` directory with the `hybridclr/hybridclr` directory to create the final libil2cpp that supports hot updates.
+As shown in the figure below, merge the `il2cpp_plus/libil2cpp` directory and the `hybridclr/hybridclr` directory to create the final libil2cpp that supports hot updates.
 
 ![merge_hybridclr_dir](/img/hybridclr/merge_hybridclr_dir.jpg)
 
-### Local installation
 
-Unity allows you to use the environment variable `UNITY_IL2CPP_PATH` to customize the location of `il2cpp`, so you can create an il2cpp directory locally in the project, replace the libil2cpp directory under the il2cpp directory with the modified libil2cpp,
-Then point the `UNITY_IL2CPP_PATH` environment variable to this directory. The general process is as follows:
+### Local Installation
+
+Unity allows using the environment variable `UNITY_IL2CPP_PATH` to customize the location of `il2cpp`, so you can create an il2cpp directory locally in the project, replace the libil2cpp directory in the il2cpp directory with the modified libil2cpp,
+and then point the `UNITY_IL2CPP_PATH` environment variable to that directory. The general process is as follows:
 
 - Copy the il2cpp directory from the Editor installation directory to `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp`
-- Create the final libil2cpp directory from the clone il2cpp_plus and hybridclr repositories
+- Clone il2cpp_plus and hybridclr repositories to create the final libil2cpp directory
 - Replace `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` with the final libil2cpp directory
 - Copy the `MonoBleedingEdge` directory from the Editor installation directory to `{project}/HybridCLRData/LocalIl2CppData-{platform}/MonoBleedingEdge`
-- Other processing. For the 2019 version, copy `{package}/Data~/ModifiedUnityAssemblies/2019.4.40/Unity.IL2CPP.dll` to `{project}/HybridCLRData/LocalIl2CppData/il2cpp/build/deploy/net471/Unity.IL2CPP.dll`
+- Other processing. For example, for 2019 version, copy `{package}/Data~/ModifiedUnityAssemblies/2019.4.40/Unity.IL2CPP.dll` to `{project}/HybridCLRData/LocalIl2CppData/il2cpp/build/deploy/net471/Unity.IL2CPP.dll`
 
+:::tip
+The com.code-philosophy.hybridclr package modifies the environment variable `UNITY_IL2CPP_PATH` **within this UnityEditor process** and will not affect other Unity projects.
+:::
 
-Create the upper-level `LocalIl2CppData-{platform}` directory instead of only creating il2cpp because it is found that only specifying the location of the il2cpp directory is not enough. When packaging, Unity implicitly assumes that il2cpp has a `MonoBleedingEdge` directory at the same level, so the upper level is created directory, copy both the il2cpp and MonoBleedingEdge directories.
+The reason for creating the upper-level `LocalIl2CppData-{platform}` directory instead of just creating il2cpp is because testing has found that simply specifying the il2cpp directory location is not enough. During packaging, Unity implicitly assumes that there is a `MonoBleedingEdge` directory at the same level as il2cpp, so the upper-level directory was created, and both the il2cpp and MonoBleedingEdge directories were copied over.
 
-Because the il2cpp directory that comes with Editor on different platforms is slightly different, LocalIl2CppData needs to distinguish the platform.
+Because the il2cpp directories that come with different platform Editors are slightly different, LocalIl2CppData needs to distinguish between platforms.
 
-### Global installation
+### Global Installation
 
-Global installation needs to replace (or link) the libil2cpp directory of the Editor installation directory ({editor}/Data/il2cpp/libil2cpp under Win, similar to Mac) with the modified libil2cpp, and additionally replace some modified files (for example, 2019 also needs to be modified Unity.IL2CPP.dll). There are several flaws:
+Global installation requires replacing (or linking) the libil2cpp directory of the Editor installation directory (Win: {editor}/Data/il2cpp/libil2cpp, Mac: similar) with the modified libil2cpp, and additionally replacing some modified files (such as Unity.IL2CPP.dll for 2019). There are several drawbacks:
 
-- Due to directory permissions, auto-completion may not be possible
-- Will affect other projects that don't use hybridclr
-- The `HybridCLR/Generate/xxxx` operation needs to modify the files in the libil2cpp directory, which may fail due to directory permissions.
+- May not be able to complete automatically due to directory permission issues
+- Will affect other projects that do not use hybridclr
+- `HybridCLR/Generate/xxxx` operations need to modify files in the libil2cpp directory, which may fail due to directory permission issues.
 
-After completing the installation using `HybridCLR/Installer`, enable the `useGlobalIl2Cpp` option in `HybridCLR/Settings` to start the global installation, and the environment variable `UNITY_IL2CPP_PATH` will be cleared.
+After completing installation using `HybridCLR/Installer`, enable the `useGlobalIl2Cpp` option in `HybridCLR/Settings` to start global installation, which will clear the environment variable `UNITY_IL2CPP_PATH`.
 
-If you use the replacement directory for global installation, and your com.code-philosophy.hybridclr version >= 2.1.0, please run `HybridCLR/Generate/Il2cppDef` before overriding libil2cpp **for the first time** (Only this time, it is no longer needed later, unless you switch the project Unity version) to generate the correct version macro, and then overwrite the original libil2cpp directory. **Symbolic link installation method or com.code-philosophy.hybridclr version lower than 2.1.0 does not need to perform this operation, just overwrite the original libil2cpp directory**.
+If you use the directory replacement method for global installation, then **the first time** before overwriting libil2cpp, please first run `HybridCLR/Generate/Il2cppDef` (only this once, no need later unless you switch project Unity version) to generate the correct version macros, then overwrite the original libil2cpp directory. **Symbolic link installation method does not need to perform this operation, just directly overwrite the original libil2cpp directory**.
 
-Due to permissions, even if it is installed globally, the `Generate/xxx` command modifies the files under the local `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`. **Please overwrite the local libil2cpp directory with the global installation directory after each generate**.
+Due to permission issues, even with global installation, the `Generate/xxx` commands modify files in the local `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` directory. **Please always overwrite the global installation directory with the local libil2cpp directory after each generate operation**.
 
-It is very troublesome to replace the libil2cpp directory every time. It is recommended to link the libil2cpp directory of the installation directory to the local libil2cpp directory. Methods as below:
+Replacing the libil2cpp directory each time is very troublesome. It is recommended to use the method of linking the installation directory's libil2cpp directory to the local libil2cpp directory. The method is as follows:
 
-- Windows platform. Open the command line window with administrator privileges, delete or rename the original libil2cpp, and then run `mklink /D "<libil2cpp directory path of Editor installation directory>" "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp"`.
-- Linux or Mac platform. Open the command line window with administrator privileges, delete or rename the original libil2cpp, and then run `ln -s "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" "<libil2cpp directory path of Editor installation directory>"`.
+- Windows platform: Open a command line window with administrator privileges, delete or rename the original libil2cpp, then run `mklink /D "<Editor installation directory libil2cpp directory path>" "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp"`.
+- Linux or Mac platform: Open a command line window with administrator privileges, delete or rename the original libil2cpp, then run `ln -s "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" "<Editor installation directory libil2cpp directory path>"`.
 
-For the 2019 version replace Unity.IL2CPP.dll, also use a method similar to the above replacement or soft link.
+For 2019 version Unity.IL2CPP.dll replacement, also use similar replacement or soft link methods as above.
 
 ## Precautions
 
-Due to Unity's caching mechanism, after updating HybridCLR, be sure to clear the Library\Il2cppBuildCache directory, otherwise the latest code will not be used when packaging. If you use Installer to automatically install or update HybridCLR, it will automatically clear these directories without any additional action on your part.
+Due to Unity's caching mechanism, after updating HybridCLR, you must clear the Library\Il2cppBuildCache directory, otherwise the latest code will not be used during packaging. If you use the Installer to automatically install or update HybridCLR, it will automatically clear these directories without requiring additional operations from you.

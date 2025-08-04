@@ -1,62 +1,61 @@
-# Building and Hot Updating
+# Build and Hot Update
 
-## Building the Game
+## Build Game
 
-- Run `HybridCLR/Generate/All`.
-- Export the project or build directly from the `Build Settings`.
-- Create an AOT snapshot and add the AOT snapshot directory to version control.
-- Add the `MetaVersions` directory from the AOT snapshot to the `StreamingAssets` directory, and package it with the game (optional but highly recommended).
+- Run `HybridCLR/Generate/All`
+- Export project or directly Build in `Build Settings`
+- Create AOT snapshot and add AOT snapshot directory to version control
+- Add the MetaVersions directory from AOT snapshot to StreamingAssets directory to carry with the package (optional but strongly recommended)
 
-## Creating AOT Snapshots
+## Create AOT Snapshot
 
 :::warning
-The DLLs in the AOT snapshot must match the binary code of the main package exactly. Please create the AOT snapshot **after** exporting the project or building the main package!
-
+The dlls in AOT snapshot must exactly match the binary code in the built main package. Be sure to create after **exporting project** or **Build**!
 :::
 
-The process is as follows:
+Process as follows:
 
-- Create the base AOT snapshot file.
-- Generate meta versions for the DHE DLLs in the base AOT snapshot.
-- Add the final AOT snapshot directory to version control.
+- Create AOT base snapshot files
+- Generate meta version for dhe dlls in base AOT snapshot
+- Add final AOT snapshot directory to version control
 
-### Creating the Base AOT Snapshot File
+### Create AOT Base Snapshot Files
 
-Call `MetaVersionWorkflow.CreateAotSnapshot(BuildTarget target, string outputSnapshotDir)` to create the base snapshot file.
+Call `MetaVersionWorkflow.CreateAotSnapshot(BuildTarget target, string outputSnapshotDir)` to create snapshot base files.
 
-`CreateAotSnapshot` performs the following tasks:
+CreateAotSnapshot does the following work:
 
-- Copies all AOT and DHE DLLs.
-- Copies the inject rule files to the `InjectRules` directory.
-- Creates a `manifest.json` file, which records the list of all DHE assemblies.
+- Copy all AOT and DHE dlls
+- Copy inject rule files to InjectRules directory
+- Create manifest.json to record all DHE assembly lists
 
-The base snapshot directory structure is as follows:
+Base snapshot directory structure as follows:
 
 ```txt
   AotSnapshot
   ├── *.dll
   ├── InjectRules
-        ├── rule1.xml
-        ├── rule2.xml
+        ├──rule1.xml
+        ├──rule2.xml
   └── manifest.json
 ```
 
-### Generating Meta Version Files for DHE DLLs in the Base AOT Snapshot
+### Generate meta version files for dhe dlls in base AOT snapshot
 
-Call `MetaVersionWorkflow.GenerateAotSnapshotMetaVersionFiles(string prevSnapshotDir, string curSnapshotDir)` to generate meta version files for the DHE DLLs in the snapshot.
+Call `MetaVersionWorkflow.GenerateAotSnapshotMetaVersionFiles(string prevSnapshotDir, string curSnapshotDir)` to generate corresponding meta version files for dhe dlls in snapshot.
 
-The rules for the `prevSnapshotDir` parameter in `MetaVersionWorkflow.GenerateAotSnapshotMetaVersionFiles` are as follows:
+Parameter rules for `prevSnapshotDir` in `MetaVersionWorkflow.GenerateAotSnapshotMetaVersionFiles`:
 
-- If this is the first AotSnapshot (i.e., there is no older AotSnapshot), `prevSnapshotDir` should be `null`.
-- If the project uses a single main package mode (i.e., only one main package is valid at a time and a new main package invalidates the old one), `prevSnapshotDir` should be `null`.
-- If the project uses a multi-main package mode (i.e., old main packages remain valid after a new one is released), `prevSnapshotDir` should point to the AotSnapshot directory of the previously released main package.
+- If it's the first AotSnapshot, since there's no older AotSnapshot, `prevSnapshotDir` takes null.
+- If the project uses single main package mode, i.e., only one valid main package exists at the same time, and old main packages become invalid after releasing new main packages, then `prevSnapshotDir` takes null.
+- If the project uses multiple main package mode, i.e., old main packages remain valid after releasing new main packages, then the `prevSnapshotDir` parameter takes the AotSnapshot directory of the previously released main package.
 
-`GenerateAotSnapshotMetaVersionFiles` generates the following files:
+GenerateAotSnapshotMetaVersionFiles generates the following files:
 
-- Meta version and spec files, which are placed in the `MetaVersions` directory.
-- A `signature-mapper.json` file.
+- meta version and spec files. Generated to MetaVersions directory
+- signature-mapper.json file
 
-The directory structure before generation is as follows:
+Directory structure before generation:
 
 ```txt
   Snapshots
@@ -75,7 +74,7 @@ The directory structure before generation is as follows:
       └── manifest.json
 ```
 
-After generation, the `MetaVersions` directory and `signature-mapper.json` file are added. The final directory structure is as follows:
+After generation, MetaVersions directory and signature-mapper.json file are added. Final directory structure:
 
 ```txt
   Snapshots
@@ -99,13 +98,14 @@ After generation, the `MetaVersions` directory and `signature-mapper.json` file 
       └── manifest.json
 ```
 
-### Including AOT Snapshot Meta Version Files in the Main Package (Optional but Highly Recommended)
+### Carry AOT snapshot meta version files with package (optional but strongly recommended)
 
-The parameter `originalMetaVersionFileBytes` in `RuntimeApi::LoadDifferentialHybridAssemblyWithMetaVersion` is the content of the meta version file corresponding to the DHE assembly in the AOT snapshot. This meta version file is different for each main package and is fully determined during the main package build. It is small in size and highly recommended to be included with the main package.
+The parameter `originalMetaVersionFileBytes` of `RuntimeApi::LoadDifferentialHybridAssemblyWithMetaVersion` is the content of the corresponding meta version file in the AOT snapshot of the DHE assembly.
+This meta version file is different for each main package and is completely determined when building the main package. This file is relatively small, so it's strongly recommended to carry it with the main package.
 
-### Multi-Platform Considerations
+### Multi-platform
 
-Most games are released on multiple platforms. Since there are significant differences in the main package AOT DLLs between platforms, we **strongly recommend** maintaining separate AotSnapshot trees for each platform. The directory structure should be similar to the following:
+Most games release on multiple platforms. Due to significant differences in main package AOT dlls between different platforms, we **strongly recommend** maintaining separate AotSnapshot trees for each platform. Directory structure like this:
 
 ```txt
   Snapshots
@@ -115,13 +115,14 @@ Most games are released on multiple platforms. Since there are significant diffe
   ├── CurrentAotSnapshotDir-Android64
   ├── PreAotSnapshotDir-iOS
   ├── CurrentAotSnapshotDir-iOS
+
 ```
 
-For example, when calculating the meta version for a newly released Win64 main package, use the snapshot directory of the previously released Win64 main package and the new main package's snapshot to compute the meta version for the new main package.
+For example, when calculating meta version for a newly released Win64 main package, use the snapshot directory of the previously released Win64 main package and the snapshot of the new main package to calculate the meta version for the new main package.
 
-### Version Control for Snapshots
+### Version Control of Snapshots
 
-The directory structure mentioned in the previous section is not convenient for version control. A more suitable directory structure for version control is as follows:
+The directory structure given in the previous section `Multi-platform` is actually not convenient for version control. A directory structure suitable for version control should be like this:
 
 ```txt
   Snapshots
@@ -130,30 +131,32 @@ The directory structure mentioned in the previous section is not convenient for 
   ├── AotSnapshotDir-iOS
 ```
 
-The snapshot update process is as follows:
+Snapshot update process:
 
-1. Create a `CurrentAotSnapshotDir-{buildTarget}` directory for the latest main package.
-2. Compare `CurrentAotSnapshotDir-{buildTarget}` with `AotSnapshotDir-{buildTarget}` to generate the meta version files for `CurrentAotSnapshotDir-{buildTarget}`.
-3. Replace `AotSnapshotDir-{buildTarget}` with `CurrentAotSnapshotDir-{buildTarget}`.
-4. Commit `AotSnapshotDir-{buildTarget}` to the repository.
+- Create a `CurrentAotSnapshotDir-{buildTarget}` directory for the latest main package.
+- Compare `CurrentAotSnapshotDir-{buildTarget}` with `AotSnapshotDir-{buildTarget}` to calculate meta version files for `CurrentAotSnapshotDir-{buildTarget}`.
+- Replace `AotSnapshotDir-{buildTarget}` with `CurrentAotSnapshotDir-{buildTarget}`.
+- Commit `AotSnapshotDir-{buildTarget}` to repository.
 
-## Publishing Hot Updates
+## Release Hot Update
 
-The flagship version is a superset of the professional and community versions, supporting both pure interpreted assemblies and DHE assemblies, which can coexist. Since DHE assemblies are compiled into AOT, they cannot depend on ordinary pure interpreted hot update assemblies; otherwise, the main package build will fail due to compilation errors. However, ordinary hot update assemblies can depend on DHE assemblies, and DHE assemblies can also depend on each other.
+The Ultimate version is a superset of Professional and community versions, supporting both community version's pure interpreted assemblies and DHE assemblies, which can coexist.
 
-The configuration and publishing process for ordinary hot update assemblies is identical to that of the community version and will not be repeated here. Only the hot update process for DHE assemblies is described below.
+Since DHE assemblies are compiled into AOT, DHE assemblies cannot depend on ordinary pure interpreted hot update assemblies, otherwise building the main package will fail due to compilation errors. However, ordinary hot update assemblies can depend on DHE assemblies.
+DHE assemblies can also depend on DHE assemblies.
 
-- Use `HybridCLR/CompileDll/ActivedBuildTarget` to generate hot update DLLs.
-- Generate meta version files for the hot update assemblies.
-- Add the latest hot update DLLs and meta version files to the hot update resource management system.
+The configuration and release process for ordinary hot update assemblies is exactly the same as the community version, so it won't be repeated here. Only the hot update process for DHE assemblies is introduced.
 
-### Generating Meta Version Files for Hot Update Assemblies
+- Use `HybridCLR/CompileDll/ActivedBuildTarget` to generate hot update dlls.
+- Generate meta version files for hot update assemblies.
+- Add the latest hot update dlls and meta version files to the hot update resource management system.
 
-Call `MetaVersionWorkflow.GenerateHotUpdateMetaVersionFiles(string aotSnapshotDir, string hotUpdateSnapshotDir)` to generate meta version files for the hot update assemblies.
+### Generate meta version files for hot update assemblies
 
-Here, `aotSnapshotDir` is the latest `AotSnapshot-{buildTarget}` directory, and `hotUpdateSnapshotDir` is the directory containing the latest hot update assemblies.
+Call `MetaVersionWorkflow.GenerateHotUpdateMetaVersionFiles(string aotSnapshotDir, string hotUpdateSnapshotDir)` to generate meta version files for hot update assemblies.
+Where `aotSnapshotDir` is the latest `AotSnapshot-{buildTarget}` directory, and `hotUpdateSnapshotDir` is the latest hot update assembly directory.
 
-After calling this function, meta version files for the DHE assemblies will be generated in the `{hotUpdateSnapshotDir}/MetaVersions` directory. The directory structure is similar to the following:
+After calling this function, meta version files corresponding to DHE assemblies will be generated in the `{hotUpdateSnapshotDir}/MetaVersions` directory. Directory structure similar to:
 
 ```txt
   HotUpdateSnapshot
@@ -164,7 +167,7 @@ After calling this function, meta version files for the DHE assemblies will be g
     ├── *.mv.diff.spec
 ```
 
-Example code:
+Example code as follows:
 
 ```csharp
         public static void GenerateHotUpdateMetaVersionFiles(BuildTarget target)
@@ -173,18 +176,32 @@ Example code:
             var newHotUpdateSolutionDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
             MetaVersionWorkflow.GenerateHotUpdateMetaVersionFiles(latestSnapshotSolutionDir, newHotUpdateSolutionDir);
         }
+
 ```
 
-The `*.mv.spec` file is a human-readable version of `*.mv.bytes`, while the `*.mv.diff.spec` file records the metadata changes in `*.mv.spec`. These two types of files are only used for debugging and are not needed during runtime. It is recommended to add them to the repository but not to the hot update resources, as they serve no purpose there.
+`*.mv.spec` is a readable version of `*.mv.bytes`, while `*.mv.diff.spec` records metadata that has version changes in `*.mv.spec`. These two types of files are only used for convenient problem tracking and are not used during runtime.
+It's recommended to add them to the repository, but don't add them to hot update resources because they serve no purpose!
 
-## Other Considerations
+## Others
 
-### UserEditorSettings.development Option
+### UserEditorSettings.development option
 
-The `development` option used when publishing the main package must be consistent with that used when publishing hot updates. In other words, the `development` option must be the same when creating the AotSnapshot and compiling the hot update DLLs. This is because the `development` option significantly affects the final compiled DLLs. Inconsistent `development` parameters will lead to significant changes in the meta version!
+The development option when releasing the main package and the development option when releasing hot updates must be consistent, i.e., the UserEditorSettings.development option must be consistent when creating AotSnapshot and compiling hot update dlls. Because development has a huge impact on the finally compiled dlls,
+inconsistent development parameters will cause huge changes in calculated meta versions!
 
-### Changes in HybridCLRSettings.differentialHybridAssemblies List
+### Changes in HybridCLRSettings.differentialHybridAssemblies list
 
-The function `MetaVersionWorkflow.GenerateAotSnapshotMetaVersionFiles(string prevSnapshotDir, string curSnapshotDir)` requires that the DHE assembly lists in the `prevSnapshotDir` and `curSnapshotDir` snapshots be identical.
+`MetaVersionWorkflow.GenerateAotSnapshotMetaVersionFiles(string prevSnapshotDir, string curSnapshotDir)` requires that the DHE assembly lists of prevSnapshotDir and curSnapshotDir snapshots are the same.
 
-If a new DHE assembly is added or an existing one is removed from a certain main package onwards, the meta version generation will fail. The solution is to create a new version tree for the AotSnapshot starting from this main package, such as `AotSnapshot-{buildTarget}-v2`.
+If DHE assemblies are added or removed from a certain main package onwards, it will cause meta version generation to fail. The solution is to create a brand new `AotSnapshot-{buildTarget}-v2` version tree starting from this main package. Directory structure similar to:
+
+```txt
+  Snapshots
+  ├── AotSnapshotDir-StandaloneWindows64-v1
+  ├── AotSnapshotDir-StandaloneWindows64-v2
+```
+
+- Use v1 version DHE list configuration to generate meta version files for v1 version AotSnapshot and HotUpdateSnapshot.
+- Use v2 version DHE list configuration to generate meta version files for v2 version AotSnapshot and HotUpdateSnapshot.
+
+When releasing hot updates, v1 main packages can only load v1 version HotUpdateSnapshot dlls and meta version files. v2 version main packages can only load v2 version HotUpdateSnapshot dlls and meta version files.

@@ -1,70 +1,71 @@
-# Quick Start
+﻿# Quick Start
 
-Before attempting hot updates on Android or iOS platforms, ensure that the hot update workflow is successfully running on Win64 or MacOS Standalone platforms.
+Please successfully run the hot update process on Win64 or MacOS Standalone platforms before attempting hot updates on Android and iOS platforms.
 
-The flagship version has a similar level of complexity to the community version, with most principles being the same. It is recommended to familiarize yourself with the community version before trying the flagship version.
+The Ultimate edition has similar difficulty to the Community edition, with most principles being the same. It is recommended to familiarize yourself with the Community edition before trying the Ultimate edition.
 
-## Installing Unity, IDE, and Related SDKs
+## Install Unity, IDE and Related SDKs
 
-This step is identical to the community version. For detailed instructions, see [Installing HybridCLR](../../basic/install.md).
+This step is exactly the same as the Community edition, see [Install HybridCLR](../../basic/install.md) for details.
 
-## Creating a Unity Hot Update Project from Scratch
+## Create Unity Hot Update Project from Scratch
 
-Creating a hot update project from scratch is a lengthy process. The code involved in the following steps can be referenced from the `dhe_demo` project, which is available at [GitHub](https://github.com/focus-creative-games/dhe_demo).
+The process of constructing a hot update project from scratch is quite lengthy. The code involved in the following steps can be referenced from the dhe_demo project, whose repository address is [github](https://github.com/focus-creative-games/dhe_demo).
 
-### Creating the Project
+### Create Project
 
 Create an empty Unity project.
 
-### Installing HybridCLR
+### Install HybridCLR
 
-- Extract `hybridclr_unity.zip` and place it in the project's `Packages` directory, renaming it to `com.code-philosophy.hybridclr`.
-- Extract the corresponding `il2cpp_plus-{version}.zip` based on your Unity version.
-- Extract `hybridclr.zip`.
-- Place the `hybridclr` directory from `hybridclr.zip` into the `libil2cpp` directory extracted from `il2cpp-{version}.zip`. Ensure that the file `libil2cpp\hybridclr\RuntimeApi.cpp` exists; otherwise, the `hybridclr` directory is misplaced.
-- Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the extracted `libil2cpp` directory, and proceed with the installation.
-- Depending on your Unity version:
-  - **If version >= 2023**:  
-    - First install **Unity 2022.3.60f1**  
-    - Copy the `2022.3.60f1\Editor\Data\il2cpp\build\deploy` directory to `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`  
-    - Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll` with the file `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll`  
-  - **If version >= 2021**:  Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` with `ModifiedDlls\{verions}\Unity.IL2CPP.dll`  
-  - **If version >= 2020**:  Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` with `ModifiedDlls\{verions}\Unity.IL2CPP.dll`  
-  - **If version 2019**:  No action required, as files are automatically copied during installation  
+- Extract hybridclr_unity.zip and place it in the project's Packages directory, rename it to com.code-philosophy.hybridclr
+- Extract the corresponding `il2cpp_plus-{version}.zip` according to your Unity version
+- Extract `hybridclr.zip`
+- Place the hybridclr directory from the extracted `hybridclr.zip` into the libil2cpp directory from the extracted `il2cpp-{version}.zip`. Ensure that the file `libil2cpp\hybridclr\RuntimeApi.cpp` exists, otherwise the hybridclr directory is in the wrong location.
+- Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the libil2cpp directory that was just extracted, and perform the installation
+- According to your Unity version:
+  - If version >= 2023,
+    - First install Unity 2022.3.60f1
+    - Copy the `2022.3.60f1\Editor\Data\il2cpp\build\deploy` directory as `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`
+    - Replace the `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll` file with `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll`
+  - If version >= 2021, replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` with `ModifiedDlls\{versions}\Unity.IL2CPP.dll`
+  - If version >= 2020, replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` with `ModifiedDlls\{versions}\Unity.IL2CPP.dll`
+  - If version is 2019, no action is needed as it's automatically copied during the Install process
 
-*(Note: `{proj}` represents your project root path, and `{verions}` should match your specific Unity version number)*
+If there's no corresponding file for your version, contact us to create one.
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
-### Configuring PlayerSettings
+### Configure PlayerSettings
 
-- Switch the `Scripting Backend` to `IL2CPP`.
-- Change the `Api Compatibility Level` to `.Net 4.x` (for Unity 2019-2020) or `.Net Framework` (for Unity 2021+).
+- Switch `Scripting Backend` to `IL2CPP`
+- Switch `Api Compatibility Level` to `.Net 4.x` (Unity 2019-2020) or `.Net Framework` (Unity 2021+)
 
 ![player settings](/img/hybridclr/ultimate-project-settings.jpg)
 
-### Creating the Main Scene
+### Create Main Scene
 
-- Create a default initial scene named `main.scene`.
-- Add the `main` scene to the build scene list in the `Build Settings`.
+- Create the default initial scene main.scene
+- Add the main scene to the build scene list in `Build Settings`
 
-### Creating the HotUpdate Module
+### Create HotUpdate Hot Update Module
 
-- Create the `Assets/HotUpdate` directory.
-- Right-click in the directory and select `Create/Assembly Definition` to create an assembly module named `HotUpdate`.
+- Create the `Assets/HotUpdate` directory
+- Right-click in the directory and select `Create/Assembly Definition`, create an assembly module named `HotUpdate`
 
-### Configuring HybridCLR
+### Configure HybridCLR
 
-- Open the menu `HybridCLR/Settings`.
-- Add the `HotUpdate` assembly to the `differentialHybridAssemblies` list.
+- Open menu `HybridCLR/Settings`
+- Add the `HotUpdate` assembly to the `differentialHybridAssemblies` list
 
 ![settings](/img/hybridclr/ultimate-hybridclr-settings.jpg)
 
-## Creating Editor Scripts
+## Create Editor Script
 
-Create a `BuildTools.cs` file in the `Assets/Editor` directory with the following content:
+Create a BuildTools.cs file in the `Assets/Editor` directory with the following content:
 
 ```csharp
+
 using HybridCLR.Editor;
 using HybridCLR.Editor.DHE;
 using HybridCLR.Runtime;
@@ -131,9 +132,10 @@ public static class BuildTools
         string outputHotUpdateResDir = $"{Application.dataPath}/../HotUpdateSnapshot/{target}";
         BashUtil.RecreateDir(outputHotUpdateResDir);
 
+
         // Copy OriginalMetaVersions
-        // For convenience in the demo project, this directory is copied only during hot update release.
-        // In actual projects, it is recommended to copy this directory to the StreamingAssets directory during CreateAotSnapshot and release it with the package.
+        // For convenience in demo projects, this directory is copied only when publishing hot updates.
+        // In actual projects, it's recommended to copy this directory to the StreamingAssets directory during CreateAotSnapshot and publish with the package.
         CopyOriginalMetaVersions(Snapshot.GetMetaVersionDir(GetAOTSnapshotDir(target)), $"{outputHotUpdateResDir}/OriginalMetaVersions");
 
         // Copy HotUpdate dlls and meta version files
@@ -154,11 +156,13 @@ public static class BuildTools
         }
     }
 }
+
+
 ```
 
-## Creating Hot Update Scripts
+## Create Hot Update Script
 
-Create a `Hello.cs` file in `Assets/HotUpdate` with the following content:
+Create the `Assets/HotUpdate/Hello.cs` file with the following code content:
 
 ```csharp
 using System.Collections;
@@ -170,17 +174,18 @@ public class Hello
     {
         // Original code
         Debug.Log("Hello, World");
-        // After hot update, change to:
+        // After hot update, change to
         // Debug.Log("Hello, HybridCLR");
     }
 }
 ```
 
-## Loading Hot Update Assemblies
+## Load Hot Update Assembly
 
-For simplicity, we will not download `HotUpdate.dll` via an HTTP server but instead place it directly in the `StreamingAssets` directory.
+To simplify the demonstration, we won't download HotUpdate.dll through an HTTP server, but directly place HotUpdate.dll in the StreamingAssets directory.
 
-Create a `LoadDll.cs` script in `Assets` and **attach it to a GameObject in the `main` scene**.
+Create the `Assets/LoadDll.cs` script, then **create a GameObject in the main scene and attach the LoadDll script**.
+
 
 ```csharp
 using HybridCLR;
@@ -198,9 +203,10 @@ using UnityEngine.Networking;
 
 public class LoadDll : MonoBehaviour
 {
+
     void Start()
     {
-        // In Editor mode, HotUpdate.dll.bytes is automatically loaded and does not need to be loaded again; attempting to reload it will cause issues.
+        // In Editor environment, HotUpdate.dll.bytes is already automatically loaded, no need to load, repeated loading will cause problems.
 #if !UNITY_EDITOR
         LoadDifferentialHybridAssembly("HotUpdate");
 #endif
@@ -213,7 +219,7 @@ public class LoadDll : MonoBehaviour
     private void LoadDifferentialHybridAssembly(string assName)
     {
         string assFile = $"{Application.streamingAssetsPath}/{assName}.dll.bytes";
-        // If the file does not exist, use the original AOT assembly
+        // If it doesn't exist, use the original AOT assembly
         if (!File.Exists(assFile))
         {
             LoadImageErrorCode err = RuntimeApi.LoadOriginalDifferentialHybridAssembly(assName);
@@ -247,45 +253,47 @@ public class LoadDll : MonoBehaviour
         }
     }
 }
+
+
 ```
 
-With this, the entire hot update project setup is complete!
+At this point, the entire hot update project creation is complete!!!
 
-## Testing in the Editor
+## Test Run in Editor
 
-Run the `main` scene, and Console window will show log `Hello, World`, indicating that the code is working correctly.
+Run the main scene, and the Console window will print 'Hello, World', indicating that the code is working properly.
 
-## Building the Game
+## Build Game
 
-1. Run the menu item `HybridCLR/Generate/All` to perform necessary generation operations. **This step is mandatory**!!!
-2. Open the `Build Settings` dialog, click `Build`, select the output directory `{build}`, and proceed with the build.
-3. Run `Build/CreateAotSnapshot` to create the AOT snapshot for the build. **This step must be performed after `Build`**, as the AOT snapshot must copy the DLLs generated during the build, not those generated by `HybridCLR/Generate/All`.
+- Run menu `HybridCLR/Generate/All` to perform necessary generation operations. **This step cannot be omitted**!!!
+- Open the `Build Settings` dialog, click `Build`, select output directory `{build}`, and execute the build
+- Run `Build/CreateAotSnapshot` to create the AOT snapshot generated during build. **This step must be after `Build`**, because the AOT snapshot must copy the dll generated during build, not the dll generated during `HybridCLR/Generate/all`.
 
-The AOT snapshot created by `CreateAotSnapshot` contains the following:
+The AOT snapshot generated by CreateAotSnapshot contains the following content:
 
-- All AOT DLLs
-- InjectRules files, placed in the `InjectRules` directory
-- Meta version files for the AOT DLLs, placed in the `MetaVersions` directory
-- `manifest.json`, which primarily records the list of DHE assemblies
-- `signature-mapper.json`
+- All AOT dlls
+- InjectRules files, which are placed in the InjectRules directory
+- Meta version files corresponding to AOT dlls, which are placed in the MetaVersions directory
+- manifest.json, mainly recording the DHE assembly list
+- signature-mapper.json
 
 :::tip
 
-The AOT snapshot directory created by `Build/CreateAotSnapshot` should be added to version control, as it is used to generate meta version files for future hot update DLLs.
+The AOT snapshot directory created by `Build/CreateAotSnapshot` should be added to version control for generating meta version files for hot update dlls in the future.
 
 :::
 
-## Initial Package Testing
+## Initial Package Test
 
-- Run `{build}/Xxx.exe`, and Player Log file will contain log `Hello, World`, indicating that the original code is executed!
+- Run `{build}/Xxx.exe`, there should be a `Hello, World` log in the Player Log file, indicating that the original code was executed!
 
-## Testing Hot Updates
+## Test Hot Update
 
-- Ensure that the `Build/CreateAotSnapshot` step has been executed during the game build process. Run it once and avoid running it multiple times.
-- Modify the `Hello::Run` function by changing `Debug.Log("Hello, World")` to `Debug.Log("Hello, HybridCLR")`.
-- Run `Build/CompileAndGenerateHotUpdateMetaVersionFiles` to generate the hot update DLL and corresponding meta version files.
-- Run `Build/CopyHotUpdateDllAndMetaVersionFilesToHotUpdateDataDir`. This will copy the hot update DLL and meta version files to the `{proj}/HotUpdateSnapshot/{buildTarget}` directory.
-- Manually copy all files from the `{proj}/HotUpdateSnapshot/{buildTarget}` directory to the `{build}\StreamingAssets` directory.
-- Run the application again, and Player Log file will contain log `Hello, HybridCLR`.
+- Please ensure that the `Build Game` step has executed `Build/CreateAotSnapshot`, run it once, don't run it multiple times
+- Modify `Debug.Log("Hello, World")` to `Debug.Log("Hello, HybridCLR")` in the `Hello::Run` function
+- Run `Build/CompileAndGenerateHotUpdateMetaVersionFiles` to generate hot update dll and corresponding meta version files
+- Run `Build/CopyHotUpdateDllAndMetaVersionFilesToHotUpdateDataDir`. It will copy the hot update dll and corresponding meta version files to the `{proj}/HotUpdateSnapshot/{buildTarget}` directory
+- Manually copy all files from the `{proj}/HotUpdateSnapshot/{buildTarget}` directory to the `{build}\StreamingAssets` directory
+- Run again, there should be a `Hello, HybridCLR` log in the Player Log file
 
-With this, the hot update process is complete!
+Hot update is now complete!!!

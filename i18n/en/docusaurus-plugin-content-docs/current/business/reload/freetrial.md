@@ -1,28 +1,26 @@
 # Free Trial
 
-Compared to the paid trial version and the version after formal purchase, the free trial version includes all the runtime and editor source codes of HybridCLR. However, the free trial version only provides pre-compiled binary libs and tools, and only supports building for the iOS platform target.
+Compared to paid trial versions and officially purchased versions that include all HybridCLR runtime and Editor source code, the free trial version only provides precompiled binary libs and tools, and only supports building iOS platform targets.
 
 ## Trial Rules
 
-- Targeted towards enterprise users only.
-- The trial is free and has no trial period limit. However, if technical support is needed during the trial, additional charges will apply.
-- The trial version will randomly crash after **30 minutes** of app launch. Please do not use it for formal releases.
+- Only available for enterprise users
+- Trial is free with no time limit, but technical support during trial requires additional payment
+- Trial version will **randomly crash** 1 hour after app startup, please do not use for official releases
 
-## Hardware and platform limitation
+## Hardware and Platform Limitations
 
 :::tip
-The official version is the same as the community version, and there are no platform restrictions for both Editor and Runtime.
+Official versions, like the community version, have no platform restrictions for either Editor or Runtime.
 :::
 
-- Unity Editor must be run on a Mac with M1 or M2 CPU.
-- **Only supports** iOS platform release
+- Requires Unity Editor to run on Mac computers with M1 or M2 CPU.
+- **Only supports** iOS platform publishing
 
 ## Supported Versions
 
-Only specific Unity versions are supported. Nearby minor versions can also be used if there are no compilation errors during building.
+Only supports the following specific Unity versions:
 
-- ~~2019.4.40f1~~ To be supported
-- ~~2020.3.48f1~~ To be supported
 - 2021.3.31f1
 - 2022.3.11f1
 
@@ -30,34 +28,34 @@ Only specific Unity versions are supported. Nearby minor versions can also be us
 
 :::tip
 
-The following features are supported in the paid trial or the formal paid version.
+All the following features are supported in the official source code version
 
 :::
 
 - dots
 - **Incremental GC**
-- Development build options like Profiler, Script Debugging, etc.
+- Profiler, Script Debugging and other development Build options
 
-The lack of support for Incremental GC and various compilation options is due to the need for separate libil2cpp.a files for each compilation parameter, greatly increasing maintenance costs.
+Incremental GC and various compilation options are not supported because each compilation parameter requires a separate libil2cpp.a, greatly increasing maintenance costs.
 
-## Differences from the Standard Commercial Version
+## Differences from Standard Commercial Version
 
-In the trial version, the source code of some modules is removed and replaced with compiled binary programs. The following are the related modules:
+The trial version removes source code from some modules and calls compiled binary programs instead. The following are related modules.
 
-- DllEncryptor DLL encryption module
+- DllEncryptor dll encryption module
 
 ## Installation
 
-The relevant libil2cpp code has been directly included in the package. Open the `HybridCLR/Installer` menu and click the Install button to complete the installation.
+Related libil2cpp code is directly included in the Package. Open the `HybridCLR/Installer` menu and click the Install button to complete installation.
 
-## Configuration
+## Settings
 
-Compared to the community version or the formal commercial version, the following settings need to be modified:
+Compared to the community version or official commercial version, the following settings need to be modified:
 
 - Disable incremental GC
 - Disable development options
-- The value of the encryption parameter vmSeed cannot be modified and must remain as 0. Other encryption parameters can be modified.
+- Cannot modify the encryption parameter vmSeed value, must keep it as 0. Other encryption parameters can be modified
 
 ## Usage
 
-Apart from minor adjustments in installation and configuration as described above, the rest remains entirely according to the [Quick Start](./quickstart) documentation.
+Except for installation and settings which have slight adjustments as described in the documentation above, the rest can completely follow the [Quick Start](./quickstart).

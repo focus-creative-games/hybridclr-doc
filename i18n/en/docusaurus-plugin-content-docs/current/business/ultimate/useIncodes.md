@@ -1,53 +1,72 @@
-# Use in code
+# Using in Code
+
 
 ## RuntimeApi::LoadOriginalDifferentialHybridAssembly
 
 :::tip
 
-The interface is supported since v6.6.0.
+Supported since v6.6.0.
 
 :::
 
-When no code update occurs during the initial build of the App, or when there is a code update but the code of the DHE assembly is not updated, this interface can be called to indicate that the original AOT implementation is used completely.
+When building the app for the first time without any code updates, or when there are code updates but the code in this DHE assembly hasn't changed, you can call this interface to indicate that the original AOT implementation should be used completely.
 
-Sample code:
+
+Example code:
 
 ```csharp
-string assFile = $"{Application.streamingAssetsPath}/{assName}.dll.bytes";
-// If it does not exist, use the original AOT assembly
-if (!File.Exists(assFile))
-{
-LoadImageErrorCode err = RuntimeApi.LoadOriginalDifferentialHybridAssembly(assName);
-if (err == LoadImageErrorCode.OK)
-{
-Debug.Log($"LoadOriginalDifferentialHybridAssembly {assName} OK");
-}
-else
-{
-Debug.LogError($"LoadOriginalDifferentialHybridAssembly {assName} failed, err={err}");
-}
-}
+    string assFile = $"{Application.streamingAssetsPath}/{assName}.dll.bytes";
+    // If it doesn't exist, use the original AOT assembly
+    if (!File.Exists(assFile))
+    {
+        LoadImageErrorCode err = RuntimeApi.LoadOriginalDifferentialHybridAssembly(assName);
+        if (err == LoadImageErrorCode.OK)
+        {
+            Debug.Log($"LoadOriginalDifferentialHybridAssembly {assName} OK");
+        }
+        else
+        {
+            Debug.LogError($"LoadOriginalDifferentialHybridAssembly {assName} failed, err={err}");
+        }
+    }
 ```
+
 
 ## RuntimeApi::LoadDifferentialHybridAssemblyUnchecked
 
-When a DHE assembly code changes, this interface is needed to load the DHE assembly. Note that you cannot use Assembly.Load to load the DHE assembly, which will result in an error.
+When the code of a DHE assembly changes, you need to use this interface to load the DHE assembly. Note that you cannot use Assembly.Load to load DHE assemblies, as it will cause errors.
 
 This interface has two parameters: currentDllBytes and optionBytes.
 
-- currentDllBytes is the bytes of the latest DHE assembly file
+- currentDllBytes is the byte array of the latest DHE assembly file
+- optionBytes is the byte array of the dhao file. The [dhao file](./dhao) contains the change information for DHE, used to indicate which functions run in AOT mode and which execute interpretively.
 
-- optionBytes is the bytes of the dhao file. [dhao file](./dhao) contains DHE change information, which is used to indicate which functions run in aot mode and which are executed in interpreted mode.
+```csharp
 
-```csharp string assFile = $"{Application.streamingAssetsPath}/{assName}.dll.bytes"; // If it does not exist, use the original AOT assembly if (File.Exists(assFile)) { byte[] dllBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dll.bytes"); byte[] dhaoBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dhao.bytes"); LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssemblyUnchecked(dllBytes, dhaoBytes); if (err == LoadImageErrorCode.OK) { Debug.Log($"LoadDifferentialHybridAssembly {assName} OK" ); } else { Debug.LogError($"LoadDifferentialHybridAssembly {assName} failed, err={err}");
-}
-}
+        string assFile = $"{Application.streamingAssetsPath}/{assName}.dll.bytes";
+        // If it doesn't exist, use the original AOT assembly
+        if (File.Exists(assFile))
+        {
+            byte[] dllBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dll.bytes");
+            byte[] dhaoBytes = File.ReadAllBytes($"{Application.streamingAssetsPath}/{assName}.dhao.bytes");
+            LoadImageErrorCode err = RuntimeApi.LoadDifferentialHybridAssemblyUnchecked(dllBytes, dhaoBytes);
+            if (err == LoadImageErrorCode.OK)
+            {
+                Debug.Log($"LoadDifferentialHybridAssembly {assName} OK");
+            }
+            else
+            {
+                Debug.LogError($"LoadDifferentialHybridAssembly {assName} failed, err={err}");
+            }
+        }
 
 ```
 
-## Notes:
 
-- Even if the DHE assembly has not changed, RuntimeApi::LoadOriginalDifferentialHybridAssembly must be explicitly executed before running any code in the DHE assembly
-- LoadOriginalDifferentialHybridAssembly or LoadDifferentialHybridAssemblyUnchecked to load the DHE assembly in the order of assembly dependencies
-- The DHE assembly loaded by RuntimeApi::LoadOriginalDifferentialHybridAssembly is a normal AOT assembly. If the generics in the DHE assembly are referenced in other hot update assemblies and full generic sharing is not enabled, the AOT generic problem will occur like a normal AOT assembly. This can be solved by using full generic sharing or supplementary metadata mechanism
-- The DHE assembly loaded by RuntimeApi::LoadDifferentialHybridAssemblyUnchecked already contains metadata. Even if full generic sharing is not enabled, do not add metadata to the DHE assembly. It will fail if added. Other non-DHE AOT assemblies can add metadata as usual.
+## Notes
+
+- Even if the DHE assembly hasn't changed, you still need to explicitly execute RuntimeApi::LoadOriginalDifferentialHybridAssembly before running any code in the DHE assembly
+- You must load DHE assemblies using LoadOriginalDifferentialHybridAssembly or LoadDifferentialHybridAssemblyUnchecked in the order of assembly dependencies
+- DHE assemblies loaded by RuntimeApi::LoadOriginalDifferentialHybridAssembly are ordinary AOT assemblies. If other hot update assemblies reference generics in this DHE assembly and full generic sharing is not enabled, the same AOT generic issues as ordinary AOT assemblies will occur, which can be resolved using full generic sharing or supplemental metadata mechanisms
+- DHE assemblies loaded by RuntimeApi::LoadDifferentialHybridAssemblyUnchecked already contain metadata. Even when full generic sharing is not enabled, **do not supplement metadata for DHE assemblies** - supplementing will fail. Other non-DHE AOT assemblies can supplement metadata as usual.
+

@@ -1,53 +1,52 @@
 # Code Stripping
 
-Unity uses [Code Stripping](https://docs.unity3d.com/Manual/ManagedCodeStripping.html) technology to help reduce the package size of the il2cpp backend. If anti-cutting processing is not performed, since there are generally not many codes in the AOT main project, a large number of C# types and functions are
-Clipping, resulting in the following exceptions when calling these clipped classes or functions during hot update:
+Unity uses [code stripping](https://docs.unity3d.com/Manual/ManagedCodeStripping.html) technology to help reduce package size for the il2cpp backend. If anti-stripping measures are not taken, since there is generally not much code in the AOT main project, a large number of C# types and functions are stripped, causing hot update calls to these stripped classes or functions to result in the following exceptions:
 
 ```txt
-     // missing type error
-     Unity: TypeLoadException: Could not load type 'Xxx' from assembly 'yyy'
+    // Type missing error
+    Unity: TypeLoadException: Could not load type 'Xxx' from assembly 'yyy'
 
-     // missing function error
-     MissingMethodException: xxxx
+    // Function missing error
+    MissingMethodException: xxxx
 ```
 
 ## Solution
 
-Determine which type or function is cut according to the log error log, keep this type or function in link.xml, or explicitly add calls to these classes or functions in the main project.
+Based on error logs, determine which type or function was stripped, and preserve this type or function in link.xml, or explicitly add calls to these classes or functions in the main project.
+If you're not familiar with how to preserve types or functions in link.xml, please refer to [code stripping](https://docs.unity3d.com/Manual/ManagedCodeStripping.html).
 
-If you are not familiar with how to preserve this type or function in link.xml, please refer to [Code Stripping](https://docs.unity3d.com/Manual/ManagedCodeStripping.html).
+However, this method is ultimately cumbersome. In actual projects, there are a large number of stripped types, and you repeatedly perform "build-type missing-supplement-build" operations,
+wasting too much time. The `com.code-philosophy.hybridclr` package provides a convenient menu command `HybridCLR/Generate/LinkXml`,
+which can generate all AOT type and function references in the hot update project with one click.
 
-But this method is very troublesome after all. There are a lot of cut types in the actual project, and you perform the operation of "package-type missing-supplement-package" over and over again,
-Too much time wasted. `com.code-philosophy.hybridclr` package provides a convenient menu command `HybridCLR/Generate/LinkXml`,
-All AOT types and function references in the hot update project can be generated with one click.
+:::caution
+Note that if your main project has never referenced any code from an assembly, that assembly will be completely stripped even if preserved in `link.xml`. Therefore, for each AOT assembly to be preserved,
+please ensure that some class or function from it has been explicitly referenced in the main project code.
+:::
 
-Note that if you don't have any code referencing an assembly in your main project, even if it is kept in `link.xml`, the assembly will be completely trimmed. So for each AOT assembly to keep,
-Make sure to explicitly reference one of its classes or functions in the main project code.
+## AOT Type and Function Reservation
 
-## AOT type and function reserved
+Although the `HybridCLR/Generate/LinkXml` command in com.code-philosophy.hybridclr can intelligently scan the AOT types you currently reference, it cannot predict the types you will use in the future. Therefore, you still need to plan ahead and reserve types you may use in the future in `Assets/link.xml` (Note! Not the automatically generated link.xml).
+Be sure not to miss anything, to avoid the embarrassing situation where types used in a certain update after going live are stripped!
 
-Although the `HybridCLR/Generate/LinkXml` command of com.code-philosophy.hybridclr can intelligently scan out the AOT type you are currently referencing, it cannot predict the AOT type you will use in the future
-type. Therefore, you still need to plan ahead in `Assets/link.xml` (note! Not the automatically generated link.xml) to reserve your future
-types that may be used. Remember not to miss it, so as to avoid the embarrassing situation that the type used in a certain update is cut after it goes online!
 
-## Check whether the pruned type or function is referenced in the hot update code
+## Check if Hot Update Code References Stripped Types or Functions
 
-As long as `HybridCLR/Generate/All` is executed correctly when building the game, running the hot update code at that time will not cause problems with missing types or functions. But as the subsequent hot update code continues to iterate,
-It is possible that a clipped type or function was accessed. If you can check it in advance when hot update code is released, problems can be discovered and solved early.
+As long as `HybridCLR/Generate/All` is correctly executed when building the game, running the hot update code at that time will not encounter missing types or functions. However, as hot update code continues to iterate, it may access stripped types or functions. If this can be detected in advance when releasing hot update code, problems can be discovered and resolved early.
 
-Since version v5.0.0, the `HybridCLR.Editor.HotUpdate.MissingMetadataChecker` class is provided to check whether clipped types and functions are accessed. The sample code is as follows:
+Starting from v5.0.0, the `HybridCLR.Editor.HotUpdate.MissingMetadataChecker` class is provided to check if stripped types and functions are accessed. Example code is as follows:
 
 ```csharp
-         public static void CheckAccessMissingMetadata()
-         {
-             BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-             // aotDir is the stripped aot dll directory generated when building the main package, not the latest SettingsUtil.GetAssembliesPostIl2CppStripDir(target) directory.
-             // Generally speaking, when releasing a hot update package, since generate/all may have been called in the middle, the SettingsUtil.GetAssembliesPostIl2CppStripDir(target) directory contains the latest aot dll.
-             // Definitely cannot check for type or function pruning issues.
-             // After building the main package, you need to save the aot dll at that time for later supplementary metadata or cropping inspection.
-             string aotDir = "xxxx";
-            
-            // The second parameter hotUpdateAssNames is the hot update assembly list. For ultimate edition, the list needs to include the DHE assemblies, i.e. SettingsUtil.HotUpdateAndDHEAssemblyNamesIncludePreserved.
+        public static void CheckAccessMissingMetadata()
+        {
+            BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+            // aotDir points to the stripped aot dll directory generated when building the main package, not the latest SettingsUtil.GetAssembliesPostIl2CppStripDir(target) directory.
+            // Generally speaking, when releasing hot update packages, since generate/all may have been called in between, the SettingsUtil.GetAssembliesPostIl2CppStripDir(target) directory contains the latest aot dlls,
+            // which definitely cannot detect type or function stripping issues.
+            // After building the main package, the aot dlls at that time need to be saved for later supplemental metadata or stripping checks.
+            string aotDir = SettingsUtil.GetAssembliesPostIl2CppStripDir(target);
+
+            // The 2nd parameter hotUpdateAssNames is the hot update assembly list. For the flagship version, this list needs to include DHE assemblies, i.e., SettingsUtil.HotUpdateAndDHEAssemblyNamesIncludePreserved.
             var checker = new MissingMetadataChecker(aotDir, SettingsUtil.HotUpdateAssemblyNamesIncludePreserved);
 
             string hotUpdateDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
@@ -60,6 +59,7 @@ Since version v5.0.0, the `HybridCLR.Editor.HotUpdate.MissingMetadataChecker` cl
                     // DO SOMETHING
                 }
             }
-         }
+        }
 
 ```
+

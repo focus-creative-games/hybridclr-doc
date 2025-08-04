@@ -1,162 +1,163 @@
 # Manual
 
-## Supported features
+## Supported Features
 
-- Supports uninstalling assemblies, uninstalling nearly 100% of the memory used by assemblies
-- Supports reloading assemblies, the code can be changed arbitrarily or even completely different (MonoBehaviour and Scriptable have certain restrictions)
-- Supports **limiting the set of functions that can be accessed in hot updates of assemblies**, which is suitable for creating sandbox environments in UGC games to avoid damage caused by malicious player code.
+- Supports unloading assemblies, unloading 100% of the memory occupied by assemblies
+- Supports reloading assemblies, code can change arbitrarily or even be completely different (MonoBehaviour and Scriptable have certain limitations)
+- Supports **limiting the set of functions that can be accessed within hot update assemblies**, suitable for creating sandbox environments in UGC games to prevent malicious player code from causing damage.
 
-## Unsupported features and special requirements
+## Unsupported Features and Special Requirements
 
-- Requires that business code will no longer use objects or functions in the uninstalled assembly, and exit all old logic in execution
-- Cannot directly uninstall the dependent assembly, must first uninstall the dependent in reverse dependency order, and then uninstall the dependent. For example, if A.dll depends on B.dll, you need to uninstall A.dll first, then uninstall B.dll
-- MonoBehaviour is related to ScriptableObject
-- It is required that events or message functions in the overloaded MonoBehaviour, such as Awake and OnEable, do not be added or deleted (but the function body can change)
-- It is required that the serialized field name of the script class with the same name in the old assembly does not change after overloading (the type can change)
-- If the field type is a custom type A (class or struct or enum) in the uninstallable assembly, it must be given the `[Serializable]` attribute
-- The field type `List<A>` is not supported, where A is a type in the uninstallable assembly, please replace it with `A[]`
-- Generic types cannot be inherited, such as `class MyScript : CommonScript<int>`
-- Some libraries that cache reflection information (this behavior is most common in serialization-related libraries, such as LitJson), need to clean up the cached reflection information after hot reloading
-- Destructors, ~XXX(), are not supported. It is also not allowed to instantiate generic classes with destructors whose generic parameters are of this assembly type
-- Incompatible with dots. Since dots caches a large amount of type information and the implementation is complex, it is difficult to clean up the cache information separately.
+- Requires business code to no longer use objects or functions from unloaded assemblies, and to exit all executing old logic
+- Cannot directly unload dependent assemblies; must unload in reverse dependency order, first unloading dependents, then dependencies. For example, if A.dll depends on B.dll, A.dll must be unloaded first, then B.dll
+- MonoBehaviour and ScriptableObject related
+  - Requires that event or message functions like Awake, OnEnable in reloaded MonoBehaviour do not change in number (but function bodies can change)
+  - Requires that serialized field names of script classes with the same name in the old assembly do not change after reloading (types can change)
+  - If field type is a custom type A (class, struct, or enum) from an unloadable assembly, it must be marked with the `[Serializable]` attribute
+  - Does not support field types like `List<A>` where A is a type from an unloadable assembly; replace with `A[]`
+  - Cannot inherit from generic types, e.g., `class MyScript : CommonScript<int>`
+- Some libraries that cache reflection information (this behavior is most common in serialization-related libraries like LitJson) need to clear cached reflection information after hot reload
+- Does not support destructors, ~XXX(). Also does not allow instantiation of generic classes with destructors where generic parameters include types from this assembly
+- Incompatible with DOTS. Due to DOTS heavily caching type information and complex implementation, it's difficult to individually clear cached information.
 
-## Memory unloading rate
+## Memory Unload Rate
 
-Except for the following metadata memory that cannot be unloaded, almost all other (99.9%) metadata can be unloaded:
+Except for the following metadata memory that cannot be unloaded, almost all (99.9%) metadata can be unloaded:
 
-- Script classes such as MonoBehavoiur and ScriptableObject. The Il2CppClass corresponding to them at the runtime level will be referenced by the Unity engine internally and cannot be released, but most member metadata such as method can be released
-- Types marked with `[Serializable]`. Similar to MonoBehaviour, they may also be referenced by the Unity engine memory during serialization and cannot be released.
-- Generic classes used during the operation of this assembly, but not involving this assembly type. For example, `List<int>` metadata will not be released, but `List<MyHotReloadClass>` will be released
+- Script classes like MonoBehaviour, ScriptableObject. Their corresponding Il2CppClass at runtime level is referenced internally by Unity engine and cannot be released, but most member metadata like methods can be released
+- Types marked with `[Serializable]`. Similar to MonoBehaviour, they may also be referenced internally by Unity engine during serialization and cannot be released.
+- Generic classes used during assembly execution that don't involve types from this assembly. For example, `List<int>` metadata won't be released, but `List<MyHotReloadClass>` will be released
 
-All unreleased metadata (MonoBehaviour, Serializable class) will be reused when the assembly is loaded again. Loading and unloading the same assembly multiple times will only cause one unreleased behavior, which will not cause leaks or continuous growth of unreleased metadata memory.
+All unreleased metadata (MonoBehaviour, Serializable classes) will be **reused** when reloading the assembly. Multiple loads and unloads of the same assembly will only cause one unreleased behavior and won't lead to leakage or continuous growth of unreleased metadata memory.
 
-In actual projects, more than 99% of metadata memory can be unloaded for most assemblies.
+In actual projects, for most assemblies, over 99% of metadata memory can be unloaded.
 
 ## Installation
 
-- Unzip hybridclr_unity and put it in the project Packages directory, rename it to com.code-philosophy.hybridclr
-- Unzip the corresponding `il2cpp_plus-{version}.zip` according to your unity version
-- Unzip `hybridclr.zip`
-- Put the hybridclr directory after unzipping `hybridclr.zip` into the libil2cpp directory after unzipping `il2cpp-{version}.zip`
-- Open `HybridCLR/Installer`, turn on the `Copy libil2cpp from local` option, select the libil2cpp directory just unzipped, and install it
+- Extract hybridclr_unity and place it in the project Packages directory, rename it to com.code-philosophy.hybridclr
+- Extract the corresponding `il2cpp_plus-{version}.zip` according to your Unity version
+- Extract `hybridclr.zip`
+- Place the hybridclr directory from the extracted `hybridclr.zip` into the libil2cpp directory from the extracted `il2cpp-{version}.zip`
+- Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the libil2cpp directory you just extracted, and perform the installation
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
-## Full generic sharing
+## Full Generic Sharing
 
-See [Full generic sharing](../fullgenericsharing).
+See [Full Generic Sharing](../fullgenericsharing).
 
-## Code encryption
+## Code Encryption
 
-See [Code hardening](../basicencryption).
+See [Code Protection](../basicencryption).
 
-## Control access
+## Access Control
 
-Sometimes you may want to limit the types and functions that hot update code can access, for example, sandbox games do not want UGC code to access file reading interfaces, access control can achieve this goal.
+Sometimes you may want to limit the scope of types and functions that hot update code can access. For example, sandbox games may not want UGC code to access file reading interfaces. Access control can achieve this goal.
 
-For details, please read the document [Access Control Policy](../accesspolicy).
+Please read the detailed documentation [Access Control Policy](../accesspolicy).
 
-## Uninstall assembly
+## Unloading Assemblies
 
-Currently, two interfaces are provided for uninstalling assemblies:
+Currently, two interfaces are provided for unloading assemblies:
 
 - RuntimeApi::TryUnloadAssembly
 - RuntimeApi::ForceUnloadAssembly
 
 ### RuntimeApi::TryUnloadAssembly
 
-This interface attempts to unload an assembly. If the unloading is completed normally, report.success is true, otherwise the report.success field is false.
+This interface attempts to unload an assembly. If unloading completes normally, report.success is true; otherwise, the report.success field is false.
 
 ```csharp
-/// <summary>
-/// Attempts to unload the assembly.
-/// </summary>
-/// <param name="assembly">The assembly to unload.</param>
-/// <param name="printObjectReferenceLink">If true, prints the reference chain when illegal references are detected. Enabling this may increase unloading time.</param>
-/// <returns></returns>
-public static UnloadAssemblyReport TryUnloadAssembly(Assembly assembly, bool printObjectReferenceLink)
-{
-    //...
-}
+        /// <summary>
+        /// Attempts to unload the assembly.
+        /// </summary>
+        /// <param name="assembly">The assembly to unload.</param>
+        /// <param name="printObjectReferenceLink">If true, prints the reference chain when illegal references are detected. Enabling this may increase unloading time.</param>
+        /// <returns></returns>
+        public static UnloadAssemblyReport TryUnloadAssembly(Assembly assembly, bool printObjectReferenceLink)
+        {
+            //...
+        }
 ```
 
-If printObjectReferenceLink is true, the uninstallation time will increase significantly. It is recommended to try uninstalling with printObjectReferenceLink set to false first. If it fails, uninstall with printObjectReferenceLink set to true. The sample code is as follows:
+If printObjectReferenceLink is true, it will significantly increase unloading time. It's recommended to first try unloading with printObjectReferenceLink as false, and if it fails, then use printObjectReferenceLink as true for unloading. Example code as follows:
 
 ```csharp
 
-void TwoPhaseUnloadAssembly(Assembly ass)
-{
-    var report = RuntimeApi.TryUnloadAssembly(ass, false);
-    if (!report.success)
+    void TwoPhaseUnloadAssembly(Assembly ass)
     {
-        report = RuntimeApi.TryUnloadAssembly(ass, true);
-        foreach (string log in report.invalidObjectReferenceLinkLogs)
+        var report = RuntimeApi.TryUnloadAssembly(ass, false);
+        if (!report.success)
         {
-            Debug.LogError(log);
+            report = RuntimeApi.TryUnloadAssembly(ass, true);
+            foreach (string log in report.invalidObjectReferenceLinkLogs)
+            {
+                Debug.LogError(log);
+            }
         }
     }
-}
 
 ```
 
 ### RuntimeApi::ForceUnloadAssembly
 
-This interface forcibly unloads the assembly and returns UnloadAssemblyReport. If the unloading is completed normally, report.success is true, otherwise the report.success field is false. Regardless of the return result, the assembly will be removed.
+This interface forcefully unloads an assembly and returns an UnloadAssemblyReport. If unloading completes normally, report.success is true; otherwise, the report.success field is false. Regardless of the return result, the assembly will be removed.
 
 ```csharp
- /// <summary>
- /// Forcefully unloads the assembly regardless of remaining references to it in the AppDomain.
- /// </summary>
- /// <param name="assembly">The assembly to be unloaded.</param>
- /// <param name="ignoreObjectReferenceValidation">Whether to skip LiveObjectValidator's illegal reference checking. Recommended to set to false.</param>
- /// <param name="printObjectReferenceLink">If true, prints reference chains when illegal references are detected. Enabling this may increase unloading time.</param>
- /// <returns>Indicates whether no illegal references were found (true means no illegal references, false means some exist).</returns>
- /// <exception cref="UnloadAssemblyException">Thrown when assembly unloading fails.</exception>
- public static UnloadAssemblyReport ForceUnloadAssembly(Assembly assembly, bool ignoreObjectReferenceValidation, bool printObjectReferenceLink)
- {
-    // ...
- }
+        /// <summary>
+        /// Forcefully unloads the assembly regardless of remaining references to it in the AppDomain.
+        /// </summary>
+        /// <param name="assembly">The assembly to be unloaded.</param>
+        /// <param name="ignoreObjectReferenceValidation">Whether to skip LiveObjectValidator's illegal reference checking. Recommended to set to false.</param>
+        /// <param name="printObjectReferenceLink">If true, prints reference chains when illegal references are detected. Enabling this may increase unloading time.</param>
+        /// <returns>Indicates whether no illegal references were found (true means no illegal references, false means some exist).</returns>
+        /// <exception cref="UnloadAssemblyException">Thrown when assembly unloading fails.</exception>
+        public static UnloadAssemblyReport ForceUnloadAssembly(Assembly assembly, bool ignoreObjectReferenceValidation, bool printObjectReferenceLink)
+        {
+            // ...
+        }
 ```
 
-## HotReload compatibility check
+## HotReload Compatibility Check
 
-Because the Unity engine caches metadata of some types (MonoBehaviour, Serializable classes) internally, there are some restrictions on the use of these classes. If these restrictions are violated, the runtime may crash.
-`HybridCLR.Editor.HotReload.HotReloadCompatibilityValidator` can detect most of the codes that are incompatible with hot reload in advance.
+Due to Unity engine internally caching some type (MonoBehaviour, Serializable classes) metadata, these classes have certain usage limitations. Violating these limitations may cause runtime crashes.
+`HybridCLR.Editor.HotReload.HotReloadCompatibilityValidator` can detect most code incompatible with hot reload in advance.
 
 ```csharp
-[MenuItem("Test/CheckCompatibility")]
-public static void CheckCompatibility()
-{
-    BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
-    CompileDllCommand.CompileDll(target);
-    // This is the hot reload assembly, not the hot update assembly. Please do not add assemblies that do not require hot reload to this list.
-    var hotReloadDlls = new List<string> { "Tests" };
-    var assResolver = MetaUtil.CreateHotUpdateAndAOTAssemblyResolver(target, hotReloadDlls);
-    var validator = new HotReloadCompatibilityValidator(hotReloadDlls, assResolver);
-    if (!validator.Validate())
-    {
-        UnityEngine.Debug.LogError("CheckCompatibility failed");
-    }
-}
+        [MenuItem("Test/CheckCompatibility")]
+        public static void CheckCompatibility()
+        {
+            BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+            CompileDllCommand.CompileDll(target);
+            // This should contain hot reload assemblies, not hot update assemblies. 
+            // Please don't add assemblies that don't need hot reload to this list.
+            var hotReloadDlls = new List<string> { "Tests" };
+            var assResolver = MetaUtil.CreateHotUpdateAndAOTAssemblyResolver(target, hotReloadDlls);
+            var validator = new HotReloadCompatibilityValidator(hotReloadDlls, assResolver);
+            if (!validator.Validate())
+            {
+                UnityEngine.Debug.LogError("CheckCompatibility failed");
+            }
+        }
 
 ```
 
-## Solve the reference problem of unloaded objects
+## Resolving References to Unloaded Objects
 
-Hot reload technology requires that the metadata of the unloaded assembly U cannot be held in the unloaded assembly or global memory. Including but not limited to:
+Hot reload technology requires that no metadata from unloaded assembly U should be held in unloaded assemblies or global memory. This includes but is not limited to:
 
-- Instances of the type of the uninstalled assembly
-- Generic parameters of generic classes or functions that contain the type of the uninstalled assembly
-- Reflection information related to the uninstalled assembly, such as Assembly, Type, MethodInfo, PropertyInfo, etc.
-- Delegate pointing to a function in the uninstalled assembly
-- Asynchronous Task defined in the uninstalled assembly
+- Instances of types from unloaded assemblies
+- Generic classes or functions with generic parameters containing types from unloaded assemblies
+- Reflection information related to unloaded assemblies, such as Assembly, Type, MethodInfo, PropertyInfo, etc.
+- Delegates pointing to functions in unloaded assemblies
+- Async Tasks defined in unloaded assemblies
 - Others
 
-Actual projects may be very complex, and it is difficult and impractical for developers to find all illegal references. We have implemented illegal reference checks, and logs of all illegal references will be printed during the uninstallation process. Developers can clear all illegal references according to the printed logs.
+Actual projects can be very complex, and it's difficult and impractical for developers to find all illegal references. We have implemented illegal reference checking, and the unloading process will print logs of all illegal references. Developers can clear all illegal references based on the printed logs.
 
-## Known libraries with compatibility issues
+## Known Libraries with Compatibility Issues
 
-Most incompatibility issues are essentially caused by the caching of uninstalled objects, types, or functions. Incompatibility issues can be resolved by manually clearing these illegal references.
+Most incompatibility issues are essentially caused by caching of unloaded objects, types, or functions. These incompatibility issues can be resolved by manually clearing these illegal references.
 
-- Jobs in 2022 will cache type-related information, and you need to slightly modify the code of UnityEngine.CoreModule.dll (./modifydll.md). Versions lower than 2022 do not need to be modified
-- Deserialization libraries such as LitJson will cache reflection information. You need to clean up the cached reflection information in the library after hot reload. The specific operation depends on the implementation of the library.
+- Jobs in 2022 will cache type-related information, requiring minor [modifications to UnityEngine.CoreModule.dll](./modifydll.md) code. Versions below 2022 don't need modifications
+- Deserialization libraries like LitJson will cache reflection information and need to clear cached reflection information in the library after hot reload. Specific operations depend on the library's implementation

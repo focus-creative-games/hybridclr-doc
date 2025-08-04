@@ -1,30 +1,28 @@
-# Migrate from netstandard to .Net Framework
+# Migrating from netstandard to .Net Framework
 
-During the building pipeline, Unity will convert all references to netstandard.dll into final references such as mscorlib.dll, resulting in original code
-The reference relationship is very different from the final reference relationship. This difference will cause the command under `Generate/All/*` to run incorrectly. At the same time due to
-The hot update dll compiled by the `HybridCLR/CompileDll/*` command still references `netstandard` instead of the final mscorlib and other programs.
-set, causing an error that the type in netstandard cannot be found when loading and running the hot update dll. Therefore, HybridCLR requires the use of `Net Framework` by default
-API Level.
+During Unity's packaging process, all references to netstandard.dll are converted to final references like mscorlib.dll, causing the original code's reference relationships to differ significantly from the final reference relationships. This difference causes the `Generate/All/*` commands to run with errors. Additionally, since the hot update dlls compiled by `HybridCLR/CompileDll/*` commands still reference `netstandard` rather than the final assemblies like mscorlib, loading and running hot update dlls will result in errors where types in netstandard cannot be found. Therefore, HybridCLR defaults to requiring the use of `Net Framework` Api Level.
 
-Some projects originally worked on the .net standard Api Level. In order to be able to work normally after being connected to HybridCLR, some migration work needs to be performed.
-Fortunately, these tasks are one-time only.
+Some projects originally worked on .net standard Api Level. To work properly after integrating HybridCLR, some migration work needs to be performed.
+Fortunately, this work is one-time only.
 
-## Migration steps
+## Migration Steps
 
-Migration mainly consists of two steps:
+Migration mainly includes two steps:
 
-- Convert the precompiled netstandard-based dll in the project to the .net framework-based dll
+- Convert pre-compiled netstandard-based dlls in the project to .net framework-based dlls
 - Switch the project's Api Level to .Net Framework
 
 
-## Convert external dll based on netstarndard
+## Converting External netstandard-based DLLs
 
-If you can directly find the .Net Framework-based version of the external dll, just replace the dll corresponding to the project. If not found,
-Then you can use Unity's building pipeline to generate the final aot dll based on .Net Framework, and generate the dll's
-.Net Framework version. The specific operation is as follows:
+If you can directly find a .Net Framework-based version of the external dll, simply replace the corresponding dll in the project. If you can't find one,
+you can utilize Unity's packaging process feature that generates final .Net Framework-based aot dlls to generate
+the .Net Framework version of that dll. Specific operations are as follows:
 
-- Make sure that the main project already has code that references this external dll, not just the dll that is referenced in the hot update code
+- Ensure the main project has code that references this external dll, not just hot update code referencing the dll
 - Preserve this dll in any link.xml, such as adding `<assembly fullname="xxx.dll" preserve="all"/>` in `Assets/link.xml`
 - Run `HybridCLR/Generate/AOTDlls`
-- Obtain the file corresponding to the dll in the clipping directory of `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`
-- Use this dll to replace the corresponding dll in the project
+- Obtain the corresponding file for that dll in the stripped directory `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`
+- Replace the corresponding dll in the project with this dll
+
+

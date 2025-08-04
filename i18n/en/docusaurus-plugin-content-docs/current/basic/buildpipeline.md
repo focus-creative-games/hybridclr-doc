@@ -1,68 +1,69 @@
-# Building Pipeline
+# Build Workflow
 
-Due to the requirements of the hot update itself and some limitations of Unity resource management, some special processing is required for the buiding workflow, which is mainly divided into several parts:
+Due to the requirements of hot updating itself and some limitations of Unity's resource management, special handling is needed for the build workflow, mainly divided into several parts:
 
-- Set the UNITY_IL2CPP_PATH environment variable
-- Automatically exclude hot update assembly when buiding
-- Add the hot update dll name to the assembly list when buiding
-- Copy the trimmed aot dll generated during the buiding process for supplementary metadata
-- Compile hot update dll
-- Generate some files and codes needed for buiding
+- Set UNITY_IL2CPP_PATH environment variable
+- Automatically exclude hot update assemblies during build
+- Add hot update dll names to assembly list during build
+- Copy the stripped AOT dlls generated during the build process for supplemental metadata use
+- Compile hot update dlls
+- Generate some files and code needed for packaging
 - Special handling for iOS platform
 
-Manually operating these is cumbersome and error-prone. The `com.code-philosophy.hybridclr` package contains standard tool scripts related to buiding workflows, simplifying these complex processes into one-click operations.
-For detailed implementation, please refer to the source code or [com.code-philosophy.hybridclr introduction](/basic/com.code-philosophy.hybridclr.md)
+Manual operation of these processes is tedious and error-prone. The `com.code-philosophy.hybridclr` package includes standard tool scripts related to the build workflow, simplifying these complex processes into one-click operations.
+For detailed implementation, please see the source code or [com.code-philosophy.hybridclr introduction](/basic/com.code-philosophy.hybridclr.md)
 
-## Buiding Steps
+## Build Process
 
-1. Run the menu `HybridCLR/Generate/All` to execute the necessary generation operations with one click
-1. Add the hot update dll under `HybridCLRData/HotUpdateDlls` to the hot update resource management system of the project
-1. Add the supplementary metadata dll under `HybridCLRData/AssembliesPostIl2CppStrip` to the hot update resource management system of the project
-1. Pack according to the original buiding process of your project
+1. Run menu `HybridCLR/Generate/All` to execute all necessary generation operations with one click
+1. Add the hot update dlls from `HybridCLRData/HotUpdateDlls` to your project's hot update resource management system
+1. Add the supplemental metadata dlls from `HybridCLRData/AssembliesPostIl2CppStrip` to your project's hot update resource management system
+1. Build according to your project's original packaging workflow
 
-## Optimized buiding pipeline
+## Optimized Build Process
 
-During the `HybridCLR/Generate/All` command, an export project will be executed to generate the trimmed AOT dll. This step can be time-consuming for large projects, almost doubling the buiding time. If you need to optimize the buiding time, you can follow the process below to package at one time.
+:::tip
+
+Unity 2019's Android platform and HarmonyOS platform of Unity China will automatically compile libil2cpp.a during the second step of `exporting project`. At this time, bridge functions and others have not been generated yet, so these platforms **cannot use** the optimized build process.
+
+:::
+
+The `HybridCLR/Generate/All` command executes a project export during its run to generate stripped AOT dlls. This step can be very time-consuming for large projects, almost doubling the build time. If you need to optimize build time, you can follow this workflow for one-time packaging:
 
 - Run `HybridCLR/Generate/LinkXml`
 - Export project
-- run `HybridCLR/Generate/Il2cppDef`
-- Run `HybridCLR/Generate/MethodBridge` to generate the bridge function
-- Run `HybridCLR/Generate/PReverseInvokeWrapper`. Projects that do not need to interact with lua can skip this step.
+- Run `HybridCLR/Generate/Il2cppDef`
+- Run `HybridCLR/Generate/MethodBridge` to generate bridge functions
+- Run `HybridCLR/Generate/PReverseInvokeWrapper`. Projects that don't need to interact with lua and similar can skip this step.
 - Replace the `{proj}\HybridCLRData\LocalIl2CppData-{platform}\il2cpp\libil2cpp\hybridclr\generated` directory with this directory in the exported project.
 - Execute build on the exported project
 
-
-## Special handling for iOS platform
+## Special Handling for iOS Platform
 
 ### When com.code-philosophy.hybridclr version &ge; v3.2.0
 
-No need for any processing, just export the xcode project directly, and then pack it. Since the libil2cpp source code is added to the xcode project after the build is completed, you can only export xcode first, and then compile it manually or on the command line. If you try to `Build And Run` directly, you will get an error.
-
-:::danger
-If your com.code-philosophy.hybridclr version is < v3.3.0, since the path of libil2cpp-related code is hard-coded in the xcode project, if you export the xcode project and push it to other computers for buiding, the code file will not be found mistake!
-:::
+No special handling is needed. Simply export the Xcode project and then build. Since the libil2cpp source code is added to the Xcode project only after build completion, you can only export Xcode first, then compile manually or via command line. Attempting to directly `Build And Run` will cause errors.
 
 ### When com.code-philosophy.hybridclr version &lt; v3.2.0
 
-Platforms other than iOS compile the target program based on the libil2cpp source code, and the iOS platform uses the pre-compiled libil2cpp.a file. The xcode project exported by Unity references the pre-generated libil2cpp.a, but does not contain the libil2cpp source code.
-Direct buiding cannot support hot updates. Therefore, when compiling an iOS program, you need to compile libil2cpp.a separately, then **replace the libil2cpp.a file** of the xcode project, and then package it.
+All platforms except iOS compile the target program based on libil2cpp source code. The iOS platform uses a pre-compiled libil2cpp.a file. The Xcode project exported by Unity references a pre-generated libil2cpp.a and does not include libil2cpp source code,
+so direct packaging cannot support hot updates. Therefore, when compiling iOS programs, you need to compile libil2cpp.a separately and **replace the libil2cpp.a file in the Xcode project**, then build.
 
-The `com.code-philosophy.hybridclr/Data~/iOSBuild` directory contains the scripts needed to compile `libil2cpp.a`. After completing the installation using `HybridCLR/Installer...`, the iOSBuild directory will be copied to the `{project}/HybridCLRData/iOSBuild` directory.
+The `com.code-philosophy.hybridclr/Data~/iOSBuild` directory contains the scripts needed to compile `libil2cpp.a`. After completing the installation using `HybridCLR/Installer...`, this iOSBuild directory will be copied to the `{project}/HybridCLRData/iOSBuild` directory.
 
-Please follow steps belowing:
+The process is as follows:
 
 - Compile `libil2cpp.a`
   - Run `HybridCLR/Generate/All` to generate all necessary files
-  - Open the command console and switch to the `{project}/HybridCLRData/iOSBuild` directory. Please make sure the absolute path of this path does not contain spaces! Otherwise an error will occur.
-  - bash ./build_libil2cpp.sh compiles libil2cpp.a. After running, if the libil2cpp.a file can be found in the `iOSBuild/build` directory and the size is greater than 60M, it means the compilation is successful
-- replace the libil2cpp.a file in the xcode project. You need do this manually.
+  - Open command console and switch to the `{project}/HybridCLRData/iOSBuild` directory. Please ensure the absolute path of this directory does not contain spaces! Otherwise, errors will occur.
+  - bash ./build_libil2cpp.sh to compile libil2cpp.a. After completion, if you can find the libil2cpp.a file in the `iOSBuild/build` directory and its size is larger than 60M, it indicates successful compilation.
+- Replace the libil2cpp.a file in the Xcode project. Please complete this yourself.
 
-## Common errors
+## Common Errors
 
-- Installation did not complete in `HybridCLR/Installer...`
-- Didn't run `HybridCLR/Generate/All`
-- Newer macOS (above 12) and latest xcode not installed
-- cmake is not installed
-- Due to the git setting, the pulled build_libil2cpp.sh and build_lump.sh contain incorrect file end characters, which cause errors in the first few lines of code when the script runs. Error messages are also obvious, such as `/bin/bash^M file does not exist`. Run the command `cat -v build_libil2cpp.sh` to check that the line breaks are correct. Run `git config --global core.autocrlf input`, and then pull these two script files again. For details, please refer to [Git Line Break Settings](https://docs.github.com/cn/get-started/getting-started-with-git/configuring-git-to-handle-line-endings).
-- The absolute path to `{project}/HybridCLRData/iOSBuild` contains spaces, causing the gen_lump.sh script to generate wrong results
+- Installation not completed in `HybridCLR/Installer...`
+- `HybridCLR/Generate/All` not executed
+- Not using newer macOS (12 or above) and latest Xcode
+- cmake not installed
+- Due to git settings, the downloaded build_libil2cpp.sh and build_lump.sh contain incorrect line endings, causing script errors in the first few lines. The error message is also obvious, such as `/bin/bash^M file not found`. Run command `cat -v build_libil2cpp.sh` to check and confirm line ending correctness. Run `git config --global core.autocrlf input`, then re-download these two script files. For details, see [git line ending settings](https://docs.github.com/cn/get-started/getting-started-with-git/configuring-git-to-handle-line-endings).
+- The absolute path of `{project}/HybridCLRData/iOSBuild` contains spaces, causing gen_lump.sh script to generate incorrect results

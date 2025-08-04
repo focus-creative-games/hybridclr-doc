@@ -1,26 +1,29 @@
 # Metadata Optimization
 
-While executing code, HybridCLR does not significantly increase memory usage, but loading the metadata of assemblies consumes a considerable amount of memory. This may be a problem in scenarios with high memory pressure, such as WeChat Mini Games. To address this, all commercial versions have significantly optimized metadata memory.
+HybridCLR doesn't consume additional memory during code execution, but loading assembly metadata occupies a large amount of memory. For scenarios with significant memory pressure (such as WeChat mini-games), this could be a problem.
+For this situation, all commercial versions significantly optimize metadata memory.
 
-Several aspects have been optimized to reduce memory usage:
+Memory usage is optimized from several aspects:
 
 - Using full generic sharing technology
-- Optimizing memory usage of loading supplementary metadata assemblies
-- Optimizing memory usage of loading hot update assembly metadata
+- Optimizing supplemental metadata assembly loading memory
+- Optimizing hot update assembly metadata memory
 
-Additionally, the time taken to load hot update assemblies has been significantly optimized, with **commercial versions taking only 30% of the time compared to the community version**.
+Additionally, the Assembly.Load time for loading hot update assemblies has been significantly optimized, **with commercial version loading time being 30% of the community version**.
 
-**Based on current test results, on a 64-bit platform, commercial versions save approximately `{total size of supplementary metadata} * 4 + {total size of hot update assemblies} * 1.8` memory compared to the community version.**
+**According to current test results, on 64-bit platforms, commercial versions save approximately `{total supplemental metadata size} * 4 + {total hot update assembly size} * 1.8` memory compared to community versions.**
 
-For WebGL platforms (including WeChat Mini Games), enabling the faster (smaller) build option will further reduce package size (approximately 1-2 times the size of all AOT DLLs), leading to a significant reduction in memory usage. For most projects, commercial versions can ultimately reduce memory usage by nearly 50-100MB or even more on the WebGL platform.
+For WebGL platforms (including WeChat mini-games), enabling the faster(smaller) build option will further reduce package size (approximately 1-2 times the size of all aot dlls), leading to significantly reduced memory usage.
+For most projects, commercial versions can ultimately reduce WebGL platform memory by nearly 50-100M or even more.
 
 ## Full Generic Sharing
 
-Completely eliminates supplementary metadata memory, approximately 4 times the size of the DLL. The downside is that full generic sharing is only supported from 2021 onwards. Enabling full generic sharing can significantly reduce package size (by approximately 30-40% after compilation of managed code).
+Completely eliminates supplemental metadata memory, approximately 4 times the dll size. The drawback is that full generic sharing is only supported from 2021 onwards. Enabling full generic sharing can significantly reduce package size (reducing approximately 30-40% of managed code compiled size).
 
-## Optimizing Memory Usage of Supplementary Metadata
+## Optimizing Supplemental Metadata Memory
 
-We tested the memory consumption of common AOT assemblies after adding supplementary metadata. The memory consumption of the community version is approximately 4 times the size of the DLL; for the commercial version without full generic sharing, it is approximately 1.3 times; with full generic sharing enabled, this becomes 0. The commercial version reduces memory consumption by **67%** compared to the community version (100% when full generic sharing is enabled).
+We tested the memory consumed after supplementing metadata for common aot assemblies. Community versions consume approximately 4 times the dll size; commercial versions consume about 1.3 times when full generic sharing is not enabled;
+commercial versions consume 0 when full generic sharing is enabled since supplemental metadata is not needed. Commercial versions reduce memory by **67%** (100% when full generic sharing is enabled) compared to community versions.
 
 **Detailed Data**:
 
@@ -30,17 +33,19 @@ We tested the memory consumption of common AOT assemblies after adding supplemen
 
 ![aot-metadata-memory](/img/memory-optimization/aot-metadata-memory.jpg)
 
-**Memory Consumption per DLL Size**:
+**Memory Consumption/DLL Size**:
 
 ![aot-metadata-dll-rate](/img/memory-optimization/aot-metadata-dll-rate.jpg)
 
-## Optimizing Memory Usage of Hot Update Assemblies
 
-We tested the memory consumption of common plugins after loading them in interpreted mode. The memory consumption of the community version is approximately 4.7 times the size of the DLL, while for the commercial version it is 2.9 times. The commercial version reduces memory consumption by **39%** compared to the community version.
+## Optimizing Hot Update Assembly Memory
+
+We tested the memory consumed by common plugins when loaded in interpretation mode. Community versions consume approximately 4.7 times the dll size, while commercial versions consume 2.9 times. Commercial versions reduce memory by **39%** compared to community versions.
 
 :::tip
 
-This data does not include memory consumed by Il2CppClass, MethodInfo, and translated instructions that are lazily initialized at runtime. This part of the memory consumes approximately 2.9-3.5 times the size of the DLL. The final memory consumption of metadata, for the community version, is 7.6-8.2 times, while for the commercial version it is 5.8-6.4 times the size of the DLL. The commercial version reduces memory consumption by approximately **25%** compared to the community version.
+This data does not include memory occupied by runtime lazy-initialized Il2CppClass, MethodInfo, and translated instructions, which accounts for approximately 2.9-3.5 times the dll size. The final metadata memory consumption is 7.6-8.2 times for community versions and 5.8-6.4 times for commercial versions.
+Commercial versions reduce memory by approximately **25%** compared to community versions.
 
 :::
 
@@ -52,6 +57,8 @@ This data does not include memory consumed by Il2CppClass, MethodInfo, and trans
 
 ![aot-metadata-memory](/img/memory-optimization/assembly-load-memory.jpg)
 
-**Memory Consumption per DLL Size**:
+**Memory Consumption/DLL Size**:
 
 ![aot-metadata-dll-rate](/img/memory-optimization/assembly-load-rate.jpg)
+
+

@@ -1,16 +1,16 @@
-# PInvoke support
+# PInvoke Support
 
 :::tip
 
-Before v8.0.0, if you defined an extern function in hot-update code and tried to call it, an error of `ExecutionEngineException:method body is null` would be thrown.
+Prior to version v8.0.0, defining extern functions in hot update code and attempting to call them would throw an `ExecutionEngineException: method body is null` error.
 
 :::
 
-hybridclr has always supported calling extern functions defined in AOT, but since **v8.0.0**, it supports defining extern functions in hot-update code.
+HybridCLR has always supported calling extern functions defined in AOT, but starting from **v8.0.0**, it supports defining extern functions in hot update code.
 
-## Supported platforms
+## Supported Platforms
 
-Supporting extern functions relies on the runtime to find function symbols in dynamic link libraries. It works properly on most platforms, but not on iOS.
+This extern function feature depends on runtime lookup of function symbols in dynamic link libraries. It works normally on most platforms but cannot run on iOS.
 
 |Platform|Support|
 |-|-|
@@ -20,17 +20,17 @@ Supporting extern functions relies on the runtime to find function symbols in dy
 |Android|✔|
 |iOS||
 |WebGL||
-|Other platforms|Untested|
+|Other platforms|Not tested|
 
-## Reserved bridge function
+## Reserving Bridge Functions
 
-When calling a PInvoke function, you also need to solve the parameter conversion from managed to native, so you need to generate the corresponding bridge function for the PInvoke function in advance, otherwise an exception `ExecutionEngineException: NotSupportManaged2NativeFunctionMethod` will be thrown at runtime.
+When calling PInvoke functions, parameter conversion from managed to native also needs to be resolved, so corresponding bridge functions for the PInvoke function must be pre-generated, otherwise a runtime exception `ExecutionEngineException: NotSupportManaged2NativeFunctionMethod` will be thrown.
 
-For PInvoke functions that already exist in the hot update code when constructing the main package, the corresponding bridge function will be automatically generated for them, and no special processing is required. For functions that may be used in the future but do not have an existing PInvoke function with the same signature, you need to reserve the corresponding bridge function for it.
+For PInvoke functions that already exist in hot update code when building the main package, corresponding bridge functions will be automatically generated without special handling. For functions that may be used in the future but don't have existing PInvoke functions with the same signature, corresponding bridge functions need to be reserved.
 
-The reservation method is to define some PInvoke type extern functions in the hot update code. PInvoke functions with the same signature can share the same bridge function, and it is **not** necessary to reserve a Wrapper function for each callback function like `[MonoPInvokeCallback]`.
+The reservation method is to define some PInvoke-type extern functions in hot update code. PInvoke functions with the same signature can all share the same bridge function, **no need** to reserve a Wrapper function for each callback function like `[MonoPInvokeCallback]`.
 
-The `dllName` and `EntryPoint` parameters in the `DllImport` attribute of the reserved PInvoke function can take any value and have no practical use.
+The `dllName` and `EntryPoint` parameters in the `DllImport` attribute of reserved PInvoke functions can have arbitrary values and have no practical use.
 
 Example as follows:
 
@@ -38,44 +38,44 @@ Example as follows:
 
 public static class PreservedPInvokes
 {
-[DllImport("xxxx", EntryPoint = "Demo0")]
-public static extern void Demo0();
+      [DllImport("xxxx", EntryPoint = "Demo0")]
+      public static extern void Demo0();
 
-[DllImport("xxxx", EntryPoint = "Demo1")]
-public static extern void Demo1(int value);
+      [DllImport("xxxx", EntryPoint = "Demo1")]
+      public static extern void Demo1(int value);
 
-[DllImport("xxxx", EntryPoint = "DemoLua")]
-public static extern IntPtr DemoLua(IntPtr luaState);
+      [DllImport("xxxx", EntryPoint = "DemoLua")]
+      public static extern IntPtr DemoLua(IntPtr luaState);
 }
 
 ```
 
 ## Limitations
 
-Since hybridclr currently does not marshal the parameters and return values ​​of the PInvoke function, ordinary int and float types work normally, but parameters such as string are passed as 'char*' by the native layer, and are not marshaled to string, so they will inevitably crash if used directly!
+Since HybridCLR currently doesn't marshal parameters and return values for PInvoke functions, common int and float types work normally, but for parameters like string, since the native layer passes 'char*', it's not marshalled to string, and direct use will inevitably crash!
 
-If you encounter a string type parameter, there are two solutions:
+If you encounter string type parameters, there are two solutions:
 
-1. You can put the callback function in AOT and call back the hot update function in AOT.
+1. Put the callback function in AOT, then callback to hot update functions from AOT.
+2. Change the parameter to IntPtr type, then call Marshal.PtrToStringUTF8 to convert the IntPtr type raw char* data to string.
 
-2. Change the parameter to IntPtr type, and then call Marshal.PtrToStringUTF8 to convert the original char* type data of IntPtr type into string.
-
-The sample code is as follows:
+Example code as follows:
 
 ```csharp
-[DllImport("GameAssembly", EntryPoint = "GetStringLength")]
-public static extern int GetStringLength(IntPtr ptr);
+    [DllImport("GameAssembly", EntryPoint = "GetStringLength")]
+    public static extern int GetStringLength(IntPtr ptr);
 
-public static void ProcessString()
-{
-  var s = "abc";
-  // Convert the string to a native string of type `const char*`
-  IntPtr strPtr = Marshal.StringToHGlobalUni(s);
-  int length = GetStringLength(strPtr);
-  // Release string memory
-  Marshal.FreeHGlobal(strPtr);
-}
+
+    public static void ProcessString()
+    {
+      var s = "abc";
+      // Convert string to native string of `const char*` type
+      IntPtr strPtr = Marshal.StringToHGlobalUni(s);
+      int length = GetStringLength(strPtr);
+      // Free string memory
+      Marshal.FreeHGlobal(strPtr);
+    }
 
 ```
 
-Other non-primitive parameters that require Marshal can be processed in the same way.
+Other non-primitive type parameters that need marshalling can be handled in the same way.

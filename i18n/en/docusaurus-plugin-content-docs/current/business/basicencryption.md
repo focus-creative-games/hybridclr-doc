@@ -1,34 +1,37 @@
-# Code Encryption
+# Code Hardening
 
-The community version loads the original dll directly, forcing developers to carry and download the original dll. These original dlls can be decompiled by tools like ILSpy
-, causing serious safety problems. Even if the developer encrypts it, it can easily be intercepted in the memory and obtain the decrypted dll content.
+The community version directly loads original dlls, forcing developers to carry and download original dlls. These original dlls can be decompiled by tools like ILSpy,
+creating serious security issues. Even if developers encrypt them, it's easy to intercept in memory and obtain decrypted dll content.
 
-We provide the industry's top managed code hardening technology, which effectively prevents code from being cracked and tampered with by malicious third parties.
+We provide industry-leading managed code hardening technology that effectively prevents code from being maliciously cracked and tampered with by third parties.
 
 
-|Technology|Safety Index|Achieved|
+|Technology|Security Rating|Implemented|
 |-|-|-|
-|global-metadatata.dat encryption|:star:|✔|
+|global-metadata.dat encryption|:star:|✔|
 |Metadata obfuscation|:star::star:|✔|
 |Metadata encryption|:star::star::star::star:|✔|
-|Structure Virtualization|:star::star::star:|✔|
-|Encrypted Virtualization|:star::star::star:|✔|
+|Structure virtualization|:star::star::star:|✔|
+|Encryption virtualization|:star::star::star:|✔|
 |Delayed decryption|:star::star::star:|✔|
-|Instruction virtualization|:star::star::star::star::star:|✔|
+|Instruction virtualization|:star::star::star::star::star:||
 
-## Metadata obfuscation
+## global-metadata.dat Encryption
 
-Due to clr's own mechanism, no matter how complex the encryption is, valid metadata information such as types, fields, function names, etc. can be obtained through reflection in the memory.
-This information must be added to the security by obfuscating the metadata itself, i.e. completely losing the original plaintext information from the original level.
+Encrypts global-metadata.dat to prevent malicious third parties from recovering metadata information.
 
-Because instruction obfuscation will significantly harm performance, only pure information types such as types, fields, and functions are obfuscated. We mainly protect code security through virtualization technology.
+## Metadata Obfuscation
 
-## Metadata encryption
+Due to CLR's inherent mechanisms, regardless of how complex the encryption is, valid metadata information such as type, field, and function names can inevitably be obtained through reflection in memory.
+This information must be secured by obfuscating the metadata itself, i.e., completely losing the original plaintext information at the source level to increase security.
 
-|Technology|Structure Virtualization|Encryption Virtualization|Lazy Decryption|Security Index|
+Since instruction obfuscation significantly hurts performance, we only provide obfuscation for pure information types like types, fields, and functions. We primarily use virtualization technology to protect code security.
+
+## Metadata Encryption
+
+|Technology|Structure Virtualization|Encryption Virtualization|Delayed Decryption|Security Rating|
 |-|-|-|-|-|
-|encryptGlobalMetdataDat||Encrypt global-metadata.dat file|
-|Customized dll file structure||||:star:|
+|Custom dll file structure||||:star:|
 |~string stream encryption||✔||:star::star:|
 |~blob stream encryption||✔||:star::star:|
 |~US stream encryption||✔|✔|:star::star::star:|
@@ -36,108 +39,109 @@ Because instruction obfuscation will significantly harm performance, only pure i
 |method body data encryption||✔|✔|:star::star::star:|
 
 
-### Custom dll file structure
+### Custom DLL File Structure
 
-The original dll file is in PE format. We changed it to a custom file structure and cannot be opened using decompilation tools such as ILSpy.
+Original dll files are in PE format, which we change to a custom file structure that cannot be opened by decompilation tools like ILSpy.
 
-Supports structure virtualization technology, that is, the dll structure of each version can be completely different, which significantly increases the cost of cracking.
+Supports structure virtualization technology, meaning each version's dll structure can be completely different, significantly increasing cracking costs.
 
-### ~string stream encryption
+### ~string Stream Encryption
 
-The ~string stream stores strings used internally in metadata, such as type names, field names, etc. Encrypting the ~string stream data makes it impossible to obtain the metadata string directly from the dll file.
+The ~string stream stores strings used internally by metadata, such as type names and field names. Encrypting ~string stream data prevents direct retrieval of metadata strings from dll files.
 
-Supports encryption virtualization technology, which significantly increases the difficulty of offline cracking.
+Supports encryption virtualization technology, significantly increasing the difficulty of offline cracking.
 
 ### ~blob stream encryption
 
-~blob streams store some complex metadata (such as type signatures). Encrypting the ~blob stream makes it impossible to obtain the original lob data directly from the dll file.
+The ~blob stream stores some complex metadata (such as type signatures). Encrypting the ~blob stream makes it impossible to directly obtain the original blob data from the dll file.
 
-Supports encryption virtualization technology, which significantly increases the cost of offline cracking.
+Supports encryption virtualization technology, significantly increasing the cost of offline cracking.
 
 ### ~US stream encryption
 
-The user string (that is, the string used in the code) metadata is saved in the ~US stream.
+The ~US stream stores user string (i.e., strings used in code) metadata.
 
-Supports encrypted virtualization technology, preventing crackers from directly obtaining original ~US metadata from dll files.
+Supports encryption virtualization technology, preventing crackers from directly obtaining the original ~US metadata from dll files.
 
-Supports delayed decryption to prevent crackers from using memory dump technology to directly restore all data.
+Supports delayed decryption, preventing crackers from using memory dump techniques to directly restore all data.
 
 ### ~table stream encryption
 
-The ~table stream holds most of the structured metadata.
+The ~table stream stores most structured metadata.
 
-Supporting structure virtualization technology, each version uses different metadata data structures, which greatly increases the cost of cracking. Even if it is cracked, it cannot be restored to the original ~table stream structure through simple data movement or copying.
+Supports structural virtualization technology, with each version using different metadata data structures, greatly increasing the cost of cracking. Even if cracked, it cannot be restored to the original ~table stream structure through simple data movement or copying.
 
-Supports encrypted virtualization, which significantly increases the cost of cracking.
+Supports encryption virtualization, significantly improving the cost of cracking.
 
-Supports delayed decryption to prevent crackers from using memory dump technology to directly restore all data.
+Supports delayed decryption, preventing crackers from using memory dump techniques to directly restore all data.
 
 
 ### method body data encryption
 
-The function body metadata information is stored in the method body.
+method body stores function body metadata information.
 
-Supports encrypted virtualization, which significantly increases the cost of cracking.
+Supports encryption virtualization, significantly improving the cost of cracking.
 
-Supports delayed decryption to prevent crackers from using memory dump technology to directly restore all data.
+Supports delayed decryption, preventing crackers from using memory dump techniques to directly restore all data.
 
-## Structure virtualization technology
+## Structural Virtualization Technology
 
-Structure virtualization technology refers to the use of a dedicated structural virtual machine to parse the structure of metadata, and it can be dynamically adjusted without rebuilding the App. This requires the cracker to re-crack each version, which greatly increases the cost of the cracker.
+Structural virtualization technology refers to using completely random metadata structures, using a dedicated structural virtual machine to parse the metadata structure, and can be dynamically adjusted without rebuilding the App, making crackers need to re-crack each version, greatly increasing the cost for crackers.
 
-## Encrypted virtualization technology
+## Encryption Virtualization Technology
 
-Encrypted virtualization technology refers to the use of a dedicated encryption virtual machine to encrypt metadata, and it can be dynamically adjusted without rebuilding the app. This requires the cracker to re-crack each version, which greatly increases the cost of the cracker.
+Encryption virtualization technology refers to using completely random encryption methods, using a dedicated encryption virtual machine to encrypt metadata, and can be dynamically adjusted without rebuilding the App, making crackers need to re-crack each version, greatly increasing the cost for crackers.
 
-## Delayed decryption technology
+## Delayed Decryption Technology
 
-Delayed decryption technology refers to decrypting data only for the first time, effectively preventing crackers from hooking the critical path and directly dumping the complete original data into memory.
+Delayed decryption technology refers to decrypting data only when first accessed, effectively preventing crackers from hooking critical paths and directly dumping complete original data from memory.
 
-## Instruction virtualization technology
+## Instruction Virtualization Technology
 
-Instruction virtualization technology refers to converting original IL instructions into customized register virtual machine instructions, effectively preventing crackers from using ready-made decompilation tools to analyze the original code.
+Instruction virtualization technology refers to converting original IL instructions into custom register virtual machine instructions, effectively preventing crackers from using existing decompilation tools to analyze original code.
 
-Instruction virtualization technology supports randomized instruction structures. Every time the App is rebuilt, a new instruction set is used (the instruction number and instruction length are completely different), which greatly increases the cost of crackers.
+Instruction virtualization technology supports randomized instruction structures. Each time the App is rebuilt (to improve instruction decoding performance, unlike structure virtualization and encryption virtualization which support dynamic adjustment), a completely new instruction set (with completely different instruction numbers and instruction lengths) is used, greatly increasing the cost for crackers.
+
 
 ## Configuration
 
-The encryption field in `HybridCLR Settings` configures hardening related parameters.
+The Encryption field in `HybridCLR Settings` configures hardening-related parameters.
 
-|Parameter name|When encrypting dll, it needs to be consistent with the main package|Description|
+|Parameter Name|Must Match Main Package When Encrypting dll|Description|
 |-|-|-|
-|vmSeed| is the |randomized seed for encrypted virtual machines|
-|metadataSeed|No|Randomized encryption seed for metadata|
-|key|No|Encryption parameters used for encryption and decryption|
-|stringEncCodeLength|No|~The encryption instruction length of the string stream|
-|blobEncCodeLength|No|~The encryption instruction length of the blob stream|
-|userStringEncCodeLength|No|~US stream encryption command length|
-|tableEncCodeLength|No|~Encryption instruction length of table stream|
-|lazyUserStringEncCodeLength|No|~Lazy Encryption Instruction Length for US Stream|
-|methdBodyEncCodeLength|No|~Delayed encryption instruction length of the function body|
+|encryptGlobalMetdataDat||Encrypt global-metadata.dat file|
+|vmSeed|Yes|Randomization seed for encryption virtual machine|
+|metadataSeed|No|Randomization encryption seed for metadata|
+|key|No|Encryption parameters used for encryption/decryption|
+|stringEncCodeLength|No|Encryption instruction length for ~string stream|
+|blobEncCodeLength|No|Encryption instruction length for ~blob stream|
+|userStringEncCodeLength|No|Encryption instruction length for ~US stream|
+|tableEncCodeLength|No|Encryption instruction length for ~table stream|
+|lazyUserStringEncCodeLength|No|Delayed encryption instruction length for ~US stream|
+|methdBodyEncCodeLength|No|Delayed encryption instruction length for ~function body|
 
 
-vmSeed is the randomization seed for encrypted virtual machines. This random seed affects the code of the generated encrypted virtual machine and is compiled into the native code of the main package. Therefore, when generating an encrypted dll, make sure that vmSeed is consistent with the vmSeed used when packaging the main package.
-It is recommended to modify this parameter every time a new main package is released.
+vmSeed is the randomization seed for the encryption virtual machine. This random seed affects the generated encryption virtual machine code and is compiled into the main package's native code. Therefore, when generating encrypted dlls, ensure that vmSeed matches the vmSeed used when packaging the main package.
+It is recommended to modify this parameter each time a new main package is released.
 
-MetadtaSeed and key are both dynamic parameters and do not need to be consistent with the main package. This value can be modified every time the encryption hot update dll is updated. It is recommended to modify these values every time or after several versions.
+metadataSeed and key are both dynamic parameters and do not need to match the main package. These values can be modified each time hot update dlls are encrypted. It is recommended to modify these values after a period of time or after several versions.
 
-xxEncCodeLength is the length of the encryption instruction. The larger the value, the more complex the encryption. The decryption time is proportional to the length of the encryption instruction. Since the decryption process will bring some overhead, it is recommended to use the default value. if
-It takes too long to load encrypted hot update assemblies. You can reduce these values appropriately.
+xxEncCodeLength is the length of encryption instructions. The larger the value, the more complex the encryption, and decryption time is proportional to the encryption instruction length. Since the decryption process brings certain overhead, it is recommended to use default values. If loading encrypted hot update assemblies takes too long, these values can be appropriately reduced.
 
-## Encrypted hot update dll
+## Encrypt hot update dll
 
-The `HybridCLR.Editor.Encryption.EncryptUtil` class is provided to encrypt the dll. The sample code is as follows:
+The `HybridCLR.Editor.Encryption.EncryptUtil` class is provided to encrypt dlls. Example code is as follows:
 
 ```csharp
-     public static void EncryptDll(string originalDll, string encryptedDll)
-     {
-         HybridCLR.Editor.Encryption.EncryptionUtil.EncryptDll(originalDll, encryptedDll, SettingsUtil.EncryptionSettings);
-     }
+    public static void EncryptDll(string originalDll, string encryptedDll)
+    {
+        HybridCLR.Editor.Encryption.EncryptionUtil.EncryptDll(originalDll, encryptedDll, SettingsUtil.EncryptionSettings);
+    }
 
 ```
 
-## Load hot update dll at runtime
+## Runtime loading of hot update dll
 
-There is no difference from ordinary hot update dll, just use `Assembly.Load`.
+There is no difference from ordinary hot update dlls, just use `Assembly.Load`.
 
-Supplementary metadata dlls can also be encrypted and loaded in the same way as when unencrypted.
+Supplementary metadata dlls can also be encrypted, and the loading method is the same as when unencrypted.

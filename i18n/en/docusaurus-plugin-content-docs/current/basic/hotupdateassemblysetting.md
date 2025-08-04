@@ -1,35 +1,30 @@
-# Configure Assemblies
+# Assembly Configuration
 
-Generally speaking, the hot update code must be separated into an assembly to facilitate hot update.
+Generally speaking, hot update code must be organized into independent assemblies to facilitate hot updates.
 
 ## Assembly Classification
 
-### Assembly defined by Assembly Definition
+### Assemblies Defined by Assembly Definition
 
-This is the recommended way of assembly by Unity. Split a large Unity project code into multiple assembly modules for easy management and shorten compilation time.
+This is Unity's recommended assembly approach. It splits the code of a large Unity project into multiple assembly modules for easier management and shorter compilation times.
 
-Please read the document [Assembly definitions](https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html) to learn how to create an assembly.
+Please read the documentation [Assembly definitions](https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html) to learn how to create assemblies.
 
-### Assembly-CSharp assembly
+### Assembly-CSharp Assembly
 
-This is Unity's default global assembly. It can be used as a hot update assembly like a normal dll.
+This is Unity's default global assembly. It can be used as a hot update assembly like any regular dll.
 
-### Ordinary dll assembly
+### Regular DLL Assemblies
 
-Some code is compiled ahead of time into dll files and then moved into the project.
+Some code is pre-compiled into dll files and then moved into the project.
 
-## Divide the assembly
+## Dividing Assemblies
 
-Obviously, the project code must be reasonably split into `AOT` (that is, compiled into the main game package) assembly and `hot update` assembly in order to perform hot update. HybridCLR for
-There are no restrictions on how to split the assembly, and even the code in the third-party project can be used as a hot update assembly. Generally speaking, when the game is just started, at least one AOT assembly is required to be responsible for the work related to startup and hot update.
+Obviously, project code must be reasonably split into `AOT` (i.e., compiled into the game main package) assemblies and `hot update` assemblies to enable hot updates. HybridCLR has no restrictions on how to split assemblies - you can even use third-party project code as hot update assemblies. Generally speaking, when the game starts, at least one AOT assembly is needed to handle startup and hot update related work.
 
+Common splitting approaches include:
 
+- Assembly-CSharp as AOT assembly. Split remaining code into N AOT assemblies and M hot update assemblies.
+- Assembly-CSharp as hot update assembly. Split remaining code into N AOT assemblies and M hot update assemblies.
 
-There are several common split methods:
-
-- Assembly-CSharp as AOT assembly. The rest of the code itself is split into N AOT assemblies and M hot update assemblies.
-- Assembly-CSharp as a hot update assembly. The rest of the code itself is split into N AOT assemblies and M hot update assemblies.
-
-Regardless of the splitting method, it is enough to correctly set the reference relationship between assemblies. Please do not refer to the hot update assembly in the AOT assembly, otherwise it will cause packaging errors. especially
-Use Assembly-CSharp as an AOT assembly, since Assembly-CSharp is the top-level assembly, it will automatically reference all remaining assemblies, which is easy to appear
-A case where a hot update assembly is incorrectly referenced.
+Regardless of the splitting approach, just set up the reference relationships between assemblies correctly. Please do not reference hot update assemblies in AOT assemblies, as this will cause build errors. If your project uses Assembly-CSharp as an AOT assembly, it's strongly recommended to disable the `auto reference` option for hot update assemblies. Since Assembly-CSharp is the top-level assembly, it will automatically reference all other assemblies, making it easy to accidentally reference hot update assemblies.

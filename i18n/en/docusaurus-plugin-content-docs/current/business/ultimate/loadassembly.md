@@ -1,63 +1,67 @@
-# Loading Hot-Update Assemblies
+# Load Hot Update Assembly
 
-The flagship version, compared to the community and professional versions, includes DHE assemblies. Since DHE assemblies require additional parameters to indicate how the runtime should dynamically select to execute the original AOT code or the hot-update code, they cannot be loaded using the `Assembly.Load` interface. Therefore, special loading rules are required.
+The Ultimate edition adds DHE assemblies compared to the community edition and professional edition. Since DHE assemblies require additional parameters to instruct the runtime on how to dynamically choose between executing original AOT code or hot update code, they cannot be loaded using the `Assembly.Load` interface.
+Therefore, special loading rules are required.
 
 ## Supported Assembly Types
 
-The flagship version is a superset of the community and professional versions. It supports loading both regular interpreted hot-update assemblies and DHE assemblies. If no DHE assemblies are configured, the flagship version degrades to the professional version (or can be considered a faster-running community version).
+The Ultimate edition is a superset of the community edition and professional edition. It supports loading both ordinary purely interpreted hot update assemblies and DHE assemblies.
+If no DHE assemblies are configured, the Ultimate edition degrades to the professional edition (or can be considered as a community edition that runs somewhat faster).
 
 ## Loading Order
 
-The flagship version uses the same dependency loading rules as the community version. That is, if Assembly B depends on Assembly A, Assembly A must be loaded before Assembly B.
+The Ultimate edition uses the same dependency loading rules as the community edition, i.e., if assembly B depends on assembly A, then assembly A needs to be loaded first, then assembly B.
 
-Since DHE assemblies are compiled into AOT, they cannot depend on hot-update assemblies; otherwise, errors will occur during packaging. We have added dependency checks in `HybridCLR.Editor.BuildProcessors.CheckSettings` to detect errors in advance.
+Since DHE assemblies will be compiled into AOT, they cannot depend on hot update assemblies, otherwise packaging errors will occur. We have added dependency checking in `HybridCLR.Editor.BuildProcessors.CheckSettings` to detect errors early.
 
-Given this characteristic, a relatively simple approach is to load all DHE assemblies in order first, followed by loading regular hot-update assemblies in order.
+Due to this characteristic, a relatively simple approach is to first load all DHE assemblies in order, then load ordinary hot update assemblies in order.
 
-## Loading DHE Assemblies
+## Load DHE Assembly
 
-The RuntimeApi provides three interfaces for loading DHE assemblies:
+RuntimeApi provides three interfaces for loading DHE assemblies:
 
-- `LoadOriginalDifferentialHybridAssembly` is used to load DHE assemblies that have not changed at all.
-- `LoadDifferentialHybridAssemblyWithDHAO` is used to load DHE assemblies that have not changed or have changed, using a dhao file.
-- `LoadDifferentialHybridAssemblyWithMetaVersion` is used to load DHE assemblies that have not changed or have changed, using a meta version file.
+- LoadOriginalDifferentialHybridAssembly is used to load DHE assemblies that have not changed at all
+- LoadDifferentialHybridAssemblyWithDHAO is used to load DHE assemblies that have not changed or have changed, using dhao files
+- LoadDifferentialHybridAssemblyWithMetaVersion is used to load DHE assemblies that have not changed or have changed, using meta version files
 
-When it is clear that there are no changes, the `LoadOriginalDifferentialHybridAssembly` interface can be called to indicate the use of the original DHE assembly directly. Only the assembly name needs to be passed, without the need to pass the original DHE assembly data, as the AOT already contains the complete information of the original DHE assembly.
+When it is clear that no changes have occurred, you can call the LoadOriginalDifferentialHybridAssembly interface to indicate direct use of the original DHE assembly, only needing to pass the assembly name, without needing to pass the original DHE assembly data, because AOT already
+contains complete original DHE assembly information.
 
-Regardless of whether there are changes or not, the `LoadDifferentialHybridAssemblyWithXxx` interfaces can be used to load DHE assemblies.
+Whether there are changes or not, you can call LoadDifferentialHybridAssemblyWithXxx to load DHE assemblies.
 
-There are some restrictions when calling `LoadOriginalDifferentialHybridAssembly`:
+There are some restrictions for calling LoadOriginalDifferentialHybridAssembly:
 
-1. The DHE assemblies it depends on must also be loaded using `LoadOriginalDifferentialHybridAssembly`, i.e., Original loading dependency.
+1. The DHE assemblies it depends on must also be loaded with LoadOriginalDifferentialHybridAssembly, i.e., Original loading dependency
 2. AOT generic instantiation issues
+  
+  DHE assemblies loaded with it are equivalent to ordinary AOT assemblies. If other hot update assemblies use generics from this DHE assembly, and the Unity version is less than 2021 or equals 2021 but the `Il2Cpp Code Generation` option also has AOT generic instantiation issues.
+  Although supplementary metadata can solve this problem, a better approach is to switch to LoadOriginalDifferentialHybridAssembly loading.
 
-   DHE assemblies loaded with this interface are equivalent to regular AOT assemblies. If other hot-update assemblies use generics from this DHE assembly, and the Unity version is less than 2021 or equal to 2021 but with the `Il2Cpp Code Generation` option enabled, there will be AOT generic instantiation issues.
-   Although this issue can be resolved by supplementing metadata, a better approach is to switch to loading with `LoadOriginalDifferentialHybridAssembly`.
+Actual projects may have many DHE assemblies, and determining which interface each DHE assembly should use for loading is difficult. Even determining whether an assembly has changed is not an easy task.
+We recommend using the following simple rules:
 
-In actual projects, there may be many DHE assemblies, and it is difficult to determine which interface should be used to load each DHE assembly. Even determining whether an assembly has changed is not an easy task. We recommend using the following simple rules:
+- After releasing the main package, when no hot updates have occurred, use LoadOriginalDifferentialHybridAssembly to load all DHE assemblies
+- After releasing hot updates, regardless of whether there are changes, uniformly use LoadDifferentialHybridAssemblyWithXxx to load DHE assemblies
 
-- After the main package is released and no hot-update has occurred, use `LoadOriginalDifferentialHybridAssembly` to load all DHE assemblies.
-- After a hot-update is released, regardless of whether there are changes or not, use `LoadDifferentialHybridAssemblyWithXxx` to load DHE assemblies.
+## LoadDifferentialHybridAssemblyWithDHAO
 
-## `LoadDifferentialHybridAssemblyWithDHAO`
+This function has the following parameters:
 
-The function has the following parameters:
+|Parameter|Description|
+|-|-|
+|currentDllBytes|File content of the latest DHE assembly|
+|currentDllSymbolBytes|pdb file content of the latest DHE assembly, this parameter can be null|
+|dhaoBytes|dhao file content generated using the latest DHE assembly|
 
-| Parameter | Description |
-| - | - |
-| `currentDllBytes` | The file content of the latest DHE assembly |
-| `currentDllSymbolBytes` | The pdb file content of the latest DHE assembly. This parameter can be `null`. |
-| `dhaoBytes` | The content of the dhao file generated using the latest DHE assembly |
+## LoadDifferentialHybridAssemblyWithMetaVersion
 
-## `LoadDifferentialHybridAssemblyWithMetaVersion`
+This function has the following parameters:
 
-The function has the following parameters:
+|Parameter|Description|
+|-|-|
+|currentDllBytes|File content of the latest DHE assembly|
+|currentDllSymbolBytes|pdb file content of the latest DHE assembly, this parameter can be null|
+|originalMetaVersinFileBytes|meta version file content of the original DHE assembly|
+|currentMetaVersionFileBytes|meta version file content of the latest DHE assembly|
 
-| Parameter | Description |
-| - | - |
-| `currentDllBytes` | The file content of the latest DHE assembly |
-| `currentDllSymbolBytes` | The pdb file content of the latest DHE assembly. This parameter can be `null`. |
-| `originalMetaVersionFileBytes` | The content of the original DHE assembly's meta version file |
-| `currentMetaVersionFileBytes` | The content of the latest DHE assembly's meta version file |
-
-The `originalMetaVersionFileBytes` is fully determined at the time of main package build and corresponds one-to-one with that package. We strongly recommend including it in the StreamingAssets directory and shipping it with the package.
+originalMetaVersinFileBytes is completely determined when building the main package and corresponds one-to-one with that main package. We strongly recommend adding it to the StreamingAssets directory to carry with the package.

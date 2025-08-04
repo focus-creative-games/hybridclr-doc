@@ -1,10 +1,17 @@
-# Supported Unity versions and platforms
 
-HybridCLR has stably supported the 2019.4.x, 2020.3.x, 2021.3.x, and 2022.3.x series LTS versions, and supports mainstream Win, MacOS, Android, iOS, and WebGL platforms.
+# Supported Unity Versions and Platforms
 
-## Compatible Unity versions
+HybridCLR has stably supported the 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x LTS series and testing versions like 2023.2.x, 6000.x.y, and supports all platforms supported by il2cpp.
 
-Due to maintenance cost considerations, HybridCLR only supports the LTS series version and some beta versions. And versions before 2019 are no longer supported.
+## Compatible Unity Versions
+
+:::warning
+
+HybridCLR also supports Unity 2017-2018, but this is not included in the community version. If you have such requirements, you can contact us for free technical guidance.
+
+:::
+
+For maintenance cost considerations, HybridCLR only supports LTS series versions.
 
 - 2019.4.x
 - 2020.3.x
@@ -15,44 +22,54 @@ Due to maintenance cost considerations, HybridCLR only supports the LTS series v
 
 :::tip
 
-We will regularly merge the latest Unity version of il2cpp code into the il2cpp_plus repository. Although sometimes we have not merged the latest il2cpp code, in most cases it works normally. If you have any problems, you can give us feedback. we will
-Complete the merge in advance and release it in the next version.
+We regularly merge the latest Unity version's il2cpp code into the il2cpp_plus repository. Although sometimes we haven't merged the latest il2cpp code yet, it works normally in most cases. If there are issues, you can report them to us. We will
+complete the merge ahead of time and release it in the next version.
 :::
 
-Although we only support LTS versions, since there are not many changes between il2cpp minor versions, minor versions of non-LTS series may still work. You only need to switch to a recently supported minor version to complete the HybridCLR installation, and then switch back. The current version will do.
-If a certain minor version is not our standard supported version, you can also contact us to provide [commercialization services] (../business/intro.md).
+Although we only support LTS versions, since there are minimal changes between il2cpp minor versions, non-LTS series minor versions may still work. You just need to first switch to a recent supported minor version to complete HybridCLR installation, then switch back to your current version.
+If a certain minor version is not our standard supported version, you can also contact us for [commercial services](../business/intro.md).
 
+## Supported Platforms
 
-## Supported platforms
+Starting from v4.0.0, all known platform-incompatible code has been eliminated, thoroughly supporting all platforms where il2cpp can run. However, for some uncommon platforms, there may be residual small Editor or Runtime bugs.
+If you encounter issues, please contact us for business solutions.
 
-Since version v4.0.0, all known platform-incompatible codes have been eliminated, and all platforms that il2cpp can run on are fully supported. But for some uncommon platforms, there may be some small bugs in Editor or Runtime remaining.
-If you encounter any problems, please contact us for business resolution.
-
-The following platforms have been tested for a long time and are very stable and supported platforms:
+The following platforms have been extensively tested and are very stably supported:
 
 - Windows x86, x64
 - MacOS x86, x64
 - MacOS arm64(silicon)
-- Android armv7, armv8 (arm64)
+- Android armv7, armv8(arm64)
 - iOS arm64
 - tvOS
 - visionOS
-- WebGL standard WebGL, MiniGame, WeChat mini games
+- WebGL including WebGL, MiniGame, WeChat Mini Games, TikTok Mini Games (only supports WebGL, not Android Native builds)
 - PS4, PS5
 - UWP
-- Linux x86、x86、armv7、armv8
-- other platforms
+- Huawei Harmony platform (currently only Unity China supports Harmony)
+- Linux x86, x86, armv7, armv8
+- Other platforms
 
-## Special Instructions
+## Unity China
+
+Starting from v5.2.0, the community version officially supports Unity China, with usage identical to the official Unity version.
+
+Unity China 1.1.x's new metadata index slim optimization for WeChat Mini Games platform will cause HybridCLR to fail to run normally on the WeChat Mini Games platform.
+Starting from Unity China 1.2.0, a `Use Slim Format For global-metadata.dat` option has been added to the WeixinMiniGame platform's Publishing Settings. Disabling this optimization allows normal use of HybridCLR.
+
+## Special Notes
 
 ### WeChat Mini Games
 
-The WeChat mini game conversion tool sets IL2CPP Code Generation to Faster (Smaller) builds mode by default. If metadata is not supplemented, AOT generic functions will not be accessible. Since version 2021.3.x, all commercial versions
-It supports full generic sharing, eliminating the need to supplement metadata, reducing the package body, significantly reducing memory usage, and greatly improving the execution performance of AOT generic functions that are not instantiated in the main project.
+The WeChat Mini Games conversion tool defaults to setting IL2CPP Code Generation to Faster(Smaller) builds mode. Without supplemental metadata, this will cause inability to access AOT generic functions. Starting from 2021.3.x versions, all commercial versions
+support full generic sharing, eliminating the need for supplemental metadata, reducing package size, significantly lowering memory usage, and dramatically improving execution performance of AOT generic functions not instantiated in the main project.
 
 ### MiniGame
 
 Additional notes on version compatibility:
 
-- The recommended versions of MiniGame 2019 and 2020 overlap with the compatible versions of HybridCLR. Try to directly choose those cross versions (such as 2019.4.35, 2020.3.33), because they have been verified by the project and basically will not encounter problems.
-- The recommended versions of the MiniGame2021 series are 2021.2.5-2021.2.18, LTS versions that are not supported by HybridCLR, but these versions have been verified by other developers and can also use HybridCLR normally (a small amount of code adjustments may be required). If you encounter problems, you can contact us to provide commercial technical support.
+- MiniGame 2019 and 2020 versions' recommended versions overlap with HybridCLR's compatible versions. Try to directly choose those overlapping versions (such as 2019.4.35, 2020.3.33) as they have been validated by projects and rarely encounter issues.
+- MiniGame 2021 series recommended versions are 2021.2.5-2021.2.18, which are not HybridCLR-supported LTS versions, but these versions have been validated by other developers and can use HybridCLR normally (may require minor code adjustments). If you encounter issues, you can contact us for commercial technical support.
+
+
+
