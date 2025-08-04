@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[7738],{24334:s=>{s.exports=JSON.parse('{"title":"Business Edition","slug":"/business","permalink":"/en/docs/business","navigation":{"previous":{"title":"il2cpp Bugs","permalink":"/en/docs/basic/il2cppbugs"},"next":{"title":"Introduction","permalink":"/en/docs/business/intro"}}}')}}]);
