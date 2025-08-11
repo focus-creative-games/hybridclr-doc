@@ -83,7 +83,6 @@ com.code-philosophy.hybridclr 与 hybridclr及il2cpp_plus版本不匹配导致�
 
 如果还是遇到这个问题，你完全可以自己手动build一次工程来生成aot dll，然后跳过 `generate/AOTDlls`这一步。
 
-
 ## 打包时发生错误
 
 ### Currently selected scripting backend (IL2CPP) is not installed
@@ -252,6 +251,13 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 在热更新代码中定义的添加了`[MonoPInvokeCallback]`特性的函数不支持string或者数组之类的参数或者返回值，请将相应参数修改为IntPtr同时自行marshal这些参数，或者将该函数移到AOT中定义。
 详细请见[MonoPInvokCallback支持](../basic/monopinvokecallback)。
+
+### 升级到最新版本xcode后出现发布ios平台时出现 stdio.h头文件中fopen函数的编译错误
+
+在升级xcode 15.x版本后出现跟zlib的不兼容问题。解决办法有两个：
+
+- xcode回退到13.x版本
+- zlib升级到最新版本，替换libil2cpp/external/zlib目录的代码
 
 ## 运行时错误
 

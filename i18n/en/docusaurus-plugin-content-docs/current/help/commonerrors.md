@@ -251,6 +251,14 @@ Extern functions defined in hot update code don't support parameters or return v
 Functions with `[MonoPInvokeCallback]` attribute defined in hot update code don't support parameters or return values like string or arrays. Please modify the corresponding parameters to IntPtr and manually marshal these parameters, or move the function to AOT for definition.
 For details, see [MonoPInvokCallback Support](../basic/monopinvokecallback).
 
+### After upgrading to the latest version of Xcode, a compilation error occurs with the fopen function in the stdio.h header when publishing for the iOS platform After upgrading to Xcode 15.x
+
+an incompatibility issue with zlib arises. There are two solutions:
+
+- Roll back Xcode to version 13.x
+
+- Upgrade zlib to the latest version by replacing the code in the libil2cpp/external/zlib directory
+
 ## Runtime Errors
 
 ### EntryPointNotFoundException. Unable to find entry point named 'RuntimeApi_LoadMetadataForAOTAssembly' in 'GameAssembly`
