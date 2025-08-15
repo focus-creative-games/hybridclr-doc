@@ -24,13 +24,13 @@ Create an empty Unity project.
 - Place the hybridclr directory from the extracted `hybridclr.zip` into the libil2cpp directory from the extracted `il2cpp-{version}.zip`. Ensure that the file `libil2cpp\hybridclr\RuntimeApi.cpp` exists, otherwise the hybridclr directory is in the wrong location.
 - Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the libil2cpp directory that was just extracted, and perform the installation
 - According to your Unity version:
-  - If version >= 2023,
+  - If 6000.x.y or 2023.x.y,
     - First install Unity 2022.3.60f1
     - Copy the `2022.3.60f1\Editor\Data\il2cpp\build\deploy` directory as `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`
-    - Replace the `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll` file with `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll`
-  - If version >= 2021, replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` with `ModifiedDlls\{versions}\Unity.IL2CPP.dll`
-  - If version >= 2020, replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` with `ModifiedDlls\{versions}\Unity.IL2CPP.dll`
-  - If version is 2019, no action is needed as it's automatically copied during the Install process
+    - Replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll` with the `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll` file
+  - If 2022.3.x or 2021.3.x, replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll` with the `ModifiedDlls\{verions}\Unity.IL2CPP.dll` file
+  - If 2020.3.x, replace `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll` with the `ModifiedDlls\{verions}\Unity.IL2CPP.dll` file
+  - If 2019.4.x, no action needed as it's automatically copied during the Install process
 
 If there's no corresponding file for your version, contact us to create one.
 
