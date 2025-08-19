@@ -4,8 +4,8 @@
   <ShortName>HybridCLR</ShortName>
   <Description>Search HybridCLR</Description>
   <InputEncoding>UTF-8</InputEncoding>
-  <Image width="16" height="16" type="image/x-icon">https://hybridclr.doc.code-philosophy.com/en/img/logo.png</Image>
-  <Url type="text/html" method="get" template="https://hybridclr.doc.code-philosophy.com/en/search?q={searchTerms}"/>
-  <Url type="application/opensearchdescription+xml" rel="self" template="https://hybridclr.doc.code-philosophy.com/en/opensearch.xml" />
-  <moz:SearchForm>https://hybridclr.doc.code-philosophy.com/en/</moz:SearchForm>
+  <Image width="16" height="16" type="image/x-icon">https://www.hybridclr.cn/en/img/logo.png</Image>
+  <Url type="text/html" method="get" template="https://www.hybridclr.cn/en/search?q={searchTerms}"/>
+  <Url type="application/opensearchdescription+xml" rel="self" template="https://www.hybridclr.cn/en/opensearch.xml" />
+  <moz:SearchForm>https://www.hybridclr.cn/en/</moz:SearchForm>
 </OpenSearchDescription>
