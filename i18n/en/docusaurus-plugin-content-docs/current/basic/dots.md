@@ -115,7 +115,7 @@ Different com.unity.entities versions have slightly different initialization imp
 ### Solving ReversePInvokeCallback Issues
 
 When DOTS system initializes Unmanaged Systems, it tries to get Marshal pointers for functions like OnStart. HybridCLR needs to bind a runtime-unique cpp function pointer for each such function,
-otherwise a `GetReversePInvokeWrapper fail. exceed max wrapper num of method` error will occur during runtime. For detailed introduction, see the [HybridCLR+lua/js/python](https://hybridclr.doc.code-philosophy.com/docs/basic/workwithscriptlanguage) documentation.
+otherwise a `GetReversePInvokeWrapper fail. exceed max wrapper num of method` error will occur during runtime. For detailed introduction, see the [HybridCLR+lua/js/python](https://www.hybridclr.cn/docs/basic/workwithscriptlanguage) documentation.
 
 Simply put, you need to reserve enough wrapper functions corresponding to SystemBaseRegistry.ForwardingFunc. Add the following code in the hot update module (can also be in DHE assembly, but not in AOT assembly):
 

@@ -118,7 +118,7 @@ DOTS的TypeManager初始化时机过早，而且不支持动态注册Component�
 ### 解决ReversePInvokeCallback的问题
 
 DOTS系统初始化Unmanaged System时会尝试获得它的OnStart之类函数的Marshal指针。hybridclr需要为每个这种函数绑定一个运行时唯一的cpp函数指针，
-否则运行过程中会出现`GetReversePInvokeWrapper fail. exceed max wrapper num of method`错误。详细介绍可见[HybridCLR+lua/js/python](https://hybridclr.doc.code-philosophy.com/docs/basic/workwithscriptlanguage)文档。
+否则运行过程中会出现`GetReversePInvokeWrapper fail. exceed max wrapper num of method`错误。详细介绍可见[HybridCLR+lua/js/python](https://www.hybridclr.cn/docs/basic/workwithscriptlanguage)文档。
 
 简单来说，需要预留足够多的 SystemBaseRegistry.ForwardingFunc对应的 wrapper函数。在热更新模块（也可以在DHE程序集，但不能在AOT程序集）中添加如下代码：
 
