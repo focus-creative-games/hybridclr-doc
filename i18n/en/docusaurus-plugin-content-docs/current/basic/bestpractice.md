@@ -1,9 +1,5 @@
 # Best Practices
 
-## Unity Version Recommendation
-
-Recommend using `2020.3.x(x >= 21)` series and `2021.3.x` series, which are the most stable.
-
 ## Don't Save assemblyBytes After Assembly.Load
 
 Don't save the assembly's byte[] data after calling Assembly.Load, as Assembly.Load automatically makes a copy internally.

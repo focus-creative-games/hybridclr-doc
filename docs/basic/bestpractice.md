@@ -1,9 +1,5 @@
 # 最佳实践
 
-## unity版本推荐
-
-推荐使用 `2020.3.x(x >= 21)` 系列及 `2021.3.x` 系列，最稳定。
-
 ## Assembly.Load之后不要保存 assemblyBytes
 
 assembly的byte[]数据在调用完Assembly.Load后不要保存起来，因为在Assembly.Load中会自动复制一份。

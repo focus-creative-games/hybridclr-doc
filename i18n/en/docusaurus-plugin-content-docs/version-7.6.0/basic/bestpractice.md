@@ -1,9 +1,5 @@
 # Best Practices
 
-## Unity version recommendation
-
-It is recommended to use `2020.3.x(x >= 21)` series and `2021.3.x` series, which are the most stable.
-
 ## It is recommended to mount the startup script to the first loaded hot update scene after the hot update is completed
 
 It is recommended to mount the startup script to the startup hot update scene, so that the non-hot update project can be transformed into a hot update project with zero changes, and no reflection operation is required.
