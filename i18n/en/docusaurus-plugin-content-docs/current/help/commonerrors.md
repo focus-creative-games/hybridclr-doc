@@ -529,6 +529,10 @@ This is a Unity & iOS 15.4 BUG. There are two solutions:
 #pragma clang optimize on
 ```
 
+### After upgrading to Xcode 26.x, building the app in Release mode on iOS causes a crash in the InterpreterDelegateInvoke function. This issue does not occur when building in Debug mode or when using Xcode 16.4 and earlier versions.
+
+The crash is caused by undefined behavior (UB) in the InterpreterDelegateInvoke function, which results in incorrect code generation on the newer Clang. The issue can be resolved by upgrading to HybridCLR version 8.5.2 or later.
+
 ### NotSupportNative2Managed bridge function missing exception after using Unity.netcode.runtime
 
 The reason is that NetworkManager.RpcReceiveHandler in Unity.netcode.runtime.dll is internal, defined as follows:

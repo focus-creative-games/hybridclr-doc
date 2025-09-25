@@ -538,6 +538,10 @@ WebGL平台打包时默认使用 `faster (smaller) build`选项，该选项会�
 #pragma clang optimize on
 ```
 
+### 升级到xcode 26.x版本后在ios平台以release方式构建时的app运行到`InterpreterDelegateInvoke`函数发生崩溃，以Debug方式编译或者xcode 16.4及早版本没有这个问题
+
+这是因为InterpreterDelegateInvoke函数存在UB代码导致在新版本clang上编译出错误了代码。解决办法为升级到hybridclr 8.5.2或更高版本。
+
 ### 使用 Unity.netcode.runtime 后出现 NotSupportNative2Managed 桥接函数缺失异常
 
 原因是 在Unity.netcode.runtime.dll中 NetworkManager.RpcReceiveHandler 是internal， 定义如下
