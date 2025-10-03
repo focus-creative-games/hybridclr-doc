@@ -33,8 +33,7 @@ Unity 2019的Android平台，以及团结引擎的鸿蒙平台在第二步`导�
 - 运行 `HybridCLR/Generate/LinkXml`
 - 导出工程
 - 运行 `HybridCLR/Generate/Il2cppDef`
-- 运行 `HybridCLR/Generate/MethodBridge`生成桥接函数
-- 运行 `HybridCLR/Generate/PReverseInvokeWrapper`。 不需要与lua之类交互的项目可跳过此步。
+- 运行 `HybridCLR/Generate/MethodBridgeAndReversePInvokeWrapper`生成桥接函数
 - 将 `{proj}\HybridCLRData\LocalIl2CppData-{platform}\il2cpp\libil2cpp\hybridclr\generated`目录 替换导出工程中的此目录。
 - 在导出工程上执行build
 

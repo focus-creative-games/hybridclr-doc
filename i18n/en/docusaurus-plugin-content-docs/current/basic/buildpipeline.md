@@ -33,8 +33,7 @@ The `HybridCLR/Generate/All` command executes a project export during its run to
 - Run `HybridCLR/Generate/LinkXml`
 - Export project
 - Run `HybridCLR/Generate/Il2cppDef`
-- Run `HybridCLR/Generate/MethodBridge` to generate bridge functions
-- Run `HybridCLR/Generate/PReverseInvokeWrapper`. Projects that don't need to interact with lua and similar can skip this step.
+- Run `HybridCLR/Generate/MethodBridgeAndReversePInvokeWrapper` to generate bridge functions
 - Replace the `{proj}\HybridCLRData\LocalIl2CppData-{platform}\il2cpp\libil2cpp\hybridclr\generated` directory with this directory in the exported project.
 - Execute build on the exported project
 
