@@ -34,11 +34,14 @@ In actual projects, for most assemblies, over 99% of metadata memory can be unlo
 
 ## Installation
 
-- Extract hybridclr_unity and place it in the project Packages directory, rename it to com.code-philosophy.hybridclr
-- Extract the corresponding `il2cpp_plus-{version}.zip` according to your Unity version
-- Extract `hybridclr.zip`
-- Place the hybridclr directory from the extracted `hybridclr.zip` into the libil2cpp directory from the extracted `il2cpp-{version}.zip`
-- Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the libil2cpp directory you just extracted, and perform the installation
+:::tip
+
+Since version v8.6.0, the libil2cpp directory has been included in the com.code-philosophy.hybridclr package.
+
+:::
+
+- After extracting `hotreload-{version}`, place the `com.code-philosophy.hybridclr` folder into your project’s **Packages** directory.
+- Open **HybridCLR/Installer**, then click **Install** — this will automatically copy **libil2cpp** from the `Data~/libil2cpp` directory and complete the installation.
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 

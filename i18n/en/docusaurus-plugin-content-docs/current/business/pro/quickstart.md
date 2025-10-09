@@ -4,13 +4,13 @@ Almost the same as the community version's [Quick Start](../../beginner/quicksta
 
 ## Installation
 
-- Extract hybridclr_unity and place it in the project's Packages directory, rename it to com.code-philosophy.hybridclr
-- Extract the corresponding `il2cpp_plus-{version}.zip` according to your Unity version
-- Extract `hybridclr.zip`
-- Place the hybridclr directory from the extracted `hybridclr.zip` into the libil2cpp directory from the extracted `il2cpp-{version}.zip`
-- Open `HybridCLR/Installer`, enable the `Copy libil2cpp from local` option, select the libil2cpp directory you just extracted, and perform the installation
+:::tip
+
+Since version v8.6.0, the libil2cpp directory has been included in the com.code-philosophy.hybridclr package.
+
+:::
+
+- After extracting `pro-{version}`, place the `com.code-philosophy.hybridclr` folder into your project’s **Packages** directory.
+- Open **HybridCLR/Installer**, then click **Install** — this will automatically copy **libil2cpp** from the `Data~/libil2cpp` directory and complete the installation.
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
-
-
-

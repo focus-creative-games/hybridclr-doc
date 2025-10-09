@@ -18,11 +18,12 @@
 
 ### 安装HybridCLR
 
-- 将hybridclr_unity.zip解压后，放到项目Packages目录下，改名为com.code-philosophy.hybridclr
-- 根据你的unity版本解压对应的`il2cpp_plus-{version}.zip`
-- 解压 `hybridclr.zip`
-- 将`hybridclr.zip`解压后的hybridclr目录放到`il2cpp-{version}.zip`解压后的libil2cpp目录下。请确保文件`libil2cpp\hybridclr\RuntimeApi.cpp`存在，否则说明hybridclr目录位置有误。
-- 打开 `HybridCLR/Installer`，启用`从本地复制libil2cpp`选项，选中刚才解压的libil2cpp目录，进行安装
+:::tip
+自v8.6.0版本起libil2cpp目录已经被包含到com.code-philosophy.hybridclr包中。
+:::
+
+- 将`dhe-{version}`解压后，把`com.code-philosophy.hybridclr`放到项目Packages目录下
+- 打开 `HybridCLR/Installer`，点击`Install`会直接从`Data~/libil2cpp`目录复制libil2cpp，直接完成安装
 - 根据你的Unity版本：
   - 如果6000.x.y或2023.x.y,
     - 先安装Unity2022.3.60f1
