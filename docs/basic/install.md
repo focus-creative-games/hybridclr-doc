@@ -212,3 +212,7 @@ com.code-philosophy.hybridclr 包修改了本UnityEditor**进程内**的环境�
 ## 注意事项
 
 由于 Unity 的缓存机制，更新 HybridCLR 后，一定要清除 Library\Il2cppBuildCache 目录，不然打包时不会使用最新的代码。如果你使用Installer来自动安装或者更新HybridCLR，它会自动清除这些目录，不需要你额外操作。
+
+## 其他
+
+- [CVE-2025-59489漏洞](https://unity.cn/security/sept-2025-01) 跟il2cpp没有关联，因此不需要升级hybridclr版本，只需要升级当前Unity版本到对应的patch版本或者其他已经修复此漏洞的Unity版本。

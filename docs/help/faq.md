@@ -53,4 +53,6 @@ HybridCLR本身只会增加很少包体(1-2M)。包体增大很多是因为你�
 
 支持。AOT部分的burst代码工作正常，但热更新部分的burst代码以解释方式执行。这个是显然的。
 
+## [CVE-2025-59489漏洞](https://unity.cn/security/sept-2025-01) 需要升级到哪个hybridclr版本？
 
+此漏洞跟il2cpp没有关联，因此不需要升级hybridclr版本，只需要升级当前Unity版本到对应的patch版本或者其他已经修复此漏洞的Unity版本。

@@ -210,3 +210,7 @@ For 2019 version Unity.IL2CPP.dll replacement, also use similar replacement or s
 ## Precautions
 
 Due to Unity's caching mechanism, after updating HybridCLR, you must clear the Library\Il2cppBuildCache directory, otherwise the latest code will not be used during packaging. If you use the Installer to automatically install or update HybridCLR, it will automatically clear these directories without requiring additional operations from you.
+
+## Others
+
+- [CVE-2025-59489 Vulnerability](https://unity.cn/security/sept-2025-01) is not related to IL2CPP, so there is no need to upgrade HybridCLR. You only need to update your current Unity version to the corresponding patch version or any other Unity version that has already fixed this vulnerability.

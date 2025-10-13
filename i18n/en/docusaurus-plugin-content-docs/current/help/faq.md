@@ -52,4 +52,6 @@ Yes. However, note that the main project should be packaged with .NET Standard, 
 
 Yes. Burst code in the AOT part works normally, but burst code in the hot update part executes in interpreter mode. This is expected.
 
+## [CVE-2025-59489 Vulnerability](https://unity.cn/security/sept-2025-01) — Which version of HybridCLR should I upgrade to?
 
+This vulnerability is not related to IL2CPP, so there is no need to upgrade HybridCLR. You only need to update your current Unity version to the corresponding patch version or any other Unity version that has already fixed this vulnerability.
