@@ -91,4 +91,21 @@ public static void ApplyHotfix()
 
 ```
 
+## 裁剪hotfix程序集
 
+绝大多数时候需要修复的函数数量很少，如果为此加载整个原始热更新dll，会造成大量下载带宽和运行时内存占用的浪费。hybridclr提供了裁剪工具，
+只保留hotfix程序集中被hotfix的函数及它直接引用的类型和函数等元数据信息。调用`HybridCLR.Editor.Hotfix.HotfixAssemblyMetadataStripper::StripAssembly(string originalAssemblyPath, HotfixManifest manifest, string strippedAssemblyPath)`函数即可以生成裁剪后的调试精简的程序集。实践中往往可以裁剪掉**99%**以上程序集大小。
+
+```csharp
+    [MenuItem("Test/TestsStripper")]
+    private static void StripTests()
+    {
+        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+        string DllDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
+        string hotfixDllPath = $"{DllDir}/Tests.dll";
+        string hotfixDllStrippedPath = $"{DllDir}/Tests.stripped.dll";
+        var manifest = HotfixManifest.LoadFrom(s_fixXmlStr, ass => null);
+        HotfixAssemblyMetadataStripper.StripAssembly(hotfixDllPath, manifest, hotfixDllStrippedPath);
+        Debug.Log("strip hotfix assembly done!");
+    }
+```

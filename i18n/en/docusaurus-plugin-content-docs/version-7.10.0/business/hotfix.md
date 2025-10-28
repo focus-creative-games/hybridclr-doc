@@ -89,3 +89,21 @@ public static void ApplyHotfix()
 }
 
 ```
+
+## Trimming Hotfix Assemblies
+
+In most cases, the number of functions that need to be fixed is very small. Loading the entire original hotfix DLL for this purpose would waste significant download bandwidth and runtime memory usage. HybridCLR provides a trimming tool that retains only the metadata information (such as types and functions) directly referenced by the hotfix functions within the hotfix assembly. By calling the function HybridCLR.Editor.Hotfix.HotfixAssemblyMetadataStripper::StripAssembly(string originalAssemblyPath, HotfixManifest manifest, string strippedAssemblyPath), you can generate a trimmed, debug-optimized assembly. In practice, this can reduce the assembly size by ​​over 99%​​.
+
+```csharp
+    [MenuItem("Test/TestsStripper")]
+    private static void StripTests()
+    {
+        BuildTarget target = EditorUserBuildSettings.activeBuildTarget;
+        string DllDir = SettingsUtil.GetHotUpdateDllsOutputDirByTarget(target);
+        string hotfixDllPath = $"{DllDir}/Tests.dll";
+        string hotfixDllStrippedPath = $"{DllDir}/Tests.stripped.dll";
+        var manifest = HotfixManifest.LoadFrom(s_fixXmlStr, ass => null);
+        HotfixAssemblyMetadataStripper.StripAssembly(hotfixDllPath, manifest, hotfixDllStrippedPath);
+        Debug.Log("strip hotfix assembly done!");
+    }
+```
