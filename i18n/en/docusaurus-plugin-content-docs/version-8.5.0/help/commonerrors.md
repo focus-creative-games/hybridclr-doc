@@ -257,7 +257,7 @@ an incompatibility issue with zlib arises. There are two solutions:
 
 - Roll back Xcode to version 13.x
 
-- Upgrade zlib to the latest version by replacing the code in the libil2cpp/external/zlib directory
+- Upgrade zlib to the latest version by replacing the code in the `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/zlib` directory. clean build cache in Library. rebuild your game.
 
 ## Runtime Errors
 

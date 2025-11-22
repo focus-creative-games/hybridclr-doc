@@ -257,7 +257,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 在升级xcode 15.x版本后出现跟zlib的不兼容问题。解决办法有两个：
 
 - xcode回退到13.x版本
-- zlib升级到最新版本，替换libil2cpp/external/zlib目录的代码
+- zlib升级到最新版本，替换`{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/zlib`目录的代码，清理Library缓存后重新打包
 
 ## 运行时错误
 
