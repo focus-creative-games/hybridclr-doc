@@ -305,7 +305,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 - 在异步代码中抛出异常（比如桥接函数异常或者AOT泛型实例化异常），导致异步代码未能正确执行。解决办法为 catch 异步中的异常，定位出具体的原因，再解决
 - 补充元数据及桥接函数与最终的发布包不匹配。 当开启development选项时便会产生这个问题：`Generate/All`或`Generate/AOTDlls`生成的是非development模式
 下的aot dll，与打包时生成的development aot dll不匹配，进一步导致补充元数据和生成桥接函数都是错误的，于是在运行时发生严重的错误或崩溃。解决办法为打包时
-不要关闭development选项，或者修改`Generate/AOTDlls`代码，在BuildOptions中添加`Development`标志。
+关闭development选项，或者修改`Generate/AOTDlls`代码，在BuildOptions中添加`Development`标志。
 
 ### 遇到 Unity: TypeLoadException: Could not load type 'XxxType' from assembly 'yyyAssembly'
 

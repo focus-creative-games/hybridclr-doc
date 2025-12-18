@@ -302,7 +302,7 @@ Called a function that exists in Mono but is not implemented in il2cpp. Please m
 There are several reasons:
 
 - Exceptions are thrown in asynchronous code (such as bridge function exceptions or AOT generic instantiation exceptions), causing asynchronous code to fail to execute correctly. The solution is to catch exceptions in async code, locate the specific cause, and then solve it
-- Supplemental metadata and bridge functions don't match the final release package. This problem occurs when the development option is enabled: `Generate/All` or `Generate/AOTDlls` generates aot dll in non-development mode, which doesn't match the development aot dll generated during packaging, further causing both supplemental metadata and generated bridge functions to be incorrect, thus serious errors or crashes occur at runtime. The solution is not to turn off the development option when packaging, or modify the `Generate/AOTDlls` code to add the `Development` flag in BuildOptions.
+- Supplemental metadata and bridge functions don't match the final release package. This problem occurs when the development option is enabled: `Generate/All` or `Generate/AOTDlls` generates aot dll in non-development mode, which doesn't match the development aot dll generated during packaging, further causing both supplemental metadata and generated bridge functions to be incorrect, thus serious errors or crashes occur at runtime. The solution is turn off the development option when packaging, or modify the `Generate/AOTDlls` code to add the `Development` flag in BuildOptions.
 
 ### Encountering Unity: TypeLoadException: Could not load type 'XxxType' from assembly 'yyyAssembly'
 
