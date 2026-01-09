@@ -9,4 +9,4 @@
 Author: [Slanted Rain Lonely Tears](https://github.com/Bian-Sh) 
 - Encryption/decryption library and utilities that can be integrated into HybridCLR to encrypt/decrypt global-metadata.dat, hot update assemblies, etc. [xenctrypt](https://github.com/Y-way/xencrypt), [xFileEncoder](https://github.com/Y-way/xFileEncoder).
 - [GameFrameX](https://github.com/AlianBlank/GameFrameX) is a comprehensive integrated game development framework that provides complete solutions from frontend to backend.
-
+- [JEngine](https://github.com/JasonXuDeveloper/JEngine) JEngine is a powerful Unity framework that enables runtime hot updates for your games. Designed for both beginners and professionals, it provides secure, high-performance features out of the box.
