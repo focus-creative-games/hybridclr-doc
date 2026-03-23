@@ -252,12 +252,16 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 在热更新代码中定义的添加了`[MonoPInvokeCallback]`特性的函数不支持string或者数组之类的参数或者返回值，请将相应参数修改为IntPtr同时自行marshal这些参数，或者将该函数移到AOT中定义。
 详细请见[MonoPInvokCallback支持](../basic/monopinvokecallback)。
 
-### 升级到最新版本xcode后出现发布ios平台时出现 stdio.h头文件中fopen函数的编译错误
+### 升级到最新版本xcode后发布ios平台时在stdio.h（或_studio）头文件中出现fopen函数相关或`unexpectd )`之类的编译错误
 
 在升级xcode 15.x版本后出现跟zlib的不兼容问题。解决办法有两个：
 
 - xcode回退到13.x版本
-- zlib升级到最新版本，替换`{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/zlib`目录的代码，清理Library缓存后重新打包
+- zlib升级到最新版本，具体操作如下：
+  - 从 [zlib官网](https://zlib.net) 下载最新版本的[zlib源码](https://zlib.net/current/zlib.tar.gz)。如果最新版本仍然遇到问题（可能性不高），请下载我们已经验证过的1.3.2版本。
+  - 解压代码压缩包，删除根目录下除了 `.h`和`.c`文件以外的所有文件（此操作**可选**，不影响构建）。
+  - 使用刚刚解压的zlib的源码目录替换`{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/zlib`目录的代码。
+  - 清理Library缓存后重新打包。
 
 ## 运行时错误
 

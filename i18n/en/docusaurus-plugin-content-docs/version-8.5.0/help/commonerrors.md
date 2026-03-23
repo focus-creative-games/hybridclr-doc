@@ -251,13 +251,16 @@ Extern functions defined in hot update code don't support parameters or return v
 Functions with `[MonoPInvokeCallback]` attribute defined in hot update code don't support parameters or return values like string or arrays. Please modify the corresponding parameters to IntPtr and manually marshal these parameters, or move the function to AOT for definition.
 For details, see [MonoPInvokCallback Support](../basic/monopinvokecallback).
 
-### After upgrading to the latest version of Xcode, a compilation error occurs with the fopen function in the stdio.h header when publishing for the iOS platform After upgrading to Xcode 15.x
+### Compilation errors related to `fopen` or messages like `unexpected )` appearing in `stdio.h` (or `_stdio`) when building for iOS after upgrading to the latest Xcode
 
-an incompatibility issue with zlib arises. There are two solutions:
+After upgrading to Xcode 15.x, compatibility issues with zlib may occur. There are two possible solutions:
 
 - Roll back Xcode to version 13.x
-
-- Upgrade zlib to the latest version by replacing the code in the `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/zlib` directory. clean build cache in Library. rebuild your game.
+- Upgrade zlib to the latest version. The steps are as follows:
+  - Download the latest version of the zlib source code from the official website: https://zlib.net (e.g., https://zlib.net/current/zlib.tar.gz). If the latest version still encounters issues (unlikely), please use version 1.3.2, which we have already verified.
+  - Extract the archive, and remove all files in the root directory except for `.h` and `.c` files (this step is **optional** and does not affect the build).
+  - Replace the contents of `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/zlib` with the extracted zlib source code.
+  - Clear the Library cache and rebuild the project.
 
 ## Runtime Errors
 
