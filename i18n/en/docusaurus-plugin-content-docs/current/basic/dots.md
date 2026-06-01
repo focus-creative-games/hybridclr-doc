@@ -2,6 +2,13 @@
 
 DOTS's TypeManager initializes too early and doesn't support dynamic registration of Components and Systems. To make hot update modules run properly in DOTS systems, DOTS source code needs to be modified to adjust the initialization timing of World.
 
+## Jobs and BurstCompile
+
+If your project only uses Jobs and Burst and does not use `com.unity.entities`, then you do **not** need to modify the source code of `com.unity.entities`.
+
+Jobs and Burst can be used normally in hot update code. However, for editions other than Ultimate Edition (Community Edition, Professional Edition, and Hot Reload Edition), Burst code falls back to pure interpreted execution.
+For Ultimate Edition, as long as the function itself has not changed, it still runs in Burst mode with no performance degradation.
+
 ## Supported Versions
 
 Since DOTS is still rapidly iterating and changing, to reduce maintenance costs, only the following versions of com.unity.entities are maintained:
@@ -47,6 +54,12 @@ Currently most DOTS features can run normally under HybridCLR, with only feature
 ## Installation
 
 ### Installing com.unity.entities
+
+:::warning
+
+If your project only uses Jobs and Burst and does not use `com.unity.entities`, then you do **not** need to modify the source code of `com.unity.entities`.
+
+:::
 
 - Remove the com.unity.entities package from the project, exit Unity Editor, and clear the corresponding directory in the `Library\PackageCache` directory
 - Based on the version used by your project, download the [modified com.unity.entities](https://code-philosophy.feishu.cn/file/NH0cbaeneozfd8xdbvmcLNvfn2d), extract the `com.unity.entities.7z` from the corresponding directory to the Packages directory. Make sure the extracted directory name is com.unity.entities.
@@ -137,4 +150,38 @@ Change the 100 in the code to an appropriate number. It's recommended to be 5-10
 
 ### Burst Related
 
-- When hot update functions containing `[BurstCompile]` change, you need to remove the `[BurstCompile]` attribute, otherwise runtime errors will occur. This issue may be optimized in the future
+There are two cases:
+
+1. Only Jobs and Burst are used, and `com.unity.entities` is not used
+
+For non-Ultimate editions, usage is no different from ordinary hot update code. You can freely add, delete, and modify related code.
+
+For Ultimate Edition, you need to rename the Job type, like this:
+
+```csharp
+        /// Code before hot update
+        [BurstCompile]
+        public struct MyJobBeforeHotUpdate : IJobParallelFor
+        {
+            public void Execute(int index)
+            {
+            }
+        }
+
+
+        /// Code after hot update
+        [BurstCompile]
+        public struct MyJobAfterHotUpdate : IJobParallelFor
+        {
+            public void Execute(int index)
+            {
+            }
+        }
+```
+
+1. `com.unity.entities` is used
+
+For non-Ultimate editions, usage is still no different from ordinary hot update code, and you can freely add, delete, and modify related code. However, in interpreted execution mode, Burst code not only fails to improve performance, but also causes Unity to inject a large amount of complex helper code,
+which leads to severe performance degradation. Developers using non-Ultimate editions are advised to remove `[BurstCompile]` from hot update code.
+
+For Ultimate Edition, if a hot update function containing `[BurstCompile]` changes, you must remove the `[BurstCompile]` attribute. Otherwise, the old code will still be executed.
