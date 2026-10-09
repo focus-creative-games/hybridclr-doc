@@ -16,7 +16,7 @@ In `v7.6.0` and earlier versions, the build workflow was the DHAO workflow. The 
 dhao is calculated by comparing the latest hot update dhe dll with the original dhe dll of the main package. Its principle is direct and simple, but the disadvantage is that if there are multiple main packages after official release, corresponding dhao files need to be generated for each main package.
 When there are many main packages, this process is relatively complex and difficult to manage.
 
-Starting from `v7.7.0`, the `MetaVersion` workflow was added. It completely solves the above shortcomings of the DHAO workflow.
+Starting from v7.7.0, the `MetaVersion` workflow was added. It completely solves the above shortcomings of the DHAO workflow.
 
 ## Principle
 

@@ -68,7 +68,7 @@ If you must install other versions of hybridclr or il2cpp_plus, modify the branc
 
 ![install_default](/img/hybridclr/install_default.jpg)
 
-Starting from version 2.3.1, support for directly copying and installing from a local self-made libil2cpp directory containing hybridclr has been added. If you have poor network connectivity or don't have git installed and can't download remotely from repositories, you can first download [il2cpp_plus](https://github.com/focus-creative-games/il2cpp_plus) and [hybridclr](https://github.com/focus-creative-games/hybridclr) locally, then according to the **Installation Principle** section documentation below, merge these two repositories to create a libil2cpp directory containing hybridclr. Then in the `Installer` interface, enable the `Copy libil2cpp from local` option, select your created libil2cpp directory, and click `Install` to execute installation. As shown below.
+Starting from v2.3.1, support for directly copying and installing from a local self-made libil2cpp directory containing hybridclr has been added. If you have poor network connectivity or don't have git installed and can't download remotely from repositories, you can first download [il2cpp_plus](https://github.com/focus-creative-games/il2cpp_plus) and [hybridclr](https://github.com/focus-creative-games/hybridclr) locally, then according to the **Installation Principle** section documentation below, merge these two repositories to create a libil2cpp directory containing hybridclr. Then in the `Installer` interface, enable the `Copy libil2cpp from local` option, select your created libil2cpp directory, and click `Install` to execute installation. As shown below.
 
 ![install](/img/hybridclr/install.jpg)
 
@@ -301,7 +301,7 @@ Part of the packaging workflow, related code is in `Editor/BuildProcessors/Check
 
 - Set or clear UNITY_IL2CPP_PATH environment variable based on whether HybridCLR is enabled. The UNITY_IL2CPP_PATH environment variable modified in the script is the environment variable of this process, so don't worry about interfering with other projects.
 - If version is below (not including) v4.0.0, it will check and automatically disable the Use Incremental GC option
-- Switch `Scripting Backend` to `il2cpp`. WebGL platform doesn't need to set this option. **Starting from `v2.4.0`, this option will be set automatically, so manual operation is not needed**.
+- Switch `Scripting Backend` to `il2cpp`. WebGL platform doesn't need to set this option. **Starting from v2.4.0, this option will be set automatically, so manual operation is not needed**.
 - Switch `Api Compatability Level` to `.NetFramework 4` (Unity 2019, 2020) or `.Net Framework` (Unity 2021+)
 - If no hot update assembly is set in HybridCLRSettings, an error prompt is shown.
 

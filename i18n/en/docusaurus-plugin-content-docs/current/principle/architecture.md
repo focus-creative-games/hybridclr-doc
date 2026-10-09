@@ -51,5 +51,5 @@ com.code-philosophy.hybridclr also doesn't distinguish Unity major versions, so 
 In early versions (such as the 1.0 branch), you needed to specify which il2cpp_plus and hybridclr branches to install in the Installer. The branches of these two repositories must match,
 i.e., il2cpp_plus's `{version}-main` matches with hybridclr's `main`, `{version}-1.0` matches with `1.0`.
 
-Starting from version `v2.0.0-rc` (belonging to the main branch), com.code-philosophy.hybridclr directly configures the version numbers of compatible il2cpp_plus and hybridclr repositories. For developers,
+Starting from v2.0.0-rc (belonging to the main branch), com.code-philosophy.hybridclr directly configures the version numbers of compatible il2cpp_plus and hybridclr repositories. For developers,
 you only need to install the appropriate com.code-philosophy.hybridclr version.

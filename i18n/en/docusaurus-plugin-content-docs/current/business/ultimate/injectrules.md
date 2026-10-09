@@ -8,7 +8,7 @@ slug: /business/ultimate/injectrules
 
 To avoid dirty function contamination, by default a small section of check and jump code is injected at the beginning of all functions. This injection code has a significant impact on short function performance and the length of the finally generated code (increasing code by about 30%).
 Although in most cases injection code has negligible impact on overall performance, in rare special occasions, this performance degradation can be observed.
-Starting from version v4.5.9, custom configuration of this injection behavior is allowed.
+Starting from v4.5.9, custom configuration of this injection behavior is allowed.
 
 ## Dirty Function Contamination
 

@@ -2,6 +2,7 @@
 title: '常见错误'
 description: '目前提交的版本都经过测试，基本不可能出现编译错误及崩溃或者基础的运行错误。如果查看了常见错误，还未能解决问题，请将com.code-philosophy.hybridclr、hybridclr、il2cpp_plus更新到最新版本，再试一次。 如果仍然没有解决问题，可以加入以下群：'
 slug: /help/commonerrors
+toc_max_heading_level: 2
 ---
 
 # 常见错误
@@ -12,11 +13,30 @@ slug: /help/commonerrors
 - 新手1群：428404198（满）
 - 新手2群：**680274677（推荐）**
 
+## 如何定位错误
+
+错误按**发生阶段**分为三类。先确定错误出现在哪个阶段，再到对应小节中查找：
+
+| 发生阶段 | 小节 | 典型表现 |
+| --- | --- | --- |
+| Unity Editor 中 | [Unity Editor下的错误](#unity-editor下的错误) | 安装、菜单命令、生成与编译dll时报错 |
+| 打包构建时 | [打包时发生错误](#打包时发生错误) | il2cpp编译失败、链接错误、代码裁剪引起的错误 |
+| 运行游戏时 | [运行时错误](#运行时错误) | 加载程序集失败、类型或函数找不到、崩溃 |
+
+如果这里没有你遇到的错误，再查阅：
+
+- [FAQ](./faq.md) —— 使用上的常见疑问
+- [不支持的特性](./notsupportedfeatures.md) —— 先确认遇到的是限制而不是bug
+- [il2cpp的bug](./il2cppbugs.md) —— 由Unity自身引起的问题
+- [如何提交issue](./issue.md) —— 仍未解决时如何有效反馈
+
+商业版各自还有专属的问题页：[专业版](../business/pro/commonerrors.md)、[旗舰版](../business/ultimate/commonerrors.md)、[热重载版](../business/reload/commonerrors.md)。
+
 ## Unity Editor下的错误
 
 ### Package Manager中安装 com.code-philosophy.hybridclr时出现 package名与com.focus-creative-games.hybridclr_unity不匹配的错误
 
-从3.0.0版本起，com.focus-creative-games.hybridclr_unity改名com.code-philosophy.hybridclr，因此直接升级安装会出现这个错误。
+自v3.0.0版本起，com.focus-creative-games.hybridclr_unity改名com.code-philosophy.hybridclr，因此直接升级安装会出现这个错误。
 
 解决办法：先移除旧版本的com.focus-creative-games.hybridclr_unity，再重新安装最新版本即可。
 
@@ -247,7 +267,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 ### `HybridCLR/Generate/All`或构建时出现"PInvoke method {method.FullName} has unsupported parameter or return type. Please check the method signature."
 
-自**v9.0.0**版本起不再支持在热更新代码中定义extern函数，请将该函数移到AOT中定义。详细请见[PInvoke支持](../guide/features/pinvoke.md)。
+自v9.0.0版本起不再支持在热更新代码中定义extern函数，请将该函数移到AOT中定义。详细请见[PInvoke支持](../guide/features/pinvoke.md)。
 
 ### `HybridCLR/Generate/All`或构建时出现"MonoPInvokeCallback method {method.FullName} has unsupported parameter or return type. Please check the method signature."
 
@@ -384,7 +404,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 有两种原因：
 
-- 在热更新中定义了extern函数。自**v9.0.0**版本起不再支持该特性，解决办法是将extern函数移到AOT部分，详见[PInvoke支持](../guide/features/pinvoke.md)。
+- 在热更新中定义了extern函数。自v9.0.0版本起不再支持该特性，解决办法是将extern函数移到AOT部分，详见[PInvoke支持](../guide/features/pinvoke.md)。
 - 使用了SuperSet元数据格式，但补充元数据aot dll太旧，导致AOT中的泛型在补充元数据dll中找不到。解决办法是更新最新的AOT dll。
 
 ### 遇到ExecutionEngineException:method body is null. xxx::yyyy
@@ -409,7 +429,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 ### 遇到`ExecutionEngineException: NotSupportManaged2NativeFunctionMethod`
 
-这是热更新代码中定义的extern函数缺失桥接函数引起。自**v9.0.0**版本起不再支持在热更新代码中定义extern函数，请将这些函数移到AOT中定义。详细见文档[PInvoke支持](../guide/features/pinvoke.md)。
+这是热更新代码中定义的extern函数缺失桥接函数引起。自v9.0.0版本起不再支持在热更新代码中定义extern函数，请将这些函数移到AOT中定义。详细见文档[PInvoke支持](../guide/features/pinvoke.md)。
 
 ### ExecutionEngineException: Attempting to call method 'xxxx' for which no ahead of time (AOT) code was generated.
 

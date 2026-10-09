@@ -12,7 +12,7 @@ Almost the same as the community version's [Quick Start](../../start/quickstart.
 
 :::tip
 
-Since version v8.6.0, the libil2cpp directory has been included in the com.code-philosophy.hybridclr package.
+Starting from v8.6.0, the libil2cpp directory has been included in the com.code-philosophy.hybridclr package.
 
 :::
 

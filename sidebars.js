@@ -107,6 +107,7 @@ const sidebars = {
           collapsed: true,
           items: [
             'guide/performance/performance',
+            'guide/performance/performance-testcases',
             'guide/performance/memory',
             'guide/performance/impactonappsize',
             'guide/performance/impactonappmemory',

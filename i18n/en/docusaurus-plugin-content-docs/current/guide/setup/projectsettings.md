@@ -11,7 +11,7 @@ After installing the com.code-philosophy.hybridclr package, you need to properly
 ## Configure PlayerSettings
 
 - If your com.code-philosophy.hybridclr version is lower than v4.0.0, you need to disable the Use Incremental GC option. Starting from v4.0.0, incremental GC is supported and this option can be enabled.
-- Switch `Scripting Backend` to `il2cpp`. This setting is not needed for WebGL platform. **Starting from `v2.4.0`, this option is automatically set and manual configuration is not required**.
+- Switch `Scripting Backend` to `il2cpp`. This setting is not needed for WebGL platform. **Starting from v2.4.0, this option is automatically set and manual configuration is not required**.
 - Switch `Api Compatibility Level` to `.NetFramework 4` (Unity 2019, 2020) or `.Net Framework` (Unity 2021+).
 
 ## Configure Hot Update Assemblies

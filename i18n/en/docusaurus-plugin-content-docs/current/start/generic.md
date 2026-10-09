@@ -127,4 +127,4 @@ After packaging is complete, supplementary metadata dlls will not change. Please
 
 ## Optimizing Supplementary Metadata DLL Size
 
-The default generated supplementary metadata dlls contain a lot of data that the supplementary metadata mechanism doesn't need. Starting from version v4.0.16, optimization and trimming of supplementary metadata dlls is supported. For detailed documentation, see [AOT Generics](../guide/build/aotgeneric.md).
+The default generated supplementary metadata dlls contain a lot of data that the supplementary metadata mechanism doesn't need. Starting from v4.0.16, optimization and trimming of supplementary metadata dlls is supported. For detailed documentation, see [AOT Generics](../guide/build/aotgeneric.md).

@@ -25,7 +25,7 @@ slug: /business/ultimate/commonerrors
 
 ## 生成dhao或者mv文件时遇到错误`Exception: [SignatureToIdMapper] version mismatch, expected 1, but got 0`
 
-从v8.4.0版本起修复了一个函数签名的计算bug，修复后的函数签名计算方式发生了变化。如果使用旧版本hybridclr生成的snapshot
+自v8.4.0版本起修复了一个函数签名的计算bug，修复后的函数签名计算方式发生了变化。如果使用旧版本hybridclr生成的snapshot
 跟最新的热更新代码生成dhao或者mv文件，就会产生这种错误。
 
 解决办法：

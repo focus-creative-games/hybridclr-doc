@@ -42,7 +42,7 @@ In actual projects, for most assemblies, over 99% of metadata memory can be unlo
 
 :::tip
 
-Since version v8.6.0, the libil2cpp directory has been included in the com.code-philosophy.hybridclr package.
+Starting from v8.6.0, the libil2cpp directory has been included in the com.code-philosophy.hybridclr package.
 
 :::
 

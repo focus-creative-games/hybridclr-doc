@@ -65,7 +65,7 @@ This not only causes DecryptNumber to incorrectly execute interpretively, but in
 
 ## Retarget Anonymous Type Names and Anonymous Function Names
 
-Starting from Ultimate version `v7.4.0`, `HybridCLR.Editor.AssemblyMetaRetarget` is provided for retargeting metadata to enhance the stability of metadata related to anonymous classes and anonymous functions.
+Starting from Ultimate v7.4.0, `HybridCLR.Editor.AssemblyMetaRetarget` is provided for retargeting metadata to enhance the stability of metadata related to anonymous classes and anonymous functions.
 
 Usage is as follows:
 

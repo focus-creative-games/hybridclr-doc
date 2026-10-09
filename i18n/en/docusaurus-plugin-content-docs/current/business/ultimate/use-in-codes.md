@@ -11,7 +11,7 @@ slug: /business/ultimate/useIncodes
 
 :::tip
 
-Supported since v6.6.0.
+Supported starting from v6.6.0.
 
 :::
 

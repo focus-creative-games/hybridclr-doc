@@ -36,7 +36,7 @@ Based on your target build platform, select the necessary modules during install
 Versions prior to v3.0.0 were named `com.focus-creative-games.hybridclr_unity`.
 :::
 
-The `v3.x.y` and `v4.x.y` series removed support for Unity 2019, but starting from `v5.0.0`, **support for Unity 2019 has been restored**, and it supports iOS builds in source code form.
+The `v3.x.y` and `v4.x.y` series removed support for Unity 2019, but starting from v5.0.0, **support for Unity 2019 has been restored**, and it supports iOS builds in source code form.
 Developers using Unity 2019 are strongly recommended to choose `v8.x.y` and newer versions.
 
 These versions have all been validated by numerous online projects and are very stable. You don't need to worry about which one is better - generally speaking, newer versions fix more bugs and optimize more, providing a better user experience.
