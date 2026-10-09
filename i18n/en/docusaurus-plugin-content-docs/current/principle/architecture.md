@@ -20,9 +20,7 @@ Repository: [github](https://github.com/focus-creative-games/il2cpp_plus) [gitee
 
 HybridCLR extends the il2cpp runtime, requiring minor adjustments to the original il2cpp code to support hybrid execution mode. This code corresponds to the il2cpp_plus repository. Since il2cpp has significant changes with each major annual version, adaptation is required for each Unity major version.
 
-Each annual version corresponds to a `{version}-main` branch, such as `2021-main`.
-
-Currently, each annual version also has an older 1.0 branch `{version}-1.0`, such as `2019-1.0`.
+Each annual version corresponds to a `{version}-main` branch, such as `2022-main` and `6000-main`.
 
 ## hybridclr
 

@@ -12,7 +12,7 @@ All platforms supported by il2cpp are supported.
 
 ## How much does HybridCLR increase the package size?
 
-Taking the 2019 version as an example, the libil2cpp.a file exported for Android in release mode: original version 12.69M, HybridCLR version 13.97M, which means an increase of approximately 1.3M.
+For the libil2cpp.a file exported for Android in release mode, the HybridCLR version is about 1.3M larger than the original. For detailed figures see [Impact on Package Size](../guide/performance/impactonappsize.md).
 
 ## Why does the package built with HybridCLR increase significantly in size?
 

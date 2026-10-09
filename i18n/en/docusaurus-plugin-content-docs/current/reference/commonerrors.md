@@ -143,7 +143,7 @@ This error is unrelated to HybridCLR. This is because WebGL has restrictions on 
 
 ### Windows packaging encounters `xxxx\\il2cpp\\libil2cpp\\utils\\Il2CppHashMap.h(71): error C2039: 'hash_compare': is not a member of 'stdext'`
 
-This is caused by the latest VS version changes breaking some backward compatibility after .NET 7 release. com.code-philosophy.hybridclr `v2.4.0` version has completely resolved this issue. You can upgrade to this version or revert to an older version of Visual Studio 2022 or use versions like 2019.
+This is caused by the latest VS version changes breaking some backward compatibility after .NET 7 release. com.code-philosophy.hybridclr `v2.4.0` version has completely resolved this issue; just upgrade to that version.
 
 One solution that doesn't require reverting VS version is to modify `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h`, adding `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS`. You can refer to the image below for modification.
 
@@ -176,7 +176,7 @@ WebGL must use global installation, i.e., useGlobal in HybridCLRSettings should 
 
 ### Packaging encounters GC_set_mark_stck_empty function not found or signature mismatch error
 
-This is a problem caused by Unity modifying this function signature starting from Unity 2021.3.20. Update to com.code-philosophy.hybridclr v2.0.10+ and reinstall to resolve.
+This is a problem caused by Unity modifying this function signature. Update to com.code-philosophy.hybridclr v2.0.10+ and reinstall to resolve.
 
 ### Packaging WebGL platform shows `build.js: undefined symbol: RuntimeApi_LoadMetadataForAOTAssembly (referenced by top-level compiled C/C++ code)`
 
@@ -194,7 +194,7 @@ There are two reasons:
 ### Packaging shows `#error: "not support unity version"`
 
 There are several reasons:
-- You used a version lower than 2019 or higher than 2021, these versions are currently not supported
+- Your Unity version is not in the support list. Starting from v9.0.0 only 2022.3.x, 2023.2.x and 6000.x.y (excluding 6000.5.x) are supported; see [Supported Unity Versions and Platforms](../guide/setup/supported-platforms-and-unity-versions.md)
 - You didn't run `HybridCLR/Generate/All` or `HybridCLR/Generate/Il2CppDef` before packaging, causing Unity version macros not to be generated
 
 ### Packaging shows 'could not find a part of path "xxxx/hybridclr/generated/UnityVersion.h"
@@ -219,7 +219,7 @@ Didn't execute Install after upgrading package. Install in `HybridCLR/Installer`
 
 ### IL2CPP_POP_ACTIVE_EXCEPTION related compilation errors
 
-Because starting from versions 2021.3.31 and 2022.3.11, this macro definition was modified, causing compilation errors on older hybridclr versions. The solution is to upgrade to the latest hybridclr version.
+Because Unity modified this macro definition starting from version 2022.3.11, causing compilation errors on older hybridclr versions. The solution is to upgrade to the latest hybridclr version.
 
 ### Shows `error: no matching function for call to 'il2cpp_codegen_get_marshal_directive_exception'`
 
@@ -233,10 +233,6 @@ To a large extent, this is caused by mismatched versions between your package an
 - Install the latest version in `HybridCLR/installer...`
 - Run `HybridCLR/generate/all` to generate everything
 - Package
-
-### Packaging shows Building.BuilderFailedException: In file included from xxx\HybridCLRData\LocalIl2CppData-{platform}\il2cpp
-
-If your version is 2020.3.0-2020.3.25, after completing installation in the Installer, copy `2020.3.x/Editor/Data/il2cpp/external` from any 2020.3.26+ version installation directory to replace `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
 
 ### Packaging shows "HybridCLRDatal/Locall2CppData-WindowsEditor/il2cpp/llibil2cpp/hybridclr/generated/ReversePInvokeMethodStub.cpp: error: unknown type name'struct_xxx'"
 
@@ -265,7 +261,7 @@ Starting from Tuanjie Engine 1.2.0, a `Use Slim Format For global-metadata.dat` 
 
 ### `HybridCLR/Generate/All` or building shows "PInvoke method {method.FullName} has unsupported parameter or return type. Please check the method signature."
 
-Extern functions defined in hot update code don't support parameters or return values like string or arrays. Please modify the corresponding parameters to IntPtr and manually marshal these parameters, or move the function to AOT for definition. For details, see [PInvoke Support](../guide/features/pinvoke.md).
+Starting from **v9.0.0**, defining extern functions in hot update code is no longer supported. Move the function into an AOT assembly. For details, see [PInvoke Support](../guide/features/pinvoke.md).
 
 ### `HybridCLR/Generate/All` or building shows "MonoPInvokeCallback method {method.FullName} has unsupported parameter or return type. Please check the method signature."
 
@@ -338,7 +334,7 @@ This is because you set `api compatible level` to .net standard in Player Settin
 
 Currently supports .net standard 2.0 and .net 4.x, but even if the main project is packaged with .net standard, hot update dll packaging **must use .net 4.x**. The reason is that when unity packages with .net standard, it automatically strips .net standard dependencies and directly depends on the final dll, causing the main project's dll list to actually not contain the net standard dll, which in turn causes the hot update dll to fail to find objects from netstandard when loading.
 
-The solution is to use .net 4.x for both packaging and compiling hot updates, or use .net standard 2.0 for packaging but switch api compatible level to .net 4.x (renamed to .net framework starting from 2021) when compiling hot update parts.
+The solution is to use .net framework for both packaging and compiling hot updates, or use .net standard 2.0 for packaging but switch api compatible level to .net framework when compiling hot update parts.
 
 #### Situation 2: yyyAssembly is other AOT assembly
 
@@ -369,7 +365,7 @@ This is function loss caused by unity code stripping. Run the menu command `Hybr
 There are several reasons:
 
 1. This is caused by missing AOT generic function instantiation
-2. Using Unity 2021 and the `Il2Cpp Code Generation` option is `faster (smaller) build`, causing the generated code to be in full generic mode, and all generic function signatures are changed. If supplemental metadata is not provided, calling generic functions that are already instantiated in AOT will still cause this error.
+2. The `Il2Cpp Code Generation` option is `faster (smaller) build`, causing the generated code to be in full generic mode, and all generic function signatures are changed. If supplemental metadata is not provided, calling generic functions that are already instantiated in AOT will still cause this error.
 3. WeChat Mini Game conversion tool defaults to setting IL2CPP Code Generation to Faster(Smaller) builds mode. If supplemental metadata is not provided, it will cause inability to access AOT generic functions.
 
 Solution for reason 1:
@@ -396,7 +392,7 @@ Supplemental metadata used a mismatched stripped AOT version. Should use the ver
 
 There are two reasons:
 
-- Defined extern functions in hot updates, which is temporarily not supported. The solution is to move extern functions to the AOT part.
+- Defined extern functions in hot update code. This is no longer supported starting from **v9.0.0**; the solution is to move the extern functions to the AOT part. For details, see [PInvoke Support](../guide/features/pinvoke.md).
 - Used SuperSet metadata format, but the supplemental metadata aot dll is too old, causing generics in AOT to not be found in the supplemental metadata dll. The solution is to update the latest AOT dll.
 
 ### Encountering ExecutionEngineException:method body is null. xxx::yyyy
@@ -420,7 +416,7 @@ If there are still problems, please report to the administrator for technical su
 
 ### Encountering `ExecutionEngineException: NotSupportManaged2NativeFunctionMethod`
 
-This is caused by missing bridge functions for extern functions defined in hot update code. Please reserve bridge functions related to extern functions in advance when building the main package. For details, see the document [PInvoke Support](../guide/features/pinvoke.md).
+This is caused by missing bridge functions for extern functions defined in hot update code. Starting from **v9.0.0**, defining extern functions in hot update code is no longer supported -- move these functions into an AOT assembly. For details, see the document [PInvoke Support](../guide/features/pinvoke.md).
 
 ### ExecutionEngineException: Attempting to call method 'xxxx' for which no ahead of time (AOT) code was generated
 
@@ -458,7 +454,7 @@ This is because you loaded an assembly twice. The T or Type you passed in is onl
 
 ### Using MemoryProfile to capture memory snapshots crashes
 
-If you're using Unity 2021 or higher, upgrade hybridclr package to `v3.0.2` or higher. If using Unity 2019 or 2020, merge the changes from commit record [Fix crash bug when using Memory Profiler to create snapshots](https://github.com/focus-creative-games/hybridclr/commit/062bfa99c71a53a6cb35fc89a52d67bbff2bb2d0) to your current version.
+Upgrade the hybridclr package to `v3.0.2` or higher.
 
 ### profiler's BeginSample and EndSample cannot take effect
 

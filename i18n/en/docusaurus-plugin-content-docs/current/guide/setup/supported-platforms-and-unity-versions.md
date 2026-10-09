@@ -1,29 +1,28 @@
 ---
 title: 'Supported Unity Versions and Platforms'
-description: 'HybridCLR has stably supported the 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x LTS series and testing versions like 2023.2.x, 6000.x.y.'
+description: 'HybridCLR stably supports the 2022.3.x LTS series as well as 2023.2.x and 6000.x.y, and supports every platform il2cpp supports.'
 slug: /basic/supportedplatformanduniyversion
 ---
 
 # Supported Unity Versions and Platforms
 
-HybridCLR has stably supported the 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x LTS series and testing versions like 2023.2.x, 6000.x.y, and supports all platforms supported by il2cpp.
+HybridCLR stably supports the 2022.3.x LTS series as well as 2023.2.x and 6000.x.y, and supports every platform il2cpp supports.
 
 ## Compatible Unity Versions
 
-:::warning
-
-HybridCLR also supports Unity 2017-2018, but this is not included in the community version. If you have such requirements, you can contact us for free technical guidance.
-
-:::
-
 For maintenance cost considerations, HybridCLR only supports LTS series versions.
 
-- 2019.4.x
-- 2020.3.x
-- 2021.3.x
 - 2022.3.x
 - 2023.2.x
-- 6000.x.y
+- 6000.x.y (excluding 6000.5.x)
+
+:::warning
+
+Starting from v9.0.0, support for Unity 2019, 2020 and 2021 has been removed, along with support for 6000.5.x (6000.5.x is not an LTS version).
+
+If your project still uses one of those versions, use **8.15.0** -- the last version supporting Unity 2019/2020/2021. For the matching documentation, switch to the 8.15.0 version using the selector in the top right of this site.
+
+:::
 
 :::tip
 
@@ -66,15 +65,5 @@ Starting from Unity China 1.2.0, a `Use Slim Format For global-metadata.dat` opt
 
 ### WeChat Mini Games
 
-The WeChat Mini Games conversion tool defaults to setting IL2CPP Code Generation to Faster(Smaller) builds mode. Without supplemental metadata, this will cause inability to access AOT generic functions. Starting from 2021.3.x versions, all commercial versions
+The WeChat Mini Games conversion tool defaults to setting IL2CPP Code Generation to Faster(Smaller) builds mode. Without supplemental metadata, this will cause inability to access AOT generic functions. All commercial versions
 support full generic sharing, eliminating the need for supplemental metadata, reducing package size, significantly lowering memory usage, and dramatically improving execution performance of AOT generic functions not instantiated in the main project.
-
-### MiniGame
-
-Additional notes on version compatibility:
-
-- MiniGame 2019 and 2020 versions' recommended versions overlap with HybridCLR's compatible versions. Try to directly choose those overlapping versions (such as 2019.4.35, 2020.3.33) as they have been validated by projects and rarely encounter issues.
-- MiniGame 2021 series recommended versions are 2021.2.5-2021.2.18, which are not HybridCLR-supported LTS versions, but these versions have been validated by other developers and can use HybridCLR normally (may require minor code adjustments). If you encounter issues, you can contact us for commercial technical support.
-
-
-

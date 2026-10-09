@@ -31,7 +31,7 @@ Starting from v8.6.0, the libil2cpp directory has been included in the com.code-
 ### Configure PlayerSettings
 
 - Switch `Scripting Backend` to `IL2CPP`
-- Switch `Api Compatability Level` to `.Net 4.x` (Unity 2019-2020) or `.Net Framework` (Unity 2021+)
+- Switch `Api Compatability Level` to `.Net Framework`
 
 ![player settings](/img/hybridclr/ultimate-project-settings.jpg)
 
@@ -41,9 +41,7 @@ Simply enable the `use incremental GC` option in `Player Settings`, no settings 
 
 ### Enable Full Generic Sharing
 
-- 2020 version doesn't support full generic sharing
-- 2021 version needs to set IL2CPP Code Generation option to `faster(smaller)`
-- 2022 version has full generic sharing enabled by default and cannot be disabled. If you set IL2CPP Code Generation option to `faster(smaller)`, it can further reduce package size.
+- 2022 and higher versions have full generic sharing enabled by default and it cannot be disabled. If you set IL2CPP Code Generation option to `faster(smaller)`, it can further reduce package size.
 
 ## Enable and Disable Standard Instruction Optimization
 

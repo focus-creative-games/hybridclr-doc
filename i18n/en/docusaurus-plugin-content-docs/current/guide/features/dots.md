@@ -30,7 +30,7 @@ Since DOTS is still rapidly iterating and changing, to reduce maintenance costs,
 - 1.0.16
 - 1.3.15
 
-Currently only tested on Unity 2021+ versions; Unity 2020 and lower have not been tested for compatibility. Generally speaking, as long as the corresponding version of com.unity.entities can run normally on that Unity version, it can also support HybridCLR.
+Generally speaking, as long as the corresponding version of com.unity.entities can run normally on that Unity version, it can also support HybridCLR.
 
 For **1.3.15**, **Unity 2022.3 LTS** is recommended (verified).
 

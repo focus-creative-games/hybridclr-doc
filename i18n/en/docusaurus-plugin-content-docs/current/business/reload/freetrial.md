@@ -27,8 +27,7 @@ Official versions, like the community version, have no platform restrictions for
 
 Only supports the following specific Unity versions:
 
-- 2021.3.31f1
-- 2022.3.11f1
+- 2022.3.54 or higher, regardless of the version suffix (such as f1, f2)
 
 ## Unsupported Features
 
@@ -46,9 +45,8 @@ Incremental GC and various compilation options are not supported because each co
 
 ## Differences from Standard Commercial Version
 
-The trial version removes source code from some modules and calls compiled binary programs instead. The following are related modules.
-
-- DllEncryptor dll encryption module
+- The encryption module is removed
+- libil2cpp contains header files only; the source is replaced by a precompiled `libil2cpp.a`
 
 ## Installation
 

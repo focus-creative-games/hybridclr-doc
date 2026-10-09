@@ -44,7 +44,7 @@ Welcome to embrace modern native C# hot update technology!!!
 
 ## Supported Versions and Platforms
 
-- Supports all LTS versions including 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x, 2023.2.x, and **6000.x.y** series
+- Supports all LTS versions: 2022.3.x, 2023.2.x and **6000.x.y** (excluding 6000.5.x)
 - Supports all platforms that il2cpp supports
 - Supports Unity Engine and HarmonyOS platforms
 

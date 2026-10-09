@@ -37,18 +37,15 @@ Starting from v8.6.0, the libil2cpp directory has been included in the com.code-
     - First install **Unity 2022.3.60f1**.
     - Copy the directory `2022.3.60f1\Editor\Data\il2cpp\build\deploy` to `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`.
     - Replace the file `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll` with `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll`.
-  - If using **2022.3.x** or **2021.3.x**, replace `ModifiedDlls\{version}\Unity.IL2CPP.dll` with
+  - If using **2022.3.x**, replace `ModifiedDlls\{version}\Unity.IL2CPP.dll` with
     `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`.
-  - If using **2020.3.x**, replace `ModifiedDlls\{version}\Unity.IL2CPP.dll` with
-    `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll`.
-  - If using **2019.4.x**, no action is required, as the **Install** process already copies the necessary files automatically.
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
 ### Configure PlayerSettings
 
 - Switch `Scripting Backend` to `IL2CPP`
-- Switch `Api Compatibility Level` to `.Net 4.x` (Unity 2019-2020) or `.Net Framework` (Unity 2021+)
+- Switch `Api Compatibility Level` to `.Net Framework`
 
 ![player settings](/img/hybridclr/ultimate-project-settings.jpg)
 

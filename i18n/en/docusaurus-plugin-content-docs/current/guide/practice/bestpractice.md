@@ -67,8 +67,8 @@ updateDel = (Action<float>)System.Delegate.CreateDelegate(typeof(Action<float>),
 updateDel(deltaTime);
 ```
 
-## Don't Use `faster(smaller) builds` Option in 2021 Versions
+## Don't Use the `faster(smaller) builds` Option
 
-Starting from 2021.3.x LTS versions, il2cpp fully supports `full generic sharing` technology. When the `Il2Cpp Code Generation` option in Build Settings is `faster runtime`, it uses the standard generic sharing mechanism; when it's `faster(smaller) builds`, it enables the `full generic sharing` mechanism.
+il2cpp fully supports `full generic sharing` technology. When the `Il2Cpp Code Generation` option in Build Settings is `faster runtime`, it uses the standard generic sharing mechanism; when it's `faster(smaller) builds`, it enables the `full generic sharing` mechanism.
 
 When `full generic sharing` is enabled, each generic function (regardless of whether generic parameters are value types or class types) completely shares a single copy of code. The advantage is saving package size, but the disadvantage is severely hurting generic function performance. Fully generic shared code compared to standard generic shared code can sometimes be several to dozens of times slower, even worse than pure interpretation versions. Therefore, it's strongly recommended to **not enable** the `faster(smaller) builds` option.

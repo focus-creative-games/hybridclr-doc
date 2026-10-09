@@ -135,30 +135,7 @@ For C# code `throw ex;`, the following code is generated, which crashes when `ex
 
 ## Closed delegate with null this throws incorrect exception
 
-`Delegate.Create(XXInstanceMethod, null)` should throw a NullReferenceException when called, but Unity 2021 throws ArgumentException.
-
-## 2019 generated delegate call code incorrectly handles open delegate when this is ValueType
-
-When using open delegate with ref ValueType as this parameter, it incorrectly produces two calls!
-
-```csharp
-    if (targetThis == NULL && il2cpp_codegen_class_is_value_type(il2cpp_codegen_method_get_declaring_type(targetMethod)))
-    {
-        typedef int32_t (*FunctionPointerType) (RuntimeObject*, int32_t, const RuntimeMethod*);
-        result = ((FunctionPointerType)targetMethodPointer)((reinterpret_cast<RuntimeObject*>(___a0) - 1), ___b1, targetMethod);
-    }
-    if (targetThis == NULL)
-    {
-        typedef int32_t (*FunctionPointerType) (RuntimeObject*, int32_t, const RuntimeMethod*);
-        result = ((FunctionPointerType)targetMethodPointer)((RuntimeObject*)(reinterpret_cast<RuntimeObject*>(___a0) - 1), ___b1, targetMethod);
-    }
-    else
-    {
-        typedef int32_t (*FunctionPointerType) (void*, FT_AOT_ValueType_t851DF541610F2A3DE72568571355F3953F0063AF *, int32_t, const RuntimeMethod*);
-        result = ((FunctionPointerType)targetMethodPointer)(targetThis, ___a0, ___b1, targetMethod);
-    }
-
-```
+`Delegate.Create(XXInstanceMethod, null)` should throw a NullReferenceException when called, but il2cpp throws ArgumentException.
 
 ## mono and il2cpp do not support InvokeDynamic on open delegate of instance method
 
@@ -181,45 +158,6 @@ Throws 'Object does not match target type' error.
         del.DynamicInvoke(null, 4);
         Assert.Fail();
     }
-```
-
-## 2019 WebGL platform generated object member access code does not check null reference
-
-When accessing class member fields, it doesn't check for null pointer. Currently found only on WebGL platform.
-
-```cpp
-
-//WebGL platform has no NullCheck
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FT_AOT_Class_Run2_m0451FFC153671CD294EB1178A01AB2D92202624C (FT_AOT_Class_t03C2F346FF0EA8694088FD3F901E6536935FB2BA * ___s0, int32_t ___b1, const RuntimeMethod* method)
-{
-	{
-		// s.x += b;
-		FT_AOT_Class_t03C2F346FF0EA8694088FD3F901E6536935FB2BA * L_0 = ___s0;
-		FT_AOT_Class_t03C2F346FF0EA8694088FD3F901E6536935FB2BA * L_1 = L_0;
-		int32_t L_2 = L_1->get_x_0();
-		int32_t L_3 = ___b1;
-		L_1->set_x_0(((int32_t)il2cpp_codegen_add((int32_t)L_2, (int32_t)L_3)));
-		// }
-		return;
-	}
-}
-
-// Other platforms have NullCheck
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FT_AOT_Class_Run2_m0451FFC153671CD294EB1178A01AB2D92202624C (FT_AOT_Class_t03C2F346FF0EA8694088FD3F901E6536935FB2BA * ___s0, int32_t ___b1, const RuntimeMethod* method)
-{
-	{
-		// s.x += b;
-		FT_AOT_Class_t03C2F346FF0EA8694088FD3F901E6536935FB2BA * L_0 = ___s0;
-		FT_AOT_Class_t03C2F346FF0EA8694088FD3F901E6536935FB2BA * L_1 = L_0;
-		NullCheck(L_1);
-		int32_t L_2 = L_1->get_x_0();
-		int32_t L_3 = ___b1;
-		NullCheck(L_1);
-		L_1->set_x_0(((int32_t)il2cpp_codegen_add((int32_t)L_2, (int32_t)L_3)));
-		// }
-		return;
-	}
-}
 ```
 
 ## Mono bug with open delegate call on ValueType member function copying instead of passing ref

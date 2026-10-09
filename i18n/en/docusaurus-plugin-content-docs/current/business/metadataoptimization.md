@@ -24,7 +24,7 @@ For most projects, commercial versions can ultimately reduce WebGL platform memo
 
 ## Full Generic Sharing
 
-Completely eliminates supplemental metadata memory, approximately 4 times the dll size. The drawback is that full generic sharing is only supported from 2021 onwards. Enabling full generic sharing can significantly reduce package size (reducing approximately 30-40% of managed code compiled size).
+Completely eliminates supplemental metadata memory, approximately 4 times the dll size. Enabling full generic sharing can significantly reduce package size (reducing approximately 30-40% of managed code compiled size).
 
 ## Optimizing Supplemental Metadata Memory
 

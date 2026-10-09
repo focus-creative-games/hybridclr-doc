@@ -19,4 +19,4 @@ The Professional version provides advanced features not supported by the communi
 
 ## Supported Versions
 
-Supports all Unity 2019-6000 LTS versions.
+Supports all currently supported Unity LTS versions (2022.3.x, 2023.2.x, 6000.x.y).

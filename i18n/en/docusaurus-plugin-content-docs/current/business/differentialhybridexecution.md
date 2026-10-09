@@ -24,7 +24,7 @@ Since in practice, two versions often don't modify too much code, DHE can achiev
 - Unchanged code parts have identical performance to native, providing an amazing **3-30x** or higher improvement compared to pure interpretation versions, with overall performance nearly reaching native levels.
 - Allows arbitrary code changes with minimal code intrusion and almost no special considerations. Usage is similar to the community version.
 - Simple workflow that doesn't require manually marking which functions have changed like xxxfix solutions - tools handle everything automatically.
-- Lower transformation cost for projects compared to pure hot update versions. For example, extern functions can be defined directly in DHE without moving to AOT modules.
+- Lower transformation cost for projects compared to pure hot update versions. For example, extern functions can be defined directly in DHE assemblies, whereas in pure hot update assemblies they must be moved into an AOT module.
 - Native code is fully included in the package, significantly reducing the risk of iOS App Store rejection.
 
 ## Unsupported Features

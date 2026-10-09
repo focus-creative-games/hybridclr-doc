@@ -29,8 +29,7 @@ The official version, like the community version, has no platform restrictions f
 
 Only supports the following specific Unity versions:
 
-- 2021.3.31f1
-- 2022.3.11f1
+- 2022.3.54 or higher, regardless of the version suffix (such as f1, f2)
 
 ## Unsupported Features
 
@@ -60,10 +59,9 @@ Compared to the community version or the official commercial version, the follow
 
 ## Differences from Standard Commercial Version
 
-The trial version has removed source code for some modules and replaced them with calls to compiled binary programs. The following are the related modules.
-
-- DllEncryptor dll encryption module
-- DhaoGenerator dhao generation module
+- The encryption module is removed
+- The DHE-related C# source is replaced by precompiled binary tools
+- libil2cpp contains header files only; the source is replaced by a precompiled `libil2cpp.a`
 
 ## Usage
 

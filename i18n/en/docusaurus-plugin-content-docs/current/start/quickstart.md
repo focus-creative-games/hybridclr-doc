@@ -21,10 +21,12 @@ Please ensure the hot update process works correctly on the Standalone platform 
 ### Installing Unity
 
 :::caution
-HybridCLR supports all LTS versions of Unity from 2019 to 6000. If your current version is not among the recommended versions below, please refer to the [Installing HybridCLR](../guide/setup/install.md) documentation.
+HybridCLR supports the Unity 2022.3.x, 2023.2.x and 6000.x.y (excluding 6000.5.x) LTS versions. If your current version is not among the recommended versions below, please refer to the [Installing HybridCLR](../guide/setup/install.md) documentation.
+
+Support for Unity 2019/2020/2021 was removed in v9.0.0; projects on those versions should use 8.15.0.
 :::
 
-- Install any of the following versions: 2019.4.40, 2020.3.26+, 2021.3.0+, 2022.3.0+, 6000.0.0+
+- Install any of the following versions: 2022.3.0+, 2023.2.0+, 6000.0.0+
 - When selecting modules during installation based on your operating system, you must select `Windows Build Support(IL2CPP)` or `Mac Build Support(IL2CPP)`.
 
 ![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
@@ -32,7 +34,7 @@ HybridCLR supports all LTS versions of Unity from 2019 to 6000. If your current 
 ### Install IDE and Related Build Environment
 
 - Windows
-  - On Windows, you need to install `Visual Studio 2019` or higher. The installation must include at least `Game development with Unity` and `Game development with C++` components.
+  - On Windows, you need to install `Visual Studio 2022` or higher. The installation must include at least `Game development with Unity` and `Game development with C++` components.
   - Install git
 - Mac
   - Requires macOS version >= 12, Xcode version >= 13, for example `Xcode 13.4.1, macOS 12.4`.
@@ -151,9 +153,8 @@ Open the menu `HybridCLR/Settings`, and add the `HotUpdate` assembly in the `Hot
 
 ### Configure PlayerSettings
 
-- If you are using hybridclr package **lower than v4.0.0**, you need to disable the Use Incremental GC option
 - Switch `Scripting Backend` to `IL2CPP`
-- Switch `Api Compatability Level` to `.Net 4.x` (Unity 2019-2020) or `.Net Framework` (Unity 2021+)
+- Switch `Api Compatability Level` to `.Net Framework`
 
 ![player settings](/img/hybridclr/player-setting.png)
 

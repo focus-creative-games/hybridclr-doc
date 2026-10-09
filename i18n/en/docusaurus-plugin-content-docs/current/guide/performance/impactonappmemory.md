@@ -27,7 +27,7 @@ We built a test project to test the actual impact of HybridCLR on the package.
 
 ## Testing
 
-We tested the memory of Android Armv8 platform apk built with Unity 2021 version.
+We tested the memory of Android Armv8 platform apk.
 
 The AOT part of the test project fully includes the following frameworks and libraries:
 

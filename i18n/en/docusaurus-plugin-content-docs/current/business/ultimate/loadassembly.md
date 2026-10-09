@@ -40,7 +40,7 @@ There are some restrictions for calling LoadOriginalDifferentialHybridAssembly:
 1. The DHE assemblies it depends on must also be loaded with LoadOriginalDifferentialHybridAssembly, i.e., Original loading dependency
 2. AOT generic instantiation issues
   
-  DHE assemblies loaded with it are equivalent to ordinary AOT assemblies. If other hot update assemblies use generics from this DHE assembly, and the Unity version is less than 2021 or equals 2021 but the `Il2Cpp Code Generation` option also has AOT generic instantiation issues.
+  DHE assemblies loaded with it are equivalent to ordinary AOT assemblies. If other hot update assemblies use generics from this DHE assembly, the same AOT generic instantiation issues arise when full generic sharing is not enabled.
   Although supplementary metadata can solve this problem, a better approach is to switch to LoadOriginalDifferentialHybridAssembly loading.
 
 Actual projects may have many DHE assemblies, and determining which interface each DHE assembly should use for loading is difficult. Even determining whether an assembly has changed is not an easy task.

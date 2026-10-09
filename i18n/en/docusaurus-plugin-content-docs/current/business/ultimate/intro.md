@@ -10,7 +10,7 @@ The Ultimate version is primarily aimed at projects with strict performance requ
 
 ## Supported Versions
 
-Supports all Unity 2019-6000 LTS versions.
+Supports all currently supported Unity LTS versions (2022.3.x, 2023.2.x, 6000.x.y).
 
 ## Advantages
 

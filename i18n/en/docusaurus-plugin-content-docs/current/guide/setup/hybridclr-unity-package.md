@@ -41,24 +41,14 @@ The configuration looks like this:
 {
     "versions": [
     {
-        "unity_version":"2019",
-        "hybridclr" : { "branch":"v2.0.1"},
-        "il2cpp_plus": { "branch":"v2019-2.0.1"}
-    },
-    {
-        "unity_version":"2020",
-        "hybridclr" : { "branch":"v2.0.1"},
-        "il2cpp_plus": { "branch":"v2020-2.0.1"}
-    },
-    {
-        "unity_version":"2021",
-        "hybridclr" : { "branch":"v2.0.1"},
-        "il2cpp_plus": { "branch":"v2021-2.0.1"}
-    },
-    {
         "unity_version":"2022",
-        "hybridclr" : { "branch":"v2.0.1"},
-        "il2cpp_plus": { "branch":"v2020-2.0.1"}
+        "hybridclr" : { "branch":"v9.0.0"},
+        "il2cpp_plus": { "branch":"v2022-9.0.0"}
+    },
+    {
+        "unity_version":"6000",
+        "hybridclr" : { "branch":"v9.0.0"},
+        "il2cpp_plus": { "branch":"v6000-9.0.0"}
     }
     ]
 }
@@ -90,10 +80,9 @@ hybridclr code needs to be compatible with multiple Unity versions and requires 
 ```cpp
 // hybridclr/generated/UnityVersion.h
 
-#define HYBRIDCLR_UNITY_VERSION 2020333
-#define HYBRIDCLR_UNITY_2020 1
-#define HYBRIDCLR_UNITY_2019_OR_NEW 1
-#define HYBRIDCLR_UNITY_2020_OR_NEW 1
+#define HYBRIDCLR_UNITY_VERSION 2022322
+#define HYBRIDCLR_UNITY_2022 1
+#define HYBRIDCLR_UNITY_2022_OR_NEW 1
 ```
 
 ### Generate/LinkXml
@@ -302,7 +291,7 @@ Part of the packaging workflow, related code is in `Editor/BuildProcessors/Check
 - Set or clear UNITY_IL2CPP_PATH environment variable based on whether HybridCLR is enabled. The UNITY_IL2CPP_PATH environment variable modified in the script is the environment variable of this process, so don't worry about interfering with other projects.
 - If version is below (not including) v4.0.0, it will check and automatically disable the Use Incremental GC option
 - Switch `Scripting Backend` to `il2cpp`. WebGL platform doesn't need to set this option. **Starting from v2.4.0, this option will be set automatically, so manual operation is not needed**.
-- Switch `Api Compatability Level` to `.NetFramework 4` (Unity 2019, 2020) or `.Net Framework` (Unity 2021+)
+- Switch `Api Compatability Level` to `.Net Framework`
 - If no hot update assembly is set in HybridCLRSettings, an error prompt is shown.
 
 ### Automatically Exclude Hot Update Assemblies During Packaging

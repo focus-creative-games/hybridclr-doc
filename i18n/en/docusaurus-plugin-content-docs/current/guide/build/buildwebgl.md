@@ -9,15 +9,8 @@ slug: /basic/buildwebgl
 Due to the many specificities of the WebGL platform, this document specifically describes how to publish to the WebGL platform. This document demonstrates the publishing process on the hybridclr_trial project ([github](https://github.com/focus-creative-games/hybridclr_trial) [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)).
 
 :::tip
-Starting from Unity 2021.3.4+ and 2022.3.0+ versions, global installation is no longer required, which means the build process for the WebGL platform is exactly the same as other platforms.
+All currently supported Unity versions no longer require global installation, which means the build process for the WebGL platform is exactly the same as other platforms. The global installation instructions retained in this document are for special cases only.
 :::
-
-## Versions Used
-
-The publishing process is similar for different Unity versions and hybridclr packages, so we won't elaborate further.
-
-- Unity 2021.3.1f1
-- com.code-philosophy.hybridclr v3.4.0
 
 ## Preparation
 
@@ -28,15 +21,15 @@ Beginners should at least read the [Quick Start](../../start/quickstart.md) docu
 
 - Ensure Unity Editor has the WebGL module installed, as shown below
 - Complete HybridCLR installation and setup according to the [install](../setup/install.md) documentation
-- In HybridCLRSettings, enable the `Use Global Il2cpp` option, as the WebGL platform only supports global installation. Starting from 2021.3.4+ and 2022.3.0+, **this option is no longer needed**
+- Currently supported Unity versions **do not need** to enable the `Use Global Il2cpp` option in HybridCLRSettings, as the WebGL platform supports local installation
 
 
 ![select_il2cpp_module_webgl](/img/hybridclr/select_il2cpp_modules_webgl.jpg)
 
-## Create Symbolic (Hard) Link from Editor Directory libil2cpp to Local libil2cpp Directory
+## Appendix: Create Symbolic (Hard) Link from Editor Directory libil2cpp to Local libil2cpp Directory
 
 :::warning
-Note: Starting from Unity 2021.3.4+ and 2022.3.0+ versions, due to support for local installation, this link is no longer needed.
+All currently supported Unity versions support local installation, so this link is **not needed**. This section is retained only for special scenarios that require global installation.
 :::
 
 :::tip

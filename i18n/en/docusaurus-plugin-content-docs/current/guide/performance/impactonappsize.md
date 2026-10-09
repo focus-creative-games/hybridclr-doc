@@ -19,7 +19,7 @@ We built test projects to test the actual impact of HybridCLR on package size.
 
 ## Testing
 
-We tested the size of Android Armv8 platform apk built in Unity 2021.
+We tested the size of Android Armv8 platform apk.
 
 The AOT part of the test project completely includes the following frameworks and libraries:
 

@@ -16,7 +16,7 @@ If you're certain it's a bug, please submit an issue following the bug report te
 
 **Bug Report Template**
 
-- Unity Editor version. e.g., 2020.3.33
+- Unity Editor version. e.g., 2022.3.60
 - Operating system. e.g., Win 10
 - Problematic BuildTarget. e.g., Android 64
 - com.code-philosophy.hybridclr version number. e.g., v2.3.1

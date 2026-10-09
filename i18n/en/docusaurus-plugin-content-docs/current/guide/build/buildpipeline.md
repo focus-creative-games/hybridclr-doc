@@ -30,7 +30,7 @@ For detailed implementation, please see the source code or [com.code-philosophy.
 
 :::tip
 
-Unity 2019's Android platform and HarmonyOS platform of Unity China will automatically compile libil2cpp.a during the second step of `exporting project`. At this time, bridge functions and others have not been generated yet, so these platforms **cannot use** the optimized build process.
+The HarmonyOS platform of Unity China automatically compiles libil2cpp.a during the second step of `exporting project`. At this time, bridge functions and others have not been generated yet, so this platform **cannot use** the optimized build process.
 
 :::
 

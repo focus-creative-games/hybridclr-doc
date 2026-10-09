@@ -32,10 +32,7 @@ Only hot update assets are restricted to be packaged as AB bundles; there are no
 
 ## Assembly List File
 
-Different Unity versions have different names and formats for assembly list files.
-
-- 2019 version: globalgamemanagers file when uncompressed; saved to globalgamemanagers file then packaged with other files into data.unity3d file in BundleFile format when compressed.
-- 2020-2021 versions: Saved in ScriptingAssembles.json file.
+In the Unity versions currently supported, the assembly list is saved in the `ScriptingAssemblies.json` file.
 
 ## Known Issues
 
