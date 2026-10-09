@@ -1,0 +1,168 @@
+{
+  "tutorialSidebar": [
+    {
+      "type": "doc",
+      "label": "介绍",
+      "id": "intro"
+    },
+    "other/businesscase",
+    {
+      "type": "category",
+      "label": "新手教程",
+      "link": {
+        "type": "generated-index",
+        "slug": "/beginner"
+      },
+      "collapsed": false,
+      "items": [
+        "beginner/quickstart",
+        "beginner/monobehaviour",
+        "beginner/generic",
+        "basic/codeobfuscation",
+        "beginner/otherhelp"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "使用指南",
+      "link": {
+        "type": "generated-index",
+        "slug": "/basic"
+      },
+      "collapsed": true,
+      "items": [
+        "basic/supportedplatformanduniyversion",
+        "basic/install",
+        "basic/projectsettings",
+        "basic/hotupdateassemblysetting",
+        "basic/runhotupdatecodes",
+        "basic/buildpipeline",
+        "basic/buildwebgl",
+        "basic/codestriping",
+        "basic/monobehaviour",
+        "basic/pinvoke",
+        "basic/monopinvokecallback",
+        "basic/aotgeneric",
+        "basic/methodbridge",
+        "basic/dots",
+        "basic/codeobfuscation",
+        "basic/memory",
+        "basic/performance",
+        "basic/impactonappsize",
+        "basic/impactonappmemory",
+        "basic/notsupportedfeatures",
+        "basic/com.code-philosophy.hybridclr",
+        "basic/bestpractice",
+        "basic/migratefromnetstandard",
+        "basic/workwithscriptlanguage",
+        "basic/architecture",
+        "basic/sourceinspect",
+        "basic/il2cppbugs"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "商业化版本",
+      "link": {
+        "type": "generated-index",
+        "slug": "/business"
+      },
+      "collapsed": true,
+      "items": [
+        "business/intro",
+        "business/differentialhybridexecution",
+        "business/fullgenericsharing",
+        "business/metadataoptimization",
+        "business/hotfix",
+        "business/assemblyloadoptimization",
+        "business/crashreport",
+        "business/basicoptimization",
+        "business/advancedoptimization",
+        "business/basicencryption",
+        "business/accesspolicy",
+        "business/businesscase",
+        {
+          "type": "category",
+          "label": "专业版",
+          "link": {
+            "type": "generated-index",
+            "slug": "/pro"
+          },
+          "collapsed": true,
+          "items": [
+            "business/pro/intro",
+            "business/pro/quickstart",
+            "business/pro/manual",
+            "business/pro/commonerrors"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "旗舰版",
+          "link": {
+            "type": "generated-index",
+            "slug": "/ultimate"
+          },
+          "collapsed": true,
+          "items": [
+            "business/ultimate/intro",
+            "business/ultimate/quickstartunchecked",
+            "business/ultimate/build",
+            "business/ultimate/loadassembly",
+            "business/ultimate/metaversionworkflow",
+            "business/ultimate/dhaoworkflow",
+            "business/ultimate/manual",
+            "business/ultimate/injectrules",
+            "business/ultimate/retargetmetadata",
+            "business/ultimate/commonerrors"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "热重载版",
+          "link": {
+            "type": "generated-index",
+            "slug": "/reload"
+          },
+          "collapsed": true,
+          "items": [
+            "business/reload/intro",
+            "business/reload/quickstart",
+            "business/reload/manual",
+            "business/reload/commonerrors"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "帮助",
+      "link": {
+        "type": "generated-index",
+        "slug": "/help"
+      },
+      "collapsed": true,
+      "items": [
+        "help/faq",
+        "help/commonerrors",
+        "help/issue"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "其他",
+      "link": {
+        "type": "generated-index",
+        "slug": "/other"
+      },
+      "collapsed": true,
+      "items": [
+        "other/relativepojects",
+        "other/roadmap",
+        "other/changelog",
+        "other/donate",
+        "other/contactme"
+      ]
+    }
+  ]
+}
