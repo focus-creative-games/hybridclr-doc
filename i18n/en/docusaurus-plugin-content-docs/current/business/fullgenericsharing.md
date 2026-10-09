@@ -1,6 +1,6 @@
 ---
 title: 'Full Generic Sharing'
-description: 'Although supplemental metadata completely solves the AOT generic problem。'
+description: 'Although supplemental metadata completely solves the AOT generic problem.'
 slug: /business/fullgenericsharing
 ---
 

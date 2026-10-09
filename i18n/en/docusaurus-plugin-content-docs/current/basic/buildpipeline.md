@@ -1,6 +1,6 @@
 ---
 title: 'Build Workflow'
-description: 'Due to the requirements of hot updating itself and some limitations of Unity''s resource management, special handling is needed for the build workflow。'
+description: 'Due to the requirements of hot updating itself and some limitations of Unity''s resource management, special handling is needed for the build workflow.'
 slug: /basic/buildpipeline
 ---
 

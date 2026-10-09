@@ -1,6 +1,6 @@
 ---
 title: 'Other Resources'
-description: '- il2cpp_plus github gitee - hybridclr github gitee'
+description: 'Official HybridCLR repositories and sample projects, advice on video tutorials, and where to ask for help when you run into problems.'
 slug: /beginner/otherhelp
 ---
 

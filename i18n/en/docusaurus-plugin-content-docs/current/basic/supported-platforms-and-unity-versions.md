@@ -1,6 +1,6 @@
 ---
 title: 'Supported Unity Versions and Platforms'
-description: 'HybridCLR has stably supported the 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x LTS series and testing versions like 2023.2.x, 6000.x.y。'
+description: 'HybridCLR has stably supported the 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x LTS series and testing versions like 2023.2.x, 6000.x.y.'
 slug: /basic/supportedplatformanduniyversion
 ---
 

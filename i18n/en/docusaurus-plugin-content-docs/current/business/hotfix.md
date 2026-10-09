@@ -1,6 +1,6 @@
 ---
 title: 'Hotfix Dynamic Hot Repair'
-description: 'Some updates are just a few lines of bug fixes, and some developers might want to dynamically fix them while the game is running。'
+description: 'Some updates are just a few lines of bug fixes, and some developers might want to dynamically fix them while the game is running.'
 slug: /business/hotfix
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 'Free Trial'
-description: 'Compared to the paid trial version and the officially purchased version which both include all HybridCLR runtime and Editor source code。'
+description: 'Compared to the paid trial version and the officially purchased version which both include all HybridCLR runtime and Editor source code.'
 slug: /business/ultimate/freetrial
 ---
 

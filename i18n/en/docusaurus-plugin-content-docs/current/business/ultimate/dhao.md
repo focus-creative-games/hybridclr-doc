@@ -1,6 +1,6 @@
 ---
 title: 'DHAO Files'
-description: 'DHAO files are the core concept of DHE technology. DHAO files contain pre-calculated information about changed types and functions in the latest hot update。'
+description: 'DHAO files are the core concept of DHE technology. DHAO files contain pre-calculated information about changed types and functions in the latest hot update.'
 slug: /business/ultimate/dhao
 ---
 

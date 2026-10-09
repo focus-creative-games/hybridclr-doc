@@ -1,6 +1,6 @@
 ---
 title: 'Access Control Policy'
-description: 'For some platform-type applications, they may load and execute third-party developed code.。'
+description: 'For some platform-type applications, they may load and execute third-party developed code.'
 slug: /business/accesspolicy
 ---
 

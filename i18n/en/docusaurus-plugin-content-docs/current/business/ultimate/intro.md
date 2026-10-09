@@ -1,6 +1,6 @@
 ---
 title: 'Introduction'
-description: 'The Ultimate version is primarily aimed at projects with strict performance requirements.。'
+description: 'The Ultimate version is primarily aimed at projects with strict performance requirements.'
 slug: /business/ultimate/intro
 ---
 

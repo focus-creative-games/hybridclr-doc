@@ -1,6 +1,6 @@
 ---
 title: 'Manual'
-description: '- Supports unloading assemblies, unloading 100% of the memory occupied by assemblies - Supports reloading assemblies。'
+description: 'Hot Reload Edition supported features, limitations and special requirements, memory unload rate, installation, assembly unloading APIs, compatibility checking, and resolving references to unloaded objects.'
 slug: /business/reload/manual
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: '使用手册'
-description: '- 将dhe-{version}解压后，把com.code-philosophy.hybridclr放到项目Packages目录下 - 打开 HybridCLR/Installer，点击Install会直接从Data~/libil2cpp目录复制libil2cpp，直接完成安装 - 根据你的Unity版本：'
+description: '旗舰版的安装、PlayerSettings与HybridCLR配置、DHE程序集设置、标准指令优化开关及函数注入策略配置说明。'
 slug: /business/ultimate/manual
 ---
 
@@ -14,12 +14,6 @@ slug: /business/ultimate/manual
 
 - 将`dhe-{version}`解压后，把`com.code-philosophy.hybridclr`放到项目Packages目录下
 - 打开 `HybridCLR/Installer`，点击`Install`会直接从`Data~/libil2cpp`目录复制libil2cpp，直接完成安装
-- 根据你的Unity版本：
-  - 如果6000.x.y或2023.x.y,
-    - 先安装Unity2022.3.60f1
-    - 将`2022.3.60f1\Editor\Data\il2cpp\build\deploy`目录复制为`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`
-    - 将 `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll`
-  - 如果版本2022.3.x，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`
 - 根据你的Unity版本：
   - 如果6000.x.y或2023.x.y,
     - 先安装Unity2022.3.60f1

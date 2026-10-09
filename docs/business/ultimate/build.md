@@ -1,6 +1,6 @@
 ---
 title: '构建和热更新'
-description: '- 运行HybridCLR/Generate/All - Build Settings中导出工程或者直接Build - 创建AOT快照，同时将AOT快照目录加入版本管理 - 将AOT快照中的MetaVersions目录加入StreamingAssets目录，随包携带（可选，但强烈推荐）'
+description: '旗舰版的主包构建与热更新发布流程：创建AOT快照、生成meta version文件、多平台与快照版本管理，以及DHE程序集的热更新发布。'
 slug: /business/ultimate/build
 ---
 
@@ -201,7 +201,6 @@ DHE程序集也可以依赖DHE程序集。
 
 如果从某个主包起，新增或者删除了DHE程序集，都会导致生成meta version失败。解决办法为自这个主包起，创建一个全新的`AotSnapshot-{buildTarget}-v2`版本树。目录类似如下：
 
-```txt
 ```txt
   Snapshots
   ├── AotSnapshotDir-StandaloneWindows64-v1

@@ -1,10 +1,10 @@
 ---
-title: 'Commercial Project Cases'
-description: 'We have established advanced partnerships with many companies in the industry and have successfully solved their problems.。'
+title: 'Commercial Edition Partner Cases'
+description: 'We have established advanced partnerships with many companies in the industry and have successfully solved their problems.'
 slug: /business/businesscase
 ---
 
-# Commercial Project Cases
+# Commercial Edition Partner Cases
 
 We have established advanced partnerships with many companies in the industry and have successfully solved their problems. Due to commercial confidentiality reasons, we only list a very limited number of commercial partners who are willing to disclose their information publicly.
 

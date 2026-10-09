@@ -1,6 +1,6 @@
 ---
 title: '不支持的特性'
-description: '- 不支持在热更新代码中定义extern函数（[DllImport]）。该特性曾在v8.0.0-v8.15.0期间可用，自v9.0.0版本起已移除。请将extern函数定义在AOT程序集中，详见文档PInvoke支持。'
+description: 'HybridCLR 热更新代码的限制事项清单：不支持定义extern函数、不支持Marshal结构序列化函数、不支持RuntimeInitializeOnLoadMethod、不支持C#级别调试解释代码等。'
 slug: /basic/notsupportedfeatures
 ---
 

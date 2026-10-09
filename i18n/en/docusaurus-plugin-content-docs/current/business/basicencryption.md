@@ -1,6 +1,6 @@
 ---
 title: 'Code Hardening'
-description: 'The community version directly loads original dlls, forcing developers to carry and download original dlls.。'
+description: 'The community version directly loads original dlls, forcing developers to carry and download original dlls.'
 slug: /business/basicencryption
 ---
 

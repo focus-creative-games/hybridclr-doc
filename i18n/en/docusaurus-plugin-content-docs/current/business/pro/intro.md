@@ -1,6 +1,6 @@
 ---
 title: 'Introduction'
-description: 'The Professional version provides advanced features not supported by the community version。'
+description: 'The Professional version provides advanced features not supported by the community version.'
 slug: /business/pro/intro
 ---
 
@@ -12,7 +12,7 @@ The Professional version provides advanced features not supported by the communi
 
 - Supports [Full Generic Sharing](../fullgenericsharing.md) technology, no longer requiring supplemental metadata
 - Includes [Metadata Optimization](../metadataoptimization.md) technology, significantly optimizing metadata memory
-- Includes **[Standard Interpretation Optimization](../basicencryption.md)**, greatly improving interpretation performance. Taking numerical computation instructions as an example, performance has made a qualitative leap after using standard interpretation optimization technology, achieving **280%-735%** of the original performance! The performance of some special codes like typeof instructions has improved by more than 1000%.
+- Includes **[Standard Interpretation Optimization](../basicoptimization.md)**, greatly improving interpretation performance. Taking numerical computation instructions as an example, performance has made a qualitative leap after using standard interpretation optimization technology, achieving **280%-735%** of the original performance! The performance of some special codes like typeof instructions has improved by more than 1000%.
 - Supports [Hotfix Dynamic Hot Repair](../hotfix.md) technology
 - Supports code encryption for better security
 - Includes one year of technical support

@@ -1,6 +1,6 @@
 ---
 title: 'Metadata Optimization'
-description: 'HybridCLR doesn''t consume additional memory during code execution, but loading assembly metadata occupies a large amount of memory.。'
+description: 'HybridCLR doesn''t consume additional memory during code execution, but loading assembly metadata occupies a large amount of memory.'
 slug: /business/metadataoptimization
 ---
 

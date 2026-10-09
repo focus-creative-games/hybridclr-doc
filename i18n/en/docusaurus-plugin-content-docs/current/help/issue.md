@@ -1,6 +1,6 @@
 ---
 title: 'Bug Report Template'
-description: 'Before reporting a bug, please confirm you have completed the following steps: - Carefully review the Common Errors documentation。'
+description: 'Before reporting a bug, please confirm you have completed the following steps: - Carefully review the Common Errors documentation.'
 slug: /help/issue
 ---
 

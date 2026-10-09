@@ -1,6 +1,6 @@
 ---
 title: 'Publishing to WebGL Platform'
-description: 'Due to the many specificities of the WebGL platform, this document specifically describes how to publish to the WebGL platform.。'
+description: 'Due to the many specificities of the WebGL platform, this document specifically describes how to publish to the WebGL platform.'
 slug: /basic/buildwebgl
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 'Differential Hybrid Execution'
-description: 'HybridCLR pioneered the implementation of Differential Hybrid Execution (DHE) technology.。'
+description: 'HybridCLR pioneered the implementation of Differential Hybrid Execution (DHE) technology.'
 slug: /business/differentialhybridexecution
 ---
 

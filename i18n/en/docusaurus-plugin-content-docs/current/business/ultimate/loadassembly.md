@@ -1,6 +1,6 @@
 ---
 title: 'Load Hot Update Assembly'
-description: 'The Ultimate edition adds DHE assemblies compared to the community edition and professional edition.。'
+description: 'The Ultimate edition adds DHE assemblies compared to the community edition and professional edition.'
 slug: /business/ultimate/loadassembly
 ---
 

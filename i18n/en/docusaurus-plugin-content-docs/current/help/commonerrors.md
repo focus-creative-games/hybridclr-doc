@@ -1,6 +1,6 @@
 ---
 title: 'Common Errors'
-description: 'Currently submitted versions have all been tested and are basically unlikely to have compilation errors, crashes, or basic runtime errors.。'
+description: 'Currently submitted versions have all been tested and are basically unlikely to have compilation errors, crashes, or basic runtime errors.'
 slug: /help/commonerrors
 ---
 

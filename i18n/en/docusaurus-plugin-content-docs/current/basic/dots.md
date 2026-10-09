@@ -1,6 +1,6 @@
 ---
 title: 'DOTS Support'
-description: 'DOTS''s TypeManager initializes too early and does not support dynamic registration of Components and Systems.。'
+description: 'DOTS''s TypeManager initializes too early and does not support dynamic registration of Components and Systems.'
 slug: /basic/dots
 ---
 

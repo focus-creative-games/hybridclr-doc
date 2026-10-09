@@ -1,6 +1,6 @@
 ---
 title: 'AOT Generics'
-description: 'CLR has two types of generic features: generic types and generic functions. Generics are an extremely widely used feature in C#.。'
+description: 'CLR has two types of generic features: generic types and generic functions. Generics are an extremely widely used feature in C#.'
 slug: /basic/aotgeneric
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 'Bridge Functions'
-description: 'HybridCLR''s interpreter needs bidirectional function calls with AOT.。'
+description: 'HybridCLR''s interpreter needs bidirectional function calls with AOT.'
 slug: /basic/methodbridge
 ---
 

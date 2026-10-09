@@ -1,6 +1,6 @@
 ---
 title: 'Support and Contact'
-description: '- Official Group 1: 651188171 (Full) - Beginner Group 1: 428404198 (Full) - Beginner Group 2: 680274677 (Recommended) - Discord Channel: https://discord.gg。'
+description: 'How to reach the HybridCLR team: QQ groups, the Discord channel, and the business cooperation email.'
 slug: /other/contactme
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 'hybridclr Package Manual'
-description: 'com.code-philosophy.hybridclr is a Unity package that provides Editor workflow tools and Runtime scripts required by HybridCLR.。'
+description: 'com.code-philosophy.hybridclr is a Unity package that provides Editor workflow tools and Runtime scripts required by HybridCLR.'
 slug: /basic/com.code-philosophy.hybridclr
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 'Hot Reload Technology'
-description: 'Hot reload technology is used to completely unload or reload an assembly, suitable for mini-game collection type games.。'
+description: 'Hot reload technology is used to completely unload or reload an assembly, suitable for mini-game collection type games.'
 slug: /business/reload/hotreloadassembly
 ---
 

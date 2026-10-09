@@ -1,6 +1,6 @@
 ---
 title: '手册'
-description: '- 支持卸载assembly，卸载100%的assembly所占用的内存 - 支持重新加载assembly，代码可以任意变化甚至完全不同（MonoBehaviour和Scriptable有一定的限制） - 支持限定热更新assembly中能访问的函数的集合，适合UGC游戏中创建沙盒环境。'
+description: '热重载版的支持特性、限制与特殊要求、内存卸载率、安装配置、程序集卸载接口、兼容性检查，以及被卸载对象引用问题的排查办法。'
 slug: /business/reload/manual
 ---
 

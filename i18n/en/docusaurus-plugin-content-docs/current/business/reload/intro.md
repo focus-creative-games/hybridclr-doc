@@ -1,6 +1,6 @@
 ---
 title: 'Introduction'
-description: 'The Hot Reload Special Edition provides support for the unique Hot Reload Technology.。'
+description: 'The Hot Reload Special Edition provides support for the unique Hot Reload Technology.'
 slug: /business/reload/intro
 ---
 

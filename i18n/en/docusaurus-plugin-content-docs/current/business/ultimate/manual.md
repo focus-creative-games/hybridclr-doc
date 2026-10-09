@@ -1,6 +1,6 @@
 ---
 title: 'User Manual'
-description: '- After extracting dhe-{version}, place the com.code-philosophy.hybridclr folder into your project’s Packages directory.。'
+description: 'Ultimate Edition installation, PlayerSettings and HybridCLR configuration, DHE assembly setup, the standard instruction optimization switch, and function injection policy configuration.'
 slug: /business/ultimate/manual
 ---
 
@@ -21,11 +21,8 @@ Since version v8.6.0, the libil2cpp directory has been included in the com.code-
     - First install **Unity 2022.3.60f1**.
     - Copy the directory `2022.3.60f1\Editor\Data\il2cpp\build\deploy` to `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`.
     - Replace the file `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll` with `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll`.
-  - If using **2022.3.x** or **2021.3.x**, replace `ModifiedDlls\{version}\Unity.IL2CPP.dll` with
+  - If using **2022.3.x**, replace `ModifiedDlls\{version}\Unity.IL2CPP.dll` with
     `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`.
-  - If using **2020.3.x**, replace `ModifiedDlls\{version}\Unity.IL2CPP.dll` with
-    `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll`.
-  - If using **2019.4.x**, no action is required, as the **Install** process already copies the necessary files automatically.
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 

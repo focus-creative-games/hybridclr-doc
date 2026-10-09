@@ -1,6 +1,6 @@
 ---
 title: 'Build and Hot Update'
-description: '- Run HybridCLR/Generate/All - Export project or directly Build in Build Settings - Create AOT snapshot and add AOT snapshot directory to version control'
+description: 'The Ultimate Edition build and hot update release workflow: creating AOT snapshots, generating meta version files, multi-platform and snapshot version management, and releasing DHE assemblies.'
 slug: /business/ultimate/build
 ---
 

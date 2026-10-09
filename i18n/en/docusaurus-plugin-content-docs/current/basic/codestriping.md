@@ -1,6 +1,6 @@
 ---
 title: 'Code Stripping'
-description: 'Unity uses code stripping technology to help reduce package size for the il2cpp backend.。'
+description: 'Unity uses code stripping technology to help reduce package size for the il2cpp backend.'
 slug: /basic/codestriping
 ---
 

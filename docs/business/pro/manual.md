@@ -1,6 +1,6 @@
 ---
 title: '手册'
-description: '- 将pro-{version}解压后，把com.code-philosophy.hybridclr放到项目Packages目录下 - 打开 HybridCLR/Installer，点击Install会直接从Data~/libil2cpp目录复制libil2cpp，直接完成安装'
+description: '专业版的安装步骤，以及完全泛型共享、代码加固、元数据优化等特性的使用入口。'
 slug: /business/pro/manual
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 'Using in Code'
-description: 'When building the app for the first time without any code updates, or when there are code updates but the code in this DHE assembly hasn''t changed。'
+description: 'When building the app for the first time without any code updates, or when there are code updates but the code in this DHE assembly hasn''t changed.'
 slug: /business/ultimate/useIncodes
 ---
 

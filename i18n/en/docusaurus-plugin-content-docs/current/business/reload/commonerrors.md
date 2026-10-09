@@ -1,6 +1,6 @@
 ---
 title: 'Common Errors'
-description: 'Metadata information of objects serialized using JsonUtility or MonoBehaviour will be cached by the engine.。'
+description: 'Metadata information of objects serialized using JsonUtility or MonoBehaviour will be cached by the engine.'
 slug: /business/reload/commonerrors
 ---
 

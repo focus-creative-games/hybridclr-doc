@@ -1,6 +1,6 @@
 ---
 title: 'Related Third-Party Projects'
-description: '- ET Framework ET - UnityGameFramework UnityGameFramework_HybridCLR Author: Dango1992'
+description: 'Third-party open source frameworks and tools that integrate HybridCLR, including ET, UnityGameFramework, TEngine, JEngine, GameFrameX, and encryption utilities.'
 slug: /other/relativepojects
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: '其他资料'
-description: '- il2cpp_plus github gitee - hybridclr github gitee'
+description: 'HybridCLR 官方仓库与示例项目地址、视频教程建议，以及遇到问题时的求助渠道（官方群、discord、邮箱）。'
 slug: /beginner/otherhelp
 ---
 

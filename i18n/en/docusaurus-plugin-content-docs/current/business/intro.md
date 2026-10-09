@@ -1,6 +1,6 @@
 ---
 title: 'Introduction'
-description: 'We provide multiple high-end commercial versions and flexibly customizable technical services to meet game project requirements in various application scen。'
+description: 'We provide multiple high-end commercial versions and flexibly customizable technical services to meet game project requirements in various application scen.'
 slug: /business/intro
 ---
 

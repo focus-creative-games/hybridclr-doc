@@ -1,6 +1,6 @@
 ---
 title: 'Manual'
-description: '- After extracting pro-{version}, place the com.code-philosophy.hybridclr folder into your project’s Packages directory.。'
+description: 'Professional Edition installation steps, plus entry points for full generic sharing, code hardening, and metadata optimization.'
 slug: /business/pro/manual
 ---
 

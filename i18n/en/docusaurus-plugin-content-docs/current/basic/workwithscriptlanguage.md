@@ -1,6 +1,6 @@
 ---
 title: 'HybridCLR + lua/js/python'
-description: 'Some projects are already online with most of their code implemented in lua; or some new projects have been developed halfway using lua.。'
+description: 'Some projects are already online with most of their code implemented in lua; or some new projects have been developed halfway using lua.'
 slug: /basic/workwithscriptlanguage
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 'Offline Instruction Optimization'
-description: 'Offline Instruction Optimization (OIO) converts original IL instructions into custom register instructions offline.。'
+description: 'Offline Instruction Optimization (OIO) converts original IL instructions into custom register instructions offline.'
 slug: /business/advancedoptimization
 ---
 

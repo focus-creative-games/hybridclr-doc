@@ -1,6 +1,6 @@
 ---
 title: 'Commercial Project Case Studies'
-description: 'Currently, thousands of domestic and international commercial games use HybridCLR。'
+description: 'Currently, thousands of domestic and international commercial games use HybridCLR.'
 slug: /other/businesscase
 ---
 

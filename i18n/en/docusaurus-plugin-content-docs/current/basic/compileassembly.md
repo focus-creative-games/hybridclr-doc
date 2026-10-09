@@ -1,6 +1,6 @@
 ---
 title: 'Compiling Hot Update Assemblies'
-description: 'Hot update code may contain macro switches like #if UNITY_EDITOR and #if UNITY_STANDALONE_WIN。'
+description: 'Hot update code may contain macro switches like #if UNITY_EDITOR and #if UNITY_STANDALONE_WIN.'
 slug: /basic/compileassembly
 ---
 

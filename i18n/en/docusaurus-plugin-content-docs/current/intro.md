@@ -1,6 +1,6 @@
 ---
 title: 'HybridCLR'
-description: '![license](https://github.com/focus-creative-games/hybridclr/blob/main/LICENSE)'
+description: '![license](https://github.com/focus-creative-games/hybridclr/blob/main/LICENSE).'
 slug: /intro
 ---
 

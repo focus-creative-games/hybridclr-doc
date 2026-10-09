@@ -1,6 +1,6 @@
 ---
 title: 'Code Obfuscation'
-description: 'If hot update code is not obfuscated, tools like ILSpy can easily decompile it back to near-source-code C# code。'
+description: 'If hot update code is not obfuscated, tools like ILSpy can easily decompile it back to near-source-code C# code.'
 slug: /basic/codeobfuscation
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: '相关的第三方项目'
-description: '- ET框架 ET - UnityGameFramework框架 UnityGameFramework_HybridCLR 作者：Dango1992'
+description: '社区中集成了 HybridCLR 的第三方开源框架与工具列表，包括 ET、UnityGameFramework、TEngine、JEngine、GameFrameX 以及加解密工具等。'
 slug: /other/relativepojects
 ---
 

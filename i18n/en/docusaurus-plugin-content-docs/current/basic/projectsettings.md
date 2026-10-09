@@ -1,6 +1,6 @@
 ---
 title: 'Configuration'
-description: 'After installing the com.code-philosophy.hybridclr package, you need to properly configure related parameters.。'
+description: 'After installing the com.code-philosophy.hybridclr package, you need to properly configure related parameters.'
 slug: /basic/projectsettings
 ---
 

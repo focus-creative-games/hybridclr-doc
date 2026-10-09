@@ -1,6 +1,6 @@
 ---
 title: 'Crash Logs with Interpreter Stack Information'
-description: 'Community version crashes do not include interpreter stack information, making it difficult for online projects to locate errors.。'
+description: 'Community version crashes do not include interpreter stack information, making it difficult for online projects to locate errors.'
 slug: /business/crashreport
 ---
 

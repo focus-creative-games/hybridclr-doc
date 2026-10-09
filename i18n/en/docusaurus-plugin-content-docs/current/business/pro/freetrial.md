@@ -1,12 +1,12 @@
 ---
 title: 'Free Trial'
-description: 'Compared to paid trial versions and officially purchased versions that include all HybridCLR runtime and Editor source code。'
+description: 'Trial rules, hardware and platform restrictions, supported Unity versions, unsupported features, and installation differences for the Professional Edition free trial.'
 slug: /business/pro/freetrial
 ---
 
 # Free Trial
 
-Compared to paid trial versions and officially purchased versions that include all HybridCLR runtime and Editor source code, the free trial version only provides precompiled binary libs and tools, and only supports building iOS platform targets.
+This page covers the free trial of the **Professional Edition**. Paid trial versions and officially purchased versions include all HybridCLR runtime and Editor source code, while the free trial version only provides precompiled binary libs and tools, and only supports building iOS platform targets.
 
 ## Trial Rules
 

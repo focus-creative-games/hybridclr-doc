@@ -1,6 +1,6 @@
 ---
 title: 'Quick Start Guide'
-description: 'This tutorial guides you through experiencing HybridCLR hot updates starting from an empty project.。'
+description: 'This tutorial guides you through experiencing HybridCLR hot updates starting from an empty project.'
 slug: /beginner/quickstart
 ---
 

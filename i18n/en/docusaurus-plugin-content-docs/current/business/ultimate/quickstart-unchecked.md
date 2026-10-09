@@ -1,6 +1,6 @@
 ---
 title: 'quickstartunchecked'
-description: '﻿# Quick Start'
+description: '﻿# Quick Start.'
 slug: /business/ultimate/quickstartunchecked
 ---
 

@@ -1,6 +1,6 @@
 ---
 title: 'Common Issues'
-description: 'The reason is that the original AOT type replaced by DHE was unexpectedly created.。'
+description: 'The reason is that the original AOT type replaced by DHE was unexpectedly created.'
 slug: /business/ultimate/commonerrors
 ---
 

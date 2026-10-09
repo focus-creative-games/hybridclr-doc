@@ -1,6 +1,6 @@
 ---
 title: 'Migrating from netstandard to .Net Framework'
-description: 'During Unity''s packaging process, all references to netstandard.dll are converted to final references like mscorlib.dll。'
+description: 'During Unity''s packaging process, all references to netstandard.dll are converted to final references like mscorlib.dll.'
 slug: /basic/migratefromnetstandard
 ---
 
