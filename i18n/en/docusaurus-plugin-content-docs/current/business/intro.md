@@ -29,7 +29,7 @@ Currently, there are three commercial versions with specific feature comparisons
 |Supplemental Metadata|✔|✔|✔|✔|
 |Incremental GC|✔|✔|✔|✔|
 |Unity 2019-6000 LTS|✔|✔|✔|✔|
-|[DOTS](../basic/dots.md)|✔|✔|✔|✔|
+|[DOTS](../guide/features/dots.md)|✔|✔|✔|✔|
 |[Full Generic Sharing](./fullgenericsharing.md)||✔|✔|✔|
 |[Metadata Optimization](./metadataoptimization.md)||✔|✔|✔|
 |[Standard Interpretation Performance Optimization](./basicoptimization.md)||✔|✔|✔|

@@ -30,7 +30,7 @@ slug: /business/intro
 |补充元数据|✔|✔|✔|✔|
 |增量式GC|✔|✔|✔|✔|
 |Unity 2022-6000 LTS|✔|✔|✔|✔|
-|[DOTS](../basic/dots.md)|✔|✔|✔|✔|
+|[DOTS](../guide/features/dots.md)|✔|✔|✔|✔|
 |[完全泛型共享](./fullgenericsharing.md)||✔|✔|✔|
 |[元数据优化](./metadataoptimization.md)||✔|✔|✔|
 |[标准解释性能优化](./basicoptimization.md)||✔|✔|✔|

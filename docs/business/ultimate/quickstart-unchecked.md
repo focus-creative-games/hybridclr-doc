@@ -12,7 +12,7 @@ slug: /business/ultimate/quickstartunchecked
 
 ## 安装Unity、IDE及相关SDK
 
-此步骤与社区版本完全相同，详见[安装hybridclr](../../basic/install.md)。
+此步骤与社区版本完全相同，详见[安装hybridclr](../../guide/setup/install.md)。
 
 ## 从零创建Unity热更新项目
 

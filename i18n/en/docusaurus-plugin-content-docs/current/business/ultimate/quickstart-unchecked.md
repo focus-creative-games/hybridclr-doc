@@ -12,7 +12,7 @@ The Ultimate edition has similar difficulty to the Community edition, with most 
 
 ## Install Unity, IDE and Related SDKs
 
-This step is exactly the same as the Community edition, see [Install HybridCLR](../../basic/install.md) for details.
+This step is exactly the same as the Community edition, see [Install HybridCLR](../../guide/setup/install.md) for details.
 
 ## Create Unity Hot Update Project from Scratch
 

@@ -72,6 +72,22 @@ const config = {
     ],
   ],
 
+  plugins: [
+    [
+      '@docusaurus/plugin-client-redirects',
+      {
+        // 文档重构（9.x）：所有文档页的 slug 均已在 frontmatter 中固定，URL 未发生变化。
+        // 仅分类索引页的地址发生了变更，在此做重定向。
+        redirects: [
+          {from: '/docs/beginner', to: '/docs/start'},
+          {from: '/docs/basic', to: '/docs/guide'},
+          {from: '/docs/help', to: '/docs/reference'},
+          {from: '/docs/other', to: '/docs/community'},
+        ],
+      },
+    ],
+  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({

@@ -6,7 +6,7 @@ slug: /business/pro/quickstart
 
 # Quick Start
 
-Almost the same as the community version's [Quick Start](../../beginner/quickstart.md), this document only introduces the differences.
+Almost the same as the community version's [Quick Start](../../start/quickstart.md), this document only introduces the differences.
 
 ## Installation
 

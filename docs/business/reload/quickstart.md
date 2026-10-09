@@ -6,7 +6,7 @@ slug: /business/reload/quickstart
 
 # 快速上手
 
-与社区版本的[快速上手](../../beginner/quickstart.md)几乎完全相同，本文档只介绍不同之处。
+与社区版本的[快速上手](../../start/quickstart.md)几乎完全相同，本文档只介绍不同之处。
 
 ## 安装
 

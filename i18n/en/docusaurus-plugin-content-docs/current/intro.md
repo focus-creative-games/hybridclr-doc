@@ -24,18 +24,18 @@ Welcome to embrace modern native C# hot update technology!!!
 ## Documentation
 
 - [Official Documentation](./intro.md)
-- [Quick Start Guide](./beginner/quickstart.md)
-- [Business Case Studies](./other/businesscase.md)
+- [Quick Start Guide](./start/quickstart.md)
+- [Business Case Studies](./community/businesscase.md)
 
 
 ## Features
 
-- Near-complete implementation of the [ECMA-335 specification](https://www.ecma-international.org/publications-and-standards/standards/ecma-335/), with only a minimal set of [unsupported features](./basic/notsupportedfeatures.md).
+- Near-complete implementation of the [ECMA-335 specification](https://www.ecma-international.org/publications-and-standards/standards/ecma-335/), with only a minimal set of [unsupported features](./reference/notsupportedfeatures.md).
 - Zero learning curve and usage cost. Most developers can write code with almost no restrictions. Hot update code works seamlessly with AOT code, allowing free use of inheritance, **generics**, **reflection**, and similar features. No need for special code or code generation.
 - Full multi-threading support, including but not limited to volatile, ThreadStatic, async Task, and related features - something no other hot update solution supports.
 - Nearly complete compatibility with Unity's workflow. This includes support for hot-updating **MonoBehaviour**, ScriptableObject, **DOTS** technology, and proper instantiation of hot update scripts attached to assets - features not supported by any other hot update solution.
-- High execution efficiency. Implements an extremely efficient register-based interpreter, with all metrics significantly outperforming other hot update solutions. [Performance Test Report](./basic/performance.md)
-- Memory efficient. Classes defined in hot update scripts use the same memory space as regular C# classes, far superior to other hot update solutions. [Memory Usage Report](./basic/memory.md)
+- High execution efficiency. Implements an extremely efficient register-based interpreter, with all metrics significantly outperforming other hot update solutions. [Performance Test Report](./guide/performance/performance.md)
+- Memory efficient. Classes defined in hot update scripts use the same memory space as regular C# classes, far superior to other hot update solutions. [Memory Usage Report](./guide/performance/memory.md)
 - Supports MonoPInvokeCallback, enabling smooth interaction with native code and other languages like Lua, JavaScript, and Python.
 - Supports some features not supported by il2cpp, such as __makeref, __reftype, and __refvalue instructions.
 - Features the innovative **Differential Hybrid Execution (DHE)** technology, allowing arbitrary modifications to AOT dlls while intelligently running unmodified functions in AOT mode and changed or new functions in interpreter mode, achieving near-native AOT performance for hot-updated game logic.
@@ -69,7 +69,7 @@ HybridCLR has been extensively validated as a highly efficient and stable Unity 
 Currently, **extremely stable** official versions 1.x-5.x have been released, meeting the stability requirements of medium to large commercial projects.
 Thousands of commercial game projects have successfully integrated HybridCLR, with hundreds already launched on both platforms. Released projects include MMORPGs, complex card games, tower defense games, and more. **Most leading game companies** (such as Tencent and NetEase) are already using HybridCLR.
 
-You can view our known [project list](./other/businesscase.md) of leading companies using HybridCLR that have already launched.
+You can view our known [project list](./community/businesscase.md) of leading companies using HybridCLR that have already launched.
 
 ## Support and Contact
 
