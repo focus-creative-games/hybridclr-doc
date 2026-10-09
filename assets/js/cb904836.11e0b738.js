@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[35391],{57195:e=>{e.exports=JSON.parse('{"title":"\u5f00\u59cb\u4f7f\u7528","slug":"/start","permalink":"/docs/start","navigation":{"previous":{"title":"HybridCLR \u4ecb\u7ecd","permalink":"/docs/intro"},"next":{"title":"\u5feb\u901f\u4e0a\u624b","permalink":"/docs/beginner/quickstart"}}}')}}]);
