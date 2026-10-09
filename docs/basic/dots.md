@@ -25,8 +25,7 @@ DOTS的TypeManager初始化时机过早，而且不支持动态注册Component�
 - 1.0.16
 - 1.3.15
 
-目前仅在Unity 2021+版本上完成测试，Unity 2020及更低版本未测试兼容性。一般来说，只要对应版本的com.unity.entities能
-在该Unity版本上正常运行，也能支持hybridclr。
+一般来说，只要对应版本的com.unity.entities能在该Unity版本上正常运行，也能支持hybridclr。
 
 其中 **1.3.15** 建议在 **Unity 2022.3 LTS** 上使用（已完成验证）。
 

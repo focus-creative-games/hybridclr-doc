@@ -37,24 +37,14 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 {
     "versions": [
     {
-        "unity_version":"2019",
-        "hybridclr" : { "branch":"v2.0.1"},
-        "il2cpp_plus": { "branch":"v2019-2.0.1"}
-    },
-    {
-        "unity_version":"2020",
-        "hybridclr" : { "branch":"v2.0.1"},
-        "il2cpp_plus": { "branch":"v2020-2.0.1"}
-    },
-    {
-        "unity_version":"2021",
-        "hybridclr" : { "branch":"v2.0.1"},
-        "il2cpp_plus": { "branch":"v2021-2.0.1"}
-    },
-    {
         "unity_version":"2022",
-        "hybridclr" : { "branch":"v2.0.1"},
-        "il2cpp_plus": { "branch":"v2020-2.0.1"}
+        "hybridclr" : { "branch":"v9.0.0"},
+        "il2cpp_plus": { "branch":"v2022-9.0.0"}
+    },
+    {
+        "unity_version":"6000",
+        "hybridclr" : { "branch":"v9.0.0"},
+        "il2cpp_plus": { "branch":"v6000-9.0.0"}
     }
     ]
 }
@@ -87,10 +77,9 @@ hybridclr代码要兼容多个Unity版本，需要当前Unity版本相关宏定�
 ```cpp
 // hybridclr/generated/UnityVersion.h
 
-#define HYBRIDCLR_UNITY_VERSION 2020333
-#define HYBRIDCLR_UNITY_2020 1
-#define HYBRIDCLR_UNITY_2019_OR_NEW 1
-#define HYBRIDCLR_UNITY_2020_OR_NEW 1
+#define HYBRIDCLR_UNITY_VERSION 2022322
+#define HYBRIDCLR_UNITY_2022 1
+#define HYBRIDCLR_UNITY_2022_OR_NEW 1
 ```
 
 ### Generate/LinkXml
@@ -299,7 +288,7 @@ preserveHotUpdateAssemblies字段用来满足这种需求。打包时不检查�
 - 根据是否开启HybridCLR，设置或者清除UNITY_IL2CPP_PATH环境变量。脚本中修改的UNITY_IL2CPP_PATH环境变量是本进程的环境变量，不用担心干扰了其他项目。
 - 如果低于（不含）v4.0.0版本，会检查并自动关闭增量式GC(Use Incremental GC) 选项
 - `Scripting Backend` 切换为 `il2cpp`, WebGL平台不用设置此选项。**自`v2.4.0`起，会自动设置此选项，可以不用手动执行此操作**。
-- `Api Compatability Level` 切换为 `.NetFramework 4`(Unity 2019、2020) 或 `.Net Framework`（Unity 2021+）
+- `Api Compatability Level` 切换为 `.Net Framework`
 - 如果HybridCLRSettings里未设置任何热更新assembly，提示错误。
 
 ### 打包时自动排除热更新assembly

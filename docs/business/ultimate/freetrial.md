@@ -52,7 +52,7 @@
 
 - 将hybridclr_unity.zip解压后，放到项目Packages目录下，改名为com.code-philosophy.hybridclr
 - 打开 `HybridCLR/Installer`，直接点击安装
-- 将 `com.code-philosophy.hybridclr\\ModifiedUnityAssemblies\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`(Unity 2021+)。如果没有你的版本对应的文件，联系我们制作一个
+- 将 `com.code-philosophy.hybridclr\\ModifiedUnityAssemblies\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`。如果没有你的版本对应的文件，联系我们制作一个
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
@@ -71,7 +71,7 @@
 ### 配置PlayerSettings
 
 - `Scripting Backend` 切换为 `IL2CPP`
-- `Api Compatability Level` 切换为 `.Net 4.x`(Unity 2019-2020) 或 `.Net Framework`（Unity 2021+）
+- `Api Compatability Level` 切换为 `.Net Framework`
 
 ![player settings](/img/hybridclr/ultimate-project-settings.jpg)
 

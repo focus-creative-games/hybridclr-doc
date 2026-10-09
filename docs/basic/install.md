@@ -4,13 +4,11 @@
 
 ## 安装兼容的Unity版本
 
-支持2019.4.x、2020.3.x、2021.3.x、2022.3.x、6000.x.y 中任一版本。推荐安装2019.4.40、2020.3.26+、2021.3.x、2022.3.x、6000.x.y版本。
+支持2022.3.x、2023.2.x、6000.x.y（不含6000.5.x）中任一版本。
 
-:::tip
-如果你的版本为 2019.4.0-2019.4.39，**需要先切换到2019.4.40版本完成HybridCLR安装，再切换回当前版本**。
-
-如果你的版本为 2020.3.0-2020.3.25， 在Installer中完成安装后，从2020.3.26+任一版本的安装目录复制`2020.3.x/Editor/Data/il2cpp/external`替换
- `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`。
+:::warning
+自**v9.0.0**版本起，移除了对 Unity 2019、2020、2021 的支持，同时移除了对 6000.5.x 的支持（6000.5.x 不是LTS版本）。
+仍在使用这些版本的项目请使用 **8.15.0** 版本，它是最后一个支持 Unity 2019/2020/2021 的版本。
 :::
 
 根据你打包的目标平台，安装过程中选择必要模块。如果打包Android或iOS，直接选择相应模块即可。如果你想打包Standalone，必须额外选中 `Windows Build Support(IL2CPP)`或`Mac Build Support(IL2CPP)`。
@@ -20,7 +18,7 @@
 ## 安装IDE及相关工具
 
 - Windows
-  - Win下需要安装`visual studio 2019`或更高版本。安装时至少要包含 `使用Unity的游戏开发` 和 `使用c++的游戏开发` 组件。
+  - Win下需要安装`visual studio 2022`或更高版本。安装时至少要包含 `使用Unity的游戏开发` 和 `使用c++的游戏开发` 组件。
   - 安装git
 - Mac
   - 要求MacOS版本 >= 12，xcode版本 >= 13，例如`xcode 13.4.1， macos 12.4`。
@@ -33,8 +31,7 @@
 v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。
 :::
 
-`v3.x.y`和`v4.x.y`系列版本移除了对Unity 2019的支持，但从`v5.0.0`版本起，又**重新恢复了对Unity 2019的支持**，并且支持以源码形式打包iOS。
-使用2019版本的开发者强烈建议选择`v8.x.y`及更新的版本。
+`v9.0.0`及更新的版本只支持 Unity 2022.3.x、2023.2.x、6000.x.y（不含6000.5.x）。如果你的项目使用 Unity 2019/2020/2021，请选择 `v8.15.0`，它是最后一个支持这些版本的发布。
 
 这些版本都有大量线上项目验证，已经很稳定，不必纠结哪个更好，一般来说越新的版本修复了更多bug、优化更多，使用体验更好。
 
@@ -83,19 +80,14 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 {
     "versions": [
     {
-        "unity_version":"2019",
-        "hybridclr" : { "branch":"v2.0.1"},
-        "il2cpp_plus": { "branch":"v2019-2.0.1"}
+        "unity_version":"2022",
+        "hybridclr" : { "branch":"v9.0.0"},
+        "il2cpp_plus": { "branch":"v2022-9.0.0"}
     },
     {
-        "unity_version":"2020",
-        "hybridclr" : { "branch":"v2.0.1"},
-        "il2cpp_plus": { "branch":"v2020-2.0.1"}
-    },
-    {
-        "unity_version":"2021",
-        "hybridclr" : { "branch":"v2.0.1"},
-        "il2cpp_plus": { "branch":"v2021-2.0.1"}
+        "unity_version":"6000",
+        "hybridclr" : { "branch":"v9.0.0"},
+        "il2cpp_plus": { "branch":"v6000-9.0.0"}
     }
     ]
 }
@@ -117,27 +109,13 @@ Installer会安装配置中指定的版本，不再支持自定义待安装的�
 
 ### WebGL平台
 
-:::tip
-从Unity 2021.3.4+、2022.3.0+版本起已经支持本地安装，WebGL平台构建过程与其他平台完全相同
-:::
-
-由于Unity自身原因，如果使用的于Unity版本低于2021.3.4，构建WebGL平台必须全局安装。 请查阅下面章节的`全局安装`文档。
-
-### Unity 2019
-
-为了支持2019，需要修改il2cpp生成的源码，因此我们修改了2019版本的il2cpp工具。故Installer的安装过程多了一个额外步骤：将 `{package}/Data~/ModifiedUnityAssemblies/2019.4.40/Unity.IL2CPP.dll` 复制到 `{project}/HybridCLRData/LocalIl2CppData/il2cpp/build/deploy/net471/Unity.IL2CPP.dll`
-
-**注意，该操作在Installer安装时自动完成，不需要手动操作。**
-
-:::tip
-对于使用2019.4.0-2019.4.39版本的开发者，请先切换到2019.4.40版本完成安装，再切回你当前版本。
-:::
+当前支持的所有Unity版本都已支持本地安装，WebGL平台构建过程与其他平台完全相同，不需要额外处理。
 
 ## 在非兼容的Unity版本中使用HybridCLR
 
 由于我们没有完全测试所有Unity版本，实际上一些不在支持列表中的Unity版本，也有可能能正常使用HybridCLR。安装方式如下：
 
-- 找一个离你的版本最近的在支持列表中的版本，例如你的版本号为 2021.2.20,则离你最新的版本为2021.3.0。
+- 找一个离你的版本最近的在支持列表中的版本，例如你的版本号为 2023.1.20，则离你最近的版本为2023.2.0。
 - 先将你的Unity工程切换到这个最近的受支持的版本，安装HybridCLR。
 - 切换回你的Unity版本。
 - 尝试打包，如果能顺利运行，则表明HybridCLR支持你这个版本，如果有问题，那还是升级版本吧。
@@ -178,7 +156,7 @@ Unity允许使用环境变量`UNITY_IL2CPP_PATH`自定义`il2cpp`的位置，因
 - 从clone il2cpp_plus和hybridclr仓库，制作出最终的libil2cpp目录
 - 将最终的libil2cpp目录替换 `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`
 - 从Editor安装目录复制 `MonoBleedingEdge` 目录到 `{project}/HybridCLRData/LocalIl2CppData-{platform}/MonoBleedingEdge`
-- 其他处理。如2019版本将 `{package}/Data~/ModifiedUnityAssemblies/2019.4.40/Unity.IL2CPP.dll` 复制到 `{project}/HybridCLRData/LocalIl2CppData/il2cpp/build/deploy/net471/Unity.IL2CPP.dll`
+- 其他平台相关的处理
 
 :::tip
 com.code-philosophy.hybridclr 包修改了本UnityEditor**进程内**的环境变量`UNITY_IL2CPP_PATH`，并不会影响其他Unity项目。
@@ -190,7 +168,7 @@ com.code-philosophy.hybridclr 包修改了本UnityEditor**进程内**的环境�
 
 ### 全局安装
 
-全局安装需要替换（或链接）Editor安装目录的libil2cpp目录(Win下为{editor}/Data/il2cpp/libil2cpp，Mac类似)为改造后的libil2cpp，及额外替换一些修改的文件（如2019还需要修改Unity.IL2CPP.dll）。有几个缺陷：
+全局安装需要替换（或链接）Editor安装目录的libil2cpp目录(Win下为{editor}/Data/il2cpp/libil2cpp，Mac类似)为改造后的libil2cpp。有几个缺陷：
 
 - 因为目录权限原因，可能无法自动完成
 - 会影响其他不使用hybridclr的项目
@@ -206,8 +184,6 @@ com.code-philosophy.hybridclr 包修改了本UnityEditor**进程内**的环境�
 
 - Win平台。以管理员权限打开命令行窗口，删除或者重命名原libil2cpp，然后运行 `mklink /D  "<Editor安装目录的libil2cpp目录路径>" "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp"`。
 - Linux或者Mac平台。以管理员权限打开命令行窗口，删除或者重命名原libil2cpp，然后运行 `ln -s "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" "<Editor安装目录的libil2cpp目录路径>" `。
-
-对于2019版本替换 Unity.IL2CPP.dll，也使用类似上面的替换或者软链接的方式。
 
 ## 注意事项
 

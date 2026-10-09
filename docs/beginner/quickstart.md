@@ -15,10 +15,12 @@
 ### 安装Unity
 
 :::caution
-HybridCLR支持Unity 2019-6000的所有LTS版本，如果当前使用的版本不在以下推荐版本中，请参考[安装HybridCLR](/basic/install.md)文档。
+HybridCLR支持 Unity 2022.3.x、2023.2.x、6000.x.y（不含6000.5.x）等LTS版本，如果当前使用的版本不在以下推荐版本中，请参考[安装HybridCLR](/basic/install.md)文档。
+
+Unity 2019/2020/2021 的支持已在 v9.0.0 中移除，这些版本请使用 8.15.0。
 :::
 
-- 安装 2019.4.40、2020.3.26+、 2021.3.0+、2022.3.0+、6000.0.0+ 中任一版本
+- 安装 2022.3.0+、2023.2.0+、6000.0.0+ 中任一版本
 - 根据你所用的操作系统，安装过程中选择模块时，必须选中 `Windows Build Support(IL2CPP)`或`Mac Build Support(IL2CPP)`。
 
 ![select il2cpp modules](/img/hybridclr/select_il2cpp_modules.jpg)
@@ -26,7 +28,7 @@ HybridCLR支持Unity 2019-6000的所有LTS版本，如果当前使用的版本�
 ### 安装IDE及相关编译环境
 
 - Windows
-  - Win下需要安装`visual studio 2019`或更高版本。安装时至少要包含 `使用Unity的游戏开发` 和 `使用c++的游戏开发` 组件。
+  - Win下需要安装`visual studio 2022`或更高版本。安装时至少要包含 `使用Unity的游戏开发` 和 `使用c++的游戏开发` 组件。
   - 安装git
 - Mac
   - 要求MacOS版本 >= 12，xcode版本 >= 13，例如`xcode 13.4.1， macos 12.4`。
@@ -145,9 +147,8 @@ public class ConsoleToScreen : MonoBehaviour
 
 ### 配置PlayerSettings
 
-- 如果你用的hybridclr包**低于v4.0.0版本**，需要关闭增量式GC(Use Incremental GC) 选项
 - `Scripting Backend` 切换为 `IL2CPP`
-- `Api Compatability Level` 切换为 `.Net 4.x`(Unity 2019-2020) 或 `.Net Framework`（Unity 2021+）
+- `Api Compatability Level` 切换为 `.Net Framework`
 
 ![player settings](/img/hybridclr/player-setting.png)
 

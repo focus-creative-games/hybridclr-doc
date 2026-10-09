@@ -21,7 +21,7 @@
 
 ## 测试
 
-我们在Unity 2021版本测试了构建的Android Armv8平台apk的内存。
+我们测试了构建的Android Armv8平台apk的内存。
 
 测试工程的AOT部分完整包含了以下框架和库：
 

@@ -121,7 +121,7 @@ xcode版本太旧导致。更新到较新版本。
 
 ### Win 下 打包时遇到 `xxxx\\il2cpp\\libil2cpp\\utils\\Il2CppHashMap.h(71): error C2039: 'hash_compare': is not a member of 'stdext'`
 
-这是.net 7发布后最新版本vs改动打破了一些向后兼容性引起。com.code-philosophy.hybridclr `v2.4.0`版本已经完全解决了此问题。你可以升级到此版本或者回退到visual studio 2022的旧版本或者使用2019之类的版本。
+这是.net 7发布后最新版本vs改动打破了一些向后兼容性引起。com.code-philosophy.hybridclr `v2.4.0`版本已经完全解决了此问题，升级到此版本即可。
 
 一种不需要回退vs版本的解决办法是修改 `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h`，新增 `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS` 即可。可参照下图修改。
 
@@ -155,7 +155,7 @@ WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切�
 
 ### 打包时出现 GC_set_mark_stck_empty 函数找不到或者签名不匹配的错误
 
-这是自Unity2021.3.20起修改了这个函数签名引发的问题。更新到com.code-philosophy.hybridclr 2.0.10+ 版本，重新install即可解决。
+这是Unity修改了这个函数签名引发的问题。更新到com.code-philosophy.hybridclr 2.0.10+ 版本，重新install即可解决。
 
 ### 打包WebGL平台出现 `build.js: undefined symbol: RuntimeApi_LoadMetadataForAOTAssembly (referenced by top-level compiled C/C++ code)`
 
@@ -173,7 +173,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 ### 打包出现 `#error: "not support unity version"`
 
 有几种原因：
-- 你使用了 低于2019或者高于2021的版本，这些版本目前未被支持
+- 你使用的Unity版本不在支持列表中。v9.0.0起只支持 2022.3.x、2023.2.x、6000.x.y（不含6000.5.x），详见[支持的Unity版本和平台](../basic/supportedplatformanduniyversion)
 - 你打包前未运行`HybridCLR/Generate/All`或者`HybridCLR/Generate/Il2CppDef`，导致未生成Unity版本宏
 
 ### 打包时出现 'could not find a part of path "xxxx/hybridclr/generated/UnityVersion.h"
@@ -198,7 +198,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 ### 出现 IL2CPP_POP_ACTIVE_EXCEPTION 相关编译错误
 
-因为2021.3.31和2022.3.11版本起，修改了该宏定义，导致在旧版本hybridclr上出现编译错误。解决办法为升级到最新hybridclr版本即可。
+因为自2022.3.11版本起Unity修改了该宏定义，导致在旧版本hybridclr上出现编译错误。解决办法为升级到最新hybridclr版本即可。
 
 ### 出现 `error: no matching function for call to 'il2cpp_codegen_get_marshal_directive_exception'`
 
@@ -212,10 +212,6 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 - `HybridCLR/installer...` 里安装最新版本
 - `HybridCLR/generate/all` 生成所有
 - 打包
-
-### 打包时出现Building.BuilderFailedException:In file included from xxx\HybridCLRData\LocalIl2CppData-{platform}\il2cpp
-
-如果你的版本为 2020.3.0-2020.3.25， 在Installer中完成安装后，从2020.3.26+任一版本的安装目录复制`2020.3.x/Editor/Data/il2cpp/external`替换 `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external`
 
 ### 打包时出现 "HybridCLRDatal/Locall2CppData-WindowsEditor/il2cpp/llibil2cpp/hybridclr/generated/ReversePInvokeMethodStub.cpp: error: unknown type name'struct_xxx'"
 
@@ -245,7 +241,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 ### `HybridCLR/Generate/All`或构建时出现"PInvoke method {method.FullName} has unsupported parameter or return type. Please check the method signature."
 
-在热更新代码中定义的extern函数不支持string或者数组之类的参数或者返回值，请将相应参数修改为IntPtr同时自行marshal这些参数，或者将该函数移到AOT中定义。详细请见[PInvoke支持](../basic/pinvoke)。
+自**v9.0.0**版本起不再支持在热更新代码中定义extern函数，请将该函数移到AOT中定义。详细请见[PInvoke支持](../basic/pinvoke)。
 
 ### `HybridCLR/Generate/All`或构建时出现"MonoPInvokeCallback method {method.FullName} has unsupported parameter or return type. Please check the method signature."
 
@@ -321,7 +317,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 目前支持.net standard 2.0和.net 4.x，但即使主工程打包用.net standard，热更新dll打包**必须用.net 4.x**。原因是unity使用.net standard打包时，会自动剥除.net standard的依赖，直接依赖最终的dll，导致主工程的dll列表中实际上不存在net standard这个dll，进而导致热更新dll加载时，找不到来自netstandard的对象。
 
-解决办法为打包和编译热更新都用.net 4.x或者打包用.net standard 2.0但编译热更新部分时api compatible level切换为.net 4.x(2021 起改名为 .net framework)。
+解决办法为打包和编译热更新都用 .net framework，或者打包用.net standard 2.0但编译热更新部分时 api compatible level 切换为 .net framework。
 
 #### 情况2：yyyAssembly是 其他AOT assembly
 
@@ -353,7 +349,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 有几个原因：
 
 1. 这是因为AOT泛型函数实例化缺失引起的
-2. 使用了Unity 2021并且 `Il2Cpp Code Generation` 选项为 `faster (smaller) build`，导致生成的代码为完全泛型模式，所有泛型函数签名均发生变化。如果没有补充元数据，调用即使已经在AOT中实例化的泛型函数，仍然会出现这个错误。
+2. `Il2Cpp Code Generation` 选项为 `faster (smaller) build`，导致生成的代码为完全泛型模式，所有泛型函数签名均发生变化。如果没有补充元数据，调用即使已经在AOT中实例化的泛型函数，仍然会出现这个错误。
 3. 微信小游戏转换工具，默认会将IL2CPP Code Generation设置为Faster(Smaller) builds模式，如果未补充元数据，会导致无法访问AOT泛型函数。
 
 原因1的解决办法为：
@@ -382,7 +378,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 有两种原因：
 
-- 在热更新中定义了extern函数，这暂时不支持。解决办法是将extern函数移到AOT部分。
+- 在热更新中定义了extern函数。自**v9.0.0**版本起不再支持该特性，解决办法是将extern函数移到AOT部分，详见[PInvoke支持](../basic/pinvoke)。
 - 使用了SuperSet元数据格式，但补充元数据aot dll太旧，导致AOT中的泛型在补充元数据dll中找不到。解决办法是更新最新的AOT dll。
 
 ### 遇到ExecutionEngineException:method body is null. xxx::yyyy
@@ -407,7 +403,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 ### 遇到`ExecutionEngineException: NotSupportManaged2NativeFunctionMethod`
 
-这是热更新代码中定义的extern函数缺失桥接函数引起。请在构建主包时提前预留extern函数相关的桥接函数。详细见文档[PInvoke支持](../basic/pinvoke)。
+这是热更新代码中定义的extern函数缺失桥接函数引起。自**v9.0.0**版本起不再支持在热更新代码中定义extern函数，请将这些函数移到AOT中定义。详细见文档[PInvoke支持](../basic/pinvoke)。
 
 ### ExecutionEngineException: Attempting to call method 'xxxx' for which no ahead of time (AOT) code was generated.
 
@@ -445,8 +441,7 @@ Wrapper函数不足。你需要为热更新中的添加了MonoPInvokeCallback特
 
 ### 使用MemoryProfile抓取内存快照会崩溃
 
-如果你使用Unity 2021或更高的版本，升级 hybridclr package到`v3.0.2`或更高版本即可。如果使用Unity 2019或2020，将提交记录
-[修复使用Momery Profiler创建快照时发生崩溃的bug](https://github.com/focus-creative-games/hybridclr/commit/062bfa99c71a53a6cb35fc89a52d67bbff2bb2d0) 的改动合并到你当前版本即可。
+升级 hybridclr package到`v3.0.2`或更高版本即可。
 
 ### profiler的 BeginSample和EndSample 无法生效
 

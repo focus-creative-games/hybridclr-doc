@@ -10,7 +10,7 @@
 
 **bug反馈模板**
 
-- Unity Editor版本。如 2020.3.33
+- Unity Editor版本。如 2022.3.60
 - 操作系统。 如Win 10
 - 出错的BuildTarget。如 Android 64
 - com.code-philosophy.hybridclr的版本号。如v2.3.1

@@ -8,11 +8,11 @@ HybridCLR支持`full generic sharing`后，不再需要补充元数据，简化�
 
 ## 支持的版本
 
-支持 Unity 2021及更高的LTS版本。
+当前所有受支持的Unity版本（2022.3.x、2023.2.x、6000.x.y）都支持该特性。
 
 ## 原理
 
-旧的泛型共享技术只能对class类型进行泛型共享。自2021.3.x LTS版本起，il2cpp已经支持`完全泛型共享（full generic sharing）`技术，
+旧的泛型共享技术只能对class类型进行泛型共享。il2cpp 已经支持`完全泛型共享（full generic sharing）`技术，
 即泛型参数无论是任何类型（包含值类型）都可以共享。HybridCLR利用这个机制实现了不需要补充元数据，也可以完美支持AOT泛型。
 
 
@@ -22,10 +22,6 @@ HybridCLR支持`full generic sharing`后，不再需要补充元数据，简化�
 
  `faster (smaller build)`会对泛型函数性能有较大影响（15%甚至更高），因此建议不要开启这个选项。
 
- 如果是2021版本并且没有内存压力的情况下，建议仍然使用补充元技术来解决泛型问题。
-
 :::
 
-- 2020版本不支持完全泛型共享
-- 2021版本需要设置 IL2CPP Code Generation选项为`faster(smaller build)`
-- 2022版本默认开启完全泛型共享，无法关闭。如果设置 IL2CPP Code Generation选项为`faster(smaller build)`则能进一步减少包体。
+- 2022及更高版本默认开启完全泛型共享，无法关闭。如果设置 IL2CPP Code Generation选项为`faster(smaller build)`则能进一步减少包体。

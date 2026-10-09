@@ -130,30 +130,7 @@ metadata/ArrayMetadata.cpp中
 
 ## close delegate 的this为null时，抛出的异常不合规范
 
-`Delegate.Create(XXInstanceMethod, null)` ，调用时应该抛出 NullReferenceException异常，而unity2021版本抛出了ArgumentException。
-
-## 2019 生成的delegate 调用代码，未正确处理open delegate，并且this为ValueType的情形
-
-当使用open delegate，并且 ref ValueType作为this参数时，会错误地产生两次调用！
-
-```csharp
-    if (targetThis == NULL && il2cpp_codegen_class_is_value_type(il2cpp_codegen_method_get_declaring_type(targetMethod)))
-    {
-        typedef int32_t (*FunctionPointerType) (RuntimeObject*, int32_t, const RuntimeMethod*);
-        result = ((FunctionPointerType)targetMethodPointer)((reinterpret_cast<RuntimeObject*>(___a0) - 1), ___b1, targetMethod);
-    }
-    if (targetThis == NULL)
-    {
-        typedef int32_t (*FunctionPointerType) (RuntimeObject*, int32_t, const RuntimeMethod*);
-        result = ((FunctionPointerType)targetMethodPointer)((RuntimeObject*)(reinterpret_cast<RuntimeObject*>(___a0) - 1), ___b1, targetMethod);
-    }
-    else
-    {
-        typedef int32_t (*FunctionPointerType) (void*, FT_AOT_ValueType_t851DF541610F2A3DE72568571355F3953F0063AF *, int32_t, const RuntimeMethod*);
-        result = ((FunctionPointerType)targetMethodPointer)(targetThis, ___a0, ___b1, targetMethod);
-    }
-
-```
+`Delegate.Create(XXInstanceMethod, null)` ，调用时应该抛出 NullReferenceException异常，而il2cpp抛出了ArgumentException。
 
 ## mono及il2cpp不支持 instance method的open delegate 上调用 InvokeDyanmic
 
@@ -176,45 +153,6 @@ metadata/ArrayMetadata.cpp中
         del.DynamicInvoke(null, 4);
         Assert.Fail();
     }
-```
-
-## 2019 WebGL平台生成的对象成员访问代码未检查空引用
-
-取类成员字段时未检查是否空指针。目前发现只有WebGL平台才会这样。
-
-```cpp
-
-//WebGL平台没有NullCheck
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FT_AOT_Class_Run2_m0451FFC153671CD294EB1178A01AB2D92202624C (FT_AOT_Class_t03C2F346FF0EA8694088FD3F901E6536935FB2BA * ___s0, int32_t ___b1, const RuntimeMethod* method)
-{
-	{
-		// s.x += b;
-		FT_AOT_Class_t03C2F346FF0EA8694088FD3F901E6536935FB2BA * L_0 = ___s0;
-		FT_AOT_Class_t03C2F346FF0EA8694088FD3F901E6536935FB2BA * L_1 = L_0;
-		int32_t L_2 = L_1->get_x_0();
-		int32_t L_3 = ___b1;
-		L_1->set_x_0(((int32_t)il2cpp_codegen_add((int32_t)L_2, (int32_t)L_3)));
-		// }
-		return;
-	}
-}
-
-// 其他平台有NullCheck
-IL2CPP_EXTERN_C IL2CPP_METHOD_ATTR void FT_AOT_Class_Run2_m0451FFC153671CD294EB1178A01AB2D92202624C (FT_AOT_Class_t03C2F346FF0EA8694088FD3F901E6536935FB2BA * ___s0, int32_t ___b1, const RuntimeMethod* method)
-{
-	{
-		// s.x += b;
-		FT_AOT_Class_t03C2F346FF0EA8694088FD3F901E6536935FB2BA * L_0 = ___s0;
-		FT_AOT_Class_t03C2F346FF0EA8694088FD3F901E6536935FB2BA * L_1 = L_0;
-		NullCheck(L_1);
-		int32_t L_2 = L_1->get_x_0();
-		int32_t L_3 = ___b1;
-		NullCheck(L_1);
-		L_1->set_x_0(((int32_t)il2cpp_codegen_add((int32_t)L_2, (int32_t)L_3)));
-		// }
-		return;
-	}
-}
 ```
 
 ## Mono 对于ValueType的成员函数的open delegate调用复制而不是传递ref的bug

@@ -16,9 +16,7 @@
 
 HybridCLR扩展il2cpp运行时，需要对原始il2cpp代码作少量调整，以支持混合运行模式。这部分代码对应了 il2cpp_plus 仓库。由于il2cpp每个年度大版本变化较大，需要对每个Unity大版本单独进行适配。
 
-每个年度版本都对应一个 `{version}-main`主分支，如 `2021-main`。
-
-当前每个年度版本还有一个老的1.0分支 `{version}-1.0`，如 `2019-1.0`。
+每个年度版本都对应一个 `{version}-main`主分支，如 `2022-main`、`6000-main`。
 
 ## hybridclr
 

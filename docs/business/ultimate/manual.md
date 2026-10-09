@@ -13,17 +13,13 @@
     - 先安装Unity2022.3.60f1
     - 将`2022.3.60f1\Editor\Data\il2cpp\build\deploy`目录复制为`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`
     - 将 `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll`
-  - 如果版本2022.3.x和2021.3.x，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`
-  - 如果版本2020.3.x，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换 `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll`
-  - 如果版本2019.4.x，不需要任何操作，因为Install过程中已经自动复制
+  - 如果版本2022.3.x，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`
 - 根据你的Unity版本：
   - 如果6000.x.y或2023.x.y,
     - 先安装Unity2022.3.60f1
     - 将`2022.3.60f1\Editor\Data\il2cpp\build\deploy`目录复制为`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`
     - 将 `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll`
-  - 如果版本2022.3.x和2021.3.x，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`
-  - 如果版本2020.3.x，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换 `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll`
-  - 如果版本2019.4.x，不需要任何操作，因为Install过程中已经自动复制
+  - 如果版本2022.3.x，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
@@ -32,7 +28,7 @@
 ### 配置PlayerSettings
 
 - `Scripting Backend` 切换为 `IL2CPP`
-- `Api Compatability Level` 切换为 `.Net 4.x`(Unity 2019-2020) 或 `.Net Framework`（Unity 2021+）
+- `Api Compatability Level` 切换为 `.Net Framework`
 
 ![player settings](/img/hybridclr/ultimate-project-settings.jpg)
 
@@ -43,9 +39,7 @@
 
 ### 开启完全泛型共享
 
-- 2020版本不支持完全泛型共享
-- 2021版本需要设置 IL2CPP Code Generation选项为`faster(smaller)`
-- 2022版本默认开启完全泛型共享，无法关闭。如果设置 IL2CPP Code Generation选项为`faster(smaller)`则能进一步减少包体。
+- 2022及更高版本默认开启完全泛型共享，无法关闭。如果设置 IL2CPP Code Generation选项为`faster(smaller)`则能进一步减少包体。
 
 
 ## 开启和关闭标准指令优化

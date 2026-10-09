@@ -29,9 +29,7 @@
     - 先安装Unity2022.3.60f1
     - 将`2022.3.60f1\Editor\Data\il2cpp\build\deploy`目录复制为`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`
     - 将 `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll`
-  - 如果版本2022.3.x和2021.3.x，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`
-  - 如果版本2020.3.x，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换 `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\netcoreapp3.1\Unity.IL2CPP.dll`
-  - 如果版本2019.4.x，不需要任何操作，因为Install过程中已经自动复制
+  - 如果版本2022.3.x，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`
 
 如果没有你的版本对应的文件，联系我们制作一个
 
@@ -40,7 +38,7 @@
 ### 配置PlayerSettings
 
 - `Scripting Backend` 切换为 `IL2CPP`
-- `Api Compatability Level` 切换为 `.Net 4.x`(Unity 2019-2020) 或 `.Net Framework`（Unity 2021+）
+- `Api Compatability Level` 切换为 `.Net Framework`
 
 ![player settings](/img/hybridclr/ultimate-project-settings.jpg)
 

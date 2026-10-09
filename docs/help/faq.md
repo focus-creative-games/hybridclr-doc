@@ -6,7 +6,7 @@ il2cpp支持的平台都支持
 
 ## HybridCLR会增加多大的包体
 
-以 2019版本为例，release模式下导出Android工程的libil2cpp.a文件， 原始版本12.69M，HybridCLR版本13.97M，也就是增加了大约1.3M。
+release模式下导出Android工程的libil2cpp.a文件，HybridCLR版本相比原始版本大约增加1.3M。详细数据见[包体影响](../basic/impactonappsize.md)。
 
 ## 为什么使用HybridCLR打出的包体增大很多
 

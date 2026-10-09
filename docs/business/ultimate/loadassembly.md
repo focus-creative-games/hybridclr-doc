@@ -34,7 +34,7 @@ RuntimeApi中提供三个加载DHE程序集的接口：
 1. 它所依赖的DHE程序集必须也是用LoadOriginalDifferentialHybridAssembly加载的，即Original加载依赖性
 2. AOT泛型实例化问题
   
-  用它加载的DHE程序集等价于普通的AOT程序集。如果其他热更新程序集使用到该DHE程序集中的泛型，并且Unity版本小于2021或等于2021但`Il2Cpp Code Generation`选项同样会有AOT泛型实例化问题。
+  用它加载的DHE程序集等价于普通的AOT程序集。如果其他热更新程序集使用到该DHE程序集中的泛型，在未开启完全泛型共享时同样会有AOT泛型实例化问题。
   尽管可以补充元数据解决此问题，不过更好的办法是换成LoadOriginalDifferentialHybridAssembly加载。
 
 实际的项目可能有许多DHE程序集，判断每个DHE程序集到底该使用哪个接口来加载是困难的。甚至判断一个程序集到底改变了没，也不是一件容易的事情。

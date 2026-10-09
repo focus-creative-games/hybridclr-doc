@@ -7,7 +7,7 @@
 
 - 如果你的com.code-philosophy.hybridclr版本低于v4.0.0，需要关闭增量式GC(Use Incremental GC) 选项。自v4.0.0起已经支持增量式GC，可以开启这个选项。
 - `Scripting Backend` 切换为 `il2cpp`, WebGL平台不用设置此选项。**自`v2.4.0`起，会自动设置此选项，可以不用手动执行此操作**。
-- `Api Compatability Level` 切换为 `.NetFramework 4`(Unity 2019、2020) 或 `.Net Framework`（Unity 2021+）。
+- `Api Compatability Level` 切换为 `.Net Framework`。
 
 ## 配置热更新程序集
 

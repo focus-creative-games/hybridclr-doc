@@ -32,10 +32,7 @@ Unity资源管理系统在反序列化资源中的热更新脚本时，需要满
 
 ## assembly列表文件
 
-不同Unity版本下assembly列表文件的名称和格式都不一样。
-
-- 2019版本。 非压缩打包时为globalgamemanagers文件，压缩打包时先保存到globalgamemanagers文件，再以BundleFile格式和其他文件打包到data.unity3d文件。
-- 2020-2021版本。 保存在ScriptingAssembles.json文件中。
+当前支持的Unity版本中，assembly列表保存在`ScriptingAssemblies.json`文件中。
 
 ## 已知问题
 
