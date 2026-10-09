@@ -1,3 +1,8 @@
+---
+title: 'MonoBehaviour Support'
+description: 'HybridCLR fully supports hot update MonoBehaviour and ScriptableObject workflows。'
+slug: /basic/monobehaviour
+---
 
 # MonoBehaviour Support
 

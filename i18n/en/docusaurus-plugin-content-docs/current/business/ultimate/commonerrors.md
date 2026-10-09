@@ -1,3 +1,9 @@
+---
+title: 'Common Issues'
+description: 'The reason is that the original AOT type replaced by DHE was unexpectedly created.。'
+slug: /business/ultimate/commonerrors
+---
+
 # Common Issues
 
 ## ExecutionEngineException: Could not run the type initializer for origin DHE type 'xxx'

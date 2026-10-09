@@ -1,3 +1,9 @@
+---
+title: '加载和运行'
+description: '根据你们项目资源管理的方式，获得热更新dll的bytes数据。然后再直接调用Assembly.Load(byte[] assemblyData)即可。'
+slug: /basic/runhotupdatecodes
+---
+
 # 加载和运行
 
 ## 加载更新assembly

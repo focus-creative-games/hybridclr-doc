@@ -1,3 +1,9 @@
+---
+title: '对App内存影响'
+description: '接入hybridclr后对App运行时内存的影响主要由以下几部分构成：'
+slug: /basic/impactonappmemory
+---
+
 # 对App内存影响
 
 接入hybridclr后对App运行时内存的影响主要由以下几部分构成：

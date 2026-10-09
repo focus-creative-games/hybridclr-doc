@@ -1,3 +1,9 @@
+---
+title: '免费试用'
+description: '相比于付费试用版本和正式购买后的版本都包含HybridCLR所有运行时及Editor源码，免费试用版本只提供预编译的 二进制lib及工具，只支持构建iOS平台目标。'
+slug: /business/ultimate/freetrial
+---
+
 # 免费试用
 
 相比于付费试用版本和正式购买后的版本都包含HybridCLR所有运行时及Editor源码，免费试用版本只提供预编译的

@@ -1,3 +1,8 @@
+---
+title: '桥接函数'
+description: 'HybridCLR的interpreter与AOT之间需要双向函数调用。比如interpreter调用AOT函数，或者AOT通过interface接口或者delegate回调interpreter。'
+slug: /basic/methodbridge
+---
 
 # 桥接函数
 

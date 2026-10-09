@@ -1,3 +1,9 @@
+---
+title: 'Best Practices'
+description: 'Don''t save the assembly''s byte[] data after calling Assembly.Load, as Assembly.Load automatically makes a copy internally.'
+slug: /basic/bestpractice
+---
+
 # Best Practices
 
 ## Don't Save assemblyBytes After Assembly.Load

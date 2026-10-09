@@ -1,3 +1,9 @@
+---
+title: 'Access Control Policy'
+description: 'For some platform-type applications, they may load and execute third-party developed code.。'
+slug: /business/accesspolicy
+---
+
 # Access Control Policy
 
 For some platform-type applications, they may load and execute third-party developed code. If these third-party codes are not restricted, it will bring security risks.

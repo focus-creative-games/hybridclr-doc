@@ -1,3 +1,9 @@
+---
+title: 'Using in Code'
+description: 'When building the app for the first time without any code updates, or when there are code updates but the code in this DHE assembly hasn''t changed。'
+slug: /business/ultimate/useIncodes
+---
+
 # Using in Code
 
 
@@ -39,7 +45,7 @@ When the code of a DHE assembly changes, you need to use this interface to load 
 This interface has two parameters: currentDllBytes and optionBytes.
 
 - currentDllBytes is the byte array of the latest DHE assembly file
-- optionBytes is the byte array of the dhao file. The [dhao file](./dhao) contains the change information for DHE, used to indicate which functions run in AOT mode and which execute interpretively.
+- optionBytes is the byte array of the dhao file. The [dhao file](./dhao.md) contains the change information for DHE, used to indicate which functions run in AOT mode and which execute interpretively.
 
 ```csharp
 

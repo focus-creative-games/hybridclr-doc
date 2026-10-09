@@ -1,3 +1,9 @@
+---
+title: 'Free Trial'
+description: 'Compared to the paid trial version and the officially purchased version which both include all HybridCLR runtime and Editor source code。'
+slug: /business/ultimate/freetrial
+---
+
 # Free Trial
 
 Compared to the paid trial version and the officially purchased version which both include all HybridCLR runtime and Editor source code, the free trial version only provides precompiled
@@ -61,4 +67,4 @@ The trial version has removed source code for some modules and replaced them wit
 
 ## Usage
 
-Except for the installation and settings adjustments as described in the documentation above, the rest can completely follow the [Quick Start](./quickstartunchecked).
+Except for the installation and settings adjustments as described in the documentation above, the rest can completely follow the [Quick Start](./quickstart-unchecked.md).

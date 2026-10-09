@@ -1,3 +1,9 @@
+---
+title: '致谢名单'
+description: '感谢这些朋友的慷慨赞助！！！'
+slug: /other/donate
+---
+
 # 致谢名单
 
 感谢这些朋友的慷慨赞助！！！

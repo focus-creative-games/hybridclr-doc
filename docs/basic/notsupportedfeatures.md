@@ -1,10 +1,16 @@
+---
+title: '不支持的特性'
+description: '- 不支持在热更新代码中定义extern函数（[DllImport]）。该特性曾在v8.0.0-v8.15.0期间可用，自v9.0.0版本起已移除。请将extern函数定义在AOT程序集中，详见文档PInvoke支持。'
+slug: /basic/notsupportedfeatures
+---
+
 # 不支持的特性
 
 :::tip
 不在限制事项中的特性HybridCLR都支持，请不要再问HybridCLR是否支持某个功能。
 :::
 
-- 不支持在热更新代码中定义extern函数（`[DllImport]`）。该特性曾在v8.0.0-v8.15.0期间可用，自**v9.0.0**版本起已移除。请将extern函数定义在AOT程序集中，详见文档[PInvoke支持](./pinvoke)。
+- 不支持在热更新代码中定义extern函数（`[DllImport]`）。该特性曾在v8.0.0-v8.15.0期间可用，自**v9.0.0**版本起已移除。请将extern函数定义在AOT程序集中，详见文档[PInvoke支持](./pinvoke.md)。
 - 不支持`System.Runtime.InteropServices.Marshal`中 `Marshal.StructureToPtr`之类序列化结构的函数，但普通Marshal函数如`Marshal.PtrToStringAnsi`都是能正常工作的。
 - 不支持[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.xxx)]。纯粹是时机问题，Unity收集这些函数的时机很早，此时热更新dll还没加载。一个推荐的办法是你使用反射收集这些函数，在合适的时机主动调用它们。
 - 不支持对解释代码部分进行C#级别调试，因为没暂时没时间写调试器

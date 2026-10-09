@@ -1,3 +1,9 @@
+---
+title: 'PInvoke Support'
+description: 'HybridCLR has always supported calling extern functions defined in AOT, but starting from v8.0.0, it supports defining extern functions in hot update code.'
+slug: /basic/pinvoke
+---
+
 # PInvoke Support
 
 :::tip

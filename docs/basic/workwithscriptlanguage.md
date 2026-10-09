@@ -1,3 +1,9 @@
+---
+title: 'HybridCLR+lua/js/python'
+description: '有一些项目已经上线，它们的大多数代码已经用lua实现了；或者一些新项目已经用lua开发到一半，他们无法完全切换为全C#开发，但希望 可以同时接入HybridCLR，帮助慢慢过渡到全部原生C#热更新。由于HybridCLR是原生C#热更新技术，原生支持与这些脚本语言配合工作。'
+slug: /basic/workwithscriptlanguage
+---
+
 # HybridCLR+lua/js/python
 
 有一些项目已经上线，它们的大多数代码已经用lua实现了；或者一些新项目已经用lua开发到一半，他们无法完全切换为全C#开发，但希望
@@ -24,7 +30,7 @@ il2cpp会为每个标记了`[MonoPInvokeCallback]`的函数绑定一个单独的
 同样的，hybridclr也需要为每个标记了`[MonoPInvokeCallback]`的函数生成对应的Wrapper函数。但对于iOS这类禁用了jit的平台，显然没法运行时
 动态生成这些wrapper函数。因此需要提前为将来可能用到的这类函数预留相应的Wrapper函数。
 
-如何预留Wrapper函数，详见文档[MonoPInvokeCallback支持](./monopinvokecallback)。
+如何预留Wrapper函数，详见文档[MonoPInvokeCallback支持](./monopinvokecallback.md)。
 
 ### xlua
 

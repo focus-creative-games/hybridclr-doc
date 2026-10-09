@@ -1,3 +1,9 @@
+---
+title: '手册'
+description: '- 支持卸载assembly，卸载100%的assembly所占用的内存 - 支持重新加载assembly，代码可以任意变化甚至完全不同（MonoBehaviour和Scriptable有一定的限制） - 支持限定热更新assembly中能访问的函数的集合，适合UGC游戏中创建沙盒环境。'
+slug: /business/reload/manual
+---
+
 # 手册
 
 ## 支持的特性
@@ -45,17 +51,17 @@
 
 ## 完全泛型共享
 
-参见 [完全泛型共享](../fullgenericsharing)。
+参见 [完全泛型共享](../fullgenericsharing.md)。
 
 ## 代码加密
 
-参见 [代码加固](../basicencryption)。
+参见 [代码加固](../basicencryption.md)。
 
 ## 控制访问
 
 有时候可能想限制热更新代码能访问的类型和函数的范围，例如沙盒类游戏不想让UGC代码访问文件读取接口，访问控制可以实现这个目标。
 
-详细请阅读文档[访问控制策略](../accesspolicy)。
+详细请阅读文档[访问控制策略](../accesspolicy.md)。
 
 
 ## 卸载程序集

@@ -1,3 +1,9 @@
+---
+title: 'hybridclr Package Manual'
+description: 'com.code-philosophy.hybridclr is a Unity package that provides Editor workflow tools and Runtime scripts required by HybridCLR.。'
+slug: /basic/com.code-philosophy.hybridclr
+---
+
 # hybridclr Package Manual
 
 `com.code-philosophy.hybridclr` is a Unity package that provides Editor workflow tools and Runtime scripts required by HybridCLR. With the workflow tools provided by com.code-philosophy.hybridclr, packaging an App that supports HybridCLR hot update functionality becomes very simple. The hybridclr_unity package mainly contains the following content:
@@ -94,7 +100,7 @@ hybridclr code needs to be compatible with multiple Unity versions and requires 
 
 Scans AOT types referenced by hot update dlls and generates link.xml to prevent AOT types or functions used by hot update scripts from being stripped. The output file path is specified in the `OuputLinkXml` field in HybridCLRSettings.asset, defaulting to `LinkGenerator/link.xml`.
 
-For more specific introduction to stripping, see [Code Stripping Principles and Solutions](codestriping.md).
+For more specific introduction to stripping, see [Code Stripping Principles and Solutions](./codestriping.md).
 
 ### Generate/AotDlls
 
@@ -107,7 +113,7 @@ If you haven't used one-click generation commands like `HybridCLR/Generate/All`,
 
 ### Generate/MethodBridge
 
-Scans the current AOT dll set to generate bridge function files. For related documentation, see [Bridge Functions](methodbridge.md).
+Scans the current AOT dll set to generate bridge function files. For related documentation, see [Bridge Functions](./methodbridge.md).
 
 Generating bridge functions depends on AOT dlls and hot update dlls. If you haven't used one-click generation commands like `HybridCLR/Generate/All`, please run the following commands in order:
 
@@ -135,7 +141,7 @@ The `AOTGenericReferences.cs` file also contains the assembly list that should s
 
 Please add generic type and function instantiation references in other files, as this output file will be overwritten each time it's regenerated.
 This generic instantiation documentation only serves as inspiration, telling you which classes and functions can have AOT generic instantiation.
-For more specific AOT generic related documentation, see [AOT Generic Introduction](/basic/aotgeneric.md).
+For more specific AOT generic related documentation, see [AOT Generic Introduction](./aotgeneric.md).
 
 :::tip
 After using the supplemental metadata mechanism, **no processing** is needed and it won't affect normal operation. However, if you manually instantiate AOT generics, performance can be improved. The recommendation is to manually instantiate generics only for a small number of performance-sensitive classes or functions, such as `Dictionary<int,int>`.
@@ -311,7 +317,7 @@ removing hot update dlls from the build assemblies list. The script will additio
 Part of the packaging workflow, related code is in `Editor/BuildProcessors/PatchScriptingAssemblyList.cs`.
 
 The tool automatically adds hot update assembly dll names to the assembly list configuration file during packaging. The dll names of assemblies containing hot update MonoBehaviour scripts must be added to the assembly list configuration file,
-so Unity's resource management system can correctly identify and restore hot update scripts. For more detailed principle introduction, see [Using Hot Update MonoBehaviour](/basic/monobehaviour.md).
+so Unity's resource management system can correctly identify and restore hot update scripts. For more detailed principle introduction, see [Using Hot Update MonoBehaviour](./monobehaviour.md).
 
 ### Backup Trimmed AOT DLLs
 
@@ -324,7 +330,7 @@ original aot dlls can be used directly. The advantage is workflow convenience, n
 ## iOSBuild Scripts
 
 The `Editor/Data~/iOSBuild` in the package contains scripts needed to compile the iOS version libil2cpp.a. After successfully initializing HybridCLR by running the `HybridCLR/Installer...` menu command, it will be automatically copied to the `{project}/HybridCLRData/iOSBuild` directory.
-**Subsequent operations must be performed in the `{project}/HybridCLRData/iOSBuild` directory**. For specific operations to compile libil2cpp.a, see documentation [iOS Platform Packaging](/basic/buildpipeline.md).
+**Subsequent operations must be performed in the `{project}/HybridCLRData/iOSBuild` directory**. For specific operations to compile libil2cpp.a, see documentation [iOS Platform Packaging](./buildpipeline.md).
 
 ## Runtime Related Scripts
 
@@ -364,7 +370,7 @@ Low-level utility class for operating HybridCLR. Commonly used ones include:
 ### ReversePInvokeWrapperGenerationAttribute
 
 If your project uses script languages like xlua, C# functions to be registered in lua need to have `[MonoPInvokeCallback]` annotations. This allows returning a corresponding C++ function pointer for these C# functions, which can be registered in script languages. HybridCLR supports registering hot update C# code in lua, but C++ stub functions corresponding to `[MonoPInvokeCallback]` must be generated in advance to return a corresponding C++ function pointer for each C# function.
-The script provides automatic stub function generation functionality. For details, see [MonoPInvokeCallback Support](workwithscriptlanguage.md) and [HybridCLR+lua/js/python](workwithscriptlanguage.md) documentation.
+The script provides automatic stub function generation functionality. For details, see [MonoPInvokeCallback Support](./workwithscriptlanguage.md) and [HybridCLR+lua/js/python](./workwithscriptlanguage.md) documentation.
 
 Each function with `[MonoPInvokeCallback]` attribute needs a uniquely corresponding wrapper function. These wrapper functions must be pre-generated during packaging and cannot be changed.
 Therefore, if hot updates subsequently add functions with `[MonoPInvokeCallback]` attributes, there will be insufficient wrapper functions. ReversePInvokeWrapperGenerationAttribute

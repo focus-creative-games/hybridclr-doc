@@ -1,3 +1,9 @@
+---
+title: 'Impact on App Package Size'
+description: 'The impact on package size after integrating HybridCLR mainly consists of the following parts:'
+slug: /basic/impactonappsize
+---
+
 # Impact on App Package Size
 
 The impact on package size after integrating HybridCLR mainly consists of the following parts:

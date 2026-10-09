@@ -1,3 +1,9 @@
+---
+title: 'Common Errors'
+description: 'Metadata information of objects serialized using JsonUtility or MonoBehaviour will be cached by the engine.。'
+slug: /business/reload/commonerrors
+---
+
 # Common Errors
 
 ## [Serializable] types or MonoBehaviour (ScriptableObject) crash when containing generic fields with generic parameters being types from unloaded assemblies

@@ -1,3 +1,9 @@
+---
+title: 'Other Resources'
+description: '- il2cpp_plus github gitee - hybridclr github gitee'
+slug: /beginner/otherhelp
+---
+
 # Other Resources
 
 ## Official Related Repositories
@@ -13,7 +19,7 @@ You can search for HybridCLR-related videos on Bilibili. Please try to choose ne
 
 ## Encountering Problems
 
-Please first check [Common Errors](/help/commonerrors.md).
+Please first check [Common Errors](../help/commonerrors.md).
 
 If not resolved, you can join the official groups for help:
 
@@ -24,4 +30,4 @@ If not resolved, you can join the official groups for help:
 - Official email: hybridclr@code-philosophy.com
 - Business cooperation email: business@code-philosophy.com
 
-If you're certain it's a bug (HybridCLR is already very stable, the probability of beginners encountering bugs is extremely low), please report it to us according to the [Bug Report Template](/help/issue.md).
+If you're certain it's a bug (HybridCLR is already very stable, the probability of beginners encountering bugs is extremely low), please report it to us according to the [Bug Report Template](../help/issue.md).

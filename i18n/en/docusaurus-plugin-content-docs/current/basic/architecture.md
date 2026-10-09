@@ -1,3 +1,9 @@
+---
+title: 'Code Structure and Versioning'
+description: 'The complete HybridCLR codebase consists of three repositories:'
+slug: /basic/architecture
+---
+
 # Code Structure and Versioning
 
 The complete HybridCLR codebase consists of three repositories:

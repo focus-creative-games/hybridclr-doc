@@ -1,3 +1,9 @@
+---
+title: 'Build Workflow'
+description: 'Due to the requirements of hot updating itself and some limitations of Unity''s resource management, special handling is needed for the build workflow。'
+slug: /basic/buildpipeline
+---
+
 # Build Workflow
 
 Due to the requirements of hot updating itself and some limitations of Unity's resource management, special handling is needed for the build workflow, mainly divided into several parts:
@@ -11,7 +17,7 @@ Due to the requirements of hot updating itself and some limitations of Unity's r
 - Special handling for iOS platform
 
 Manual operation of these processes is tedious and error-prone. The `com.code-philosophy.hybridclr` package includes standard tool scripts related to the build workflow, simplifying these complex processes into one-click operations.
-For detailed implementation, please see the source code or [com.code-philosophy.hybridclr introduction](/basic/com.code-philosophy.hybridclr.md)
+For detailed implementation, please see the source code or [com.code-philosophy.hybridclr introduction](./hybridclr-unity-package.md)
 
 ## Build Process
 

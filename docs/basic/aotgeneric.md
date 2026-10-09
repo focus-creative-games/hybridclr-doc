@@ -1,3 +1,9 @@
+---
+title: 'AOT泛型'
+description: 'CLR中有两类泛型特性：泛型类型和泛型函数。泛型是c#中使用极其广泛的特性，即使一个没有明显包含泛型的用法，也可能隐含了泛型相关的定义或者操作。'
+slug: /basic/aotgeneric
+---
+
 # AOT泛型
 
 CLR中有两类泛型特性：泛型类型和泛型函数。泛型是c#中使用极其广泛的特性，即使一个没有明显包含泛型的用法，也可能隐含了泛型相关的定义或者操作。
@@ -271,7 +277,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 
 :::
 
-加载补充元数据dll不仅增加了包体或者热更新资源大小，运行时加载也消耗了可观的内存空间，详细见[内存与GC](./memory)文档。优化补充元数据dll大小
+加载补充元数据dll不仅增加了包体或者热更新资源大小，运行时加载也消耗了可观的内存空间，详细见[内存与GC](./memory.md)文档。优化补充元数据dll大小
 对于内存敏感的场合有积极意义。
 
 补充元数据技术只用到了补充元数据dll中泛型函数的元数据信息，补充元数据dll中包含的非泛型函数的元数据是多余的，将它们完全剔除不会
@@ -319,7 +325,7 @@ public class AOTGenericReferences : UnityEngine.MonoBehaviour
 被补充的泛型函数以解释方式执行，还降低了运行性能。
 
 HybridCLR支持`full generic sharing`后，不再需要补充元数据，简化了工作流，以原生方式运行AOT泛型，性能大幅提升，彻底解决了补充元数据的以上缺点。
-详细文档见[完全泛型共享](../business/fullgenericsharing)。
+详细文档见[完全泛型共享](../business/fullgenericsharing.md)。
 
 ## 附录：AOT泛型的共享泛型实例化示例
 

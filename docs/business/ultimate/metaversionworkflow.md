@@ -1,3 +1,9 @@
+---
+title: 'MetaVersion工作流'
+description: 'DHE热更新曾存在两种工作流：'
+slug: /business/ultimate/metaversionworkflow
+---
+
 # MetaVersion工作流
 
 DHE热更新曾存在两种工作流：
@@ -46,7 +52,7 @@ Snapshot有两种类型：AOT Snapshot和HotUpdate Snapshot。
 ### Inject Rule文件
 
 默认情况下会在几乎所有DHE函数的头部注入代码。注入代码可以极大缓解脏函数传染问题，缺点是增加代码大小以及带来少量的额外开销。Inject Rule文件用于
-自定义代码注入规则，允许对于一些函数不注入。详细文档见[函数注入策略](./injectrules)。
+自定义代码注入规则，允许对于一些函数不注入。详细文档见[函数注入策略](./injectrules.md)。
 
 ### manifest.json
 

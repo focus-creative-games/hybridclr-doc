@@ -1,3 +1,9 @@
+---
+title: '介绍'
+description: '我们提供多种高端商业版本及可灵活定制的技术服务，满足游戏项目在各种应用场景下的需求。'
+slug: /business/intro
+---
+
 # 介绍
 
 我们提供多种高端商业版本及可灵活定制的技术服务，满足游戏项目在各种应用场景下的需求。
@@ -12,8 +18,8 @@
 
 目前有三个商业化版本，具体特性对比如下：
 
-- [专业版](./pro/intro.md)。显著提升了[解释执行性能](./basicoptimization)（数值指令性能是社区版本的**280%-735%**）、优化了元数据内存，支持代码加密，有效保障了代码安全
-- [**旗舰版**](./ultimate/intro.md)。包含专业版的所有功能，另外包含了我们最核心的[DHE技术](./differentialhybridexecution)，极大提升了性能，几乎（**未改动时为100%**）达到同等的原生AOT水平
+- [专业版](./pro/intro.md)。显著提升了[解释执行性能](./basicoptimization.md)（数值指令性能是社区版本的**280%-735%**）、优化了元数据内存，支持代码加密，有效保障了代码安全
+- [**旗舰版**](./ultimate/intro.md)。包含专业版的所有功能，另外包含了我们最核心的[DHE技术](./differentialhybridexecution.md)，极大提升了性能，几乎（**未改动时为100%**）达到同等的原生AOT水平
 - [热重载版](./reload/intro.md)。包含专业版的所有功能，同时支持卸载和重新加载单独的assembly，当前可以卸载掉程序集**100%**的元数据内存
 
 
@@ -24,19 +30,19 @@
 |补充元数据|✔|✔|✔|✔|
 |增量式GC|✔|✔|✔|✔|
 |Unity 2022-6000 LTS|✔|✔|✔|✔|
-|[DOTS](../basic/dots)|✔|✔|✔|✔|
-|[完全泛型共享](./fullgenericsharing)||✔|✔|✔|
+|[DOTS](../basic/dots.md)|✔|✔|✔|✔|
+|[完全泛型共享](./fullgenericsharing.md)||✔|✔|✔|
 |[元数据优化](./metadataoptimization.md)||✔|✔|✔|
-|[标准解释性能优化](./basicoptimization)||✔|✔|✔|
-|[Hotfix动态热修复](./hotfix)||✔|✔|✔|
-|[Assembly::Load加载优化](./assemblyloadoptimization)||✔|✔|✔|
-|[包含解释器堆栈信息的崩溃日志](./crashreport)||✔|✔|✔|
-|[离线指令优化](./advancedoptimization)||✔|✔|✔|
+|[标准解释性能优化](./basicoptimization.md)||✔|✔|✔|
+|[Hotfix动态热修复](./hotfix.md)||✔|✔|✔|
+|[Assembly::Load加载优化](./assemblyloadoptimization.md)||✔|✔|✔|
+|[包含解释器堆栈信息的崩溃日志](./crashreport.md)||✔|✔|✔|
+|[离线指令优化](./advancedoptimization.md)||✔|✔|✔|
 |global-metadata.dat加密||✔|✔|✔|
-|[代码加固](./basicencryption)||✔|✔|✔|
-|[热重载](./reload/hotreloadassembly)||||✔|
-|[访问控制机制](./accesspolicy)||||✔|
-|[**DHE技术**](./differentialhybridexecution)|||✔||
+|[代码加固](./basicencryption.md)||✔|✔|✔|
+|[热重载](./reload/hotreloadassembly.md)||||✔|
+|[访问控制机制](./accesspolicy.md)||||✔|
+|[**DHE技术**](./differentialhybridexecution.md)|||✔||
 |技术支持||2年|2年|2年|
 
 ### 价格标准

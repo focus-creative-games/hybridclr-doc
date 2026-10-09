@@ -1,3 +1,9 @@
+---
+title: '快速上手'
+description: '与社区版本的快速上手几乎完全相同，本文档只介绍不同之处。'
+slug: /business/reload/quickstart
+---
+
 # 快速上手
 
 与社区版本的[快速上手](../../beginner/quickstart.md)几乎完全相同，本文档只介绍不同之处。

@@ -1,3 +1,9 @@
+---
+title: 'Multiple DHE Assemblies'
+description: 'When there are multiple DHE assemblies, you can decide whether to call LoadOriginalDifferentialHybridAssembly or LoadDifferentialHybridAssemblyUnchecked in。'
+slug: /business/ultimate/multidheassemblies
+---
+
 # Multiple DHE Assemblies
 
 When there are multiple DHE assemblies, you can decide whether to call LoadOriginalDifferentialHybridAssembly or LoadDifferentialHybridAssemblyUnchecked interface for loading based on whether each assembly has changed,

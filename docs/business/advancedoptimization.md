@@ -1,3 +1,9 @@
+---
+title: '离线指令优化'
+description: '离线指令优化（Offline Instruction Optimization，简称OIO）离线将原始IL指令转换为自定义的寄存器指令。 由于离线没有编译性能限制，可以使用更丰富的编译优化技术，极大提升了解释模块的性能。'
+slug: /business/advancedoptimization
+---
+
 # 离线指令优化
 
 :::warning

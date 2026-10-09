@@ -1,3 +1,9 @@
+---
+title: 'Using Generics'
+description: 'HybridCLR fully supports generic features without any limitations.'
+slug: /beginner/generic
+---
+
 # Using Generics
 
 HybridCLR fully supports generic features without any limitations.
@@ -8,7 +14,7 @@ Use them directly.
 
 ## Using Generic Classes or Functions Defined in AOT
 
-For detailed principles about AOT generic issues, please read [AOT Generics](/basic/aotgeneric.md).
+For detailed principles about AOT generic issues, please read [AOT Generics](../basic/aotgeneric.md).
 
 If some generic class or function has already been instantiated in AOT code, it can be used directly in hot updates. For example:
 
@@ -121,4 +127,4 @@ After packaging is complete, supplementary metadata dlls will not change. Please
 
 ## Optimizing Supplementary Metadata DLL Size
 
-The default generated supplementary metadata dlls contain a lot of data that the supplementary metadata mechanism doesn't need. Starting from version v4.0.16, optimization and trimming of supplementary metadata dlls is supported. For detailed documentation, see [AOT Generics](../basic/aotgeneric).
+The default generated supplementary metadata dlls contain a lot of data that the supplementary metadata mechanism doesn't need. Starting from version v4.0.16, optimization and trimming of supplementary metadata dlls is supported. For detailed documentation, see [AOT Generics](../basic/aotgeneric.md).

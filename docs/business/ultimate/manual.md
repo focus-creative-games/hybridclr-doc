@@ -1,3 +1,9 @@
+---
+title: '使用手册'
+description: '- 将dhe-{version}解压后，把com.code-philosophy.hybridclr放到项目Packages目录下 - 打开 HybridCLR/Installer，点击Install会直接从Data~/libil2cpp目录复制libil2cpp，直接完成安装 - 根据你的Unity版本：'
+slug: /business/ultimate/manual
+---
+
 # 使用手册
 
 ## 安装
@@ -76,7 +82,7 @@
  为了避免间接脏函数传染（即A函数调用了B函数，如果B改变了，A也会被标记为改变），默认会在所有函数头部注入一小段检查跳转代码。虽然是
  非常简单的`if (method->isInterpterImpl)`语句，但对于`int Age {get; set;}`这样的短函数，这种插入可能会产生可观察的性能下降（甚至能达到10%）。
 
-函数注入策略用于优化这种情况.对于不会变化的短函数，配置为不注入可以提升性能。详细请见[InjectRules](./injectrules)文档。
+函数注入策略用于优化这种情况.对于不会变化的短函数，配置为不注入可以提升性能。详细请见[InjectRules](./injectrules.md)文档。
 
 在 `HybridCLR Settings`中`InjectRuleFiles`字段中填写注入策略文件路径，文件的相对路径为项目根目录（如`Assets/InjectRules/DefaultInjectRules.xml`）。
 

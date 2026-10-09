@@ -1,3 +1,8 @@
+---
+title: 'Memory and GC'
+description: 'HybridCLR runtime memory consumption mainly consists of several parts:'
+slug: /basic/memory
+---
 
 # Memory and GC
 

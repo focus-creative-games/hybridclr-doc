@@ -1,3 +1,9 @@
+---
+title: 'Acknowledgment List'
+description: 'Thanks to these friends for their generous sponsorship!!!'
+slug: /other/donate
+---
+
 # Acknowledgment List
 
 Thanks to these friends for their generous sponsorship!!!

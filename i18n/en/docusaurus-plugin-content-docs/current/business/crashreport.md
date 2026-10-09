@@ -1,3 +1,9 @@
+---
+title: 'Crash Logs with Interpreter Stack Information'
+description: 'Community version crashes do not include interpreter stack information, making it difficult for online projects to locate errors.。'
+slug: /business/crashreport
+---
+
 # Crash Logs with Interpreter Stack Information
 
 Community version crashes do not include interpreter stack information, making it difficult for online projects to locate errors. The commercial version adds richer interpreter stack information when crashing, making it easier to locate problems.

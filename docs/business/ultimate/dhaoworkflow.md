@@ -1,7 +1,13 @@
+---
+title: 'DHAO工作流'
+description: 'DHAO工作流是DHE热更新使用最悠久的工作流，在v7.6.0及更早版本之前，只支持DHAO工作流。'
+slug: /business/ultimate/dhaoworkflow
+---
+
 # DHAO工作流
 
 :::warning
-如果你使用的hybridclr版本 >= v7.7.0，建议使用[MetaVersion工作流](./metaversionworkflow)。
+如果你使用的hybridclr版本 >= v7.7.0，建议使用[MetaVersion工作流](./metaversionworkflow.md)。
 :::
 
 DHAO工作流是DHE热更新使用最悠久的工作流，在v7.6.0及更早版本之前，只支持DHAO工作流。
@@ -48,7 +54,7 @@ AOT Snapshot信息在构建主包时已经完全确定，请将它加入项目�
 ### Inject Rule文件
 
 默认情况下会在几乎所有DHE函数的头部注入代码。注入代码可以极大缓解脏函数传染问题，缺点是增加代码大小以及带来少量的额外开销。Inject Rule文件用于
-自定义代码注入规则，允许对于一些函数不注入。详细文档见[函数注入策略](./injectrules)。
+自定义代码注入规则，允许对于一些函数不注入。详细文档见[函数注入策略](./injectrules.md)。
 
 ### manifest.json
 

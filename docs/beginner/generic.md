@@ -1,3 +1,9 @@
+---
+title: '使用泛型'
+description: 'HybridCLR完整支持泛型特性，没有任何限制。'
+slug: /beginner/generic
+---
+
 # 使用泛型
 
 HybridCLR完整支持泛型特性，没有任何限制。
@@ -8,7 +14,7 @@ HybridCLR完整支持泛型特性，没有任何限制。
 
 ## 使用AOT中定义的泛型类或函数
 
-关于AOT泛型问题的详细原理请阅读[AOT泛型](/basic/aotgeneric.md)。
+关于AOT泛型问题的详细原理请阅读[AOT泛型](../basic/aotgeneric.md)。
 
 如果AOT中已经有代码实例化过某个泛型类或者函数，则热更新中可以直接使用，例如：
 
@@ -122,4 +128,4 @@ public class LoadDll : MonoBehaviour
 
 ## 优化补充元数据dll大小
 
-默认生成的补充元数据dll中包含了大量补充元数据机制不需要的数据，自v4.0.16版本起支持对补充元数据dll进行剔除优化，详细文档见[AOT泛型](../basic/aotgeneric)。
+默认生成的补充元数据dll中包含了大量补充元数据机制不需要的数据，自v4.0.16版本起支持对补充元数据dll进行剔除优化，详细文档见[AOT泛型](../basic/aotgeneric.md)。

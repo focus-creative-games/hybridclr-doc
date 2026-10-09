@@ -1,3 +1,9 @@
+---
+title: '快速上手'
+description: '本教程引导从空项目开始体验HybridCLR热更新。出于简化起见，只演示BuildTarget为Windows或MacOS Standalone平台的情况。'
+slug: /beginner/quickstart
+---
+
 # 快速上手
 
 本教程引导从空项目开始体验HybridCLR热更新。出于简化起见，只演示BuildTarget为**Windows**或**MacOS** Standalone平台的情况。
@@ -15,7 +21,7 @@
 ### 安装Unity
 
 :::caution
-HybridCLR支持 Unity 2022.3.x、2023.2.x、6000.x.y（不含6000.5.x）等LTS版本，如果当前使用的版本不在以下推荐版本中，请参考[安装HybridCLR](/basic/install.md)文档。
+HybridCLR支持 Unity 2022.3.x、2023.2.x、6000.x.y（不含6000.5.x）等LTS版本，如果当前使用的版本不在以下推荐版本中，请参考[安装HybridCLR](../basic/install.md)文档。
 
 Unity 2019/2020/2021 的支持已在 v9.0.0 中移除，这些版本请使用 8.15.0。
 :::
@@ -169,7 +175,7 @@ public class Hello
 }
 ```
 
-你可能会关心热更新部分的代码会不会像其他方案那样对C#语法有限制。HybridCLR是近乎完备的实现，对热更新代码**几乎没有限制**。极少数的例外可以查看[不支持的特性](/basic/notsupportedfeatures.md)。
+你可能会关心热更新部分的代码会不会像其他方案那样对C#语法有限制。HybridCLR是近乎完备的实现，对热更新代码**几乎没有限制**。极少数的例外可以查看[不支持的特性](../basic/notsupportedfeatures.md)。
 
 ## 加载热更新程序集
 

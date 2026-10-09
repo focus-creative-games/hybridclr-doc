@@ -1,3 +1,9 @@
+---
+title: 'Code Obfuscation'
+description: 'If hot update code is not obfuscated, tools like ILSpy can easily decompile it back to near-source-code C# code。'
+slug: /basic/codeobfuscation
+---
+
 # Code Obfuscation
 
 If hot update code is not obfuscated, tools like ILSpy can easily decompile it back to near-source-code C# code, posing serious threats to intellectual property and code security for commercial game projects and indie game development.

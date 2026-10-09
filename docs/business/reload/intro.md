@@ -1,12 +1,18 @@
+---
+title: '介绍'
+description: '热重载特别版提供独创的热重载技术的支持。可以运行中完全卸载或者重新加载一个assembly，尤其适用于小游戏合集类型的游戏。'
+slug: /business/reload/intro
+---
+
 # 介绍
 
 热重载特别版提供独创的`热重载技术`的支持。可以运行中完全卸载或者重新加载一个assembly，尤其适用于小游戏合集类型的游戏。
 
 ## 优势
 
-- 包含[专业版](../pro/intro)的所有功能
-- 支持[热重载技术](./hotreloadassembly)
-- 支持[访问控制机制](../accesspolicy)，**限定热更新assembly中能访问的函数的集合**。适合UGC游戏中创建沙盒环境，避免恶意玩家代码造成破坏。
+- 包含[专业版](../pro/intro.md)的所有功能
+- 支持[热重载技术](./hotreloadassembly.md)
+- 支持[访问控制机制](../accesspolicy.md)，**限定热更新assembly中能访问的函数的集合**。适合UGC游戏中创建沙盒环境，避免恶意玩家代码造成破坏。
 - 包含两年技术支持
 
 

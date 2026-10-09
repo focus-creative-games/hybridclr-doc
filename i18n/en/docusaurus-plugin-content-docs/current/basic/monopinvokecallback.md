@@ -1,3 +1,9 @@
+---
+title: 'MonoPInvokeCallback Support'
+description: 'When interacting with third-party languages like Lua, you need to call C# functions from these third-party languages. Two problems must be solved:'
+slug: /basic/monopinvokecallback
+---
+
 # MonoPInvokeCallback Support
 
 When interacting with third-party languages like Lua, you need to call C# functions from these third-party languages. Two problems must be solved:

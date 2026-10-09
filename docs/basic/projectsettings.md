@@ -1,6 +1,12 @@
+---
+title: '配置'
+description: '安装完com.code-philosophy.hybridclr包后，需要正确设置相关参数。配置相关详细文档可见 hybridclr_unity包介绍。'
+slug: /basic/projectsettings
+---
+
 # 配置
 
-安装完com.code-philosophy.hybridclr包后，需要正确设置相关参数。配置相关详细文档可见 [hybridclr_unity包介绍](/basic/com.code-philosophy.hybridclr.md)。
+安装完com.code-philosophy.hybridclr包后，需要正确设置相关参数。配置相关详细文档可见 [hybridclr_unity包介绍](./hybridclr-unity-package.md)。
 
 ## 配置PlayerSettings
 
@@ -11,7 +17,7 @@
 
 ## 配置热更新程序集
 
-很显然，对于需要热更新的代码应该拆分为独立的程序集，才能方便地热更新。如何创建和拆分热更新程序集，请看[创建和配置热更新Assembly](/basic/hotupdateassemblysetting.md)文档。
+很显然，对于需要热更新的代码应该拆分为独立的程序集，才能方便地热更新。如何创建和拆分热更新程序集，请看[创建和配置热更新Assembly](./hotupdateassemblysetting.md)文档。
 
 点击菜单 `HybridCLR/Settings` 打开配置界面。
 
@@ -27,4 +33,4 @@
 
 ## 其他参数
 
-大多数参数保持默认值即可，一般开发者不用关心。详细请查看[com.code-philosophy.hybridclr包介绍](/basic/com.code-philosophy.hybridclr.md)。
+大多数参数保持默认值即可，一般开发者不用关心。详细请查看[com.code-philosophy.hybridclr包介绍](./hybridclr-unity-package.md)。

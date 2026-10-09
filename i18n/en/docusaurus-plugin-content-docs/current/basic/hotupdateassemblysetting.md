@@ -1,3 +1,9 @@
+---
+title: 'Assembly Configuration'
+description: 'Generally speaking, hot update code must be organized into independent assemblies to facilitate hot updates.'
+slug: /basic/hotupdateassemblysetting
+---
+
 # Assembly Configuration
 
 Generally speaking, hot update code must be organized into independent assemblies to facilitate hot updates.

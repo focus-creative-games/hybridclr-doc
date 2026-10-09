@@ -1,3 +1,9 @@
+---
+title: 'Hot Reload Technology'
+description: 'Hot reload technology is used to completely unload or reload an assembly, suitable for mini-game collection type games.。'
+slug: /business/reload/hotreloadassembly
+---
+
 # Hot Reload Technology
 
 Hot reload technology is used to completely unload or reload an assembly, suitable for mini-game collection type games. This solution is only available in **commercial versions**.

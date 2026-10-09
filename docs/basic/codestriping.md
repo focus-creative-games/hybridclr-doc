@@ -1,3 +1,9 @@
+---
+title: '代码裁剪'
+description: 'Unity使用了代码裁剪技术来帮助减少il2cpp backend的包体大小。如果未做防裁剪处理，由于AOT主工程里的代码一般不多，大量的C#类型和函数被 裁剪，导致热更新中调用这些被裁剪类或函数出现如下异常：'
+slug: /basic/codestriping
+---
+
 # 代码裁剪
 
 Unity使用了[代码裁剪](https://docs.unity3d.com/Manual/ManagedCodeStripping.html)技术来帮助减少il2cpp backend的包体大小。如果未做防裁剪处理，由于AOT主工程里的代码一般不多，大量的C#类型和函数被

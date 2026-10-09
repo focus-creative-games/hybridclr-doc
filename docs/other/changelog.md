@@ -1,3 +1,9 @@
+---
+title: '改动日志'
+description: '此文档只记录关键性事件，更具体的发布日志请看 RELEASELOG。'
+slug: /other/changelog
+---
+
 # 改动日志
 
 此文档只记录关键性事件，更具体的发布日志请看 [RELEASELOG](https://github.com/focus-creative-games/hybridclr_unity/blob/main/RELEASELOG.md)。

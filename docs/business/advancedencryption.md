@@ -1,3 +1,9 @@
+---
+title: '高级代码加固'
+description: '高级代码加固使用自定义的程序集结构和自定义的指令，极大提升了App安全性。'
+slug: /business/advancedencryption
+---
+
 # 高级代码加固
 
 高级代码加固使用自定义的程序集结构和自定义的指令，极大提升了App安全性。

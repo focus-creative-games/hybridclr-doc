@@ -1,3 +1,9 @@
+---
+title: 'il2cpp bug记录'
+description: '查找obj的interface实现有误，按规范以下代码应该打出"Comput B"，例如.net 6是这个结果，但mono和il2cpp下却打印出"Comput A"。'
+slug: /basic/il2cppbugs
+---
+
 # il2cpp bug记录
 
 ## 逆变协变泛型接口调用错误

@@ -1,3 +1,9 @@
+---
+title: 'Loading and Running'
+description: 'Obtain the hot update DLL bytes data according to your project''s asset management approach. Then directly call Assembly.Load(byte[] assemblyData).。'
+slug: /basic/runhotupdatecodes
+---
+
 # Loading and Running
 
 ## Loading Update Assemblies

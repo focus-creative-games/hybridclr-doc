@@ -1,3 +1,9 @@
+---
+title: 'Function Injection Strategy'
+description: 'To avoid dirty function contamination, by default a small section of check and jump code is injected at the beginning of all functions.。'
+slug: /business/ultimate/injectrules
+---
+
 # Function Injection Strategy
 
 To avoid dirty function contamination, by default a small section of check and jump code is injected at the beginning of all functions. This injection code has a significant impact on short function performance and the length of the finally generated code (increasing code by about 30%).

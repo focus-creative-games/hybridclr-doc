@@ -1,3 +1,9 @@
+---
+title: '执行性能'
+description: '虽然HybridCLR也是解释执行，但无论从理论原理还是真机测试数据表明，HybridCLR相比当前流行的lua、ILRuntime之类的热更新方案，性能有极大的提升(数倍甚至数十倍)。'
+slug: /basic/performance
+---
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 

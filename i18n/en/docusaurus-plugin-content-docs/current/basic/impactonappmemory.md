@@ -1,3 +1,9 @@
+---
+title: 'Impact on App Memory'
+description: 'After integrating HybridCLR, the impact on App runtime memory mainly consists of the following parts:'
+slug: /basic/impactonappmemory
+---
+
 # Impact on App Memory
 
 After integrating HybridCLR, the impact on App runtime memory mainly consists of the following parts:

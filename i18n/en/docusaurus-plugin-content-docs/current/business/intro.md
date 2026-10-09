@@ -1,3 +1,9 @@
+---
+title: 'Introduction'
+description: 'We provide multiple high-end commercial versions and flexibly customizable technical services to meet game project requirements in various application scen。'
+slug: /business/intro
+---
+
 # Introduction
 
 We provide multiple high-end commercial versions and flexibly customizable technical services to meet game project requirements in various application scenarios.
@@ -12,8 +18,8 @@ All commercial versions provide long-term support for **Unity 2019-6000 LTS** ve
 
 Currently, there are three commercial versions with specific feature comparisons as follows:
 
-- [Professional Edition](./pro/intro.md). Significantly improves [interpretation execution performance](./basicoptimization) (numerical instruction performance is **280%-735%** of the community version), optimizes metadata memory, supports code encryption, and effectively ensures code security
-- [**Ultimate Edition**](./ultimate/intro.md). Includes all Professional Edition features, plus our core [DHE technology](./differentialhybridexecution), dramatically improving performance to nearly (**100% when unchanged**) the same level as native AOT
+- [Professional Edition](./pro/intro.md). Significantly improves [interpretation execution performance](./basicoptimization.md) (numerical instruction performance is **280%-735%** of the community version), optimizes metadata memory, supports code encryption, and effectively ensures code security
+- [**Ultimate Edition**](./ultimate/intro.md). Includes all Professional Edition features, plus our core [DHE technology](./differentialhybridexecution.md), dramatically improving performance to nearly (**100% when unchanged**) the same level as native AOT
 - [Hot Reload Edition](./reload/intro.md). Includes all Professional Edition features while supporting unloading and reloading individual assemblies, currently capable of unloading **100%** of assembly metadata memory
 
 |Feature|Community|Professional|Ultimate|Hot Reload|
@@ -23,19 +29,19 @@ Currently, there are three commercial versions with specific feature comparisons
 |Supplemental Metadata|✔|✔|✔|✔|
 |Incremental GC|✔|✔|✔|✔|
 |Unity 2019-6000 LTS|✔|✔|✔|✔|
-|[DOTS](../basic/dots)|✔|✔|✔|✔|
-|[Full Generic Sharing](./fullgenericsharing)||✔|✔|✔|
+|[DOTS](../basic/dots.md)|✔|✔|✔|✔|
+|[Full Generic Sharing](./fullgenericsharing.md)||✔|✔|✔|
 |[Metadata Optimization](./metadataoptimization.md)||✔|✔|✔|
-|[Standard Interpretation Performance Optimization](./basicoptimization)||✔|✔|✔|
-|[Hotfix Dynamic Hot Repair](./hotfix)||✔|✔|✔|
-|[Assembly::Load Loading Optimization](./assemblyloadoptimization)||✔|✔|✔|
-|[Crash Logs with Interpreter Stack Information](./crashreport)||✔|✔|✔|
-|[Offline Instruction Optimization](./advancedoptimization)||✔|✔|✔|
+|[Standard Interpretation Performance Optimization](./basicoptimization.md)||✔|✔|✔|
+|[Hotfix Dynamic Hot Repair](./hotfix.md)||✔|✔|✔|
+|[Assembly::Load Loading Optimization](./assemblyloadoptimization.md)||✔|✔|✔|
+|[Crash Logs with Interpreter Stack Information](./crashreport.md)||✔|✔|✔|
+|[Offline Instruction Optimization](./advancedoptimization.md)||✔|✔|✔|
 |global-metadata.dat Encryption||✔|✔|✔|
-|[Code Hardening](./basicencryption)||✔|✔|✔|
-|[Hot Reload](./reload/hotreloadassembly)||||✔|
-|[Access Control Mechanism](./accesspolicy)||||✔|
-|[**DHE Technology**](./differentialhybridexecution)|||✔||
+|[Code Hardening](./basicencryption.md)||✔|✔|✔|
+|[Hot Reload](./reload/hotreloadassembly.md)||||✔|
+|[Access Control Mechanism](./accesspolicy.md)||||✔|
+|[**DHE Technology**](./differentialhybridexecution.md)|||✔||
 |Technical Support||2 years|2 years|2 years|
 
 ### Pricing Standards

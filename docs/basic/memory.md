@@ -1,3 +1,8 @@
+---
+title: '内存与GC'
+description: 'HybridCLR运行时消耗内存主要分为几部分：'
+slug: /basic/memory
+---
 
 # 内存与GC
 

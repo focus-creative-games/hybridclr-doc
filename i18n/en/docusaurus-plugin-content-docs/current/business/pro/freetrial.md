@@ -1,3 +1,9 @@
+---
+title: 'Free Trial'
+description: 'Compared to paid trial versions and officially purchased versions that include all HybridCLR runtime and Editor source code。'
+slug: /business/pro/freetrial
+---
+
 # Free Trial
 
 Compared to paid trial versions and officially purchased versions that include all HybridCLR runtime and Editor source code, the free trial version only provides precompiled binary libs and tools, and only supports building iOS platform targets.
@@ -57,4 +63,4 @@ Compared to the community version or official commercial version, the following 
 
 ## Usage
 
-Except for installation and settings which have slight adjustments as described in the documentation above, the rest can completely follow the [Quick Start](./quickstart).
+Except for installation and settings which have slight adjustments as described in the documentation above, the rest can completely follow the [Quick Start](./quickstart.md).

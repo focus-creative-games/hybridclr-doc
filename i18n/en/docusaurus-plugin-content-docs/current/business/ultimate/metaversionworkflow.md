@@ -1,3 +1,9 @@
+---
+title: 'MetaVersion Workflow'
+description: 'DHE hot updates once had two workflows:'
+slug: /business/ultimate/metaversionworkflow
+---
+
 # MetaVersion Workflow
 
 DHE hot updates once had two workflows:
@@ -45,7 +51,7 @@ There are two types of Snapshots: AOT Snapshot and HotUpdate Snapshot.
 ### Inject Rule Files
 
 By default, code is injected at the beginning of almost all DHE functions. Injected code can greatly alleviate the dirty function contamination problem, but the disadvantage is that it increases code size and brings a small amount of additional overhead. Inject Rule files are used to
-customize code injection rules, allowing some functions not to be injected. For detailed documentation, see [Function Injection Strategy](./injectrules).
+customize code injection rules, allowing some functions not to be injected. For detailed documentation, see [Function Injection Strategy](./injectrules.md).
 
 ### manifest.json
 

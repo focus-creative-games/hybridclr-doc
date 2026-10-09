@@ -1,3 +1,9 @@
+---
+title: 'Build and Hot Update'
+description: '- Run HybridCLR/Generate/All - Export project or directly Build in Build Settings - Create AOT snapshot and add AOT snapshot directory to version control'
+slug: /business/ultimate/build
+---
+
 # Build and Hot Update
 
 ## Build Game

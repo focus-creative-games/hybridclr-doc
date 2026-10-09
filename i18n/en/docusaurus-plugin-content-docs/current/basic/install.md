@@ -1,3 +1,8 @@
+---
+title: 'Installation'
+description: 'Supports any version from 2019.4.x, 2020.3.x, 2021.3.x, 2022.3.x, 6000.x.y.。'
+slug: /basic/install
+---
 
 # Installation
 

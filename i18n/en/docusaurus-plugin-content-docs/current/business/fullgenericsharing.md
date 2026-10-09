@@ -1,3 +1,9 @@
+---
+title: 'Full Generic Sharing'
+description: 'Although supplemental metadata completely solves the AOT generic problem。'
+slug: /business/fullgenericsharing
+---
+
 # Full Generic Sharing
 
 Although supplemental metadata completely solves the AOT generic problem, supplemental metadata leads to the need to carry supplemental metadata dlls with the package or download them during hot updates, causing increased package size or increased hot update time.

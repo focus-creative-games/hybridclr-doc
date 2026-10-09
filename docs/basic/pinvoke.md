@@ -1,3 +1,9 @@
+---
+title: 'PInvoke支持'
+description: 'hybridclr 一直以来都支持调用 AOT 中定义的 extern 函数，这是推荐且唯一受支持的 PInvoke 使用方式。'
+slug: /basic/pinvoke
+---
+
 # PInvoke支持
 
 hybridclr 一直以来都支持**调用 AOT 中定义的 extern 函数**，这是推荐且唯一受支持的 PInvoke 使用方式。

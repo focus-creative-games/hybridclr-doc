@@ -1,3 +1,8 @@
+---
+title: 'Using MonoBehaviour'
+description: 'HybridCLR fully supports the MonoBehaviour workflow. You can dynamically attach hot update scripts through AddComponent in code。'
+slug: /beginner/monobehaviour
+---
 
 # Using MonoBehaviour
 

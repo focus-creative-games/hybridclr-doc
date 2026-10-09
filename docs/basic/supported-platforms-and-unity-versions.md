@@ -1,3 +1,8 @@
+---
+title: '支持的Unity版本和平台'
+description: 'HybridCLR已经稳定支持了2022.3.x 系列LTS版本及2023.2.x、6000.x.y等版本，并且支持所有il2cpp支持的平台。'
+slug: /basic/supportedplatformanduniyversion
+---
 
 # 支持的Unity版本和平台
 

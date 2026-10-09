@@ -1,10 +1,16 @@
+---
+title: 'Differential Hybrid Execution'
+description: 'HybridCLR pioneered the implementation of Differential Hybrid Execution (DHE) technology.。'
+slug: /business/differentialhybridexecution
+---
+
 # Differential Hybrid Execution
 
 HybridCLR pioneered the implementation of Differential Hybrid Execution (DHE) technology. It allows arbitrary additions, deletions, and modifications to AOT DLLs, intelligently running changed or new classes and functions in interpreter mode while unchanged classes and functions run in AOT mode, making hot-updated game logic performance essentially reach native AOT levels.
 
 :::tip
 
-DHE is only included in the **Ultimate Edition**. For details, please see [Ultimate Edition Introduction](../business/ultimate/intro).
+DHE is only included in the **Ultimate Edition**. For details, please see [Ultimate Edition Introduction](./ultimate/intro.md).
 
 :::
 

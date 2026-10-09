@@ -1,3 +1,9 @@
+---
+title: '代码中使用'
+description: '在初次构建App未发生任何代码更新，或者说虽然有代码更新，但该DHE程序集的代码没有更新时，可以调用此接口，表示完全使用原始AOT实现。'
+slug: /business/ultimate/useIncodes
+---
+
 # 代码中使用
 
 
@@ -39,7 +45,7 @@
 该接口有两个参数: currentDllBytes和optionBytes。
 
 - currentDllBytes为最新的DHE程序集文件的字节
-- optionBytes 为dhao文件的字节。[dhao文件](./dhao)包含了DHE的变化信息，用于指示哪些函数以aot模式运行，哪些以解释方式执行。
+- optionBytes 为dhao文件的字节。[dhao文件](./dhao.md)包含了DHE的变化信息，用于指示哪些函数以aot模式运行，哪些以解释方式执行。
 
 ```csharp
 

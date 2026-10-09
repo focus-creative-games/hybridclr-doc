@@ -1,3 +1,9 @@
+---
+title: 'Assembly::Load加载优化'
+description: '商业化版本从以几个方面优化了Assembly::Load加载时间，最终将Assembly::Load时间减少为原来的20%。'
+slug: /business/assemblyloadoptimization
+---
+
 # Assembly::Load加载优化
 
 商业化版本从以几个方面优化了Assembly::Load加载时间，最终将Assembly::Load时间减少为原来的**20%**。

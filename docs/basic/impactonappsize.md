@@ -1,3 +1,9 @@
+---
+title: '对App包体影响'
+description: '接入hybridclr后对包体影响主要由以下几部分构成：'
+slug: /basic/impactonappsize
+---
+
 # 对App包体影响
 
 接入hybridclr后对包体影响主要由以下几部分构成：

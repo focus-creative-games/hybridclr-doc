@@ -49,7 +49,7 @@ const sidebars = {
       },
       collapsed: true,
       items: [
-        'basic/supportedplatformanduniyversion',
+        'basic/supported-platforms-and-unity-versions',
         'basic/install',
         'basic/projectsettings',
         'basic/hotupdateassemblysetting',
@@ -69,7 +69,7 @@ const sidebars = {
         'basic/impactonappsize',
         'basic/impactonappmemory',
         'basic/notsupportedfeatures',
-        'basic/com.code-philosophy.hybridclr',
+        'basic/hybridclr-unity-package',
         'basic/bestpractice',
         'basic/migratefromnetstandard',
         'basic/workwithscriptlanguage',
@@ -124,7 +124,7 @@ const sidebars = {
           collapsed: true,
           items: [
             'business/ultimate/intro',
-            'business/ultimate/quickstartunchecked',
+            'business/ultimate/quickstart-unchecked',
             'business/ultimate/build',
             'business/ultimate/loadassembly',
             'business/ultimate/metaversionworkflow',
@@ -175,7 +175,7 @@ const sidebars = {
       },
       collapsed: true,
       items: [
-        'other/relativepojects',
+        'other/related-projects',
         'other/roadmap',
         'other/changelog',
         'other/donate',

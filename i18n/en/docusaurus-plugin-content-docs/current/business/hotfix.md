@@ -1,8 +1,14 @@
+---
+title: 'Hotfix Dynamic Hot Repair'
+description: 'Some updates are just a few lines of bug fixes, and some developers might want to dynamically fix them while the game is running。'
+slug: /business/hotfix
+---
+
 # Hotfix Dynamic Hot Repair
 
 Some updates are just a few lines of bug fixes, and some developers might want to dynamically fix them while the game is running, rather than forcing players to restart the current game app.
-Currently, versions other than the [Hot Reload Edition](./reload/intro) don't support reloading hot update assemblies.
-Even the hot reload version, despite supporting complete unloading of assemblies and reloading of entirely new assemblies, has many [limitations and requirements](./reload/hotreloadassembly#unsupported-features-and-special-requirements) for code, making it highly intrusive to business code.
+Currently, versions other than the [Hot Reload Edition](./reload/intro.md) don't support reloading hot update assemblies.
+Even the hot reload version, despite supporting complete unloading of assemblies and reloading of entirely new assemblies, has many [limitations and requirements](./reload/hotreloadassembly.md#unsupported-features-and-special-requirements) for code, making it highly intrusive to business code.
 
 Hotfix technology is specifically designed to solve such dynamic bug fixing scenarios. It can fix bugs in hot update modules at runtime without affecting the user experience, and it's non-intrusive to business code.
 

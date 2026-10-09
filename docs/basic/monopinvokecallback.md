@@ -1,3 +1,9 @@
+---
+title: 'MonoPInvokeCallback支持'
+description: '当与lua之类的第三方语言交互时，需要从这些第三方语言调用C#函数。必须解决两个问题：'
+slug: /basic/monopinvokecallback
+---
+
 # MonoPInvokeCallback支持
 
 当与lua之类的第三方语言交互时，需要从这些第三方语言调用C#函数。必须解决两个问题：

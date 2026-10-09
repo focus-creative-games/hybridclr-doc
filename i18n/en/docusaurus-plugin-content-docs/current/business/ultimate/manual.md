@@ -1,3 +1,9 @@
+---
+title: 'User Manual'
+description: '- After extracting dhe-{version}, place the com.code-philosophy.hybridclr folder into your project’s Packages directory.。'
+slug: /business/ultimate/manual
+---
+
 # User Manual
 
 ## Installation
@@ -72,7 +78,7 @@ In most projects, the default full injection strategy has negligible performance
 
 To avoid indirect dirty function contamination (i.e., function A calls function B, if B changes, A will also be marked as changed), by default a small section of check and jump code is injected at the beginning of all functions. Although it's a very simple `if (method->isInterpterImpl)` statement, for short functions like `int Age {get; set;}`, this insertion may cause observable performance degradation (even up to 10%).
 
-Function injection strategy is used to optimize this situation. For short functions that won't change, configuring them as non-injected can improve performance. See the [InjectRules](./injectrules) document for details.
+Function injection strategy is used to optimize this situation. For short functions that won't change, configuring them as non-injected can improve performance. See the [InjectRules](./injectrules.md) document for details.
 
 Fill in the injection strategy file path in the `InjectRuleFiles` field in `HybridCLR Settings`. The file's relative path is the project root directory (such as `Assets/InjectRules/DefaultInjectRules.xml`).
 

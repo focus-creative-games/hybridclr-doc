@@ -1,6 +1,12 @@
+---
+title: 'Configuration'
+description: 'After installing the com.code-philosophy.hybridclr package, you need to properly configure related parameters.。'
+slug: /basic/projectsettings
+---
+
 # Configuration
 
-After installing the com.code-philosophy.hybridclr package, you need to properly configure related parameters. For detailed configuration documentation, see [hybridclr_unity Package Introduction](/basic/com.code-philosophy.hybridclr.md).
+After installing the com.code-philosophy.hybridclr package, you need to properly configure related parameters. For detailed configuration documentation, see [hybridclr_unity Package Introduction](./hybridclr-unity-package.md).
 
 ## Configure PlayerSettings
 
@@ -10,7 +16,7 @@ After installing the com.code-philosophy.hybridclr package, you need to properly
 
 ## Configure Hot Update Assemblies
 
-Obviously, code that needs hot updates should be split into independent assemblies for convenient hot updating. For how to create and split hot update assemblies, see the [Creating and Configuring Hot Update Assembly](/basic/hotupdateassemblysetting.md) documentation.
+Obviously, code that needs hot updates should be split into independent assemblies for convenient hot updating. For how to create and split hot update assemblies, see the [Creating and Configuring Hot Update Assembly](./hotupdateassemblysetting.md) documentation.
 
 Click the menu `HybridCLR/Settings` to open the configuration interface.
 
@@ -26,4 +32,4 @@ The search path is relative to the project root directory (the parent directory 
 
 ## Other Parameters
 
-Most parameters can maintain default values and general developers don't need to worry about them. For details, see [com.code-philosophy.hybridclr Package Introduction](/basic/com.code-philosophy.hybridclr.md).
+Most parameters can maintain default values and general developers don't need to worry about them. For details, see [com.code-philosophy.hybridclr Package Introduction](./hybridclr-unity-package.md).

@@ -1,3 +1,9 @@
+---
+title: 'il2cpp Bug Record'
+description: 'Finding obj''s interface implementation is incorrect. According to the specification, the following code should print "Comput B", such as in .net 6。'
+slug: /basic/il2cppbugs
+---
+
 # il2cpp Bug Record
 
 ## Covariance and Contravariance Generic Interface Call Error

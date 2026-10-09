@@ -1,3 +1,9 @@
+---
+title: 'Quick Start'
+description: 'Almost the same as the community version''s Quick Start, this document only introduces the differences.'
+slug: /business/pro/quickstart
+---
+
 # Quick Start
 
 Almost the same as the community version's [Quick Start](../../beginner/quickstart.md), this document only introduces the differences.

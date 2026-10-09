@@ -1,3 +1,9 @@
+---
+title: '常见错误'
+description: '目前提交的版本都经过测试，基本不可能出现编译错误及崩溃或者基础的运行错误。如果查看了常见错误，还未能解决问题，请将com.code-philosophy.hybridclr、hybridclr、il2cpp_plus更新到最新版本，再试一次。 如果仍然没有解决问题，可以加入以下群：'
+slug: /help/commonerrors
+---
+
 # 常见错误
 
 目前提交的版本都经过测试，基本不可能出现编译错误及崩溃或者基础的运行错误。如果查看了常见错误，还未能解决问题，请将com.code-philosophy.hybridclr、hybridclr、il2cpp_plus更新到最新版本，再试一次。
@@ -109,7 +115,7 @@ xcode版本太旧导致。更新到较新版本。
 
 - Scripting Backend 错误选择了 Mono
 - 开启了`全局安装`选项，但没有正确替换Editor安装目录的libil2cpp
-- com.code-philosophy.hybridclr的版本低于v3.1.0，同时没有替换xcode工程的libil2cpp.a文件。请根据 [build iOS libil2cpp.a](/basic/buildpipeline.md) 文档编译最新的。然后替换xcode项目中的libil2cpp.a文件
+- com.code-philosophy.hybridclr的版本低于v3.1.0，同时没有替换xcode工程的libil2cpp.a文件。请根据 [build iOS libil2cpp.a](../basic/buildpipeline.md) 文档编译最新的。然后替换xcode项目中的libil2cpp.a文件
 
 ### Building Library/Bee/artifacts/xxxx failed with output: Fatalerror in Unitiy CIL Linker Mono.Cecil.AssemblyResolutionException: Failed to resolve assembly:'xxx'
 
@@ -162,7 +168,7 @@ WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切�
 WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`替换Editor安装目录的原始libil2cpp，导致缺失了函数。解决办法是：
 - 运行`HybridCLR/Generate/Il2cppDef`生成正确的版本宏
 - 复制 `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` 替换Editor安装目录的原始libil2cpp。注意必须是替换目录，而不是合并目录，这个可能会导致多了一些文件而编译出错。
-你也可以使用创建软链接的方式，详细请看[安装HybridCLR](/basic/install.md)中关于全局安装的文档。
+你也可以使用创建软链接的方式，详细请看[安装HybridCLR](../basic/install.md)中关于全局安装的文档。
 
 ### 打包WebGL平台点击`Generate/All`发生错误
 
@@ -173,7 +179,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 ### 打包出现 `#error: "not support unity version"`
 
 有几种原因：
-- 你使用的Unity版本不在支持列表中。v9.0.0起只支持 2022.3.x、2023.2.x、6000.x.y（不含6000.5.x），详见[支持的Unity版本和平台](../basic/supportedplatformanduniyversion)
+- 你使用的Unity版本不在支持列表中。v9.0.0起只支持 2022.3.x、2023.2.x、6000.x.y（不含6000.5.x），详见[支持的Unity版本和平台](../basic/supported-platforms-and-unity-versions.md)
 - 你打包前未运行`HybridCLR/Generate/All`或者`HybridCLR/Generate/Il2CppDef`，导致未生成Unity版本宏
 
 ### 打包时出现 'could not find a part of path "xxxx/hybridclr/generated/UnityVersion.h"
@@ -241,12 +247,12 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 ### `HybridCLR/Generate/All`或构建时出现"PInvoke method {method.FullName} has unsupported parameter or return type. Please check the method signature."
 
-自**v9.0.0**版本起不再支持在热更新代码中定义extern函数，请将该函数移到AOT中定义。详细请见[PInvoke支持](../basic/pinvoke)。
+自**v9.0.0**版本起不再支持在热更新代码中定义extern函数，请将该函数移到AOT中定义。详细请见[PInvoke支持](../basic/pinvoke.md)。
 
 ### `HybridCLR/Generate/All`或构建时出现"MonoPInvokeCallback method {method.FullName} has unsupported parameter or return type. Please check the method signature."
 
 在热更新代码中定义的添加了`[MonoPInvokeCallback]`特性的函数不支持string或者数组之类的参数或者返回值，请将相应参数修改为IntPtr同时自行marshal这些参数，或者将该函数移到AOT中定义。
-详细请见[MonoPInvokCallback支持](../basic/monopinvokecallback)。
+详细请见[MonoPInvokCallback支持](../basic/monopinvokecallback.md)。
 
 ### 升级到最新版本xcode后发布ios平台时在stdio.h（或_studio）头文件中出现fopen函数相关或`unexpectd )`之类的编译错误
 
@@ -277,7 +283,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 有几种原因：
 
 
-- 由于Unity的资源管理的实现机制，资源必须打包为AssetBundle才能正常恢复热更新脚本，放到Resource下不行。详情请看 [MonoBehaviour工作流](/basic/monobehaviour.md)。
+- 由于Unity的资源管理的实现机制，资源必须打包为AssetBundle才能正常恢复热更新脚本，放到Resource下不行。详情请看 [MonoBehaviour工作流](../basic/monobehaviour.md)。
 - 加载资源时还未加载对应的热更新程序集
 - 脚本所在的程序集未加入到HybridCLR Settings中的hotUpdateDlls或者preservedHotUpdateDlls列表
 - 修改HybridCLR Settings中的hotUpdateDlls或者preservedHotUpdateDlls列表后未Generate/All并且重新发主包
@@ -286,9 +292,9 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 
 有两种原因
 
-1. 如果ios平台，因为ios平台并不从源码编译libil2cpp，而是使预先编译好的libil2cpp.a，你需要替换xcode工程中的libil2cpp.a为HybridCLR的编译版本。编译方式请看[build libil2cpp.a for iOS](/basic/buildpipeline.md)
-2. 如果是webgl平台，则因为使用全局安装后没有替换安装目录的libil2cpp或者没有建立安装目录libil2cpp到项目本地libil2cpp的软链接。详细见[发布WebGL平台](../basic/buildwebgl)
-3. 如果其他平台，则因为未安装HybridCLR。请参照[安装HybridCLR](/basic/install.md)文档操作。
+1. 如果ios平台，因为ios平台并不从源码编译libil2cpp，而是使预先编译好的libil2cpp.a，你需要替换xcode工程中的libil2cpp.a为HybridCLR的编译版本。编译方式请看[build libil2cpp.a for iOS](../basic/buildpipeline.md)
+2. 如果是webgl平台，则因为使用全局安装后没有替换安装目录的libil2cpp或者没有建立安装目录libil2cpp到项目本地libil2cpp的软链接。详细见[发布WebGL平台](../basic/buildwebgl.md)
+3. 如果其他平台，则因为未安装HybridCLR。请参照[安装HybridCLR](../basic/install.md)文档操作。
 
 ### 热更新中物理碰撞 Collision未生效
 
@@ -367,7 +373,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 - 自己改微信工具源码，将BuildSettings中 `IL2CPP Code Generation` 设置为 `Faster`。
 
 
-具体操作请看[AOT泛型原理介绍](/basic/aotgeneric.md) 文档。
+具体操作请看[AOT泛型原理介绍](../basic/aotgeneric.md) 文档。
 
 
 ### 遇到 ExecutionEngineException: metadata type not match
@@ -378,7 +384,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 有两种原因：
 
-- 在热更新中定义了extern函数。自**v9.0.0**版本起不再支持该特性，解决办法是将extern函数移到AOT部分，详见[PInvoke支持](../basic/pinvoke)。
+- 在热更新中定义了extern函数。自**v9.0.0**版本起不再支持该特性，解决办法是将extern函数移到AOT部分，详见[PInvoke支持](../basic/pinvoke.md)。
 - 使用了SuperSet元数据格式，但补充元数据aot dll太旧，导致AOT中的泛型在补充元数据dll中找不到。解决办法是更新最新的AOT dll。
 
 ### 遇到ExecutionEngineException:method body is null. xxx::yyyy
@@ -388,7 +394,7 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 ### 遇到 ExecutionEngineException: GetManaged2NativeMethodPointer not support. xxxx 函数名
 
 缺失 interpreter -> aot 方向的桥接函数。请先确认你的 hybridclr是最新代码， com.code-philosophy.hybridclr package也是最新版本，
-并且已经生成最新的桥接函数。原理请参考 [桥接函数](/basic/methodbridge.md) 。
+并且已经生成最新的桥接函数。原理请参考 [桥接函数](../basic/methodbridge.md) 。
 
 如果Android上正常，而iOS上有问题，则是因为你没有重新编译libil2cpp.a。
 
@@ -396,14 +402,14 @@ HybridCLR提供了快捷的自动生成工具，运行菜单命令 `HybridCLR/Ge
 
 ### 遇到'ExecutionEngineException: NotSupportNative2Managed' 
 
-缺失 aot -> interpreter 方向的桥接函数。请先确认你已生成最新的桥接函数。原理请参考 [桥接函数](/basic/methodbridge.md) 。
+缺失 aot -> interpreter 方向的桥接函数。请先确认你已生成最新的桥接函数。原理请参考 [桥接函数](../basic/methodbridge.md) 。
 如果Android上正常，而iOS上有问题，则是因为你没有重新编译libil2cpp.a。
 
 如果还有问题，请在群里反馈给管理员 技术支持。
 
 ### 遇到`ExecutionEngineException: NotSupportManaged2NativeFunctionMethod`
 
-这是热更新代码中定义的extern函数缺失桥接函数引起。自**v9.0.0**版本起不再支持在热更新代码中定义extern函数，请将这些函数移到AOT中定义。详细见文档[PInvoke支持](../basic/pinvoke)。
+这是热更新代码中定义的extern函数缺失桥接函数引起。自**v9.0.0**版本起不再支持在热更新代码中定义extern函数，请将这些函数移到AOT中定义。详细见文档[PInvoke支持](../basic/pinvoke.md)。
 
 ### ExecutionEngineException: Attempting to call method 'xxxx' for which no ahead of time (AOT) code was generated.
 

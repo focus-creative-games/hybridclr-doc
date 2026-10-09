@@ -1,3 +1,9 @@
+---
+title: 'Changelog'
+description: 'This document only records key events. For more detailed release logs, please see RELEASELOG.'
+slug: /other/changelog
+---
+
 # Changelog
 
 This document only records key events. For more detailed release logs, please see [RELEASELOG](https://github.com/focus-creative-games/hybridclr_unity/blob/main/RELEASELOG.md).

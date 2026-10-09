@@ -1,3 +1,9 @@
+---
+title: 'quickstartunchecked'
+description: '﻿# Quick Start'
+slug: /business/ultimate/quickstartunchecked
+---
+
 ﻿# Quick Start
 
 Please successfully run the hot update process on Win64 or MacOS Standalone platforms before attempting hot updates on Android and iOS platforms.

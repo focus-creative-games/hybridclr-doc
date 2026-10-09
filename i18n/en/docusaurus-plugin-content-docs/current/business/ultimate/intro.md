@@ -1,3 +1,9 @@
+---
+title: 'Introduction'
+description: 'The Ultimate version is primarily aimed at projects with strict performance requirements.。'
+slug: /business/ultimate/intro
+---
+
 # Introduction
 
 The Ultimate version is primarily aimed at projects with strict performance requirements. The Ultimate version has tremendous performance improvements compared to the community version, almost (**100% when unchanged**) reaching native performance levels, while also having good optimizations in terms of security and memory.
@@ -8,8 +14,8 @@ Supports all Unity 2019-6000 LTS versions.
 
 ## Advantages
 
-- Includes all features of the [Professional version](../pro/intro)
-- Includes the unique [DHE](../differentialhybridexecution) technology, where unchanged code sections perform identically to native code, providing an amazing **3-30** times or even higher performance improvement compared to the community version's pure interpretation approach, achieving **almost native** performance levels overall
+- Includes all features of the [Professional version](../pro/intro.md)
+- Includes the unique [DHE](../differentialhybridexecution.md) technology, where unchanged code sections perform identically to native code, providing an amazing **3-30** times or even higher performance improvement compared to the community version's pure interpretation approach, achieving **almost native** performance levels overall
 - Supports multi-main package iterative updates. Multiple main packages (v1, v2, ..., vn) can exist simultaneously, all loading the same latest version of hot update code, with newer main packages having better performance.
 
 ## Predictable Effects

@@ -1,3 +1,9 @@
+---
+title: '常见问题'
+description: '原因是 意外创建了被DHE替换的原始AOT类型。使用DHE后，不能再创建DHE程序集中类型对应的原始类型。有几个导致这个错误的原因：'
+slug: /business/ultimate/commonerrors
+---
+
 # 常见问题
 
 ## ExecutionEngineException: Could not run the type initializer for origin DHE type 'xxx'

@@ -1,3 +1,9 @@
+---
+title: 'Execution Performance'
+description: 'Although HybridCLR also uses interpretation execution, both theoretical principles and real device testing data show that HybridCLR has dramatically improv。'
+slug: /basic/performance
+---
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 

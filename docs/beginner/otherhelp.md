@@ -1,3 +1,9 @@
+---
+title: '其他资料'
+description: '- il2cpp_plus github gitee - hybridclr github gitee'
+slug: /beginner/otherhelp
+---
+
 # 其他资料
 
 
@@ -14,7 +20,7 @@
 
 ## 遇到问题
 
-请先查阅 [常见错误](/help/commonerrors.md)。
+请先查阅 [常见错误](../help/commonerrors.md)。
 
 如果没有解决，可以加入官方群求助：
 
@@ -26,4 +32,4 @@
 - 商业合作邮箱: business@code-philosophy.com
 
 
-如果确定是bug（HybridCLR已经非常稳定，新手遇到bug的概率极低），请按照[Bug反馈模板](/help/issue.md)反馈给我们。
+如果确定是bug（HybridCLR已经非常稳定，新手遇到bug的概率极低），请按照[Bug反馈模板](../help/issue.md)反馈给我们。

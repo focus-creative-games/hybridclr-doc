@@ -1,3 +1,8 @@
+---
+title: '安装'
+description: '支持2022.3.x、2023.2.x、6000.x.y（不含6000.5.x）中任一版本。'
+slug: /basic/install
+---
 
 # 安装
 

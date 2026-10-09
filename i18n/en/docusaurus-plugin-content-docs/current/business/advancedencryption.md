@@ -1,3 +1,9 @@
+---
+title: 'Advanced Code Hardening'
+description: 'Advanced code hardening uses custom assembly structures and custom instructions to greatly improve App security.'
+slug: /business/advancedencryption
+---
+
 # Advanced Code Hardening
 
 Advanced code hardening uses custom assembly structures and custom instructions to greatly improve App security.

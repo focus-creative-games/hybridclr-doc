@@ -1,3 +1,9 @@
+---
+title: 'DOTS Support'
+description: 'DOTS''s TypeManager initializes too early and does not support dynamic registration of Components and Systems.。'
+slug: /basic/dots
+---
+
 # DOTS Support
 
 DOTS's TypeManager initializes too early and does not support dynamic registration of Components and Systems. To make hot update modules work correctly with DOTS, you must adjust World initialization timing so that type registration finishes **after hot update assemblies are loaded and before any World is created**.

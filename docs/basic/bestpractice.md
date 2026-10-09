@@ -1,3 +1,9 @@
+---
+title: '最佳实践'
+description: 'assembly的byte[]数据在调用完Assembly.Load后不要保存起来，因为在Assembly.Load中会自动复制一份。'
+slug: /basic/bestpractice
+---
+
 # 最佳实践
 
 ## Assembly.Load之后不要保存 assemblyBytes

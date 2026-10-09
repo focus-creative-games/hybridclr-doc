@@ -1,3 +1,9 @@
+---
+title: 'Migrating from netstandard to .Net Framework'
+description: 'During Unity''s packaging process, all references to netstandard.dll are converted to final references like mscorlib.dll。'
+slug: /basic/migratefromnetstandard
+---
+
 # Migrating from netstandard to .Net Framework
 
 During Unity's packaging process, all references to netstandard.dll are converted to final references like mscorlib.dll, causing the original code's reference relationships to differ significantly from the final reference relationships. This difference causes the `Generate/All/*` commands to run with errors. Additionally, since the hot update dlls compiled by `HybridCLR/CompileDll/*` commands still reference `netstandard` rather than the final assemblies like mscorlib, loading and running hot update dlls will result in errors where types in netstandard cannot be found. Therefore, HybridCLR defaults to requiring the use of `Net Framework` Api Level.

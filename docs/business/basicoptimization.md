@@ -1,3 +1,9 @@
+---
+title: '标准解释优化'
+description: '标准解释优化使用多种技术大幅提升了解释执行的性能，基础指令（如变量访问、数值计算）受益极大。'
+slug: /business/basicoptimization
+---
+
 # 标准解释优化
 
 :::tip

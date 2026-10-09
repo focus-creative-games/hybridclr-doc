@@ -1,3 +1,9 @@
+---
+title: 'DHAO Files'
+description: 'DHAO files are the core concept of DHE technology. DHAO files contain pre-calculated information about changed types and functions in the latest hot update。'
+slug: /business/ultimate/dhao
+---
+
 # DHAO Files
 
 DHAO files are the core concept of DHE technology. DHAO files contain pre-calculated information about changed types and functions in the latest hot update dll. At runtime, the system directly determines whether to use the latest interpreted version or call the original AOT function when executing a hot update function based on the information in the DHAO file.

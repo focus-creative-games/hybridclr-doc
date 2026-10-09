@@ -1,7 +1,13 @@
+---
+title: 'Bug Report Template'
+description: 'Before reporting a bug, please confirm you have completed the following steps: - Carefully review the Common Errors documentation。'
+slug: /help/issue
+---
+
 # Bug Report Template
 
 Before reporting a bug, please confirm you have completed the following steps:  
-- Carefully review the [Common Errors documentation](/help/commonerrors.md), as most beginner issues are covered there.
+- Carefully review the [Common Errors documentation](./commonerrors.md), as most beginner issues are covered there.
 - If you're still certain it's a bug, please follow the **Report Template** below and send it to technical support (QQ1732047670).
 
 ## Bug Report

@@ -1,3 +1,9 @@
+---
+title: '快速上手'
+description: '请在Win64或MacOS Standalone平台上正确跑通热更新流程后再尝试Android、iOS平台的热更新。'
+slug: /business/ultimate/quickstartunchecked
+---
+
 # 快速上手
 
 请在Win64或MacOS Standalone平台上正确跑通热更新流程后再尝试Android、iOS平台的热更新。

@@ -1,3 +1,9 @@
+---
+title: 'Quick Start Guide'
+description: 'This tutorial guides you through experiencing HybridCLR hot updates starting from an empty project.。'
+slug: /beginner/quickstart
+---
+
 # Quick Start Guide
 
 This tutorial guides you through experiencing HybridCLR hot updates starting from an empty project. For simplicity, we will only demonstrate with BuildTarget set to **Windows** or **MacOS** Standalone platforms.
@@ -15,7 +21,7 @@ Please ensure the hot update process works correctly on the Standalone platform 
 ### Installing Unity
 
 :::caution
-HybridCLR supports all LTS versions of Unity from 2019 to 6000. If your current version is not among the recommended versions below, please refer to the [Installing HybridCLR](/basic/install.md) documentation.
+HybridCLR supports all LTS versions of Unity from 2019 to 6000. If your current version is not among the recommended versions below, please refer to the [Installing HybridCLR](../basic/install.md) documentation.
 :::
 
 - Install any of the following versions: 2019.4.40, 2020.3.26+, 2021.3.0+, 2022.3.0+, 6000.0.0+
@@ -168,7 +174,7 @@ public class Hello
 }
 ```
 
-You might be concerned about whether the hot update code has syntax restrictions like other solutions. HybridCLR is a nearly complete implementation with **almost no restrictions** on hot update code. The very few exceptions can be viewed in [Unsupported Features](/basic/notsupportedfeatures.md).
+You might be concerned about whether the hot update code has syntax restrictions like other solutions. HybridCLR is a nearly complete implementation with **almost no restrictions** on hot update code. The very few exceptions can be viewed in [Unsupported Features](../basic/notsupportedfeatures.md).
 
 ## Load hot update assembly
 

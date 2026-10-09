@@ -1,3 +1,9 @@
+---
+title: 'AOT Generics'
+description: 'CLR has two types of generic features: generic types and generic functions. Generics are an extremely widely used feature in C#.。'
+slug: /basic/aotgeneric
+---
+
 # AOT Generics
 
 CLR has two types of generic features: generic types and generic functions. Generics are an extremely widely used feature in C#. Even code that doesn't obviously contain generic usage may implicitly include generic-related definitions or operations.
@@ -268,7 +274,7 @@ Whether to optimize supplemental metadata does not affect the normal operation o
 
 :::
 
-Loading supplemental metadata dlls not only increases package size or hot update resource size, but also consumes considerable memory space at runtime. For details, see the [Memory and GC](./memory) documentation. Optimizing supplemental metadata dll size has positive significance for memory-sensitive scenarios.
+Loading supplemental metadata dlls not only increases package size or hot update resource size, but also consumes considerable memory space at runtime. For details, see the [Memory and GC](./memory.md) documentation. Optimizing supplemental metadata dll size has positive significance for memory-sensitive scenarios.
 
 Supplemental metadata technology only uses the metadata information of generic functions in supplemental metadata dlls. The metadata of non-generic functions contained in supplemental metadata dlls is redundant, and completely removing them will not affect the normal operation of the supplemental metadata mechanism. Therefore, starting from v4.0.16, `com.code-philosophy.hybridclr` provides the supplemental metadata optimization tool class `HybridCLR.Editor.AOT.AOTAssemblyMetadataStripper` to implement this removal optimization work.
 
@@ -313,7 +319,7 @@ Loading supplemental metadata not only significantly increases memory usage (gen
 Supplemented generic functions execute in interpretation mode, which also reduces runtime performance.
 
 After HybridCLR supports `full generic sharing`, supplemental metadata is no longer needed, simplifying the workflow, running AOT generics natively with significantly improved performance, completely solving the above shortcomings of supplemental metadata.
-For detailed documentation, see [Full Generic Sharing](../business/fullgenericsharing).
+For detailed documentation, see [Full Generic Sharing](../business/fullgenericsharing.md).
 
 ## Appendix: Shared Generic Instantiation Examples for AOT Generics
 

@@ -1,3 +1,8 @@
+---
+title: '编译 热更新assembly'
+description: '热更新代码中有可能会包含 #if UNITY_EDITOR 、#if UNITY_STANDALONE_WIN 这样的宏开关，因此每个平台需要单独 编译热更新assembly。'
+slug: /basic/compileassembly
+---
 
 # 编译 热更新assembly
 

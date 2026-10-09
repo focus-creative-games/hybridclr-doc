@@ -1,3 +1,9 @@
+---
+title: 'Publishing to WebGL Platform'
+description: 'Due to the many specificities of the WebGL platform, this document specifically describes how to publish to the WebGL platform.。'
+slug: /basic/buildwebgl
+---
+
 # Publishing to WebGL Platform
 
 Due to the many specificities of the WebGL platform, this document specifically describes how to publish to the WebGL platform. This document demonstrates the publishing process on the hybridclr_trial project ([github](https://github.com/focus-creative-games/hybridclr_trial) [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)).
@@ -21,7 +27,7 @@ Beginners should at least read the [Quick Start](../beginner/quickstart.md) docu
 
 
 - Ensure Unity Editor has the WebGL module installed, as shown below
-- Complete HybridCLR installation and setup according to the [install](install.md) documentation
+- Complete HybridCLR installation and setup according to the [install](./install.md) documentation
 - In HybridCLRSettings, enable the `Use Global Il2cpp` option, as the WebGL platform only supports global installation. Starting from 2021.3.4+ and 2022.3.0+, **this option is no longer needed**
 
 

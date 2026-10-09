@@ -1,3 +1,9 @@
+---
+title: 'HybridCLR Source Code Structure and Debugging'
+description: 'HybridCLR implements the following functionality:'
+slug: /basic/sourceinspect
+---
+
 # HybridCLR Source Code Structure and Debugging
 
 ## HybridCLR Module Introduction

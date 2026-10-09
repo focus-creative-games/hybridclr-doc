@@ -1,3 +1,9 @@
+---
+title: '修改UnityEngine dll'
+description: '由于有些版本的dll与热重载并不兼容，需要小幅修改代码。'
+slug: /business/reload/modifydll
+---
+
 # 修改UnityEngine dll
 
 由于有些版本的dll与热重载并不兼容，需要小幅修改代码。

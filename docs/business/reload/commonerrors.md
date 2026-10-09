@@ -1,3 +1,9 @@
+---
+title: '常见问题'
+description: '使用JsonUtility或者MonoBehaviour序列化的对象的元数据信息会被引擎缓存。为了支持它们的卸载，我们复用了这些类型信息，即重新加载程序集后，引擎层访问到这些元数据信息会被重新更新为 最新的值。'
+slug: /business/reload/commonerrors
+---
+
 # 常见问题
 
 ## [Serializable] 类型或者Monbehaviour（ScriptableObject)中包含泛型参数为被卸载程序集中类型的泛型字段时崩溃

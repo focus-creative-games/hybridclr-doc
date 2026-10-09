@@ -1,3 +1,9 @@
+---
+title: 'hybridclr Package手册'
+description: 'com.code-philosophy.hybridclr是一个Unity package，它提供了HybridCLR所需的Editor工作流工具脚本及Runtime脚本。'
+slug: /basic/com.code-philosophy.hybridclr
+---
+
 # hybridclr Package手册
 
 `com.code-philosophy.hybridclr`是一个Unity package，它提供了HybridCLR所需的Editor工作流工具脚本及Runtime脚本。借助
@@ -86,7 +92,7 @@ hybridclr代码要兼容多个Unity版本，需要当前Unity版本相关宏定�
 
 扫描热更新dll引用的AOT类型，生成link.xml，避免热更新脚本用到的AOT类型或函数被裁剪。输出的文件路径在 HybridCLRSettings.asset中`OuputLinkXml`字段中指定，默认为`LinkGenerator/link.xml`。
 
-更具体的裁剪相关介绍请看[代码裁剪原理及解决办法](codestriping.md)。
+更具体的裁剪相关介绍请看[代码裁剪原理及解决办法](./codestriping.md)。
 
 ### Generate/AotDlls
 
@@ -99,7 +105,7 @@ hybridclr代码要兼容多个Unity版本，需要当前Unity版本相关宏定�
 
 ### Generate/MethodBridge
 
-根据当前的AOT dll集扫描生成桥接函数文件。相关文档请看[桥接函数](methodbridge.md)。
+根据当前的AOT dll集扫描生成桥接函数文件。相关文档请看[桥接函数](./methodbridge.md)。
 
 生成桥接函数依赖AOT dlls和热更新dlls。如果你没有用 `HybridCLR/Generate/All` 这样的一键生成命令，请依次运行以下命令：
 
@@ -127,7 +133,7 @@ hybridclr代码要兼容多个Unity版本，需要当前Unity版本相关宏定�
 
 请在其他文件中添加泛型类型及函数的实例化引用，因为这个输出文件每次重新生成后会被覆盖。
 这个泛型实例化文档只起到启发作用，告诉你可以aot泛型实例化哪些类和函数。
-更具体的AOT泛型相关文档请看[AOT泛型介绍](/basic/aotgeneric.md)。
+更具体的AOT泛型相关文档请看[AOT泛型介绍](./aotgeneric.md)。
 
 :::tip
 使用补充元数据机制后，**不作任何处理**也不影响正常运行。但如果手动对aot泛型实例化，可以提升性能。建议是对于少量性能敏感的类或函数手动泛型实例化即可，如`Dictionary<int,int>`之类。
@@ -303,7 +309,7 @@ preserveHotUpdateAssemblies字段用来满足这种需求。打包时不检查�
 属于打包工作流的一部分，相关代码在 `Editor/BuildProcessors/PatchScriptingAssemblyList.cs`中。
 
 工具在打包时，会自动将热更新assembly的dll名加入assembly列表配置文件。热更新MonoBehaviour脚本所在的assembly的dll名必须添加到assembly列表配置文件，
-Unity的资源管理系统才能正确识别和还原热更新脚本。更详细的原理介绍请看 [使用热更新MonoBehaviour](/basic/monobehaviour.md) 。
+Unity的资源管理系统才能正确识别和还原热更新脚本。更详细的原理介绍请看 [使用热更新MonoBehaviour](./monobehaviour.md) 。
 
 ### 备份裁剪后的AOT dll
 
@@ -317,7 +323,7 @@ Unity的资源管理系统才能正确识别和还原热更新脚本。更详细
 ## iOSBuild脚本
 
 package中 `Editor/Data~/iOSBuild` 包含了编译iOS版本libil2cpp.a所需的脚本。在运行`HybridCLR/Installer...`菜单命令成功初始化HybridCLR后，会自动复制到`{project}/HybridCLRData/iOSBuild`目录。
-**后续操作必须在`{project}/HybridCLRData/iOSBuild`目录进行**。编译libil2cpp.a的具体操作请看文档 [iOS平台打包](/basic/buildpipeline.md)。
+**后续操作必须在`{project}/HybridCLRData/iOSBuild`目录进行**。编译libil2cpp.a的具体操作请看文档 [iOS平台打包](./buildpipeline.md)。
 
 ## Runtime相关脚本
 
@@ -358,7 +364,7 @@ Consistent要求与裁剪后的dll精确一致，而`generate/all`中生成的�
 
 如果项目中用于xlua之类的脚本语言，对于要注册到lua中的C#函数，都需要添加`[MonoPInvokeCallback]`注解。这样可以为这些C#函数返回一个对应的c++
 函数指针，用于注册到脚本语言里。HybridCLR支持将热更新C#代码注册到lua中，但必须提前生成与`[MonoPInvokeCallback]`对应的C++桩函数，才可能为每个C#函数返回一个相应的C++函数指针。
-脚本提供了自动生成桩函数的功能。详细请见 [MonoPInvokeCallback支持](workwithscriptlanguage.md) 及 [HybridCLR+lua/js/python](workwithscriptlanguage.md) 文档
+脚本提供了自动生成桩函数的功能。详细请见 [MonoPInvokeCallback支持](./workwithscriptlanguage.md) 及 [HybridCLR+lua/js/python](./workwithscriptlanguage.md) 文档
 
 每个带 `[MonoPInvokeCallback]` 特性的函数都需要一个唯一对应的wrapper函数。这些wrapper函数必须是打包时预先生成，不可变化。
 因此如果后续热更新新增了 带 `[MonoPInvokeCallback]` 特性的函数，则会发生wrapper函数不足的情况。ReversePInvokeWrapperGenerationAttribute

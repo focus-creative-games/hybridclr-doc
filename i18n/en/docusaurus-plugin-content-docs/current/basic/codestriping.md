@@ -1,3 +1,9 @@
+---
+title: 'Code Stripping'
+description: 'Unity uses code stripping technology to help reduce package size for the il2cpp backend.。'
+slug: /basic/codestriping
+---
+
 # Code Stripping
 
 Unity uses [code stripping](https://docs.unity3d.com/Manual/ManagedCodeStripping.html) technology to help reduce package size for the il2cpp backend. If anti-stripping measures are not taken, since there is generally not much code in the AOT main project, a large number of C# types and functions are stripped, causing hot update calls to these stripped classes or functions to result in the following exceptions:

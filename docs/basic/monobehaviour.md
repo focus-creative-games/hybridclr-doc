@@ -1,3 +1,8 @@
+---
+title: 'MonoBehaviour支持'
+description: 'HybridCLR完全支持热更新MonoBehaviour和ScriptableObject工作流，即可以在代码里在GameObject上Add热更新脚本或者在资源上直接挂载 热更新脚本。但由于Unity资源管理机制的特殊性，对于资源上挂载热更新脚本，需要打包工作流上作一些特殊处理。'
+slug: /basic/monobehaviour
+---
 
 # MonoBehaviour支持
 

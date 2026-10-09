@@ -1,3 +1,9 @@
+---
+title: '代码加固'
+description: '社区版本直接加载原始dll，使得开发者不得不携带和下载原始dll。这些原始dll能够被ILSpy之类的工具反编译 ，产生严重的安全问题。即使开发者做了加密也很容易被内存中拦截而获得解密后的dll内容。'
+slug: /business/basicencryption
+---
+
 # 代码加固
 
 社区版本直接加载原始dll，使得开发者不得不携带和下载原始dll。这些原始dll能够被ILSpy之类的工具反编译

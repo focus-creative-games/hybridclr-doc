@@ -1,3 +1,9 @@
+---
+title: 'Common Errors'
+description: 'Currently submitted versions have all been tested and are basically unlikely to have compilation errors, crashes, or basic runtime errors.。'
+slug: /help/commonerrors
+---
+
 # Common Errors
 
 Currently submitted versions have all been tested and are basically unlikely to have compilation errors, crashes, or basic runtime errors. If you've checked the common errors but still can't resolve the issue, please update com.code-philosophy.hybridclr, hybridclr, and il2cpp_plus to the latest versions and try again.
@@ -110,7 +116,7 @@ The root cause is that you're using the original libil2cpp code. Several situati
 
 - Scripting Backend incorrectly selected Mono
 - Enabled `global installation` option but didn't correctly replace libil2cpp in the Editor installation directory
-- com.code-philosophy.hybridclr version is lower than v3.1.0 and didn't replace the libil2cpp.a file in the Xcode project. Please compile the latest version according to the [build iOS libil2cpp.a](/basic/buildpipeline.md) documentation. Then replace the libil2cpp.a file in the Xcode project
+- com.code-philosophy.hybridclr version is lower than v3.1.0 and didn't replace the libil2cpp.a file in the Xcode project. Please compile the latest version according to the [build iOS libil2cpp.a](../basic/buildpipeline.md) documentation. Then replace the libil2cpp.a file in the Xcode project
 
 ### Building Library/Bee/artifacts/xxxx failed with output: Fatal error in Unity CIL Linker Mono.Cecil.AssemblyResolutionException: Failed to resolve assembly:'xxx'
 
@@ -162,7 +168,7 @@ This is a problem caused by Unity modifying this function signature starting fro
 WebGL uses global installation. You haven't replaced the original libil2cpp in the Editor installation directory with the local `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`, causing missing functions. The solution is:
 - Run `HybridCLR/Generate/Il2cppDef` to generate correct version macros
 - Copy `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` to replace the original libil2cpp in the Editor installation directory. Note that you must replace the directory, not merge directories, as this might cause extra files and compilation errors.
-You can also use symbolic links. For details, see the global installation documentation in [Installing HybridCLR](/basic/install.md).
+You can also use symbolic links. For details, see the global installation documentation in [Installing HybridCLR](../basic/install.md).
 
 ### WebGL platform packaging errors when clicking `Generate/All`
 
@@ -244,12 +250,12 @@ Starting from Tuanjie Engine 1.2.0, a `Use Slim Format For global-metadata.dat` 
 
 ### `HybridCLR/Generate/All` or building shows "PInvoke method {method.FullName} has unsupported parameter or return type. Please check the method signature."
 
-Extern functions defined in hot update code don't support parameters or return values like string or arrays. Please modify the corresponding parameters to IntPtr and manually marshal these parameters, or move the function to AOT for definition. For details, see [PInvoke Support](../basic/pinvoke).
+Extern functions defined in hot update code don't support parameters or return values like string or arrays. Please modify the corresponding parameters to IntPtr and manually marshal these parameters, or move the function to AOT for definition. For details, see [PInvoke Support](../basic/pinvoke.md).
 
 ### `HybridCLR/Generate/All` or building shows "MonoPInvokeCallback method {method.FullName} has unsupported parameter or return type. Please check the method signature."
 
 Functions with `[MonoPInvokeCallback]` attribute defined in hot update code don't support parameters or return values like string or arrays. Please modify the corresponding parameters to IntPtr and manually marshal these parameters, or move the function to AOT for definition.
-For details, see [MonoPInvokCallback Support](../basic/monopinvokecallback).
+For details, see [MonoPInvokCallback Support](../basic/monopinvokecallback.md).
 
 ### Compilation errors related to `fopen` or messages like `unexpected )` appearing in `stdio.h` (or `_stdio`) when building for iOS after upgrading to the latest Xcode
 
@@ -279,7 +285,7 @@ References to hot update scripts in AOT resources in the main project will cause
 
 There are several reasons:
 
-- Due to Unity's resource management implementation mechanism, resources must be packaged as AssetBundle to properly restore hot update scripts. Placing them under Resource doesn't work. For details, see [MonoBehaviour Workflow](/basic/monobehaviour.md).
+- Due to Unity's resource management implementation mechanism, resources must be packaged as AssetBundle to properly restore hot update scripts. Placing them under Resource doesn't work. For details, see [MonoBehaviour Workflow](../basic/monobehaviour.md).
 - The corresponding hot update assembly hasn't been loaded when loading resources
 - The assembly where the script is located hasn't been added to the hotUpdateDlls or preservedHotUpdateDlls list in HybridCLR Settings
 - After modifying the hotUpdateDlls or preservedHotUpdateDlls list in HybridCLR Settings, didn't Generate/All and rebuild the main package
@@ -288,9 +294,9 @@ There are several reasons:
 
 There are two reasons:
 
-1. If iOS platform, because iOS platform doesn't compile libil2cpp from source code but uses pre-compiled libil2cpp.a, you need to replace libil2cpp.a in the xcode project with HybridCLR's compiled version. For compilation method, see [build libil2cpp.a for iOS](/basic/buildpipeline.md)
-2. If WebGL platform, it's because after using global installation, you didn't replace the libil2cpp in the installation directory or didn't create a symbolic link from the installation directory libil2cpp to the project's local libil2cpp. For details, see [Publishing WebGL Platform](../basic/buildwebgl)
-3. If other platforms, it's because HybridCLR is not installed. Please follow the [Installing HybridCLR](/basic/install.md) documentation.
+1. If iOS platform, because iOS platform doesn't compile libil2cpp from source code but uses pre-compiled libil2cpp.a, you need to replace libil2cpp.a in the xcode project with HybridCLR's compiled version. For compilation method, see [build libil2cpp.a for iOS](../basic/buildpipeline.md)
+2. If WebGL platform, it's because after using global installation, you didn't replace the libil2cpp in the installation directory or didn't create a symbolic link from the installation directory libil2cpp to the project's local libil2cpp. For details, see [Publishing WebGL Platform](../basic/buildwebgl.md)
+3. If other platforms, it's because HybridCLR is not installed. Please follow the [Installing HybridCLR](../basic/install.md) documentation.
 
 ### Physics collision Collision not working in hot updates
 
@@ -365,7 +371,7 @@ Solution for reason 3:
 - Use supplemental metadata technology
 - Modify the WeChat tool source code yourself and set `IL2CPP Code Generation` in BuildSettings to `Faster`.
 
-For specific operations, please see the [AOT Generic Principle Introduction](/basic/aotgeneric.md) document.
+For specific operations, please see the [AOT Generic Principle Introduction](../basic/aotgeneric.md) document.
 
 ### Encountering ExecutionEngineException: metadata type not match
 
@@ -384,7 +390,7 @@ Same reason as above.
 
 ### Encountering ExecutionEngineException: GetManaged2NativeMethodPointer not support. xxxx function name
 
-Missing interpreter -> aot direction bridge functions. Please first confirm that your hybridclr is the latest code, com.code-philosophy.hybridclr package is also the latest version, and you have generated the latest bridge functions. For the principle, please refer to [Bridge Functions](/basic/methodbridge.md).
+Missing interpreter -> aot direction bridge functions. Please first confirm that your hybridclr is the latest code, com.code-philosophy.hybridclr package is also the latest version, and you have generated the latest bridge functions. For the principle, please refer to [Bridge Functions](../basic/methodbridge.md).
 
 If it works normally on Android but has problems on iOS, it's because you didn't recompile libil2cpp.a.
 
@@ -392,14 +398,14 @@ If there are still problems, please report to the administrator for technical su
 
 ### Encountering 'ExecutionEngineException: NotSupportNative2Managed'
 
-Missing aot -> interpreter direction bridge functions. Please first confirm that you have generated the latest bridge functions. For the principle, please refer to [Bridge Functions](/basic/methodbridge.md).
+Missing aot -> interpreter direction bridge functions. Please first confirm that you have generated the latest bridge functions. For the principle, please refer to [Bridge Functions](../basic/methodbridge.md).
 If it works normally on Android but has problems on iOS, it's because you didn't recompile libil2cpp.a.
 
 If there are still problems, please report to the administrator for technical support in the group.
 
 ### Encountering `ExecutionEngineException: NotSupportManaged2NativeFunctionMethod`
 
-This is caused by missing bridge functions for extern functions defined in hot update code. Please reserve bridge functions related to extern functions in advance when building the main package. For details, see the document [PInvoke Support](../basic/pinvoke).
+This is caused by missing bridge functions for extern functions defined in hot update code. Please reserve bridge functions related to extern functions in advance when building the main package. For details, see the document [PInvoke Support](../basic/pinvoke.md).
 
 ### ExecutionEngineException: Attempting to call method 'xxxx' for which no ahead of time (AOT) code was generated
 

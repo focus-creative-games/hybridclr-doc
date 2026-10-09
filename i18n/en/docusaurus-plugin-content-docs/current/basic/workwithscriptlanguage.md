@@ -1,3 +1,9 @@
+---
+title: 'HybridCLR + lua/js/python'
+description: 'Some projects are already online with most of their code implemented in lua; or some new projects have been developed halfway using lua.。'
+slug: /basic/workwithscriptlanguage
+---
+
 # HybridCLR + lua/js/python
 
 Some projects are already online with most of their code implemented in lua; or some new projects have been developed halfway using lua. They cannot completely switch to full C# development, but they want to integrate HybridCLR to help gradually transition to full native C# hot updates. Since HybridCLR is a native C# hot update technology, it natively supports working with these scripting languages.
@@ -21,7 +27,7 @@ il2cpp binds a separate Wrapper function for each function marked with `[MonoPIn
 
 Similarly, HybridCLR also needs to generate corresponding Wrapper functions for each function marked with `[MonoPInvokeCallback]`. However, for platforms like iOS that prohibit JIT, it's obviously impossible to dynamically generate these wrapper functions at runtime. Therefore, corresponding Wrapper functions need to be reserved in advance for such functions that may be used in the future.
 
-For how to reserve Wrapper functions, see the documentation [MonoPInvokeCallback Support](./monopinvokecallback).
+For how to reserve Wrapper functions, see the documentation [MonoPInvokeCallback Support](./monopinvokecallback.md).
 
 ### xlua
 

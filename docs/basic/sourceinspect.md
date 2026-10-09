@@ -1,3 +1,9 @@
+---
+title: 'HybridCLR源码结构及调试'
+description: 'HybridCLR实现了以下功能：'
+slug: /basic/sourceinspect
+---
+
 # HybridCLR源码结构及调试
 
 ## HybridCLR模块介绍

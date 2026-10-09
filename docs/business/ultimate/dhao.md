@@ -1,3 +1,9 @@
+---
+title: 'DHAO 文件'
+description: 'dhao文件是DHE技术的核心概念。dhao文件中包含了离线计算好的最新的热更新dll中变化的类型和函数的信息，运行时直接根据dhao文件中信息决定执行某个热更新函数时，应该使用最新的解释版本还是直接调用原始的AOT函数。'
+slug: /business/ultimate/dhao
+---
+
 # DHAO 文件
 
 

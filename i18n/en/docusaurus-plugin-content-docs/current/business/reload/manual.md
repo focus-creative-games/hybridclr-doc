@@ -1,3 +1,9 @@
+---
+title: 'Manual'
+description: '- Supports unloading assemblies, unloading 100% of the memory occupied by assemblies - Supports reloading assemblies。'
+slug: /business/reload/manual
+---
+
 # Manual
 
 ## Supported Features
@@ -47,17 +53,17 @@ Since version v8.6.0, the libil2cpp directory has been included in the com.code-
 
 ## Full Generic Sharing
 
-See [Full Generic Sharing](../fullgenericsharing).
+See [Full Generic Sharing](../fullgenericsharing.md).
 
 ## Code Encryption
 
-See [Code Protection](../basicencryption).
+See [Code Protection](../basicencryption.md).
 
 ## Access Control
 
 Sometimes you may want to limit the scope of types and functions that hot update code can access. For example, sandbox games may not want UGC code to access file reading interfaces. Access control can achieve this goal.
 
-Please read the detailed documentation [Access Control Policy](../accesspolicy).
+Please read the detailed documentation [Access Control Policy](../accesspolicy.md).
 
 ## Unloading Assemblies
 

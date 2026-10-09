@@ -1,3 +1,9 @@
+---
+title: '发布WebGL平台'
+description: '由于WebGL平台有较多特殊性，故特地单独文档介绍如何发布WebGL平台。本文档在 hybridclr_trial项目（github gitee ）上演示发布过程。'
+slug: /basic/buildwebgl
+---
+
 # 发布WebGL平台
 
 由于WebGL平台有较多特殊性，故特地单独文档介绍如何发布WebGL平台。本文档在 hybridclr_trial项目（[github](https://github.com/focus-creative-games/hybridclr_trial) [gitee](https://gitee.com/focus-creative-games/hybridclr_trial) ）上演示发布过程。
@@ -14,7 +20,7 @@
 
 
 - 确保Unity Editor 安装了WebGL模块，如下图
-- 根据 [install](install.md) 文档完成HybridCLR安装及设置
+- 根据 [install](./install.md) 文档完成HybridCLR安装及设置
 - 当前支持的Unity版本**不需要**开启`Use Global Il2cpp`选项，WebGL平台支持本地安装
 
 

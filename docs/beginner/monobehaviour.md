@@ -1,3 +1,8 @@
+---
+title: '使用MonoBehaviour'
+description: 'HybridCLR完全支持MonoBehaviour工作流，你既可以通过AddComponent的方式在代码里动态挂载热更新脚本，也可以将热更新脚本挂到资源上，再通过加载资源的方式还原脚本。'
+slug: /beginner/monobehaviour
+---
 
 # 使用MonoBehaviour
 

@@ -1,3 +1,9 @@
+---
+title: 'Code Hardening'
+description: 'The community version directly loads original dlls, forcing developers to carry and download original dlls.。'
+slug: /business/basicencryption
+---
+
 # Code Hardening
 
 The community version directly loads original dlls, forcing developers to carry and download original dlls. These original dlls can be decompiled by tools like ILSpy,

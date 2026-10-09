@@ -1,3 +1,9 @@
+---
+title: 'DOTS Support'
+description: 'The commercial version has modified the DOTS runtime code and HybridCLR runtime code to support most DOTS features.'
+slug: /business/dots
+---
+
 # DOTS Support
 
 :::tip

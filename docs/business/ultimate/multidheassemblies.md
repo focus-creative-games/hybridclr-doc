@@ -1,3 +1,9 @@
+---
+title: '多个DHE程序集'
+description: '存在多个DHE程序集时，可以根据每个程序集是否改变来决定调用LoadOriginalDifferentialHybridAssembly或LoadDifferentialHybridAssemblyUnchecked接口进行加载， 但有一些额外的限制。'
+slug: /business/ultimate/multidheassemblies
+---
+
 # 多个DHE程序集
 
 存在多个DHE程序集时，可以根据每个程序集是否改变来决定调用LoadOriginalDifferentialHybridAssembly或LoadDifferentialHybridAssemblyUnchecked接口进行加载，

@@ -1,3 +1,9 @@
+---
+title: 'Assembly::Load Loading Optimization'
+description: 'The commercial version optimizes Assembly::Load loading time from several aspects, ultimately reducing Assembly::Load time to 20% of the original.'
+slug: /business/assemblyloadoptimization
+---
+
 # Assembly::Load Loading Optimization
 
 The commercial version optimizes Assembly::Load loading time from several aspects, ultimately reducing Assembly::Load time to **20%** of the original.

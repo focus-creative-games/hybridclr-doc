@@ -1,3 +1,9 @@
+---
+title: 'Load Hot Update Assembly'
+description: 'The Ultimate edition adds DHE assemblies compared to the community edition and professional edition.。'
+slug: /business/ultimate/loadassembly
+---
+
 # Load Hot Update Assembly
 
 The Ultimate edition adds DHE assemblies compared to the community edition and professional edition. Since DHE assemblies require additional parameters to instruct the runtime on how to dynamically choose between executing original AOT code or hot update code, they cannot be loaded using the `Assembly.Load` interface.

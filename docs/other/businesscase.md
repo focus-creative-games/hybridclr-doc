@@ -1,3 +1,9 @@
+---
+title: '商业项目案例'
+description: '目前使用HybridCLR的国内外商业游戏数千款，其中并已经上线（AppStore或GooglePlay）的商业项目远超千款。 我们只统计了中国区畅销榜top 200和免费榜top 500中使用HybridCLR方案的商业项目。'
+slug: /other/businesscase
+---
+
 # 商业项目案例
 
 目前使用HybridCLR的国内外商业游戏数千款，其中并已经上线（AppStore或GooglePlay）的商业项目远超千款。

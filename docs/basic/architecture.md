@@ -1,3 +1,9 @@
+---
+title: '代码结构及版本'
+description: '完整的HybridCLR代码由三个仓库构成：'
+slug: /basic/architecture
+---
+
 # 代码结构及版本
 
 完整的HybridCLR代码由三个仓库构成：

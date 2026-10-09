@@ -1,3 +1,9 @@
+---
+title: 'Modifying UnityEngine DLL'
+description: 'Some versions of DLLs are not compatible with hot reload and require minor code modifications.'
+slug: /business/reload/modifydll
+---
+
 # Modifying UnityEngine DLL
 
 Some versions of DLLs are not compatible with hot reload and require minor code modifications.

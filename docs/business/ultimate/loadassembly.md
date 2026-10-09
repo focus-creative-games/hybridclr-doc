@@ -1,3 +1,9 @@
+---
+title: '加载热更新程序集'
+description: '旗舰版本相比社区版本和专业版本增加了DHE程序集。由于DHE程序集需要额外的参数要指示运行时如何动态选择执行原始AOT代码还是热更新代码，它无法使用Assembly.Load接口加载。 因此需要特殊的加载规则。'
+slug: /business/ultimate/loadassembly
+---
+
 # 加载热更新程序集
 
 旗舰版本相比社区版本和专业版本增加了DHE程序集。由于DHE程序集需要额外的参数要指示运行时如何动态选择执行原始AOT代码还是热更新代码，它无法使用`Assembly.Load`接口加载。

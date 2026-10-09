@@ -1,3 +1,9 @@
+---
+title: 'FAQ'
+description: 'il2cpp支持的平台都支持'
+slug: /help/faq
+---
+
 # FAQ
 
 ## HybridCLR支持哪些平台?
@@ -18,7 +24,7 @@ HybridCLR本身只会增加很少包体(1-2M)。包体增大很多是因为你�
 
 ## HybridCLR写代码有什么限制吗？
 
-几乎没有限制，参见[未支持的特性](/basic/notsupportedfeatures.md)
+几乎没有限制，参见[未支持的特性](../basic/notsupportedfeatures.md)
 
 
 ## 支持泛型类和泛型函数吗？
@@ -27,7 +33,7 @@ HybridCLR本身只会增加很少包体(1-2M)。包体增大很多是因为你�
 
 ## 支持热更新MonoBehaviour吗？
 
-完全支持。不仅能在代码中添加，也可以直接挂在热更新资源上。具体参见[使用热更新MonoBehaviour](/basic/monobehaviour.md)
+完全支持。不仅能在代码中添加，也可以直接挂在热更新资源上。具体参见[使用热更新MonoBehaviour](../basic/monobehaviour.md)
 
 ## 支持反射吗？
 
@@ -47,7 +53,7 @@ HybridCLR本身只会增加很少包体(1-2M)。包体增大很多是因为你�
 
 ## 支持 .net standard 2.0 吗？
 
-支持。但请注意，主工程打包用.net standard，而热更新dll打包**必须用.net 4.x**。详细解释请参照[常见错误文档](/help/commonerrors.md)
+支持。但请注意，主工程打包用.net standard，而热更新dll打包**必须用.net 4.x**。详细解释请参照[常见错误文档](./commonerrors.md)
 
 ## 支持Unity的DOTS框架吗？
 

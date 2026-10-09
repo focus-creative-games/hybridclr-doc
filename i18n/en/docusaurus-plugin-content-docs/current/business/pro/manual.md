@@ -1,3 +1,9 @@
+---
+title: 'Manual'
+description: '- After extracting pro-{version}, place the com.code-philosophy.hybridclr folder into your project’s Packages directory.。'
+slug: /business/pro/manual
+---
+
 # Manual
 
 ## Installation
@@ -15,7 +21,7 @@ Since version v8.6.0, the libil2cpp directory has been included in the com.code-
 
 ## Usage
 
-- For enabling full generic sharing, see [Full Generic Sharing](../fullgenericsharing)
-- For code encryption, see [Code Hardening](../basicencryption)
-- For metadata optimization, see [Metadata Optimization](../metadataoptimization)
+- For enabling full generic sharing, see [Full Generic Sharing](../fullgenericsharing.md)
+- For code encryption, see [Code Hardening](../basicencryption.md)
+- For metadata optimization, see [Metadata Optimization](../metadataoptimization.md)
 - Other usage is exactly the same as the community version

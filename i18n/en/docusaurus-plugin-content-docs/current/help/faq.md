@@ -1,3 +1,9 @@
+---
+title: 'FAQ'
+description: 'All platforms supported by il2cpp are supported.'
+slug: /help/faq
+---
+
 # FAQ
 
 ## Which platforms does HybridCLR support?
@@ -18,7 +24,7 @@ No. HybridCLR provides il2cpp with a completely independent and self-implemented
 
 ## Are there any limitations when writing code with HybridCLR?
 
-Almost no limitations. See [Unsupported Features](/basic/notsupportedfeatures.md)
+Almost no limitations. See [Unsupported Features](../basic/notsupportedfeatures.md)
 
 ## Does it support generic classes and generic functions?
 
@@ -26,7 +32,7 @@ Complete and thorough support with no limitations.
 
 ## Does it support hot updating MonoBehaviour?
 
-Full support. You can not only add them in code but also directly attach them to hot update resources. See [Using Hot Update MonoBehaviour](/basic/monobehaviour.md) for details.
+Full support. You can not only add them in code but also directly attach them to hot update resources. See [Using Hot Update MonoBehaviour](../basic/monobehaviour.md) for details.
 
 ## Does it support reflection?
 
@@ -46,7 +52,7 @@ You can simultaneously load a maximum of 3 DLLs up to 64M each, 16 DLLs up to 16
 
 ## Does it support .NET Standard 2.0?
 
-Yes. However, note that the main project should be packaged with .NET Standard, while hot update DLLs **must be packaged with .NET 4.x**. For detailed explanation, see [Common Errors Documentation](/help/commonerrors.md)
+Yes. However, note that the main project should be packaged with .NET Standard, while hot update DLLs **must be packaged with .NET 4.x**. For detailed explanation, see [Common Errors Documentation](./commonerrors.md)
 
 ## Does it support Unity's DOTS framework?
 

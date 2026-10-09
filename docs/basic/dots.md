@@ -1,3 +1,9 @@
+---
+title: 'DOTS支持'
+description: 'DOTS的TypeManager初始化时机过早，而且不支持动态注册Component和System等类型。为了让热更新模块能在DOTS系统中正常 运行，需要调整World的初始化时机，确保加载完热更新程序集之后、创建任何World之前完成类型注册。'
+slug: /basic/dots
+---
+
 # DOTS支持
 
 DOTS的TypeManager初始化时机过早，而且不支持动态注册Component和System等类型。为了让热更新模块能在DOTS系统中正常

@@ -1,3 +1,9 @@
+---
+title: '打包工作流'
+description: '由于热更新本身的要求以及Unity资源管理的一些限制，对打包工作流需要一些特殊处理，主要分为几部分：'
+slug: /basic/buildpipeline
+---
+
 # 打包工作流
 
 由于热更新本身的要求以及Unity资源管理的一些限制，对打包工作流需要一些特殊处理，主要分为几部分：
@@ -11,7 +17,7 @@
 - iOS平台的特殊处理
 
 手动操作这些是烦琐易错的，`com.code-philosophy.hybridclr` package包含了打包工作流相关的标准工具脚本，将这些复杂流程简化为一键操作。
-详细实现请看源码或者[com.code-philosophy.hybridclr介绍](/basic/com.code-philosophy.hybridclr.md)
+详细实现请看源码或者[com.code-philosophy.hybridclr介绍](./hybridclr-unity-package.md)
 
 ## 打包流程
 

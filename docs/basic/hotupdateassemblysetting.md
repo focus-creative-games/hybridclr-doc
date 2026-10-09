@@ -1,3 +1,9 @@
+---
+title: '配置程序集'
+description: '一般来说，必须将热更新代码独立为assembly，才能方便地进行热更新。'
+slug: /basic/hotupdateassemblysetting
+---
+
 # 配置程序集
 
 一般来说，必须将热更新代码独立为assembly，才能方便地进行热更新。
