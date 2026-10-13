@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkmy_website=self.webpackChunkmy_website||[]).push([[3092],{96375:e=>{e.exports=JSON.parse('{"title":"Guides","slug":"/guide","permalink":"/en/docs/guide","navigation":{"previous":{"title":"Using Generics","permalink":"/en/docs/beginner/generic"},"next":{"title":"\u5b89\u88c5\u4e0e\u914d\u7f6e","permalink":"/en/docs/guide/setup"}}}')}}]);
