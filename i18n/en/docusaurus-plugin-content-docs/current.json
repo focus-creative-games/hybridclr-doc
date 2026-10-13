@@ -3,48 +3,64 @@
     "message": "Next",
     "description": "The label for version current"
   },
-  "sidebar.tutorialSidebar.category.新手教程": {
-    "message": "Beginner Guides",
-    "description": "The label for category 新手教程 in sidebar tutorialSidebar"
+  "sidebar.tutorialSidebar.doc.介绍": {
+    "message": "Introduction",
+    "description": "The label for the doc item 介绍 in sidebar tutorialSidebar, linking to the doc intro"
+  },
+  "sidebar.tutorialSidebar.category.开始使用": {
+    "message": "Getting Started",
+    "description": "The label for category 开始使用 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.使用指南": {
     "message": "Guides",
     "description": "The label for category 使用指南 in sidebar tutorialSidebar"
   },
-  "sidebar.tutorialSidebar.category.进阶指南": {
-    "message": "Advanced Guides",
-    "description": "The label for category 进阶指南 in sidebar tutorialSidebar"
+  "sidebar.tutorialSidebar.category.安装与配置": {
+    "message": "Setup & Configuration",
+    "description": "The label for category 安装与配置 in sidebar tutorialSidebar"
   },
-  "sidebar.tutorialSidebar.category.帮助": {
-    "message": "Help",
-    "description": "The label for category 帮助 in sidebar tutorialSidebar"
+  "sidebar.tutorialSidebar.category.编译与构建": {
+    "message": "Compile & Build",
+    "description": "The label for category 编译与构建 in sidebar tutorialSidebar"
   },
-  "sidebar.tutorialSidebar.category.商业化": {
-    "message": "Business",
-    "description": "The label for category 商业化 in sidebar tutorialSidebar"
+  "sidebar.tutorialSidebar.category.特性与集成": {
+    "message": "Features & Integration",
+    "description": "The label for category 特性与集成 in sidebar tutorialSidebar"
   },
-  "sidebar.tutorialSidebar.category.其他": {
-    "message": "Others",
-    "description": "The label for category 其他 in sidebar tutorialSidebar"
+  "sidebar.tutorialSidebar.category.性能与内存": {
+    "message": "Performance & Memory",
+    "description": "The label for category 性能与内存 in sidebar tutorialSidebar"
   },
-  "sidebar.tutorialSidebar.doc.介绍": {
-    "message": "Introduction",
-    "description": "The label for the doc item 介绍 in sidebar tutorialSidebar, linking to the doc intro"
+  "sidebar.tutorialSidebar.category.进阶实践": {
+    "message": "Advanced Practices",
+    "description": "The label for category 进阶实践 in sidebar tutorialSidebar"
   },
-  "sidebar.tutorialSidebar.category.商业化版本": {
+  "sidebar.tutorialSidebar.category.商业版": {
     "message": "Business Edition",
-    "description": "The label for category 商业化版本 in sidebar tutorialSidebar"
-  },
-  "sidebar.tutorialSidebar.category.旗舰版": {
-    "message": "Ultimate Edition",
-    "description": "The label for category 旗舰版 in sidebar tutorialSidebar"
+    "description": "The label for category 商业版 in sidebar tutorialSidebar"
   },
   "sidebar.tutorialSidebar.category.专业版": {
     "message": "Professional Edition",
     "description": "The label for category 专业版 in sidebar tutorialSidebar"
   },
+  "sidebar.tutorialSidebar.category.旗舰版": {
+    "message": "Ultimate Edition",
+    "description": "The label for category 旗舰版 in sidebar tutorialSidebar"
+  },
   "sidebar.tutorialSidebar.category.热重载版": {
-    "message": "Hotreload Edition",
+    "message": "Hot Reload Edition",
     "description": "The label for category 热重载版 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.参考": {
+    "message": "Reference",
+    "description": "The label for category 参考 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.实现原理": {
+    "message": "Implementation",
+    "description": "The label for category 实现原理 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.社区与支持": {
+    "message": "Community & Support",
+    "description": "The label for category 社区与支持 in sidebar tutorialSidebar"
   }
 }

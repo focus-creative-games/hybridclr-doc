@@ -1,0 +1,42 @@
+{
+  "version.label": {
+    "message": "7.6.0",
+    "description": "The label for version 7.6.0"
+  },
+  "sidebar.tutorialSidebar.doc.介绍": {
+    "message": "Introduction",
+    "description": "The label for the doc item 介绍 in sidebar tutorialSidebar, linking to the doc intro"
+  },
+  "sidebar.tutorialSidebar.category.新手教程": {
+    "message": "Beginner Guides",
+    "description": "The label for category 新手教程 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.使用指南": {
+    "message": "Guides",
+    "description": "The label for category 使用指南 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.商业化版本": {
+    "message": "Business Edition",
+    "description": "The label for category 商业化版本 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.专业版": {
+    "message": "Professional Edition",
+    "description": "The label for category 专业版 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.旗舰版": {
+    "message": "Ultimate Edition",
+    "description": "The label for category 旗舰版 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.热重载版": {
+    "message": "Hot Reload Edition",
+    "description": "The label for category 热重载版 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.帮助": {
+    "message": "Help",
+    "description": "The label for category 帮助 in sidebar tutorialSidebar"
+  },
+  "sidebar.tutorialSidebar.category.其他": {
+    "message": "Others",
+    "description": "The label for category 其他 in sidebar tutorialSidebar"
+  }
+}

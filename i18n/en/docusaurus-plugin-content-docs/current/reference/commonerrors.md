@@ -194,7 +194,7 @@ There are two reasons:
 ### Packaging shows `#error: "not support unity version"`
 
 There are several reasons:
-- Your Unity version is not in the support list. Starting from v9.0.0 only 2022.3.x, 2023.2.x and 6000.x.y (excluding 6000.5.x) are supported; see [Supported Unity Versions and Platforms](../guide/setup/supported-platforms-and-unity-versions.md)
+- Your Unity version is not in the support list. Starting from v9.0.0 only 2022.3.x, 2023.2.x and 6000.x.y (excluding 6000.5.x) are supported; for Unity 2019.4.x / 2020.3.x / 2021.3.x, use the v8.x.y series. See [Supported Unity Versions and Platforms](../guide/setup/supported-platforms-and-unity-versions.md)
 - You didn't run `HybridCLR/Generate/All` or `HybridCLR/Generate/Il2CppDef` before packaging, causing Unity version macros not to be generated
 
 ### Packaging shows 'could not find a part of path "xxxx/hybridclr/generated/UnityVersion.h"

@@ -199,7 +199,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 ### 打包出现 `#error: "not support unity version"`
 
 有几种原因：
-- 你使用的Unity版本不在支持列表中。v9.0.0起只支持 2022.3.x、2023.2.x、6000.x.y（不含6000.5.x），详见[支持的Unity版本和平台](../guide/setup/supported-platforms-and-unity-versions.md)
+- 你使用的Unity版本不在支持列表中。v9.0.0起只支持 2022.3.x、2023.2.x、6000.x.y（不含6000.5.x）；Unity 2019.4.x / 2020.3.x / 2021.3.x 请使用 v8.x.y 系列版本。详见[支持的Unity版本和平台](../guide/setup/supported-platforms-and-unity-versions.md)
 - 你打包前未运行`HybridCLR/Generate/All`或者`HybridCLR/Generate/Il2CppDef`，导致未生成Unity版本宏
 
 ### 打包时出现 'could not find a part of path "xxxx/hybridclr/generated/UnityVersion.h"

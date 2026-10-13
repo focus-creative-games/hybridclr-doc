@@ -18,9 +18,9 @@ For maintenance cost considerations, HybridCLR only supports LTS series versions
 
 :::warning
 
-Starting from v9.0.0, support for Unity 2019, 2020 and 2021 has been removed, along with support for 6000.5.x (6000.5.x is not an LTS version).
+Starting from **v9.0.0**, support for Unity **2019.4.x / 2020.3.x / 2021.3.x** has been removed, along with support for 6000.5.x (6000.5.x is not an LTS version).
 
-If your project still uses one of those versions, use **8.15.0** -- the last version supporting Unity 2019/2020/2021. For the matching documentation, switch to the 8.15.0 version using the selector in the top right of this site.
+If you need to use these Unity versions, use the **v8.x.y** series. For the matching documentation, switch to an 8.x version (such as 8.15.0) using the selector in the top right of this site.
 
 :::
 

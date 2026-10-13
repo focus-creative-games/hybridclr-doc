@@ -11,8 +11,8 @@ slug: /basic/install
 Supports any version of 2022.3.x, 2023.2.x, 6000.x.y (excluding 6000.5.x).
 
 :::warning
-Starting from v9.0.0, support for Unity 2019, 2020 and 2021 has been removed, along with support for 6000.5.x (6000.5.x is not an LTS version).
-Projects still using those versions should use **8.15.0**, the last version supporting Unity 2019/2020/2021.
+Starting from **v9.0.0**, support for Unity **2019.4.x / 2020.3.x / 2021.3.x** has been removed, along with support for 6000.5.x (6000.5.x is not an LTS version).
+If you need to use these Unity versions, use the **v8.x.y** series.
 :::
 
 Based on your target build platform, select the necessary modules during installation. For Android or iOS builds, simply select the corresponding modules. For Standalone builds, you must additionally select `Windows Build Support(IL2CPP)` or `Mac Build Support(IL2CPP)`.
@@ -35,7 +35,7 @@ Based on your target build platform, select the necessary modules during install
 Versions prior to v3.0.0 were named `com.focus-creative-games.hybridclr_unity`.
 :::
 
-`v9.0.0` and newer versions only support Unity 2022.3.x, 2023.2.x and 6000.x.y (excluding 6000.5.x). If your project uses Unity 2019/2020/2021, choose `v8.15.0` -- the last release supporting those versions.
+`v9.0.0` and newer versions only support Unity 2022.3.x, 2023.2.x and 6000.x.y (excluding 6000.5.x). If you need Unity **2019.4.x / 2020.3.x / 2021.3.x**, choose a version from the **v8.x.y** series.
 
 These versions have all been validated by numerous online projects and are very stable. You don't need to worry about which one is better - generally speaking, newer versions fix more bugs and optimize more, providing a better user experience.
 

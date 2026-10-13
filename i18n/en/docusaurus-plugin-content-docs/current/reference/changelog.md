@@ -8,7 +8,7 @@ slug: /other/changelog
 
 This document only records key events. For more detailed release logs, please see [RELEASELOG](https://github.com/focus-creative-games/hybridclr_unity/blob/main/RELEASELOG.md).
 
-- Released v9.0.0. Removed support for Unity 2019, 2020 and 2021; removed support for 6000.5.x (not an LTS version); removed support for defining extern functions in hot update code. 8.15.0 is the last version supporting Unity 2019/2020/2021.
+- Released v9.0.0. Removed support for Unity 2019.4.x / 2020.3.x / 2021.3.x; removed support for 6000.5.x (not an LTS version); removed support for defining extern functions in hot update code. If you need these Unity versions, use the v8.x.y series.
 - 2024.6.11 Released v6.0.0, officially supporting 2023 and 6000
 - 2024.5.29 Support for visionOS
 - 2024.1.26 Released v5.0.0, re-supporting 2019. Updated to 2021.3.34 and 2022.3.17 versions.
