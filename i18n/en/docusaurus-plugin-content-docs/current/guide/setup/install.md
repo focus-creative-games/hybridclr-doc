@@ -1,6 +1,6 @@
 ---
 title: 'Installation'
-description: 'Supports any version of 2022.3.x, 2023.2.x, 6000.x.y (excluding 6000.5.x).'
+description: 'Supports all currently supported Unity LTS versions (2019.4.x/2020.3.x/2021.3.x/2022.3.x/**6000.x.y**) and all Tuanjie Engine versions.'
 slug: /basic/install
 ---
 
@@ -8,7 +8,7 @@ slug: /basic/install
 
 ## Install Compatible Unity Version
 
-Supports any version of 2022.3.x, 2023.2.x, 6000.x.y (excluding 6000.5.x).
+Supports all currently supported Unity LTS versions (2019.4.x/2020.3.x/2021.3.x/2022.3.x/**6000.x.y**) and all Tuanjie Engine versions.
 
 :::warning
 Starting from **v9.0.0**, support for Unity **2019.4.x / 2020.3.x / 2021.3.x** has been removed, along with support for 6000.5.x (6000.5.x is not an LTS version).
@@ -35,7 +35,7 @@ Based on your target build platform, select the necessary modules during install
 Versions prior to v3.0.0 were named `com.focus-creative-games.hybridclr_unity`.
 :::
 
-`v9.0.0` and newer versions only support Unity 2022.3.x, 2023.2.x and 6000.x.y (excluding 6000.5.x). If you need Unity **2019.4.x / 2020.3.x / 2021.3.x**, choose a version from the **v8.x.y** series.
+`v9.0.0` and newer versions only support Unity 2022.3.x and 6000.x.y (excluding 6000.5.x). If you need Unity **2019.4.x / 2020.3.x / 2021.3.x**, choose a version from the **v8.x.y** series.
 
 These versions have all been validated by numerous online projects and are very stable. You don't need to worry about which one is better - generally speaking, newer versions fix more bugs and optimize more, providing a better user experience.
 

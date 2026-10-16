@@ -186,6 +186,7 @@ WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切�
 ### 打包WebGL平台出现 `build.js: undefined symbol: RuntimeApi_LoadMetadataForAOTAssembly (referenced by top-level compiled C/C++ code)`
 
 WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`替换Editor安装目录的原始libil2cpp，导致缺失了函数。解决办法是：
+
 - 运行`HybridCLR/Generate/Il2cppDef`生成正确的版本宏
 - 复制 `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` 替换Editor安装目录的原始libil2cpp。注意必须是替换目录，而不是合并目录，这个可能会导致多了一些文件而编译出错。
 你也可以使用创建软链接的方式，详细请看[安装HybridCLR](../guide/setup/install.md)中关于全局安装的文档。
@@ -193,13 +194,15 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 ### 打包WebGL平台点击`Generate/All`发生错误
 
 有两个原因：
+
 - 没有替换全局安装位置的libil2cpp或者创建其软链接
 - 你使用了com.code-philosophy.hybridclr 2.1.0或更高版本，在替换全局libil2cpp前没有先运行一次`HybridCLR/Generate/Il2cppDef`，导致没有正确生成版本宏，进而引发编译错误。
 
 ### 打包出现 `#error: "not support unity version"`
 
 有几种原因：
-- 你使用的Unity版本不在支持列表中。v9.0.0起只支持 2022.3.x、2023.2.x、6000.x.y（不含6000.5.x）；Unity 2019.4.x / 2020.3.x / 2021.3.x 请使用 v8.x.y 系列版本。详见[支持的Unity版本和平台](../guide/setup/supported-platforms-and-unity-versions.md)
+
+- 你使用的Unity版本不在支持列表中。v9.0.0起只支持 2022.3.x、6000.x.y（不含6000.5.x）；Unity 2019.4.x / 2020.3.x / 2021.3.x 请使用 v8.x.y 系列版本。详见[支持的Unity版本和平台](../guide/setup/supported-platforms-and-unity-versions.md)
 - 你打包前未运行`HybridCLR/Generate/All`或者`HybridCLR/Generate/Il2CppDef`，导致未生成Unity版本宏
 
 ### 打包时出现 'could not find a part of path "xxxx/hybridclr/generated/UnityVersion.h"

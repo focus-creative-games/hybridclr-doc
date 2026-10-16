@@ -21,7 +21,7 @@ slug: /beginner/quickstart
 ### 安装Unity
 
 :::caution
-HybridCLR支持 Unity 2022.3.x、2023.2.x、6000.x.y（不含6000.5.x）等LTS版本，如果当前使用的版本不在以下推荐版本中，请参考[安装HybridCLR](../guide/setup/install.md)文档。
+支持所有当前受支持的 Unity LTS 版本（2019.4.x/2020.3.x/2021.3.x/2022.3.x/**6000.x.y**）和团结引擎所有版本，如果当前使用的版本不在以下推荐版本中，请参考[安装HybridCLR](../guide/setup/install.md)文档。
 
 Unity **2019.4.x / 2020.3.x / 2021.3.x** 的支持已在 **v9.0.0** 中移除，如果需要使用这些版本，请使用 **v8.x.y** 系列版本。
 :::

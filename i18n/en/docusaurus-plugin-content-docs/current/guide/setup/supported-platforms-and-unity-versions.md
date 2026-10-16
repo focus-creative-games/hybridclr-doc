@@ -1,20 +1,14 @@
 ---
 title: 'Supported Unity Versions and Platforms'
-description: 'HybridCLR stably supports the 2022.3.x LTS series as well as 2023.2.x and 6000.x.y, and supports every platform il2cpp supports.'
+description: 'Supports all currently supported Unity LTS versions (2019.4.x/2020.3.x/2021.3.x/2022.3.x/**6000.x.y**) and all Tuanjie Engine versions, and supports every platform il2cpp supports.'
 slug: /basic/supportedplatformanduniyversion
 ---
 
 # Supported Unity Versions and Platforms
 
-HybridCLR stably supports the 2022.3.x LTS series as well as 2023.2.x and 6000.x.y, and supports every platform il2cpp supports.
-
 ## Compatible Unity Versions
 
-For maintenance cost considerations, HybridCLR only supports LTS series versions.
-
-- 2022.3.x
-- 2023.2.x
-- 6000.x.y (excluding 6000.5.x)
+Supports all Unity LTS versions since 2019 (2019.4.x/2020.3.x/2021.3.x/2022.3.x/**6000.x.y**) and all Tuanjie Engine versions.
 
 :::warning
 
@@ -50,18 +44,18 @@ The following platforms have been extensively tested and are very stably support
 - WebGL including WebGL, MiniGame, WeChat Mini Games, TikTok Mini Games (only supports WebGL, not Android Native builds)
 - PS4, PS5
 - UWP
-- Huawei Harmony platform (currently only Unity China supports Harmony)
+- Huawei Harmony platform (currently only the Tuanjie Engine supports Harmony)
 - Linux x86, x86, armv7, armv8
 - Other platforms
 
-## Unity China
-
-Starting from v5.2.0, the community version officially supports Unity China, with usage identical to the official Unity version.
-
-Unity China 1.1.x's new metadata index slim optimization for WeChat Mini Games platform will cause HybridCLR to fail to run normally on the WeChat Mini Games platform.
-Starting from Unity China 1.2.0, a `Use Slim Format For global-metadata.dat` option has been added to the WeixinMiniGame platform's Publishing Settings. Disabling this optimization allows normal use of HybridCLR.
-
 ## Special Notes
+
+### Tuanjie Engine
+
+Starting from v5.2.0, the community version officially supports the Tuanjie Engine, with usage identical to the official Unity version.
+
+Tuanjie Engine 1.1.x's new metadata index slim optimization for WeChat Mini Games platform will cause HybridCLR to fail to run normally on the WeChat Mini Games platform.
+Starting from Tuanjie Engine 1.2.0, a `Use Slim Format For global-metadata.dat` option has been added to the WeixinMiniGame platform's Publishing Settings. Disabling this optimization allows normal use of HybridCLR.
 
 ### WeChat Mini Games
 

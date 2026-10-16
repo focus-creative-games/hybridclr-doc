@@ -21,7 +21,7 @@ Please ensure the hot update process works correctly on the Standalone platform 
 ### Installing Unity
 
 :::caution
-HybridCLR supports the Unity 2022.3.x, 2023.2.x and 6000.x.y (excluding 6000.5.x) LTS versions. If your current version is not among the recommended versions below, please refer to the [Installing HybridCLR](../guide/setup/install.md) documentation.
+Supports all currently supported Unity LTS versions (2019.4.x/2020.3.x/2021.3.x/2022.3.x/**6000.x.y**) and all Tuanjie Engine versions. If your current version is not among the recommended versions below, please refer to the [Installing HybridCLR](../guide/setup/install.md) documentation.
 
 Support for Unity **2019.4.x / 2020.3.x / 2021.3.x** was removed in **v9.0.0**. If you need these versions, use the **v8.x.y** series.
 :::

@@ -14,7 +14,7 @@ After HybridCLR supports `full generic sharing`, supplemental metadata is no lon
 
 ## Supported Versions
 
-All currently supported Unity versions (2022.3.x, 2023.2.x, 6000.x.y) support this feature.
+All currently supported Unity versions (2022.3.x, 6000.x.y) support this feature.
 
 ## Principle
 

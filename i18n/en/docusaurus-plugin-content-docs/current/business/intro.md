@@ -12,7 +12,7 @@ We provide multiple high-end commercial versions and flexibly customizable techn
 
 :::tip
 
-All commercial versions provide long-term support for every currently supported **Unity LTS** version (2022.3.x, 2023.2.x, 6000.x.y), ensuring projects have long-lasting and stable technical support.
+All commercial versions provide long-term support for every currently supported **Unity LTS** version (2019.4.x - 6000.x.y), ensuring projects have long-lasting and stable technical support.
 
 :::
 

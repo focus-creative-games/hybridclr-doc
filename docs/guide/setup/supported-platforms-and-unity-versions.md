@@ -1,20 +1,14 @@
 ---
 title: '支持的Unity版本和平台'
-description: 'HybridCLR已经稳定支持了2022.3.x 系列LTS版本及2023.2.x、6000.x.y等版本，并且支持所有il2cpp支持的平台。'
+description: '支持所有当前受支持的 Unity LTS 版本（2019.4.x/2020.3.x/2021.3.x/2022.3.x/**6000.x.y**）和团结引擎所有版本，并且支持所有il2cpp支持的平台。'
 slug: /basic/supportedplatformanduniyversion
 ---
 
 # 支持的Unity版本和平台
 
-HybridCLR已经稳定支持了2022.3.x 系列LTS版本及2023.2.x、6000.x.y等版本，并且支持所有il2cpp支持的平台。
-
 ## 兼容的Unity版本
 
-出于维护成本考虑，HybridCLR只支持LTS系列版本。
-
-- 2022.3.x
-- 2023.2.x
-- 6000.x.y（不含6000.5.x）
+支持 2019起的所有Unity LTS 版本（2019.4.x/2020.3.x/2021.3.x/2022.3.x/**6000.x.y**）和团结引擎所有版本。
 
 :::warning
 
@@ -54,19 +48,16 @@ HybridCLR已经稳定支持了2022.3.x 系列LTS版本及2023.2.x、6000.x.y等�
 - Linux x86、x86、armv7、armv8
 - 其他平台
 
-## 团结引擎
+## 特殊说明
+
+### 团结引擎
 
 自v5.2.0版本起，社区版本正式支持团结引擎，使用方式与Unity官方版本完全相同。
 
 团结引擎1.1.x为微信小游戏平台新增的metadta index slim优化会导致hybridclr无法在微信小游戏平台正常运行。
 自团结引擎1.2.0版本起 WinxinMiniGame平台的Publishing Settings中新增了`Use Slim Format For global-metadata.dat`选项，禁用这个优化后可以正常使用hybridclr。
 
-## 特殊说明
-
 ### 微信小游戏
 
 微信小游戏转换工具，默认会将IL2CPP Code Generation设置为Faster(Smaller) builds模式，如果未补充元数据，会导致无法访问AOT泛型函数。所有商业化版本
 支持完全泛型共享，可以不再需要补充元数据，减少了包体，明显降低内存占用，并且大幅提升了未在主工程实例化的AOT泛型函数的执行性能。
-
-
-

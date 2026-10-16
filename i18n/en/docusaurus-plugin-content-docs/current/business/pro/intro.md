@@ -19,4 +19,4 @@ The Professional version provides advanced features not supported by the communi
 
 ## Supported Versions
 
-Supports all currently supported Unity LTS versions (2022.3.x, 2023.2.x, 6000.x.y).
+Supports all currently supported Unity LTS versions (2019.4.x/2020.3.x/2021.3.x/2022.3.x/**6000.x.y**) and all Tuanjie Engine versions.

@@ -181,6 +181,7 @@ This is a problem caused by Unity modifying this function signature. Update to c
 ### Packaging WebGL platform shows `build.js: undefined symbol: RuntimeApi_LoadMetadataForAOTAssembly (referenced by top-level compiled C/C++ code)`
 
 WebGL uses global installation. You haven't replaced the original libil2cpp in the Editor installation directory with the local `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`, causing missing functions. The solution is:
+
 - Run `HybridCLR/Generate/Il2cppDef` to generate correct version macros
 - Copy `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` to replace the original libil2cpp in the Editor installation directory. Note that you must replace the directory, not merge directories, as this might cause extra files and compilation errors.
 You can also use symbolic links. For details, see the global installation documentation in [Installing HybridCLR](../guide/setup/install.md).
@@ -188,13 +189,15 @@ You can also use symbolic links. For details, see the global installation docume
 ### WebGL platform packaging errors when clicking `Generate/All`
 
 There are two reasons:
+
 - Haven't replaced the global installation libil2cpp or created its symbolic link
 - You're using com.code-philosophy.hybridclr 2.1.0 or higher, and didn't run `HybridCLR/Generate/Il2cppDef` once before replacing global libil2cpp, causing incorrect version macro generation and compilation errors.
 
 ### Packaging shows `#error: "not support unity version"`
 
 There are several reasons:
-- Your Unity version is not in the support list. Starting from v9.0.0 only 2022.3.x, 2023.2.x and 6000.x.y (excluding 6000.5.x) are supported; for Unity 2019.4.x / 2020.3.x / 2021.3.x, use the v8.x.y series. See [Supported Unity Versions and Platforms](../guide/setup/supported-platforms-and-unity-versions.md)
+
+- Your Unity version is not in the support list. Starting from v9.0.0 only 2022.3.x and 6000.x.y (excluding 6000.5.x) are supported; for Unity 2019.4.x / 2020.3.x / 2021.3.x, use the v8.x.y series. See [Supported Unity Versions and Platforms](../guide/setup/supported-platforms-and-unity-versions.md)
 - You didn't run `HybridCLR/Generate/All` or `HybridCLR/Generate/Il2CppDef` before packaging, causing Unity version macros not to be generated
 
 ### Packaging shows 'could not find a part of path "xxxx/hybridclr/generated/UnityVersion.h"
