@@ -60,6 +60,7 @@ const sidebars = {
             'guide/setup/projectsettings',
             'guide/setup/hotupdateassemblysetting',
             'guide/setup/hybridclr-unity-package',
+            'guide/setup/ai-skills',
           ],
         },
         {

@@ -56,6 +56,8 @@ Unity **2019.4.x / 2020.3.x / 2021.3.x** 的支持已在 **v9.0.0** 中移除，
 
 打开菜单`HybridCLR/Installer...`， 点击`安装`按钮进行安装。 耐心等待30s左右，安装完成后会在最后打印 `安装成功`日志。
 
+如需让编程助手按 HybridCLR 的流程工作，见 [AI Skills](../guide/setup/ai-skills.md)。
+
 ## 初始化Unity热更新项目
 
 从零开始构造热更新项目的过程较冗长，项目结构及资源及代码均可参考hybridclr_trial项目，其仓库地址为 [github](https://github.com/focus-creative-games/hybridclr_trial) 或 [gitee](https://gitee.com/focus-creative-games/hybridclr_trial)。

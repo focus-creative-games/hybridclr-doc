@@ -56,6 +56,8 @@ Due to network issues in China, you may encounter network exceptions that preven
 
 Open the menu `HybridCLR/Installer...`, click the `Install` button to install. Wait patiently for about 30 seconds. After installation is complete, it will print an `Installation Successful` log at the end.
 
+To have a coding assistant follow the HybridCLR workflow, see [AI Skills](../guide/setup/ai-skills.md).
+
 ## Initialize Unity Hot Update Project
 
 The process of building a hot update project from scratch is quite lengthy. You can refer to the hybridclr_trial project for project structure, resources, and code. Its repository is available at [github](https://github.com/focus-creative-games/hybridclr_trial) or [gitee](https://gitee.com/focus-creative-games/hybridclr_trial).

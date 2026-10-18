@@ -12,6 +12,7 @@ com.code-philosophy.hybridclr提供的工作流工具，打包一个支持Hybrid
 - Editor相关脚本
 - Runtime相关脚本
 - iOSBuild脚本
+- AI Skills，位于 `Data~/skills`，见 [AI Skills](./ai-skills.md)
 
 :::caution
 v3.0.0 之前的包名叫 `com.focus-creative-games.hybridclr_unity`。

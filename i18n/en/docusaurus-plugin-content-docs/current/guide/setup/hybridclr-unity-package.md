@@ -11,6 +11,7 @@ slug: /basic/com.code-philosophy.hybridclr
 - Editor-related scripts
 - Runtime-related scripts
 - iOSBuild scripts
+- AI Skills, located at `Data~/skills`. See [AI Skills](./ai-skills.md)
 
 :::caution
 The package name before v3.0.0 was `com.focus-creative-games.hybridclr_unity`.
