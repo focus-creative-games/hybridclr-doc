@@ -19,10 +19,10 @@ Starting from v8.6.0, the libil2cpp directory has been included in the com.code-
 - Depending on your **Unity version**:
   - If using **6000.x.y** or **2023.x.y**:
     - First install **Unity 2022.3.60f1**.
-    - Copy the directory `2022.3.60f1\Editor\Data\il2cpp\build\deploy` to `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`.
-    - Replace the file `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll` with `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll`.
+    - Copy the directory `2022.3.60f1\Editor\Data\il2cpp\build\deploy` to `{proj}\Library\HybridCLR\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`.
+    - Replace the file `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll` with `{proj}\Library\HybridCLR\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll`.
   - If using **2022.3.x**, replace `ModifiedDlls\{version}\Unity.IL2CPP.dll` with
-    `{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`.
+    `{proj}\Library\HybridCLR\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`.
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 

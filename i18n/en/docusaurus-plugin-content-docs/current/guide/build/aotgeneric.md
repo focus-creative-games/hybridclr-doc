@@ -177,14 +177,14 @@ This command only collects AOT generic instances used in hot updates, and all ge
 :::
 ### Obtaining Supplemental Metadata DLL
 
-The trimmed AOT dll generated during the **packaging process** can be used for supplemental metadata. The com.code-philosophy.hybridclr plugin will automatically copy them to `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`. Note that trimmed AOT dlls from different BuildTargets cannot be reused.
+The trimmed AOT dll generated during the **packaging process** can be used for supplemental metadata. The com.code-philosophy.hybridclr plugin will automatically copy them to `{project}/Library/HybridCLR/AssembliesPostIl2CppStrip/{target}`. Note that trimmed AOT dlls from different BuildTargets cannot be reused.
 
 You can also use the `HybridCLR/Generate/AotDlls` command to immediately generate trimmed AOT dlls. Its working principle is to obtain trimmed AOT dlls by exporting a Temp project.
 
 
 :::tip
 
-Please save the trimmed AOT dlls generated during packaging (usually in the `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}` directory). Use these saved AOT dlls when supplemental metadata is needed.
+Please save the trimmed AOT dlls generated during packaging (usually in the `{project}/Library/HybridCLR/AssembliesPostIl2CppStrip/{target}` directory). Use these saved AOT dlls when supplemental metadata is needed.
 
 After packaging is complete, supplemental metadata dlls will not change. Please **do not use the latest generated AOT dlls for every hot update**.
 

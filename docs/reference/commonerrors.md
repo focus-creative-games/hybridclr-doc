@@ -61,7 +61,7 @@ toc_max_heading_level: 2
 
 ### 使用Installer安装时提示Mono.CompilerServices.SymbolWriter.dll path is too long. copy ignore!
 
-MonoBleedingEdge在installer中会被复制到 HybridCLrData， 但这个目录中的 lib\mono目录其实是没有用到的，所以是没有影响的。
+MonoBleedingEdge在installer中会被复制到 Library/HybridCLR， 但这个目录中的 lib\mono目录其实是没有用到的，所以是没有影响的。
 
 ### Exception. region:UNITY_CONFIG start not find
 
@@ -149,7 +149,7 @@ xcode版本太旧导致。更新到较新版本。
 
 这是.net 7发布后最新版本vs改动打破了一些向后兼容性引起。com.code-philosophy.hybridclr `v2.4.0`版本已经完全解决了此问题，升级到此版本即可。
 
-一种不需要回退vs版本的解决办法是修改 `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h`，新增 `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS` 即可。可参照下图修改。
+一种不需要回退vs版本的解决办法是修改 `Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h`，新增 `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS` 即可。可参照下图修改。
 
 ![stdext_error](/img/hybridclr/stdext_error.jpg)
 
@@ -174,9 +174,9 @@ File name: 'Unity.IL2CPP.Bee.BuildLogic.WindowsDesktop, Version=1.0.0.0, Culture
 
 你错误地设置 Scripting BackEngine 为 mono导致的。有时候你尽管之前已经切到il2cpp了，但切换平台时仍然可能被Editor重置为mono。解决办法为切换到il2cpp即可。
 
-### 打包WebGL平台时出现 DirectoryNotFoundException: xxx\HybridCLRData\LocalIl2CppData-{yyy}\il2cpp\il2cpp-deps  错误
+### 打包WebGL平台时出现 DirectoryNotFoundException: xxx\Library\HybridCLR\LocalIl2CppData-{yyy}\il2cpp\il2cpp-deps  错误
 
-WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切记每次`Generate/xxx`之后必须重新将`{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`
+WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切记每次`Generate/xxx`之后必须重新将`{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp`
 目录复制到Editor安装目录，再打包。否则有可能会出现 Scripting Missing或者桥接函数缺失之类的错误。
 
 ### 打包时出现 GC_set_mark_stck_empty 函数找不到或者签名不匹配的错误
@@ -185,10 +185,10 @@ WebGL必须使用全局安装，即 HybridCLRSettings中useGlobal为true。 切�
 
 ### 打包WebGL平台出现 `build.js: undefined symbol: RuntimeApi_LoadMetadataForAOTAssembly (referenced by top-level compiled C/C++ code)`
 
-WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`替换Editor安装目录的原始libil2cpp，导致缺失了函数。解决办法是：
+WebGL使用全局安装，你没有将本地`{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp`替换Editor安装目录的原始libil2cpp，导致缺失了函数。解决办法是：
 
 - 运行`HybridCLR/Generate/Il2cppDef`生成正确的版本宏
-- 复制 `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` 替换Editor安装目录的原始libil2cpp。注意必须是替换目录，而不是合并目录，这个可能会导致多了一些文件而编译出错。
+- 复制 `{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp` 替换Editor安装目录的原始libil2cpp。注意必须是替换目录，而不是合并目录，这个可能会导致多了一些文件而编译出错。
 你也可以使用创建软链接的方式，详细请看[安装HybridCLR](../guide/setup/install.md)中关于全局安装的文档。
 
 ### 打包WebGL平台点击`Generate/All`发生错误
@@ -242,7 +242,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 - `HybridCLR/generate/all` 生成所有
 - 打包
 
-### 打包时出现 "HybridCLRDatal/Locall2CppData-WindowsEditor/il2cpp/llibil2cpp/hybridclr/generated/ReversePInvokeMethodStub.cpp: error: unknown type name'struct_xxx'"
+### 打包时出现 "Library/HybridCLR/Locall2CppData-WindowsEditor/il2cpp/llibil2cpp/hybridclr/generated/ReversePInvokeMethodStub.cpp: error: unknown type name'struct_xxx'"
 
 热更新中'[MonoPInvokeCallback]'函数不支持结构体作为函数参数或者返回值。解决办法为删除这些函数。如果你一定要解决这个问题，请联系付费技术支持。
 
@@ -285,7 +285,7 @@ WebGL使用全局安装，你没有将本地`{project}/HybridCLRData/LocalIl2Cpp
 - zlib升级到最新版本，具体操作如下：
   - 从 [zlib官网](https://zlib.net) 下载最新版本的[zlib源码](https://zlib.net/current/zlib.tar.gz)。如果最新版本仍然遇到问题（可能性不高），请下载我们已经验证过的1.3.2版本。
   - 解压代码压缩包，删除根目录下除了 `.h`和`.c`文件以外的所有文件（此操作**可选**，不影响构建）。
-  - 使用刚刚解压的zlib的源码目录替换`{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/zlib`目录的代码。
+  - 使用刚刚解压的zlib的源码目录替换`{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/external/zlib`目录的代码。
   - 清理Library缓存后重新打包。
 
 ## 运行时错误
@@ -554,7 +554,7 @@ WebGL平台打包时默认使用 `faster (smaller) build`选项，该选项会�
 此为 Unity & iOS 15.4 的 BUG，解决办法有两个：
 
 1. 微信提供的 wasm 代码分包(推荐)
-2. Unity WebGL 官方论坛的[临时修复方案](https://forum.unity.com/threads/ios-15-webgl-2-issue.1176116/page-2)。具体地说，打开`HybridCLRData/LocalIl2CppData-xxx/il2cpp/libil2cpp/metadata/GenericMetadata.cpp`
+2. Unity WebGL 官方论坛的[临时修复方案](https://forum.unity.com/threads/ios-15-webgl-2-issue.1176116/page-2)。具体地说，打开`Library/HybridCLR/LocalIl2CppData-xxx/il2cpp/libil2cpp/metadata/GenericMetadata.cpp`
 文件，在代码行`const Il2CppType* GenericMetadata::InflateIfNeeded`函数前加一行代码`#pragma clang optimize off`，在函数后加入`#pragma clang optimize on`。最终代码如下：
 
 ```cpp

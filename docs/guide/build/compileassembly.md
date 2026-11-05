@@ -11,7 +11,7 @@ slug: /basic/compileassembly
 
 `Library/ScriptAssemblies`目录下的assembly是BuildTarget为Editor时编译的结果，而且会受`Debugger Enable`选项的影响，
 并不能作为热更新程序集使用。我们使用Unity提供的 `UnityEditor.Build.Player.PlayerBuildInterface.CompilePlayerScripts` 接口来编译不同BuildTarget
-下的热更新dll。编译结果输出到`{proj}/HybridCLRData/HotUpdateDlls/{target}`目录下。
+下的热更新dll。编译结果输出到`{proj}/Library/HybridCLR/HotUpdateDlls/{target}`目录下。
 
 运行菜单`HybridCLR/Compile/xxx`命令直接编译出热更新dll。运行`HybridCLR/Generate/All`时会也隐含编译最新的热更新程序集。在调用该命令后可以直接复制热更新dll，不用再次运行`HybridCLR/Compile/xxx`。
 由于该接口编译时并不区分AOT与热更新，将项目整体编译了，开发者只需要将输出的热更新dll加入项目的资源管理系统即可。

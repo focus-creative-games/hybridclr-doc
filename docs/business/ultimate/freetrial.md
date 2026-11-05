@@ -58,7 +58,7 @@ slug: /business/ultimate/freetrial
 
 - 将hybridclr_unity.zip解压后，放到项目Packages目录下，改名为com.code-philosophy.hybridclr
 - 打开 `HybridCLR/Installer`，直接点击安装
-- 将 `com.code-philosophy.hybridclr\\ModifiedUnityAssemblies\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`。如果没有你的版本对应的文件，联系我们制作一个
+- 将 `com.code-philosophy.hybridclr\\ModifiedUnityAssemblies\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\Library\HybridCLR\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`。如果没有你的版本对应的文件，联系我们制作一个
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 
@@ -98,11 +98,11 @@ using UnityEngine;
 
 public static class BuildTools
 {
-     public const string BackupAOTDllDir = "HybridCLRData/BackupAOT";
+     public const string BackupAOTDllDir = "Library/HybridCLR/BackupAOT";
 
-    public const string EncrypedDllDir = "HybridCLRData/EncryptedDll";
+    public const string EncrypedDllDir = "Library/HybridCLR/EncryptedDll";
 
-    public const string DhaoDir = "HybridCLRData/Dhao";
+    public const string DhaoDir = "Library/HybridCLR/Dhao";
 
 
     /// <summary>

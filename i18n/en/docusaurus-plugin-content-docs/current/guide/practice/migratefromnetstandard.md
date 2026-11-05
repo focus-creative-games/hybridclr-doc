@@ -28,7 +28,7 @@ the .Net Framework version of that dll. Specific operations are as follows:
 - Ensure the main project has code that references this external dll, not just hot update code referencing the dll
 - Preserve this dll in any link.xml, such as adding `<assembly fullname="xxx.dll" preserve="all"/>` in `Assets/link.xml`
 - Run `HybridCLR/Generate/AOTDlls`
-- Obtain the corresponding file for that dll in the stripped directory `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`
+- Obtain the corresponding file for that dll in the stripped directory `{project}/Library/HybridCLR/AssembliesPostIl2CppStrip/{target}`
 - Replace the corresponding dll in the project with this dll
 
 

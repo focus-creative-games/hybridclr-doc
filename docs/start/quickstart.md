@@ -249,7 +249,7 @@ public class LoadDll : MonoBehaviour
 ## 打包运行
 
 - 运行菜单 `HybridCLR/Generate/All` 进行必要的生成操作。**这一步不可遗漏**!!!
-- 将`{proj}/HybridCLRData/HotUpdateDlls/StandaloneWindows64(MacOS下为StandaloneMacXxx)`目录下的HotUpdate.dll复制到`Assets/StreamingAssets/HotUpdate.dll.bytes`，**注意**，要加`.bytes`后缀！！！
+- 将`{proj}/Library/HybridCLR/HotUpdateDlls/StandaloneWindows64(MacOS下为StandaloneMacXxx)`目录下的HotUpdate.dll复制到`Assets/StreamingAssets/HotUpdate.dll.bytes`，**注意**，要加`.bytes`后缀！！！
 - 打开`Build Settings`对话框，点击`Build And Run`，打包并且运行热更新示例工程。
 
 如果打包成功，并且屏幕上显示 'Hello,HybridCLR'，表示热更新代码被顺利执行！
@@ -258,7 +258,7 @@ public class LoadDll : MonoBehaviour
 
 - 修改`Assets/HotUpdate/Hello.cs`的Run函数中`Debug.Log("Hello, HybridCLR");`代码，改成`Debug.Log("Hello, World");`。
 - 运行菜单命令`HybridCLR/CompileDll/ActiveBulidTarget`重新编译热更新代码。
-- 将`{proj}/HybridCLRData/HotUpdateDlls/StandaloneWindows64(MacOS下为StandaloneMacXxx)`目录下的HotUpdate.dll复制为刚才的打包输出目录的 `XXX_Data/StreamingAssets/HotUpdate.dll.bytes`。
+- 将`{proj}/Library/HybridCLR/HotUpdateDlls/StandaloneWindows64(MacOS下为StandaloneMacXxx)`目录下的HotUpdate.dll复制为刚才的打包输出目录的 `XXX_Data/StreamingAssets/HotUpdate.dll.bytes`。
 - 重新运行程序，会发现屏幕中显示`Hello, World`，表示热更新代码生效了！ 
 
 至此完成热更新体验！！！

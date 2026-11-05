@@ -57,7 +57,7 @@ The disadvantage of supplementary metadata technology is that it increases packa
 
 ## Obtaining Supplementary Metadata DLLs
 
-The stripped AOT dlls generated during the **packaging process** can be used for supplementary metadata. The com.code-philosophy.hybridclr plugin automatically copies them to `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`.
+The stripped AOT dlls generated during the **packaging process** can be used for supplementary metadata. The com.code-philosophy.hybridclr plugin automatically copies them to `{project}/Library/HybridCLR/AssembliesPostIl2CppStrip/{target}`.
 
 :::danger
 Stripped AOT dlls from different BuildTargets cannot be reused.
@@ -65,8 +65,8 @@ Stripped AOT dlls from different BuildTargets cannot be reused.
 
 The `HybridCLR/Generate/AotDlls` command can also immediately generate stripped AOT dlls. It works by exporting a Temp project to obtain stripped AOT dlls.
 
-Get the supplementary metadata dlls you need from the `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}` directory and add them to your project's hot update resource management system. For demonstration purposes, the sample project places them in the StreamingAssets directory.
-Taking the `List<T>` type as an example, it needs to supplement `mscorlib.dll`. Copy `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}/mscorlib.dll` to `Assets/StreamingAssets/mscorlib.dll.bytes`.
+Get the supplementary metadata dlls you need from the `{project}/Library/HybridCLR/AssembliesPostIl2CppStrip/{target}` directory and add them to your project's hot update resource management system. For demonstration purposes, the sample project places them in the StreamingAssets directory.
+Taking the `List<T>` type as an example, it needs to supplement `mscorlib.dll`. Copy `{project}/Library/HybridCLR/AssembliesPostIl2CppStrip/{target}/mscorlib.dll` to `Assets/StreamingAssets/mscorlib.dll.bytes`.
 
 ## Executing Supplementary Metadata
 
@@ -119,7 +119,7 @@ Now you can freely use AOT generics in hot update code.
 
 :::tip
 
-Please save the stripped AOT dlls generated during packaging (usually in the `{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}` directory). Use these saved AOT dlls when supplementary metadata is needed.
+Please save the stripped AOT dlls generated during packaging (usually in the `{project}/Library/HybridCLR/AssembliesPostIl2CppStrip/{target}` directory). Use these saved AOT dlls when supplementary metadata is needed.
 
 After packaging is complete, supplementary metadata dlls will not change. Please **do not use the latest generated AOT dlls for each hot update**.
 

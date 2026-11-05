@@ -32,7 +32,7 @@ Api Level。
 - 确保主工程已经有代码引用了此外部dll，而不仅仅是热更新代码中引用了该dll
 - 在任意一个link.xml中perserve这个dll，如在`Assets/link.xml`里添加`<assembly fullname="xxx.dll" preserve="all"/>`
 - 运行`HybridCLR/Generate/AOTDlls`
-- 在`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`裁剪目录中获得该dll对应的文件
+- 在`{project}/Library/HybridCLR/AssembliesPostIl2CppStrip/{target}`裁剪目录中获得该dll对应的文件
 - 用该dll替换项目中的对应dll即可
 
 

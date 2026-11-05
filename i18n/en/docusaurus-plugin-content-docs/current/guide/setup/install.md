@@ -153,13 +153,17 @@ As shown in the figure below, merge the `il2cpp_plus/libil2cpp` directory and th
 
 ### Local Installation
 
+:::tip
+Starting from **v9.0.0**, HybridCLR's local data directory changed from `{project}/HybridCLRData` to `{project}/Library/HybridCLR`. Hot-update dlls, stripped AOT dlls, and the local il2cpp tree all live under this directory. After upgrading from 8.x, do not keep using the old `HybridCLRData` path.
+:::
+
 Unity allows using the environment variable `UNITY_IL2CPP_PATH` to customize the location of `il2cpp`, so you can create an il2cpp directory locally in the project, replace the libil2cpp directory in the il2cpp directory with the modified libil2cpp,
 and then point the `UNITY_IL2CPP_PATH` environment variable to that directory. The general process is as follows:
 
-- Copy the il2cpp directory from the Editor installation directory to `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp`
+- Copy the il2cpp directory from the Editor installation directory to `{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp`
 - Clone il2cpp_plus and hybridclr repositories to create the final libil2cpp directory
-- Replace `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` with the final libil2cpp directory
-- Copy the `MonoBleedingEdge` directory from the Editor installation directory to `{project}/HybridCLRData/LocalIl2CppData-{platform}/MonoBleedingEdge`
+- Replace `{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp` with the final libil2cpp directory
+- Copy the `MonoBleedingEdge` directory from the Editor installation directory to `{project}/Library/HybridCLR/LocalIl2CppData-{platform}/MonoBleedingEdge`
 - Other platform-specific processing
 
 :::tip
@@ -182,12 +186,12 @@ After completing installation using `HybridCLR/Installer`, enable the `useGlobal
 
 If you use the directory replacement method for global installation, then **the first time** before overwriting libil2cpp, please first run `HybridCLR/Generate/Il2cppDef` (only this once, no need later unless you switch project Unity version) to generate the correct version macros, then overwrite the original libil2cpp directory. **Symbolic link installation method does not need to perform this operation, just directly overwrite the original libil2cpp directory**.
 
-Due to permission issues, even with global installation, the `Generate/xxx` commands modify files in the local `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` directory. **Please always overwrite the global installation directory with the local libil2cpp directory after each generate operation**.
+Due to permission issues, even with global installation, the `Generate/xxx` commands modify files in the local `{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp` directory. **Please always overwrite the global installation directory with the local libil2cpp directory after each generate operation**.
 
 Replacing the libil2cpp directory each time is very troublesome. It is recommended to use the method of linking the installation directory's libil2cpp directory to the local libil2cpp directory. The method is as follows:
 
-- Windows platform: Open a command line window with administrator privileges, delete or rename the original libil2cpp, then run `mklink /D "<Editor installation directory libil2cpp directory path>" "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp"`.
-- Linux or Mac platform: Open a command line window with administrator privileges, delete or rename the original libil2cpp, then run `ln -s "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" "<Editor installation directory libil2cpp directory path>"`.
+- Windows platform: Open a command line window with administrator privileges, delete or rename the original libil2cpp, then run `mklink /D "<Editor installation directory libil2cpp directory path>" "{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp"`.
+- Linux or Mac platform: Open a command line window with administrator privileges, delete or rename the original libil2cpp, then run `ln -s "{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp" "<Editor installation directory libil2cpp directory path>"`.
 
 ## Precautions
 

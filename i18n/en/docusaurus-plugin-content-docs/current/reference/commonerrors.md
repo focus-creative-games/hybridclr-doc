@@ -62,7 +62,7 @@ Several possible reasons:
 
 ### Installer installation prompts Mono.CompilerServices.SymbolWriter.dll path is too long. copy ignore!
 
-MonoBleedingEdge will be copied to HybridCLRData during installation, but the lib\mono directory within it is not actually used, so it has no impact.
+MonoBleedingEdge will be copied to Library/HybridCLR during installation, but the lib\mono directory within it is not actually used, so it has no impact.
 
 ### Exception. region:UNITY_CONFIG start not find
 
@@ -145,7 +145,7 @@ This error is unrelated to HybridCLR. This is because WebGL has restrictions on 
 
 This is caused by the latest VS version changes breaking some backward compatibility after .NET 7 release. com.code-philosophy.hybridclr `v2.4.0` version has completely resolved this issue; just upgrade to that version.
 
-One solution that doesn't require reverting VS version is to modify `HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h`, adding `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS`. You can refer to the image below for modification.
+One solution that doesn't require reverting VS version is to modify `Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/external/google/sparsehash/internal/sparseconfig.h`, adding `#define _SILENCE_STDEXT_HASH_DEPRECATION_WARNINGS`. You can refer to the image below for modification.
 
 ![stdext_error](/img/hybridclr/stdext_error.jpg)
 
@@ -170,9 +170,9 @@ This is because you incorrectly set Scripting BackEngine to mono when the Instal
 
 You incorrectly set Scripting BackEngine to mono. Sometimes even though you previously switched to il2cpp, it may still be reset to mono by the Editor when switching platforms. The solution is to switch to il2cpp.
 
-### DirectoryNotFoundException: xxx\HybridCLRData\LocalIl2CppData-{yyy}\il2cpp\il2cpp-deps error when packaging WebGL platform
+### DirectoryNotFoundException: xxx\Library\HybridCLR\LocalIl2CppData-{yyy}\il2cpp\il2cpp-deps error when packaging WebGL platform
 
-WebGL must use global installation, i.e., useGlobal in HybridCLRSettings should be true. Remember that after each `Generate/xxx`, you must re-copy the `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` directory to the Editor installation directory before packaging. Otherwise, you may encounter errors like Scripting Missing or missing bridge functions.
+WebGL must use global installation, i.e., useGlobal in HybridCLRSettings should be true. Remember that after each `Generate/xxx`, you must re-copy the `{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp` directory to the Editor installation directory before packaging. Otherwise, you may encounter errors like Scripting Missing or missing bridge functions.
 
 ### Packaging encounters GC_set_mark_stck_empty function not found or signature mismatch error
 
@@ -180,10 +180,10 @@ This is a problem caused by Unity modifying this function signature. Update to c
 
 ### Packaging WebGL platform shows `build.js: undefined symbol: RuntimeApi_LoadMetadataForAOTAssembly (referenced by top-level compiled C/C++ code)`
 
-WebGL uses global installation. You haven't replaced the original libil2cpp in the Editor installation directory with the local `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`, causing missing functions. The solution is:
+WebGL uses global installation. You haven't replaced the original libil2cpp in the Editor installation directory with the local `{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp`, causing missing functions. The solution is:
 
 - Run `HybridCLR/Generate/Il2cppDef` to generate correct version macros
-- Copy `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp` to replace the original libil2cpp in the Editor installation directory. Note that you must replace the directory, not merge directories, as this might cause extra files and compilation errors.
+- Copy `{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp` to replace the original libil2cpp in the Editor installation directory. Note that you must replace the directory, not merge directories, as this might cause extra files and compilation errors.
 You can also use symbolic links. For details, see the global installation documentation in [Installing HybridCLR](../guide/setup/install.md).
 
 ### WebGL platform packaging errors when clicking `Generate/All`
@@ -237,7 +237,7 @@ To a large extent, this is caused by mismatched versions between your package an
 - Run `HybridCLR/generate/all` to generate everything
 - Package
 
-### Packaging shows "HybridCLRDatal/Locall2CppData-WindowsEditor/il2cpp/llibil2cpp/hybridclr/generated/ReversePInvokeMethodStub.cpp: error: unknown type name'struct_xxx'"
+### Packaging shows "Library/HybridCLR/Locall2CppData-WindowsEditor/il2cpp/llibil2cpp/hybridclr/generated/ReversePInvokeMethodStub.cpp: error: unknown type name'struct_xxx'"
 
 `[MonoPInvokeCallback]` functions in hot updates don't support structs as function parameters or return values. The solution is to delete these functions. If you must solve this problem, please contact paid technical support.
 
@@ -279,7 +279,7 @@ After upgrading to Xcode 15.x, compatibility issues with zlib may occur. There a
 - Upgrade zlib to the latest version. The steps are as follows:
   - Download the latest version of the zlib source code from the official website: https://zlib.net (e.g., https://zlib.net/current/zlib.tar.gz). If the latest version still encounters issues (unlikely), please use version 1.3.2, which we have already verified.
   - Extract the archive, and remove all files in the root directory except for `.h` and `.c` files (this step is **optional** and does not affect the build).
-  - Replace the contents of `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/external/zlib` with the extracted zlib source code.
+  - Replace the contents of `{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/external/zlib` with the extracted zlib source code.
   - Clear the Library cache and rebuild the project.
 
 ## Runtime Errors
@@ -541,7 +541,7 @@ WebGL platform packaging uses the `faster (smaller) build` option by default, wh
 This is a Unity & iOS 15.4 BUG. There are two solutions:
 
 1. WeChat's provided wasm code subpackaging (recommended)
-2. Unity WebGL official forum's [temporary fix](https://forum.unity.com/threads/ios-15-webgl-2-issue.1176116/page-2). Specifically, open the `HybridCLRData/LocalIl2CppData-xxx/il2cpp/libil2cpp/metadata/GenericMetadata.cpp` file, add a line `#pragma clang optimize off` before the code line `const Il2CppType* GenericMetadata::InflateIfNeeded` function, and add `#pragma clang optimize on` after the function. The final code looks like this:
+2. Unity WebGL official forum's [temporary fix](https://forum.unity.com/threads/ios-15-webgl-2-issue.1176116/page-2). Specifically, open the `Library/HybridCLR/LocalIl2CppData-xxx/il2cpp/libil2cpp/metadata/GenericMetadata.cpp` file, add a line `#pragma clang optimize off` before the code line `const Il2CppType* GenericMetadata::InflateIfNeeded` function, and add `#pragma clang optimize on` after the function. The final code looks like this:
 
 ```cpp
 #pragma clang optimize off

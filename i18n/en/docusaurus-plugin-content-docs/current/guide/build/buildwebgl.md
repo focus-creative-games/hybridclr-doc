@@ -43,14 +43,14 @@ Developers unfamiliar with command line should first master basic command line u
 - Open command prompt with administrator privileges. This operation varies by operating system version, please handle accordingly. In Win11, `right-click on the Start menu and select Terminal Administrator menu item`.
 - Run `cd /d {editor_install_dir}/Editor/Data/il2cpp` to switch to the il2cpp directory in the installation directory
 - Run `ren libil2cpp libil2cpp-origin` to rename the original libil2cpp to libil2cpp-origin
-- Run `mklink /D libil2cpp "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp"` to create a symbolic link from the Editor directory libil2cpp to the local libil2cpp directory
+- Run `mklink /D libil2cpp "{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp"` to create a symbolic link from the Editor directory libil2cpp to the local libil2cpp directory
 
 ### macOS or Linux Platform
 
 - Open command line window
 - Run `cd /d {editor_install_dir}/Editor/Data/il2cpp` to switch to the il2cpp directory in the installation directory. The specific directory may vary by operating system, please handle accordingly
 - Run `mv libil2cpp libil2cpp-origin` to rename the original libil2cpp to libil2cpp-origin
-- Run `ln -s "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" libil2cpp` to create a symbolic link from the Editor directory libil2cpp to the local libil2cpp directory
+- Run `ln -s "{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp" libil2cpp` to create a symbolic link from the Editor directory libil2cpp to the local libil2cpp directory
 
 
 ## Packaging

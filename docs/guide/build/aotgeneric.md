@@ -180,14 +180,14 @@ LoadMetadataForAOTAssembly函数可以在任何时机调用，另外既可以在
 :::
 ### 获得补充元数据dll
 
-**打包过程**生成的裁剪后的AOT dll可以用于补充元数据。com.code-philosophy.hybridclr插件会自动把它们复制到`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`。注意，不同BuildTarget的裁剪AOT dll不可复用。
+**打包过程**生成的裁剪后的AOT dll可以用于补充元数据。com.code-philosophy.hybridclr插件会自动把它们复制到`{project}/Library/HybridCLR/AssembliesPostIl2CppStrip/{target}`。注意，不同BuildTarget的裁剪AOT dll不可复用。
 
 使用`HybridCLR/Generate/AotDlls`命令也可以立即生成裁剪后的AOT dll，它的工作原理是通过导出一个Temp工程来获得裁剪AOT dll。
 
 
 :::tip
 
-请保存打包时生成的裁剪后的AOT dll（一般在`{project}/HybridCLRData/AssembliesPostIl2CppStrip/{target}`目录下）。如果需要补充元数据时使用这些保存的AOT dll。
+请保存打包时生成的裁剪后的AOT dll（一般在`{project}/Library/HybridCLR/AssembliesPostIl2CppStrip/{target}`目录下）。如果需要补充元数据时使用这些保存的AOT dll。
 
 打包完成后，补充元数据dll不会发生变化，请**不要在每次热更新时使用最新生成的AOT dll**。
 

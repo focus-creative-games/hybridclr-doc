@@ -153,13 +153,17 @@ il2cpp_plus仓库为对原始libil2cpp作了少量修改以支持动态**registe
 
 ### 本地安装
 
+:::tip
+自 **v9.0.0** 起，HybridCLR 的本地数据目录由 `{project}/HybridCLRData` 改为 `{project}/Library/HybridCLR`。热更新 dll、裁剪后的 AOT dll、本地 il2cpp 等均位于该目录下。从 8.x 升级后请勿再使用旧的 `HybridCLRData` 路径。
+:::
+
 Unity允许使用环境变量`UNITY_IL2CPP_PATH`自定义`il2cpp`的位置，因此可以在项目本地创建il2cpp目录，用改造后的libil2cpp替换il2cpp目录下的libil2cpp目录，
 再将`UNITY_IL2CPP_PATH`环境变量指向该目录。大致过程如下：
 
-- 从Editor安装目录复制il2cpp目录到`{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp`
+- 从Editor安装目录复制il2cpp目录到`{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp`
 - 从clone il2cpp_plus和hybridclr仓库，制作出最终的libil2cpp目录
-- 将最终的libil2cpp目录替换 `{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`
-- 从Editor安装目录复制 `MonoBleedingEdge` 目录到 `{project}/HybridCLRData/LocalIl2CppData-{platform}/MonoBleedingEdge`
+- 将最终的libil2cpp目录替换 `{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp`
+- 从Editor安装目录复制 `MonoBleedingEdge` 目录到 `{project}/Library/HybridCLR/LocalIl2CppData-{platform}/MonoBleedingEdge`
 - 其他平台相关的处理
 
 :::tip
@@ -182,12 +186,12 @@ com.code-philosophy.hybridclr 包修改了本UnityEditor**进程内**的环境�
 
 如果你使用替换目录的方式进行全局安装，则**第一次**覆盖libil2cpp前，请先运行`HybridCLR/Generate/Il2cppDef`（只此一次，后面不再需要，除非你切换了项目Unity版本）以生成正确的版本宏，再覆盖原始的libil2cpp目录。**符号链接安装方式不需要执行此操作，直接覆盖原始的libil2cpp目录即可**。
 
-由于权限原因，即使是全局安装，`Generate/xxx`命令修改的是本地`{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp`下的文件。**请每次generate后都将本地libil2cpp目录覆盖全局安装目录**。
+由于权限原因，即使是全局安装，`Generate/xxx`命令修改的是本地`{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp`下的文件。**请每次generate后都将本地libil2cpp目录覆盖全局安装目录**。
 
 每次替换libil2cpp目录非常麻烦，推荐使用链接安装目录的libil2cpp目录到本地libil2cpp目录方式。方法如下：
 
-- Win平台。以管理员权限打开命令行窗口，删除或者重命名原libil2cpp，然后运行 `mklink /D  "<Editor安装目录的libil2cpp目录路径>" "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp"`。
-- Linux或者Mac平台。以管理员权限打开命令行窗口，删除或者重命名原libil2cpp，然后运行 `ln -s "{project}/HybridCLRData/LocalIl2CppData-{platform}/il2cpp/libil2cpp" "<Editor安装目录的libil2cpp目录路径>" `。
+- Win平台。以管理员权限打开命令行窗口，删除或者重命名原libil2cpp，然后运行 `mklink /D  "<Editor安装目录的libil2cpp目录路径>" "{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp"`。
+- Linux或者Mac平台。以管理员权限打开命令行窗口，删除或者重命名原libil2cpp，然后运行 `ln -s "{project}/Library/HybridCLR/LocalIl2CppData-{platform}/il2cpp/libil2cpp" "<Editor安装目录的libil2cpp目录路径>" `。
 
 ## 注意事项
 

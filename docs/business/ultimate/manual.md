@@ -17,9 +17,9 @@ slug: /business/ultimate/manual
 - 根据你的Unity版本：
   - 如果6000.x.y或2023.x.y,
     - 先安装Unity2022.3.60f1
-    - 将`2022.3.60f1\Editor\Data\il2cpp\build\deploy`目录复制为`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`
-    - 将 `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll`
-  - 如果版本2022.3.x，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\HybridCLRData\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`
+    - 将`2022.3.60f1\Editor\Data\il2cpp\build\deploy`目录复制为`{proj}\Library\HybridCLR\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022`
+    - 将 `ModifiedDlls\2022.3.60f1\Unity.IL2CPP.dll` 文件替换`{proj}\Library\HybridCLR\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\deploy-2022\Unity.IL2CPP.dll`
+  - 如果版本2022.3.x，将 `ModifiedDlls\{verions}\Unity.IL2CPP.dll` 文件替换`{proj}\Library\HybridCLR\LocalIl2CppData-WindowsEditor\il2cpp\build\deploy\Unity.IL2CPP.dll`
 
 ![installer](/img/hybridclr/ultimate-installer.jpg)
 

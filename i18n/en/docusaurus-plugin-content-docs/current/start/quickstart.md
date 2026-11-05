@@ -249,7 +249,7 @@ Run the main scene, and 'Hello,HybridCLR' will be displayed on the screen, indic
 ## Build and run
 
 - Run the menu `HybridCLR/Generate/All` to perform necessary generation operations. **This step is essential**!!!
-- Copy HotUpdate.dll from the `{proj}/HybridCLRData/HotUpdateDlls/StandaloneWindows64` (or `StandaloneMacXxx` on macOS) directory to `Assets/StreamingAssets/HotUpdate.dll.bytes`. **Note** that you must add the `.bytes` suffix!!!
+- Copy HotUpdate.dll from the `{proj}/Library/HybridCLR/HotUpdateDlls/StandaloneWindows64` (or `StandaloneMacXxx` on macOS) directory to `Assets/StreamingAssets/HotUpdate.dll.bytes`. **Note** that you must add the `.bytes` suffix!!!
 - Open the `Build Settings` dialog, click `Build And Run` to package and run the hot update example project.
 - Open the `Build Settings` dialog, click `Build And Run` to package and run the hot update example project.
 
@@ -259,7 +259,7 @@ If packaging is successful and 'Hello,HybridCLR' is displayed on the screen, it 
 
 - Modify the `Debug.Log("Hello, HybridCLR");` code in the Run function of `Assets/HotUpdate/Hello.cs` to `Debug.Log("Hello, World");`.
 - Run the menu command `HybridCLR/CompileDll/ActiveBulidTarget` to recompile the hot update code.
-- Copy the HotUpdate.dll from the `{proj}/HybridCLRData/HotUpdateDlls/StandaloneWindows64` (or `StandaloneMacXxx` on macOS) directory to the packaged output directory as `XXX_Data/StreamingAssets/HotUpdate.dll.bytes`.
+- Copy the HotUpdate.dll from the `{proj}/Library/HybridCLR/HotUpdateDlls/StandaloneWindows64` (or `StandaloneMacXxx` on macOS) directory to the packaged output directory as `XXX_Data/StreamingAssets/HotUpdate.dll.bytes`.
 - Re-run the program, and you will see `Hello, World` displayed on the screen, indicating that the hot update code has taken effect!
 
 This completes the hot update experience!!!
