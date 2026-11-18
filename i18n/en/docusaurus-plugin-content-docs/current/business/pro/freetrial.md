@@ -1,64 +1,24 @@
 ---
 title: 'Free Trial'
-description: 'Trial rules, hardware and platform restrictions, supported Unity versions, unsupported features, and installation differences for the Professional Edition free trial.'
+description: "Compatibility and requirements for the HybridCLR Pro Edition 9.0.0 free trial."
 slug: /business/pro/freetrial
 ---
 
 # Free Trial
 
-This page covers the free trial of the **Professional Edition**. Paid trial versions and officially purchased versions include all HybridCLR runtime and Editor source code, while the free trial version only provides precompiled binary libs and tools, and only supports building iOS platform targets.
+The HybridCLR Pro Edition free trial is based on **HybridCLR 9.0.0**.
+
+## Compatibility
+
+- Unity version **2022.3.62f3**.
+- Unity Editor runs on **Windows or macOS**.
+- Player builds are supported only for **iOS and Android**.
+- **Incremental GC** must be enabled, and **DOTS** must be disabled.
+- **Release** builds only. Disable **Development Build** and related options, including **Profiler (Autoconnect Profiler and Deep Profiling)** and **Script Debugging**.
+- Code protection is unavailable in the trial.
 
 ## Trial Rules
 
 - Only available for enterprise users
 - Trial is free with no time limit, but technical support during trial requires additional payment
 - Trial version will **randomly crash** 1 hour after app startup, please do not use for official releases
-
-## Hardware and Platform Limitations
-
-:::tip
-Official versions, like the community version, have no platform restrictions for either Editor or Runtime.
-:::
-
-- Requires Unity Editor to run on Mac computers with M1 or M2 CPU.
-- **Only supports** iOS platform publishing
-
-## Supported Versions
-
-Only supports the following specific Unity versions:
-- 2022.3.54 or higher, regardless of the version suffix (such as f1, f2)
-
-## Unsupported Features
-
-:::tip
-
-All the following features are supported in the official source code version
-
-:::
-
-- dots
-- **Incremental GC**
-- Profiler, Script Debugging and other development Build options
-
-Incremental GC and various compilation options are not supported because each compilation parameter requires a separate libil2cpp.a, greatly increasing maintenance costs.
-
-## Differences from Standard Commercial Version
-
-- The encryption module is removed
-- libil2cpp contains header files only; the source is replaced by a precompiled `libil2cpp.a`
-
-## Installation
-
-Related libil2cpp code is directly included in the Package. Open the `HybridCLR/Installer` menu and click the Install button to complete installation.
-
-## Settings
-
-Compared to the community version or official commercial version, the following settings need to be modified:
-
-- Disable incremental GC
-- Disable development options
-- Cannot modify the encryption parameter vmSeed value, must keep it as 0. Other encryption parameters can be modified
-
-## Usage
-
-Except for installation and settings which have slight adjustments as described in the documentation above, the rest can completely follow the [Quick Start](./quickstart.md).

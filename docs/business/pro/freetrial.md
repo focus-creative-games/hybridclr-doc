@@ -1,66 +1,24 @@
 ---
 title: '免费试用'
-description: '专业版免费试用版本的试用规则、硬件与平台限制、支持的Unity版本、不支持的特性，以及安装与设置上的差异。'
+description: "专业版 9.0.0 免费试用的支持范围与试用条件。"
 slug: /business/pro/freetrial
 ---
 
 # 免费试用
 
-本文介绍**专业版**的免费试用版本。付费试用版本和正式购买后的版本都包含HybridCLR所有运行时及Editor源码，
-而免费试用版本只提供预编译的二进制lib及工具，只支持构建iOS平台目标。
+HybridCLR 专业版免费试用基于 **HybridCLR 9.0.0**。
+
+## 支持范围
+
+- Unity 版本为 **2022.3.62f3**。
+- Unity Editor 可运行于 **Windows 或 macOS**。
+- Player 仅支持发布到 **iOS 和 Android**。
+- 必须开启 **增量式 GC**，关闭 **DOTS**。
+- 仅支持 **Release** 构建。关闭 **Development Build** 及其相关选项，包括 **Profiler（Autoconnect Profiler、Deep Profiling）**和 **Script Debugging**。
+- 试用版不包含代码加固功能。
 
 ## 试用规则
 
 - 只面向企业用户
 - 试用免费，没有试用期限，但试用过程中如需技术支持，需要额外付费
 - 试用版本会在App启动1小时后**随机崩溃**，请不要用于正式发布的版本
-
-## 硬件及平台限制
-
-:::tip
-正式版本如社区版本一样，无论Editor还是Runtime都没有任何平台的限制。
-:::
-
-- 要求Unity Editor必须运行在M1或者M2 CPU的Mac电脑上。
-- **只支持**发布iOS平台
-
-## 支持的版本
-
-只支持以下特定的Unity版本：
-
-- 2022.3.54 或更高版本，不区分版本后缀（如f1、f2）
-
-## 不支持的特性
-
-:::tip
-
-在正式源码版本中均支持以下特性
-
-:::
-
-- dots
-- **增量式GC**
-- Profiler、Script Debugging等development Build选项
-
-不支持增量式GC及各种编译选项是因为每种编译参数都需要单独的libil2cpp.a，大大提高了维护成本。
-
-## 与标准商业版本的区别
-
-- 加密模块被移除
-- libil2cpp只包含头文件，源码改为预编译的libil2cpp.a文件
-
-## 安装
-
-相关libil2cpp代码已经直接包含到Package中，打开`HybridCLR/Installer`菜单，点击Install按钮即可完成安装。
-
-## 设置
-
-相比于社区版本或者正式的商业化版本，需要修改以下设置：
-
-- 关闭增量式GC
-- 关闭development选项
-- 不可修改加密参数vmSeed的值，必须保持为0。其他加密参数可修改
-
-## 使用
-
-除了安装与设置如上面文档说明有少许调整外，剩余完全参照[快速上手](./quickstart.md)即可。
