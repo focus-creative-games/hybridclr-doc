@@ -10,15 +10,15 @@ The HybridCLR Pro Edition free trial is based on **HybridCLR 9.0.0**.
 
 ## Compatibility
 
-- Unity version **2022.3.62f3**.
+- Unity **2022.3.62f3**, **6000.0.80f1**, or **6000.3.22f1**. Choose the trial package for your exact Editor version.
 - Unity Editor runs on **Windows or macOS**.
-- Player builds are supported only for **iOS and Android**.
-- **Incremental GC** must be enabled, and **DOTS** must be disabled.
+- Choose a separate trial package for your target platform. The **Android package** supports arm64-v8a. The **iOS package** supports ARM64 devices with the Device SDK.
+- In Player Settings, disable **Use Incremental GC**.
 - **Release** builds only. Disable **Development Build** and related options, including **Profiler (Autoconnect Profiler and Deep Profiling)** and **Script Debugging**.
 - Code protection is unavailable in the trial.
 
 ## Trial Rules
 
 - Only available for enterprise users
-- Trial is free with no time limit, but technical support during trial requires additional payment
-- Trial version will **randomly crash** 1 hour after app startup, please do not use for official releases
+- You can repeat the free trial as needed. Technical support costs extra.
+- Each player session has a randomized **10–15 minute** trial limit. After the limit, some hot-update functionality stops working. Use this package for evaluation.
